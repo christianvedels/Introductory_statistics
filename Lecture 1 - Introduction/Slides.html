@@ -3,7 +3,7 @@
   <head>
     <title>Slides.knit</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.28/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
   </head>
@@ -81,7 +81,7 @@ class: center, inverse, middle
 
 ### Email: [christian-vs@sam.sdu.dk](christian-vs@sam.sdu.dk)
 
-### Updated 2025-01-12
+### Updated 2025-02-04
 
 
 
@@ -354,339 +354,182 @@ class: center, middle
 ---
 # What to expect
 .small123[
-- **Structure of the lectures**
-  + 45 min. of theory
-  + 45 min. of practical examples
-  + 45 min. of coding challenge - presentations?
+- **Lectures is a cocktail of**
+  + 50 pct theory
+  + 50 pct practical examples
 - **Book:**
-  + We will use 'PA2021' - Patel, A. A., &amp; Arasanipalai, A. U. (2021). _Applied natural language processing in the enterprise_. O'Reilly Media. https://www.oreilly.com/library/view/applied-natural-language/9781492062561/
+  + Bowerman, O'Connell, Orries &amp; Porter "Essentials of Business Statistics", McGraw-Hill, latest edition. 
+  + Bøye "Statistics Companion" is supplementary
 - **Exam:**
-  + One week project in December (?) 
+  + Written exam, 4 hours, all exam aids allowed, mo internet
 - **Course content:**
-  + Low level NLP tools + applications 
-  + Transformers `\(\rightarrow\)` Basics `\(\rightarrow\)` Transformers
-- **Course plan:**
-  + Continuously updated
+  + Basic 'survival tools' for statistics
 - **Slides:**
-  + The night before the lecture 
+  + Might be available earlier. But only ready the night before the lecture. 
   + Slides do not cover everything I say. Please bring a notepad and a pen.
-- **Course description:**
-  + https://odin.sdu.dk/sitecore/index.php?a=fagbesk&amp;id=156413&amp;lang=en  
-  + Course plan
-  + [GitHub](https://github.com/christianvedels/News_and_Market_Sentiment_Analytics)
+- **Course description:** Did I miss anything? 
+  + HA: https://odin.sdu.dk/sitecore/index.php?a=searchfagbesk&amp;bbcourseid=B105125401-1-E24&amp;lang=en 
+  + European Studies: https://odin.sdu.dk/sitecore/index.php?a=searchfagbesk&amp;bbcourseid=B300214401-1-F25&amp;lang=en
 ]
 
-  
+
 ---
 # Preperation
 .pull-left[
-- Read other literature assigned. 
-- Read assigned PA2021 chapter. 
-- Make sure you understand what is happening. 
+- Read what is assigned 
+- Try to understand what is happening. Forgive yourself and move on if you don't
+- I will add notes from Niels Karl Sørensen (previous lecturer). They are good!
 - Please go off tangents. Tangents are the best - if not for this specific course.
 
-**Coding challenge:**
-- Will be challenging 
-- Mistakes are great
-- Make sure that you understand and can run the solution
+**Exercises:**
+- Almost the same exercises that have been used for years.
+- **The most important thing to attend**
+
 ]
 
 .pull-right[
 ![Desk](Figures/Desk.jpg)
 ]
 
+---
+# Course plan illustrated
 
 ---
-# Efficient Market Hypothesis (EMH)
+class: center, middle
+# Course plan
+*Let's have a look at 'Course plan.xlsx'*
 
-.pull-left[
-*If you can buy cheaply something which is more valuable than its price, you can profit (arbitrage). But ...*
-1. We all have access to the same information 
-2. Everyone is interested in maximum profits
-3. Everyone buys the undervalued assets 
-4. Prices increases until the advantages is gone 
-
-]
-.pull-right[
-![Efficient Market](Figures/stonks.jpeg)
-
-
-### Implications:
-- If any 'whole' in the market occurs it is closed within milliseconds 
-- We cannot invest better than anyone else 
-- Investing in what a chicken poops on is better than listening to an 'expert'
-]
-
----
-
-# Information Extraction in Financial Markets
-
-.pull-left[
-- The NLP promise is to be able to extract information 
-- News about firms changes the expected returns on assets 
-- [NVIDIA News](https://youtu.be/U0dHDr0WFmQ?si=EKAQgBiTekQhxl0u)
-- If the expected returns on an asset increases or decreases there is an opportunity for arbitrage if prices have not changed
-- NLP tools potentially allow us to be ahead 
-- EMH dissallows open source implementations: You need to improve on the methods you get here
-- **Timing is key**
-]
-
-.pull-right[
-![Information Extraction](Figures/big_stonks.jpg)
-]
-  
----
-class: inverse, middle, center
-
-# How did we get to ChatGPT?
-
----
-# The promise of AI
-.pull-left[
-- The idea of the mechanic 'nightingale' ([HC] Andersen, 1844)
-  + **Idea:** The mechanic version can never be as good because it is mechanic 
-  + Reaches far back e.g. Descartes (1637) writes about automata in 'Discourse and Methods' 
-- Can machines think? The idea of the Turing test (1950/60s)
-  + If machines can think, they will respond convincingly in conversation 
-
-]
-
-.pull-right[
-![Nightingale](Figures/The_mechanic_nightingale.png)
-*Generated in beta.dreamstudio.ai*
-]
-
----
-# Early rule-based systems
-.pull-left[
-- We can model behaviour by *if then* statements 
-- ELIZA (Weizenbaum, 1966):
-  + The earliest convincing chatbot
-  + Looks for keywords and otherwise writes something generic or repeats something from earlier
-- 1980's was the peak of rule based systems 
-  + Based on linguistic theory
-  + Grammar 
-  + Morphology
-  + Semantics
-]
-
-.pull-right[
-![ELIZA](Figures/ELIZA_conversation.png)
-*ELIZA Conversation (Wikimedia Commons)* 
-![Semantic](Figures/Semantic_Net.svg)
-*Semantic net*
-]
-
----
-# The philosophical/linguistic problem
-.pull-left[
-- Can we distinguish reasoning from immitation? 
-  + Chinese room problem (Seale, 1980) 
-- What is the nature of language? 
-  + Innateness vs. Empiricism (Chomsky vs. Vienna circle*)
-  + Innateness `\(\rightarrow\)` rule-based NLP 
-  + Empiricism `\(\rightarrow\)` 'empirical' (learning) methods 
-- ChatGPT is a big score for the Empiricist hypothesis
-]
-
-.footnote[
-\* E.g. (of names you might know) Gödel, Popper, 
-Reichenbach, Wittgenstein [(Wikipedia)](https://en.wikipedia.org/wiki/Vienna_Circle#Overview_of_the_members_of_the_Vienna_Circle)
-]
-
-.pull-right[
-![Lightbulb](Figures/Light_bulb.jpg)
-]
-
----
-# 90s computer power - 60s maths
-.pull-left[
-- **Empiricist problem**: Statistics alone can only predict - not understand structure. Mathematical limitation (Pearl, 2019)
-- But we can phrase language problems as predictions problems 
-- Black box circumvents innateness 
-- We just need to estimate: `$$P(word|\{text\},\theta)$$`
-- E.g. "He is a [word]"
-- Choose `\(\theta\)` to minimize predicition errors
-- Could be based on e.g. a [universal function approximator](https://en.wikipedia.org/wiki/Universal_approximation_theorem) like a neural network
-
-]
-
-.pull-right[
-![DancingBaby](Figures/giphy.gif)   
-.small123[*Crazy realistic 90s dancing baby*]
-
-
-]
+![Progression](Figures/Courese_progression.png)
 
 
 ---
-# History of Neural Networks for NLP 
+# Excel
 .pull-left-wide[
-- **'Perceptron'** neural network (Rosenblatt, .orange[1958])
-- **Long-Short-term memory** remembers and forgets previous words and letters (Hochreiter, Schmidhuber, .orange[1997]) 
-- A rule-based trick: **Word embeddings:** Queens, Kings, men, women (Firth, .orange[1957] - But applied from .orange[2000/2010s]; Roweis &amp; Saul, .orange[2000])
-- **Tranformers**: 'Attention Is All You Need' (Vaswani, .orange[2017])
-- **Masked models**: E.g. BERT (Devlin et al, .orange[2019])
-  + "He is a [MASK] dog." `\(\rightarrow\)`  "He is a [smelly] dog."
-- **GPT**: Radford &amp; Narasimhan (.orange[2018]): What if we make models really large? E.g. 175 billion parameters and train it on 499 Billion tokens (GPT-3)
-- **What is a good answer?**: ChatGPT etc. (.orange[2022]) trains a sepperate neural network to tell good from bad answers - reinforcement learning.
-- **Huggingface**: Sharing of various transformer models.
-]
+- When I do statistics it typically looks like this:
 
-.pull-right-narrow[
-![Trees](Figures/Trees.jpg)
+``` r
+mod = lm(income ~ age + gender, data = df)
+mod %&gt;% summary()
+```
+
+]
+--
+.pull-left-wide[
+#### But we will do something simpler
+- We use excel and the *Analysis Tool Pack*
+- Your TAs have some experience with this
+- Your lecturer (me) does not have much experience with this (but extensive excel experience). 
+- I will get up to speed. But listen to your TAs. They are smart :-)
+- Listen to me when it comes to theory
 ]
 
 ---
 class: middle
-# Three types of NLP
+# Today's 'content'
+- Purpose and definition of statistics (already covered)
+- Data and data sources 
+- Population and samples 
+- Classification of scales
 
-1. **Structural, rules-based:** *ELIZA*
-  + Still has supprisingly many uses. E.g. regex but also generally in financial applications where time is important
-2. **Statistical, structural-inspired:** *Latent Dirichlet Allocation* 
-  + What any NLP/ML class was about ~5 years ago. What I have learned
-  + Worth knowing because there is *so* much of it out there
-3. **Statistical, black box:** *Transformer models* 
-  + What we will focus on for the most part
 
 ---
-# Open questions
+# Data 
+.small123[*You probably know this. But it is still important to define terms. I will refer to these and expect you to know them.*]
+
 .pull-left[
-- Do language models think? 
-- What is consciousness? 
-- Should LLMs be allowed for exams?
-  + (Please use it for this one!) 
-  + [Link to SDU's policy](https://sdunet.dk/en/undervisning-og-eksamen/nyheder/2024/0628_gai)
-
-**What do you think?**
-]
-
-.pull-right[
-**Evidence of structural learning**
-![GT2023_1](Figures/Gurnee_Tegmark_2023_1.PNG)
-.small123[
-*Figure 1 from [Gurnee &amp; Tegmark (2023)](https://arxiv.org/abs/2310.02207)*
-]
-]
-
----
-# Course plan
-.small123[*What do you think?*]
-
-.small123[
-| Date       | Slides (links will appear)                                                                                                                                         | Topic                                                             | Assigned Reading                                                                                                                                                                                             |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 2024-10-30 | [Lecture 1 - Introduction](https://raw.githack.com/christianvedels/News_and_Market_Sentiment_Analytics/refs/heads/main/Lecture%201%20-%20Introduction/Slides.html) | A broad overview of NLP + Setting up the course and expectations  | See below                                                                                                                                                                                                    |
-| 2024-11-06 | TBA                                                                                                                                                                | Classical data wrangling with text                                | [Text Wrangling with Python](https://blog.devgenius.io/text-wrangling-with-python-a-comprehensive-guide-to-nlp-and-nltk-f7553e713291) ['The Zipf Mystery'](https://youtu.be/fCn8zs912OE?si=xVMA63kt9M99Qvjx) |
-| 2024-11-13 | TBA                                                                                                                                                                | Classifcation - recipes for training a text classifier            | Ch 2                                                                                                                                                                                                         |
-| 2024-11-20 | TBA                                                                                                                                                                | Classification - off-the shelf models                             | Ch 3                                                                                                                                                                                                         |
-| 2024-11-27 | TBA                                                                                                                                                                | Tokenization and Embeddings                                       | Ch 4, Ch 5                                                                                                                                                                                                   |
-| 2024-12-04 | TBA                                                                                                                                                                | State of the art - recent research papers                         | Ch. 8 + assigned papers                                                                                                                                                                                      |
-| 2024-12-11 | TBA                                                                                                                                                                | Other relevant topics - e.g. topic modelling, LLMs, RAGs or other | TBA                                                                                                                                                                                                          |
-| TBA | TBA                                                                                                                                                                | Wrapping up                                                       |                                                                                                                                                                                                              |
-]
-
----
-class: inverse, middle, center
-
-# Miscellaneous 
-
----
-# Setup
-.pull-left[
-- `spaCy` and `transformers` 
-- I use Spyder - but feel free to use something else
-
-#### Conda environment
-
-
-```r
-conda create --name sentimentF24
-conda activate sentimentF24
-conda install numpy matplotlib pandas seaborn requests
-conda install spyder
-```
-
-]
-
-.pull-right[
-
-#### spaCy
-Download everything with the following python code    
-
-```r
-conda install -c conda-forge spacy
-conda install -c conda-forge cupy
-python -m spacy download en_core_web_sm
-```
-
-#### Install pytorch to run on cuda 11.8*
-
-```r
-conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
-pip install transformers
-```
- 
-]
-
-.footnote[
-.small123[
-  *Without a GPU? See https://pytorch.org/get-started/locally/ 
-]
-]
-
----
-# How to deal with paths
-
-.pull-left-narrow[
-- We want to write code which runs out of the box on any system
-- We don't want to edit long paths. We want it to work.  
-
+- Data is a collection of structured information
+- Typically (and often good practice): 
+  + **Observations** (each row is an **entity**) and 
+  + **information** (each column is a **variable** containing information)
 ]
 
 --
-
-.pull-right-wide[
-.small123[
-.red[**Bad:**] 
-
-```python
-pd.read_csv('C:/Users/Christian/Dropbox/Teaching/News_and_Market_Sentiment_Analytics/2024/News_and_Market_Sentiment_Analytics/Lecture_2_-_Lexical_resources/Data/Novo_Nordisk_News.csv')
-```
-
-.green[**Good:**]
-
-```python
-pd.read_csv('Data/Novo_Nordisk_News.csv')
-```
-
+.pull-left[
+- **Observation**: Person, company, municipality, parish, country, etc. (these are refered to as 'entities') 
+- **Variable**: Information about that person
 ]
+
+--
+.pull-left[
+- **Information**: 120k (annual income), "female", 5 stars
 ]
 
 ---
+# Example
 
-### Solution?
+| Observation     | Price | Location     | Size   | Building Rating |
+|-----------------|-------|--------------|--------|-----------------|
+| House 1         | 250k  | Suburb       | 120 sqm| A               |
+| House 2         | 350k  | City Center  | 80 sqm | C               |
+| House 3         | 450k  | Suburb       | 150 sqm| B               |
 
 --
+.center[
+**What type of information can variables be?**
+]
 
-1. Save scripts to relevant folder
-2. Run things from main 
 
+---
+# Types of variables
+.pull-left[
+### Quantiative variables 
+- Nominal scale:
+  + House price, income, years of education
+- Ordinal scale:
+  + Reviews (1, 2, ..., 5 stars),
+  + Bulding rating (A, B, C),
+  + etc.
+]
+--
+.pull-right[
+### Qualitative variables
+- House color: "Red"
+- Location: "Suburban"
+- Tone of language: "Positive"
 
-```python
-import pandas as pd
+**Note:** We can turn this into into something quantitative anyway. 
+ + Dummy: Mark all "red" building with 1 and the rest with 0
+ + Grouped statistics: Calculate the mean house price for each type of location
 
-def some_function(x):
-  x + 1
+]
+
+---
+# Samples
+.pull-left[
+- We want to know something about the world
+- But we don't have data on all of it
+- We want to **infer** something about the **population** from a **sample** of it.
+
+- **Note 1:** Depending on what we measure, the idea of a 'population' might be abstract:
+  + Example 1: Average weight of newborn babies in 2024 `\(\rightarrow\)` Population: All babies
+  + Example 2: Company responses to a survey `\(\rightarrow\)` Population: Similar(?) companies
   
-def some_other_function(x):
-  x + 2
+- **Note 2:** We can only know something about the average for the population. Not the individuals (unless everyone is the same)
+]
 
-if __name__ == "__main__":
-  df = pd.read_csv('Data/Novo_Nordisk_News.csv')
-  df = some_function(df)
-  df = some_other_function(df)
-```
+.pull-right[
+![Sample](Figures/Sample.png)
+]
+
+
+---
+# Sampling in practice 
+.pull-left[
+- **Q**: Can you know something without asking everyone? 
+  + **A**: Sometimes. You will learn when/why (*Central Limit Theorem, Law of Large Numbers*)
+  + Note: Do you need to measure all apples to know what an apple weighs on average?
+- **Q**: What do we need to assume?
+  + Generally: The sample needs to be IID (independently identically distributed)
+  + But we can work with exceptions
+]
+
+.pull-right[
+.small123[https://x.com/LowKickLuke/status/1884450622868504890]
+.center[
+&lt;img src="Figures/Sampling_in_practice.png" alt="Greenland" width="350"/&gt;
+]
+]
+
 
 
 
@@ -694,10 +537,10 @@ if __name__ == "__main__":
 ---
 # Before next time
 .pull-left[
-- Read [Text Wrangling with Python](https://blog.devgenius.io/text-wrangling-with-python-a-comprehensive-guide-to-nlp-and-nltk-f7553e713291)
-  
-  
-- Watch ['The Zipf Mystery'](https://youtu.be/fCn8zs912OE?si=xVMA63kt9M99Qvjx)
+- Have a look at the exercises (in class you will do the actual exercise)
+- Read the assigned reading
+
+- Next time: Descriptive statistics
 ]
 
 
@@ -705,62 +548,6 @@ if __name__ == "__main__":
 ![Trees](Figures/Trees1.jpg)
 ]
 
----
-# Resources
-- [Natural Language Processing with spaCy &amp; Python - Course for Beginners](https://www.youtube.com/watch?v=dIUTsFT2MeQ)
-
-- [Natural Language Processing With Python and **NLTK**](https://youtu.be/FLZvOKSCkxY?si=6ZgFsh3P551EWVRC)
-
-- [Complete Natural Language Processing (NLP) Tutorial in Python! (with examples)](https://youtu.be/M7SWr5xObkA?si=b40Uw97oX5Epy6vf)
-
-- **Do you want a quick and dirty GitHub intro?**
-
-### Project directory
-- Think about how you structure your directory for this course (and in general)
-- Examples: [OccCANINE](https://github.com/christianvedels/OccCANINE), [This course](https://github.com/christianvedels/News_and_Market_Sentiment_Analytics/)
-
-- *More advanced approaches*  
-  + [Microsoft Team Data Science Project](https://learn.microsoft.com/en-us/azure/architecture/data-science-process/overview),  [Cookiecutter](https://drivendata.github.io/cookiecutter-data-science/), [Cookiecutter youtube video](https://youtu.be/5VjuG5lliYU?si=oci0h0gNiTWciQ_I)
-
----
-class: inverse, middle
-# Coding challenge: 
-## ['Skipping ahead to the end'](https://github.com/christianvedels/News_and_Market_Sentiment_Analytics/blob/main/Lecture%201%20-%20Introduction/Coding_challenge1.md)
-
-
----
-## References (1/2)
-
-.small123[
-Andersen, H. C. (1844). The Nightingale. https://www.hcandersen-homepage.dk/?page_id=2257
-
-Devlin, J., Chang, M.-W., Lee, K., &amp; Toutanova, K. (2019). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. In Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers), pages 4171–4186, Minneapolis, Minnesota. Association for Computational Linguistics.
-
-Descartes, R. (1637). Discourse on the Method of Rightly Conducting One's Reason and of Seeking Truth in the Sciences (J. Veitch, Trans.). EBook-No. 59. https://www.gutenberg.org/ebooks/59
-
-Firth, J.R. (1957). "A synopsis of linguistic theory 1930–1955". Studies in Linguistic Analysis: 1–32. Reprinted in F.R. Palmer, ed. (1968). Selected Papers of J.R. Firth 1952–1959. London: Longman.
-
-Gurnee, W., &amp; Tegmark, M. (2023). Language Models Represent Space and Time. https://arxiv.org/abs/2310.02207
-
-Pearl, J. (2019). The seven tools of causal inference, with reflections on machine learning. Communications of the ACM, 62(3), 54–60. https://doi.org/10.1145/3241036
-
-Radford, A., &amp; Narasimhan, K. (2018). Improving Language Understanding by Generative Pre-Training. https://api.semanticscholar.org/CorpusID:49313245
-
-Rosenblatt, F. (1958). The perceptron: A probabilistic model for information storage and organization in the brain. Psychological Review, 65(6), 386–408. https://doi.org/10.1037/h0042519
-]
-
-
----
-## References (2/2)
-.small123[
-Roweis, S. T., Saul, L. K. (2000). "Nonlinear Dimensionality Reduction by Locally Linear Embedding". Science, 290(5500), 2323–6. https://doi.org/10.1126/science.290.5500.2323
-
-Searle, J. (1980), "Minds, Brains and Programs", Behavioral and Brain Sciences, 3(3), 417–457. https://doi.org/10.1017/S0140525X00005756
-
-Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., &amp; Polosukhin, I. (2017). Attention Is All You Need. https://arxiv.org/abs/1706.03762
-
-Weizenbaum, J. (1966). ELIZA—a Computer Program for the Study of Natural Language Communication between Man and Machine. Commun. ACM, 9(1), 36–45. https://doi.org/10.1145/365153.365168
-]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
