@@ -533,7 +533,26 @@ class: middle
 ]
 ]
 
+---
+# Different types of sources
 
+.pull-left[
+## 1. Primary
+### 1.a. Experimental
+- When you run an experiment and can control all the conditions
+- E.g. lab experiment
+
+### 1.b. Observational
+- When you observe the data and can control that 
+- E.g. survey data
+]
+
+.pull-right[
+## 2. Secondary (what we often work with)
+- Data just happens to exist for some reason
+- We use it to explore (social) scientific questions
+- E.g. Register data, public databases, *archival data*
+]
 
 
 
