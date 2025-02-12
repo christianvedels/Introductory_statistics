@@ -234,7 +234,7 @@ class: middle
 ---
 class: middle
 
-# Practicalities of excel and learning (2/3)
+# Practicalities of excel and learning (3/3)
 .pull-left[
 ## A tradeoff
 1. I can show you everything superficially
@@ -242,6 +242,8 @@ class: middle
 
 - You learn more from the second. So that is what we will be doing.
 - Don't be surprised if I have not given you a *detailed* explanation of everything in class
+
+- **Q:** What can you learn from me? **A:** Theory
 ]
 
 --
