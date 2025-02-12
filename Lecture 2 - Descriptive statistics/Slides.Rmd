@@ -148,7 +148,7 @@ class: middle
   + Whether you can interpret it as intended
   
 - 90 pct of statistics in practice is **data cleaning** and **descriptive statistics**
-- You this *before* you calculated anything
+- You do this *before* you calculated anything
 ]
 
 ---
@@ -291,7 +291,7 @@ class: middle
 
 ---
 class: middle
-# Correlation
+# Correlation (more details next time)
 .pull-left-wide[
 - **Correlation Coefficient**: Measures the strength of a linear relationship between two variables, ranging from -1 (perfect negative) to +1 (perfect positive).
 - **Scatter Plots**: Visual representation of correlation.
@@ -333,16 +333,20 @@ weekly %>%
 
 .pull-left-wide[
 - In the real world we often have data like
-- Data: [11219, 340, 76, 449, ...]
+- Data: [11219.67, 340.21, 76.22, 449.12, ...]
 - How can we get an overview of frequencies?
 ]
 
 .pull-right-narrow[
 **Solution:** Count how many between 0 and 100, 100 and 200, etc.
+- *You will see that we apply a similar solution when it comes to probability distributions*$^1$
 
 - [Lets try it in excel (click to download)](https://github.com/christianvedels/Introductory_statistics/raw/refs/heads/main/Lecture%202%20-%20Descriptive%20statistics/Examples/Example1_income.xlsx)
 ]
 
+.footnote[
+$^1$: In fact, what we are building towards here is a so-called non-parametric estimator of the probability distribution
+]
 
 
 ---
