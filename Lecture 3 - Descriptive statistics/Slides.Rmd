@@ -1,0 +1,305 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options: 
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistics
+## Lecture 3: Descriptive statistics II
+
+### Christian Vedel,<br>Department of Economics
+
+### Email: [christian-vs@sam.sdu.dk](christian-vs@sam.sdu.dk)
+
+### Updated `r Sys.Date()`
+
+
+
+.footnote[
+.left[
+.small123[
+*Please beware. I work on these slides until the last minute before the lecture and push most changes along the way. Until the actual lecture, this is just a draft*  
+]
+]
+]
+
+
+---
+class: middle
+# Today's lecture
+.pull-left-wide[
+
+
+### This time and last time: Basic tools
+
+- Measures of position: What is typical? (Mean, median, etc.)
+- Measures of variation: How 'uncertain' are we? (Variance, standard deviation, etc.)
+- **Histograms & Box Plots**
+- **Correlation**
+
+
+]
+
+
+---
+class: middle
+# Definition: *Statistic*
+> A *statistic* is a number which sumarises some data
+
+Examples: Mean, median, variance, quantiles, etc. (t-value, Z-value, etc.)
+
+
+---
+# Summary statistics (measures of central tendency)
+.pull-left[
+- If you know statistics, you are good friends with
+- The 'mean', 'median', 'mode' 
+
+### The mean (The one whos always around)
+- The *expected* value
+- Add up all the numbers and divide by how many there are  
+$mean(\mathbf{x}) = \frac{1}{N} \sum_i x$
+
+### The median (The stable friend)
+- The *middle* value of the distribution
+- Line up all numbers and find the middle
+$median(\mathbf{x}) = x_{(n+1)/2)}$ (and the average of two if there is no middle)
+]
+
+.pull-right[
+### The mode (Weird but always makes sense)
+- Of all the numbers, which is the most common?
+- Does not make sense for continuous variables
+
+
+*If we have time, I will illustrate how they work in relation to a histogram on the blackboard*
+
+]
+
+
+
+---
+# Summary statistics (measures of spread)
+
+.pull-left[
+- The *variance*, *standard deviation*, *IQR*, *range*, and others are like the friends who keep things unpredictable and uncertain. 
+
+### The variance (The unpredictable one)
+- How far the numbers are from the center
+- Take the average squared difference from the mean
+$variance(\mathbf{x}) = \frac{1}{N} \sum_i (x_i - \bar{x})^2$
+
+### The standard deviation (The chill one)
+- The *normalized* version of the variance, for when you want it in the same units as the original data
+- Just take the square root of variance
+$std(\mathbf{x}) = \sqrt{variance(\mathbf{x})}$
+
+]
+
+.pull-right[
+### The IQR (The middle-ground friend)
+- The range between the 25th and 75th percentiles 
+- Shows the spread of the middle half of the data
+$IQR = Q3 - Q1$
+
+### The range (The overly enthusiastic one)
+- The *wide-spanning* one – the difference between the largest and smallest values
+$range(\mathbf{x}) = x_{\text{max}} - x_{\text{min}}$
+
+]
+
+---
+class: middle
+.pull-left-wide[
+## Some terminology: What is an expectation?
+- The expectation is a *statistics* word for *mean* or *average*
+- We might be able to compute the *mean* in a sample. 
+- For the entire population, there will be an *Expecation* instead
+
+- $\mathbb{E}(X)$ (or $E(x)$: The expectation of $X$
+- Sometimes we use $\mu$, 'mu'
+- If we have 723 observations of $x$: 221, 23, 63, 21, ... then we can *estimate* $\mathbb{E}(X)$ with the simple average:
+  + $\mathbb{E}(X) \approx \frac{1}{N}(221 + 23 + 63 + 21, ...)$ *or simply*
+  + $\mathbb{E}(X) \approx \frac{1}{N}\sum_{i=1}^N(x)$
+  
+- (.small123[We can also compute expectations in other ways, but that is not important yet.])
+]
+
+.pull-right-narrow[
+![Sample](Figures/Sample.png)
+]
+
+---
+class: middle
+
+.pull-left-wide[
+## Variance
+- The *expectation* $\mathbb{E}(X)$ answers what the central tendency is. But what is the spread? (Will be important!)
+- One answer: *Variance*, $\sigma^2_X$ or $Var(X)$ 
+- Answers:
+  + What is the *expected* squared deviation from the *expecation*
+  
+- Formula: $Var(X) = \mathbb{E}[(X-\mathbb{E}(X))^2]$
+- Or: $Var(X) = \frac{1}{N} \sum_{i} (x_i-\mu)^2$
+  + Where $\mu$ is the expectation of X
+  
+  
+- [Let's try it with the icecream data]()
+]
+
+
+
+---
+class: middle
+## Definition: *Correlation* 
+> Correlation is the degree to which two (or more things) are connected. *Typically* measured by the *correlation coefficient*
+
+
+---
+class: middle
+
+.pull-left-wide[
+> *Covariance* is a measure of how two variable co-varies. I.e. is there a tendency that Y increases when X increases? Or is it the other way around? Is there no relationship. *Measured in arbitrary units*.
+
+### Formula: $\sigma_{XY} = cov(X,Y) = $
+
+## Definition: *Correlation coefficient* 
+> The *correlation coefficient* measures a simple linear relationship between the data, 
+
+### Formula: $\rho_{X,Y} = corr(X, Y) = 
+]
+
+
+By Laerd Statistics - https://statistics.laerd.com/statistical-guides/pearson-correlation-coefficient-statistical-guide.php, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=84255641
+
+
+
+---
+class: middle
+# Current research 
+.pull-left-wide[
+- If you think it is helpful, I would like to say something related to the topic in my own research every time.
+- Let's see how it works and let me know if you think it is a waste.
+- The idea is to show you how it has importance to knowledge creation.
+- (...and the research pipeline is long before you otherwise see it)
+]
+
+
+---
+class: middle
+# Railways
+.pull-left[
+- I am working on railways
+- We are trying to understand how important *market access* is for (softer) economic development
+- E.g. the spread of 'modern ideas'.
+- We could not understand our results before we produced summary statistics
+]
+
+.pull-right[
+![Assembly](Figures/Grundtvig_over_time.png)
+]
+
+
+
+---
+# Before next time
+.pull-left[
+- You will have exercises on this
+- Please see what you can solve - and challenge your *fluency heurestic* (find your weak spots)
+- Remember: Everything is not covered in detail
+- Next time: More summary statistics
+
+- Exercises for the next week covers two lectures.
+]
+
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]
+
