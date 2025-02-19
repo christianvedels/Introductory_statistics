@@ -195,10 +195,69 @@ $range(\mathbf{x}) = x_{\text{max}} - x_{\text{min}}$
 ]
 
 ---
+# Plots overview
+
+```{r eval=FALSE, include=FALSE, echo=FALSE}
+library(tidyverse)
+library(MASS)
+set.seed(20)
+
+R1 = matrix(c(1, 0.5, 0.5, 1), ncol = 2)
+df = mvrnorm(1000, c(0, 0), R1) %>% data.frame() %>% mutate(type = "Cov = 0.5")
+
+p1 = df %>% 
+  ggplot(aes(X1)) + 
+  geom_histogram(aes(fill = "histogram")) +
+  theme_minimal() + 
+  theme(legend.position = "none") + 
+  labs(title = "Histogram")
+
+ggsave("Figures/Example_Histogram.png", plot = p1, width = 2*3, height = 2*1.25)
+
+p1 = df %>%
+  ggplot(aes(X1)) + 
+  geom_boxplot(aes(fill = "boxplot")) +
+  theme_minimal() + 
+  theme(legend.position = "none") +
+  labs(title = "Boxplot")
+
+ggsave("Figures/Example_Boxplot.png", plot = p1, width = 2*3, height = 2*1.25)
+
+p1 = df %>%
+  ggplot(aes(X1, X2)) + 
+  geom_point(aes(col = "scatterplot"), shape = 4) +
+  theme_minimal() + 
+  theme(legend.position = "none") +
+  labs(title = "Scatterplot") 
+ggsave("Figures/Example_Scatterplot.png", plot = p1, width = 2*3, height = 2*2)
+```
+
+
+.pull-left[
+#### Univariate
+![Histogram](Figures/Example_Histogram.png)
+
+![Boxplot](Figures/Example_Boxplot.png)
+]
+
+.pull-right[
+#### Multivariate (several variables)
+![Scatterplot](Figures/Example_Scatterplot.png)
+- Value of one variable on one axis
+- Value of another variable on the other axis
+
+]
+
+---
+class: middle
+## Goal of the following:
+We will build toawards a *statistic* to summarize a scatterplot
+
+---
 class: middle
 .pull-left-wide[
 ## Some terminology: What is an expectation?
-- The expectation is a *statistics* word for *mean* or *average*
+- The expectation is a *statistics term* for the *mean* or *average*
 - We might be able to compute the *mean* in a sample. 
 - For the entire population, there will be an *Expecation* instead
 
@@ -229,10 +288,49 @@ class: middle
 - Or: $Var(X) = \frac{1}{N} \sum_{i} (x_i-\mu)^2$
   + Where $\mu$ is the expectation of X
   
+- The units of *variance* are weird (and squared). We can standarddize them to get something more interpretable:
+
+$$
+\text{Standard deviation:      } std(X) = \sigma_X = \sqrt{Var(X)}
+$$
   
-- [Let's try it with the icecream data]()
+  
+- [Let's try it with the icecream data](https://github.com/christianvedels/Introductory_statistics/raw/refs/heads/main/Lecture%203%20-%20Descriptive%20statistics/Examples/Ice_cream_kills.xlsx)
 ]
 
+.pull-right-narrow[
+![Variance](Figures/Distributions.png)
+*x1* and *x2* has the same *expectation* but one is more *spread*
+]
+
+```{r echo=TRUE, include=FALSE, eval=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+set.seed(20)
+
+p1 = data.frame(
+  x1 = rnorm(100000, 0, 1),
+  x2 = rnorm(100000, 0, 3)
+) %>%
+  pivot_longer(x1:x2) %>%
+  ggplot(aes(value, fill = name)) + 
+  geom_density(alpha = 0.5) + 
+  theme_minimal() + 
+  labs(col = "distr.") + 
+  geom_vline(xintercept = 0, lty = 2)
+
+p1
+ggsave("Figures/Distributions.png", plot = p1, width = 4, height = 3)
+```
+
+---
+class: middle
+### Standard deviation versus standard error
+- Standard deviation answers:
+  + How wrong are we about the *data* if we guess that all data points were the *mean*
+
+- Standard error answers:
+  + How wrong are we about the *expectation* (population) if we guess that the it is simply the *mean*
+  + More about this later
 
 
 ---
@@ -244,21 +342,81 @@ class: middle
 ---
 class: middle
 
+## Covariance
+
 .pull-left-wide[
 > *Covariance* is a measure of how two variable co-varies. I.e. is there a tendency that Y increases when X increases? Or is it the other way around? Is there no relationship. *Measured in arbitrary units*.
 
-### Formula: $\sigma_{XY} = cov(X,Y) = $
+### Formula: 
+$$\sigma_{XY} = cov(X,Y) = \mathbb{E}[(X-\mathbb{E}(X))(Y-\mathbb{E}(Y))]$$
+*like Variance - but with two different variables*
 
-## Definition: *Correlation coefficient* 
-> The *correlation coefficient* measures a simple linear relationship between the data, 
 
-### Formula: $\rho_{X,Y} = corr(X, Y) = 
+- [Let's try it with the icecream data](https://github.com/christianvedels/Introductory_statistics/raw/refs/heads/main/Lecture%203%20-%20Descriptive%20statistics/Examples/Ice_cream_kills.xlsx)
+
+]
+
+.pull-right-narrow[
+```{r echo=TRUE, include=FALSE, eval=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(MASS)
+set.seed(20)
+
+R1 = matrix(c(1, 0.5, 0.5, 1), ncol = 2)
+R2 = matrix(c(1, 0, 00, 1), ncol = 2)
+R3 = matrix(c(1, -0.5, -0.5, 1), ncol = 2)
+
+df1 = mvrnorm(1000, c(0, 0), R1) %>% data.frame() %>% mutate(type = "Cov = 0.5")
+df2 = mvrnorm(1000, c(0, 0), R2) %>% data.frame() %>% mutate(type = "Cov = 0")
+df3 = mvrnorm(1000, c(0, 0), R3) %>% data.frame() %>% mutate(type = "Cov = -0.5")
+
+p1 = df1 %>% bind_rows(df2) %>% bind_rows(df3) %>%
+  ggplot(aes(X1, X2, col = type)) + 
+  geom_point(alpha = 0.5) + 
+  theme_minimal() + 
+  facet_wrap(~type, ncol = 1) + 
+  theme(legend.position = "none") + 
+  labs(x = "X", y = "Y")
+
+p1
+ggsave("Figures/Covariance.png", plot = p1, width = 3, height = 5)
+
+p1 = df3 %>%
+  ggplot(aes(X1, X2, col = type)) + 
+  geom_point(alpha = 0.5) + 
+  theme_minimal() + 
+  facet_wrap(~type, ncol = 1) + 
+  theme(legend.position = "none") + 
+  labs(x = "X", y = "Y")
+
+p1
+ggsave("Figures/Covariance_for_course_page.png", plot = p1, width = 3, height = 5)
+```
+
+![Covariance](Figures/Covariance.png)
+
 ]
 
 
-By Laerd Statistics - https://statistics.laerd.com/statistical-guides/pearson-correlation-coefficient-statistical-guide.php, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=84255641
+---
+## Definition: *Correlation coefficient* 
+> The *correlation coefficient* measures a simple linear relationship between the data, 
 
+### Formula: 
 
+$$\rho_{X,Y} = corr(X, Y) = \frac{Cov(X, Y)}{\sigma_X \sigma_Y}$$
+
+It is the *normalized* covariance. Tells us how much we *learn* about *X* from knowing *Y* and vice versa.
+
+Interpretation:
+- $\rho = 1$: Perfectly correlated
+- $\rho>0$: Correlated
+- $\rho=0$: Uncorrelated
+- $\rho<0$: Inversely correaled
+- $\rho=-1$: Perfectly inversly correlated
+
+- [Let's try it with the icecream data](https://github.com/christianvedels/Introductory_statistics/raw/refs/heads/main/Lecture%203%20-%20Descriptive%20statistics/Examples/Ice_cream_kills.xlsx)
+]
 
 ---
 class: middle
@@ -290,12 +448,11 @@ class: middle
 ---
 # Before next time
 .pull-left[
-- You will have exercises on this
-- Please see what you can solve - and challenge your *fluency heurestic* (find your weak spots)
+- Lecture next week moved to the end of the semester
+- You will have exercises on this 
 - Remember: Everything is not covered in detail
-- Next time: More summary statistics
+- Next time: Discrete random variables
 
-- Exercises for the next week covers two lectures.
 ]
 
 
