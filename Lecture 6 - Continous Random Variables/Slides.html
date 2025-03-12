@@ -146,6 +146,31 @@ class: middle
 
 
 ---
+# Examples of things that can be described as continous random variables
+
+.pull-left[
+1. Income
+2. Time spent in store
+3. Time spent on a website
+4. Voter turnout
+5. Customer satisfaction
+6. Economic Growth Rate
+7. CO2 emissions
+8. Age of individuals
+9. Property value
+10. Energy consumption
+]
+
+.pull-right[
+#### Central idea:
+- If we can describe this with a probability distribution (`\(Pr()\)`),
+- then we can calculate probabilities.
+- Probabilities are information:
+- `\(Pr(Income &gt; 1000 kr.) = 0.99\)` (if correct) summaries something tangible, that we know about incomes. 
+- `\(Pr(Price &lt; 0) = 0.001\)` for e.g. a stock is highly useful knowledge  
+]
+
+---
 class: middle
 # Continuous Random Variables
 
@@ -402,6 +427,19 @@ class: middle
 - We will start from an empty spreadsheet
 ]
 
+
+---
+class: middle
+# Note: Expectations from probability distributions
+
+.pull-left-wide[
+- We can calculate expectations from probability distributions:
+ + `\(\mathbb{E}(X)=\sum_i x_i Pr(x_i)\)` for a *discrete* distribution. `\(\mathbb{E}(X)=\int_x x Pr(x) dx\)` for a *continuous* distribution.
+- And similar formulas exists for variance
+
+- **Point**: If we know the probability distribution, we know everything else (basically). 
+
+]
 
 
 ---
