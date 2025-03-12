@@ -11,3 +11,5 @@
 **Lecture 4 is replaced by a video lecture at the end of the semester**
 
 [Lecture 5 - Discrete Random Variables](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%205%20-%20Discrete%20Random%20Variables/Slides.html)
+
+[Lecture 6 - Continuous Random Variables](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%206%20-%20Continous%20Random%20Variables/Slides.html)
