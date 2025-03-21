@@ -14,4 +14,4 @@
 
 [Lecture 6 - Continuous Random Variables](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%206%20-%20Continous%20Random%20Variables/Slides.html)
 
-[Lecture 7 - Confidence Intervarls](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%207%20-%20Confidence%20Intervals/Slides.html)
+[Lecture 7 - Confidence Intervals](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%207%20-%20Confidence%20Intervals/Slides.html)
