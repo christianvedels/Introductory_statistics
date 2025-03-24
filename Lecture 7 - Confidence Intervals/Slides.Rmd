@@ -124,7 +124,6 @@ class: middle
 - Sampling and point estimates
 - We will use the normal distribution
   + Z-based confidence interval for the mean
-- Working with proportions
 
 ]
 
@@ -303,9 +302,9 @@ class: middle
 source("R-code/03_CI.R")
 
 p1 = plot_distribution_with_sd(
-    175.7606574, sqrt(6.290257479/933), 
+    175.7606574, 6.290257479/sqrt(933), 
     1.96, 
-    domain = c(175.5, 176), 
+    domain = c(175.7606574 - 4*6.290257479/sqrt(933), 175.7606574 + 4*6.290257479/sqrt(933)), 
     label_offset1 = -0.02
 ) + 
   labs(
@@ -319,11 +318,11 @@ ggsave("Figures/CI_example.png", plot = p1, width = 6, height = 3.5)
 #### Step by step
 - In 934 observations we calculated:
   + $\overline{X} = 175.8$
-  + $S^2 = 6.3$ 
-  + and it follows: $SE = \sqrt{\frac{6.3}{934-1}}\approx0.0822$
+  + $S^2 = 39.56$ 
+  + and it follows: $SE = \sqrt{\frac{39.56}{934-1}}\approx0.206$
   
 - It follows that the mean height has the distribution:
-  + $\overline{X} \sim \mathscr{N}(175.8, \;0.0822)$
+  + $\overline{X} \sim \mathscr{N}(175.8, \;0.206)$
 
 ]
 
@@ -333,7 +332,7 @@ ggsave("Figures/CI_example.png", plot = p1, width = 6, height = 3.5)
 ]
 
 
-**Conclusion: We are 95 pct sure that the true mean can be found between `r round(175.7606574-1.96*sqrt(6.290257479/933), 2)` and `r round(175.7606574+1.96*sqrt(6.290257479/933), 2)`**
+**Conclusion: We are 95 pct sure that the true mean can be found between `r round(175.7606574-1.96*6.290257479/sqrt(933), 2)` and `r round(175.7606574+1.96*6.290257479/sqrt(933), 2)`**
 
 ---
 class: middle
@@ -367,11 +366,32 @@ Note: $Z_{\alpha/2}$ is something you have to look up (or compute with e.g. exce
 
 - 95% confidence interval ($\alpha = 0.05$) then: $\longrightarrow$ $Z = 1.960$
 
-- 95% confidence interval ($\alpha = 0.10$) then: $\longrightarrow$ $Z = 1.645$
+- 90% confidence interval ($\alpha = 0.10$) then: $\longrightarrow$ $Z = 1.645$
 
 (After a while, you learn these values by heart. Especially 1.96)
+
+*Let's play around with it in a small app*
 ]
 ] 
+
+---
+class: middle
+# Exercise 1:
+
+.pull-left-wide[
+In a representative poll of 500 respondents, 85% of Greenlanders, said that they
+did not want to leave Denmark and become part of the USA. 
+> *How sure are we, that it is 85 pct of the population of voters? What is the 95 pct confidence interval?*
+
+Information given: The standard deviation, $\sigma$, is: 0.1275
+
+]
+
+.pull-right-narrow[
+![Greenland](Figures/Sampling_in_practice.png)
+]
+
+
 
 ---
 # Next time
