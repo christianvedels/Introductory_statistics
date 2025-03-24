@@ -16,6 +16,6 @@
 
 [Lecture 7 - Confidence Intervals](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%207%20-%20Confidence%20Intervals/Slides.html)
 
-[Lecture 7 - Confidence Intervals](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%208%20-%20Hypothesis%20testing/Slides.html)
+[Lecture 8 - Hypothesis Testing](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%208%20-%20Hypothesis%20testing/Slides.html)
 
 
