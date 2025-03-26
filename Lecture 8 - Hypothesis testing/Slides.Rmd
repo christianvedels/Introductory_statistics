@@ -408,6 +408,8 @@ class: middle
 - They have invented a new method which is cheaper and has higher quality
 - You worry is that you will not be able to retain the right alcohol pct (4.7%)
 - Note: You just need the average to be right (why?). Is it?
+
+- [Data can be found here](https://github.com/christianvedels/Introductory_statistics/raw/refs/heads/main/Lecture%208%20-%20Hypothesis%20testing/Examples/Brewing.xlsx)
 ]
 
 ```{r eval=FALSE, include=FALSE}
