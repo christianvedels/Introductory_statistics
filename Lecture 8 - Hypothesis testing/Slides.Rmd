@@ -96,7 +96,7 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 
 # Statistics
-## Lecture 7: Hypothesis Testing
+## Lecture 8: Hypothesis Testing
 
 ### Christian Vedel,<br>Department of Economics
 
@@ -134,7 +134,7 @@ class: middle
 ---
 # Note on notation:
 .pull-left-wide[
-- $\overline{X}$ or $\hat{mu}$ is the sample version of $\mu$
+- $\overline{X}$ or $\hat{\mu}$ is the sample version of $\mu$
 - $S^2$ or $\hat{\sigma^2}$ is the sample version of $\sigma^2$
 - $S$ or $\hat{\sigma}$ is the sample version of $\sigma$
 
@@ -142,6 +142,13 @@ class: middle
 - The notation in statistics is a bit confusing since there are multiple conventions for how to distingish between sample and population statistics.
 - General rule: $\hat{z}$ is the sample version of $z$, where $z$ is some statistic
   + And the definitions above also applies.
+]
+
+.pull-right-narrow[
+#### Names:
+- $\mu$: "mu"
+- $\sigma$: "sigma"
+- $\hat{x}$: "x hat"
 ]
 
 
@@ -389,11 +396,65 @@ class: middle
 .pull-left-wide[
 - Used when the variance is unknown
 - The test adjusts the normal distribution to account for the fact, that we have to estimate the variance in the same sample 
-- We will try it with the coin sample
+- We will try it with the a similar case that inspired the t-statistic: Brewing
 
 ### What we will show:
-  + It does not really matter for larger samples
-  + It matters for small samples
+  + It makes a differences
+]
+
+.pull-right-narrow[
+#### Case:
+- You advice a brewery in their production process
+- They have invented a new method which is cheaper and has higher quality
+- You worry is that you will not be able to retain the right alcohol pct (4.7%)
+- Note: You just need the average to be right (why?). Is it?
+]
+
+```{r eval=FALSE, include=FALSE}
+library(tidyverse)
+
+ttest = function(df, stat = 4.7){
+  std_error = sqrt(var(df$pct)/(NROW(df)-1))
+  tstat = abs((stat - mean(df$pct))/std_error)
+  pvalue = pt(tstat, df = NROW(df)-1, lower.tail = FALSE)*2
+  return(pvalue)
+}
+
+Ztest = function(df, stat = 4.7){
+  std_error = sqrt(var(df$pct)/(NROW(df)-1))
+  Zstat = abs((stat - mean(df$pct))/std_error)
+  pvalue = pnorm(Zstat, lower.tail = FALSE)*2
+  return(pvalue)
+}
+
+set.seed(20)
+df = data.frame(`pct (new brewing method)` = abs(rnorm(20, 3.7, 1)+1))
+
+write_csv2(df, "Examples/Solved/Brewing.csv")
+
+```
+
+---
+class: middle
+# Cheat sheet
+
+| **Condition**                     | **t-test**                                           | **Z-test**                                      |
+|-----------------------------------|------------------------------------------------------|-------------------------------------------------|
+| **Shape of distribution**         | Bell-curve (but with 'fat tails')                    | Bell curve
+| **Sample size**                   | Small sample size (typically n < 30)                 | Large sample size (typically n ≥ 30)            |
+| **Standard deviation**            | Unknown                                              | Known (or estimated from a large sample)        |
+| **Degrees of freedom**            | Degrees of freedom are used in calculation (df = n - 1) | No degrees of freedom are needed               |
+
+
+---
+# Next time
+.pull-left[
+- More hypothesis testing
+]
+
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
 ]
 
 
