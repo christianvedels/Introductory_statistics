@@ -1,0 +1,375 @@
+Year;Cheesemaker;Country;Quality_rating
+2003;Caseificio Del Sole;Italy;98,5605738831133
+2003;Latteria di Toscana;Italy;63,6576103549418
+2003;Caseificio Reggiano;Italy;100,0000000000000
+2003;La Vecchia Formaggeria;Italy;52,8179752110354
+2003;Casa del Parmigiano;Italy;65,9144908185951
+2003;Caseificio Aurora;Italy;84,9787759489992
+2003;Formaggi di Italia;Italy;35,7864953148343
+2003;Caseificio Margherita;Italy;59,3080717634696
+2003;Latteria Bella Vita;Italy;65,6655430633176
+2003;Caseificio San Marco;Italy;64,1429875953663
+2004;Caseificio Del Sole;Italy;74,2216332642315
+2004;Latteria di Toscana;Italy;72,1360884848999
+2004;Caseificio Reggiano;Italy;81,2315404752222
+2004;La Vecchia Formaggeria;Italy;78,1923519742944
+2004;Casa del Parmigiano;Italy;71,0859667084648
+2004;Caseificio Aurora;Italy;88,2838706166624
+2004;Formaggi di Italia;Italy;80,8403897966364
+2004;Caseificio Margherita;Italy;69,3720064856729
+2004;Latteria Bella Vita;Italy;51,0080860621534
+2004;Caseificio San Marco;Italy;63,4949333885466
+2005;Caseificio Del Sole;Italy;56,0175222311998
+2005;Latteria di Toscana;Italy;46,2864180268678
+2005;Caseificio Reggiano;Italy;58,6510388711495
+2005;La Vecchia Formaggeria;Italy;100,0000000000000
+2005;Casa del Parmigiano;Italy;75,3364197268348
+2005;Caseificio Aurora;Italy;81,9304301015810
+2005;Formaggi di Italia;Italy;60,0621131463306
+2005;Caseificio Margherita;Italy;50,1168881810752
+2005;Latteria Bella Vita;Italy;84,6877138666005
+2005;Caseificio San Marco;Italy;67,2046712238802
+2006;Caseificio Del Sole;Italy;73,1323429707478
+2006;Latteria di Toscana;Italy;77,2915669832207
+2006;Caseificio Reggiano;Italy;100,0000000000000
+2006;La Vecchia Formaggeria;Italy;88,4677504259215
+2006;Casa del Parmigiano;Italy;74,7426197003764
+2006;Caseificio Aurora;Italy;100,0000000000000
+2006;Formaggi di Italia;Italy;66,5510960546438
+2006;Caseificio Margherita;Italy;60,0655053981568
+2006;Latteria Bella Vita;Italy;80,6191663767490
+2006;Caseificio San Marco;Italy;74,7896132475619
+2007;Caseificio Del Sole;Italy;92,5011322544549
+2007;Latteria di Toscana;Italy;53,0175581612450
+2007;Caseificio Reggiano;Italy;86,8217780160026
+2007;La Vecchia Formaggeria;Italy;62,4837825592795
+2007;Casa del Parmigiano;Italy;94,4334347533313
+2007;Caseificio Aurora;Italy;62,1278349271127
+2007;Formaggi di Italia;Italy;97,5466084131291
+2007;Caseificio Margherita;Italy;81,2180751227079
+2007;Latteria Bella Vita;Italy;70,9736230935885
+2007;Caseificio San Marco;Italy;65,5954173090963
+2008;Caseificio Del Sole;Italy;62,8377585994978
+2008;Latteria di Toscana;Italy;73,0422160051385
+2008;Caseificio Reggiano;Italy;75,7962669886341
+2008;La Vecchia Formaggeria;Italy;99,7567976962006
+2008;Casa del Parmigiano;Italy;100,0000000000000
+2008;Caseificio Aurora;Italy;100,0000000000000
+2008;Formaggi di Italia;Italy;45,0599377874351
+2008;Caseificio Margherita;Italy;84,7421756316815
+2008;Latteria Bella Vita;Italy;69,8166080781921
+2008;Caseificio San Marco;Italy;72,4615068721503
+2009;Caseificio Del Sole;Italy;99,9109218232390
+2009;Latteria di Toscana;Italy;87,8148048549346
+2009;Caseificio Reggiano;Italy;92,5725450229257
+2009;La Vecchia Formaggeria;Italy;75,7455117511743
+2009;Casa del Parmigiano;Italy;71,7007998748296
+2009;Caseificio Aurora;Italy;66,1138426355486
+2009;Formaggi di Italia;Italy;84,5852693520420
+2009;Caseificio Margherita;Italy;50,4628131193588
+2009;Latteria Bella Vita;Italy;91,0728112074807
+2009;Caseificio San Marco;Italy;100,0000000000000
+2010;Caseificio Del Sole;Italy;67,1032742737300
+2010;Latteria di Toscana;Italy;88,9954485621994
+2010;Caseificio Reggiano;Italy;78,9969872169524
+2010;La Vecchia Formaggeria;Italy;95,8547376956538
+2010;Casa del Parmigiano;Italy;100,0000000000000
+2010;Caseificio Aurora;Italy;90,2837233411556
+2010;Formaggi di Italia;Italy;80,7677566899539
+2010;Caseificio Margherita;Italy;87,4819899134028
+2010;Latteria Bella Vita;Italy;47,1240180264618
+2010;Caseificio San Marco;Italy;62,1613465279121
+2011;Caseificio Del Sole;Italy;62,4001290429659
+2011;Latteria di Toscana;Italy;79,3476037803582
+2011;Caseificio Reggiano;Italy;56,0861935599516
+2011;La Vecchia Formaggeria;Italy;92,9187423678795
+2011;Casa del Parmigiano;Italy;68,1344751863874
+2011;Caseificio Aurora;Italy;67,5003544323342
+2011;Formaggi di Italia;Italy;79,2476579271688
+2011;Caseificio Margherita;Italy;100,0000000000000
+2011;Latteria Bella Vita;Italy;69,2992494898954
+2011;Caseificio San Marco;Italy;75,2406759270048
+2012;Caseificio Del Sole;Italy;49,0381010095492
+2012;Latteria di Toscana;Italy;98,3672312350307
+2012;Caseificio Reggiano;Italy;82,8303287242941
+2012;La Vecchia Formaggeria;Italy;67,2304663007827
+2012;Casa del Parmigiano;Italy;71,0647899727297
+2012;Caseificio Aurora;Italy;79,1071831539723
+2012;Formaggi di Italia;Italy;100,0000000000000
+2012;Caseificio Margherita;Italy;95,5139382369418
+2012;Latteria Bella Vita;Italy;80,0496787002473
+2012;Caseificio San Marco;Italy;100,0000000000000
+2013;Caseificio Del Sole;Italy;83,0991250925869
+2013;Latteria di Toscana;Italy;83,8100213570590
+2013;Caseificio Reggiano;Italy;85,3971837659924
+2013;La Vecchia Formaggeria;Italy;64,0940530757764
+2013;Casa del Parmigiano;Italy;54,1967227079299
+2013;Caseificio Aurora;Italy;52,1904564946401
+2013;Formaggi di Italia;Italy;50,9146698051858
+2013;Caseificio Margherita;Italy;81,0575268463006
+2013;Latteria Bella Vita;Italy;100,0000000000000
+2013;Caseificio San Marco;Italy;66,8170094245373
+2014;Caseificio Del Sole;Italy;79,2861671673589
+2014;Latteria di Toscana;Italy;78,2083680057594
+2014;Caseificio Reggiano;Italy;54,5227685646031
+2014;La Vecchia Formaggeria;Italy;87,3480722294505
+2014;Casa del Parmigiano;Italy;55,0519475449284
+2014;Caseificio Aurora;Italy;49,0925802553555
+2014;Formaggi di Italia;Italy;55,4119205299504
+2014;Caseificio Margherita;Italy;75,1028280559490
+2014;Latteria Bella Vita;Italy;47,2942157235099
+2014;Caseificio San Marco;Italy;77,8040105336256
+2015;Caseificio Del Sole;Italy;100,0000000000000
+2015;Latteria di Toscana;Italy;62,3596682167971
+2015;Caseificio Reggiano;Italy;94,8379386932197
+2015;La Vecchia Formaggeria;Italy;47,3263150647346
+2015;Casa del Parmigiano;Italy;83,2502772391233
+2015;Caseificio Aurora;Italy;60,8554546158749
+2015;Formaggi di Italia;Italy;88,6787837650928
+2015;Caseificio Margherita;Italy;57,1834736933867
+2015;Latteria Bella Vita;Italy;65,3596000865693
+2015;Caseificio San Marco;Italy;41,3689207164134
+2016;Caseificio Del Sole;Italy;100,0000000000000
+2016;Latteria di Toscana;Italy;92,7928244035585
+2016;Caseificio Reggiano;Italy;62,7439971422985
+2016;La Vecchia Formaggeria;Italy;73,8593416952597
+2016;Casa del Parmigiano;Italy;84,1495966285925
+2016;Caseificio Aurora;Italy;47,0336705959614
+2016;Formaggi di Italia;Italy;72,7405339993890
+2016;Caseificio Margherita;Italy;77,1169852851751
+2016;Latteria Bella Vita;Italy;63,8018447662462
+2016;Caseificio San Marco;Italy;100,0000000000000
+2017;Caseificio Del Sole;Italy;56,5871079125239
+2017;Latteria di Toscana;Italy;82,9071808566183
+2017;Caseificio Reggiano;Italy;73,3284388012181
+2017;La Vecchia Formaggeria;Italy;58,8192923217021
+2017;Casa del Parmigiano;Italy;77,1336159786165
+2017;Caseificio Aurora;Italy;56,2216381903196
+2017;Formaggi di Italia;Italy;49,9012283165671
+2017;Caseificio Margherita;Italy;60,1138430804641
+2017;Latteria Bella Vita;Italy;67,6870672261343
+2017;Caseificio San Marco;Italy;100,0000000000000
+2018;Caseificio Del Sole;Italy;57,0416209444322
+2018;Latteria di Toscana;Italy;67,0957195299308
+2018;Caseificio Reggiano;Italy;92,4107000346262
+2018;La Vecchia Formaggeria;Italy;85,6911722071824
+2018;Casa del Parmigiano;Italy;61,2670785385048
+2018;Caseificio Aurora;Italy;100,0000000000000
+2018;Formaggi di Italia;Italy;77,0572986748307
+2018;Caseificio Margherita;Italy;78,1272435539527
+2018;Latteria Bella Vita;Italy;65,0361149318049
+2018;Caseificio San Marco;Italy;75,6732453549255
+2019;Caseificio Del Sole;Italy;62,9631500746864
+2019;Latteria di Toscana;Italy;100,0000000000000
+2019;Caseificio Reggiano;Italy;55,8627675901736
+2019;La Vecchia Formaggeria;Italy;61,6875190042955
+2019;Casa del Parmigiano;Italy;83,6656333182470
+2019;Caseificio Aurora;Italy;66,7168906801538
+2019;Formaggi di Italia;Italy;99,4341121685263
+2019;Caseificio Margherita;Italy;100,0000000000000
+2019;Latteria Bella Vita;Italy;100,0000000000000
+2019;Caseificio San Marco;Italy;39,2494759093119
+2020;Caseificio Del Sole;Italy;100,0000000000000
+2020;Latteria di Toscana;Italy;85,6928541569514
+2020;Caseificio Reggiano;Italy;81,1142599730634
+2020;La Vecchia Formaggeria;Italy;80,5166354747446
+2020;Casa del Parmigiano;Italy;78,9233670975200
+2020;Caseificio Aurora;Italy;91,5420639845356
+2020;Formaggi di Italia;Italy;100,0000000000000
+2020;Caseificio Margherita;Italy;70,3415052310707
+2020;Latteria Bella Vita;Italy;58,9251170099930
+2020;Caseificio San Marco;Italy;65,3535755540323
+2021;Caseificio Del Sole;Italy;62,6369694936040
+2021;Latteria di Toscana;Italy;57,6455606687952
+2021;Caseificio Reggiano;Italy;38,1626195286429
+2021;La Vecchia Formaggeria;Italy;79,3304392622231
+2021;Casa del Parmigiano;Italy;77,0421229905781
+2021;Caseificio Aurora;Italy;68,1377529625811
+2021;Formaggi di Italia;Italy;78,5667421237936
+2021;Caseificio Margherita;Italy;64,2325910854147
+2021;Latteria Bella Vita;Italy;100,0000000000000
+2021;Caseificio San Marco;Italy;61,2584808929318
+2022;Caseificio Del Sole;Italy;81,3963379222405
+2022;Latteria di Toscana;Italy;79,2637687632257
+2022;Caseificio Reggiano;Italy;53,1796987150566
+2022;La Vecchia Formaggeria;Italy;70,4232713734989
+2022;Casa del Parmigiano;Italy;68,9670171086210
+2022;Caseificio Aurora;Italy;78,3148954831383
+2022;Formaggi di Italia;Italy;48,1466585117675
+2022;Caseificio Margherita;Italy;94,0770893232326
+2022;Latteria Bella Vita;Italy;71,4799356498247
+2022;Caseificio San Marco;Italy;62,3858000946338
+2023;Caseificio Del Sole;Italy;86,9002789548784
+2023;Latteria di Toscana;Italy;100,0000000000000
+2023;Caseificio Reggiano;Italy;66,8465992874803
+2023;La Vecchia Formaggeria;Italy;62,5132090170751
+2023;Casa del Parmigiano;Italy;74,0734159531031
+2023;Caseificio Aurora;Italy;64,7339215739058
+2023;Formaggi di Italia;Italy;58,8685299155881
+2023;Caseificio Margherita;Italy;87,9844477979269
+2023;Latteria Bella Vita;Italy;90,3476539446456
+2023;Caseificio San Marco;Italy;72,6116352661499
+2024;Caseificio Del Sole;Italy;84,6273472286797
+2024;Latteria di Toscana;Italy;79,0685481384682
+2024;Caseificio Reggiano;Italy;49,3504293588849
+2024;La Vecchia Formaggeria;Italy;42,9007585548054
+2024;Casa del Parmigiano;Italy;83,0101428524424
+2024;Caseificio Aurora;Italy;76,4755977144447
+2024;Formaggi di Italia;Italy;74,1038170432612
+2024;Caseificio Margherita;Italy;74,3119684885308
+2024;Latteria Bella Vita;Italy;63,9451516399100
+2024;Caseificio San Marco;Italy;100,0000000000000
+2003;Wisconsin Cheese Co.;USA;54,4334957361850
+2003;Great Lakes Dairy;USA;53,3803481670189
+2003;Midwest Creamery;USA;49,6888711061697
+2003;American Artisan Cheese;USA;66,5852530791338
+2003;Prairie Gold Dairy;USA;43,4581069092868
+2003;Liberty Cheese Works;USA;51,1307368182433
+2003;Heartland Creamery;USA;63,1546598926462
+2004;Wisconsin Cheese Co.;USA;45,9702744646617
+2004;Great Lakes Dairy;USA;37,6677592040626
+2004;Midwest Creamery;USA;49,7979447569621
+2004;American Artisan Cheese;USA;52,8550506178654
+2004;Prairie Gold Dairy;USA;69,3053334692732
+2004;Liberty Cheese Works;USA;68,9527502709796
+2004;Heartland Creamery;USA;64,4743605565701
+2005;Wisconsin Cheese Co.;USA;46,6605595221393
+2005;Great Lakes Dairy;USA;54,7472416955273
+2005;Midwest Creamery;USA;62,3199516584528
+2005;American Artisan Cheese;USA;62,3198019924709
+2005;Prairie Gold Dairy;USA;63,6841989577554
+2005;Liberty Cheese Works;USA;51,5629619506704
+2005;Heartland Creamery;USA;64,3872276852062
+2006;Wisconsin Cheese Co.;USA;54,0324348577767
+2006;Great Lakes Dairy;USA;51,5358437044631
+2006;Midwest Creamery;USA;47,8873549660715
+2006;American Artisan Cheese;USA;65,3298857656140
+2006;Prairie Gold Dairy;USA;42,5559664786649
+2006;Liberty Cheese Works;USA;65,0256502797062
+2006;Heartland Creamery;USA;46,5045753953890
+2007;Wisconsin Cheese Co.;USA;44,5192933743046
+2007;Great Lakes Dairy;USA;54,3563877182820
+2007;Midwest Creamery;USA;52,6615146118780
+2007;American Artisan Cheese;USA;72,8414326668101
+2007;Prairie Gold Dairy;USA;55,3994886925477
+2007;Liberty Cheese Works;USA;55,3586489470643
+2007;Heartland Creamery;USA;56,1642801826923
+2008;Wisconsin Cheese Co.;USA;56,8234532819427
+2008;Great Lakes Dairy;USA;66,2127815772857
+2008;Midwest Creamery;USA;64,4029377447639
+2008;American Artisan Cheese;USA;49,9325377481928
+2008;Prairie Gold Dairy;USA;55,8837557480811
+2008;Liberty Cheese Works;USA;59,2761160270524
+2008;Heartland Creamery;USA;52,7814104746872
+2009;Wisconsin Cheese Co.;USA;47,3423504955958
+2009;Great Lakes Dairy;USA;43,2688099572346
+2009;Midwest Creamery;USA;49,9508774878377
+2009;American Artisan Cheese;USA;47,4825859336983
+2009;Prairie Gold Dairy;USA;43,8218969528438
+2009;Liberty Cheese Works;USA;72,7793541388365
+2009;Heartland Creamery;USA;53,9487834885813
+2010;Wisconsin Cheese Co.;USA;47,0238500270965
+2010;Great Lakes Dairy;USA;46,3091138263259
+2010;Midwest Creamery;USA;65,0736860048589
+2010;American Artisan Cheese;USA;43,5866075662073
+2010;Prairie Gold Dairy;USA;70,1313989259272
+2010;Liberty Cheese Works;USA;43,5421904608138
+2010;Heartland Creamery;USA;49,9983617958856
+2011;Wisconsin Cheese Co.;USA;56,3943729694035
+2011;Great Lakes Dairy;USA;72,7533641973996
+2011;Midwest Creamery;USA;50,8311973713373
+2011;American Artisan Cheese;USA;51,5469885708426
+2011;Prairie Gold Dairy;USA;64,1488649418521
+2011;Liberty Cheese Works;USA;48,0102279588551
+2011;Heartland Creamery;USA;61,7275016965356
+2012;Wisconsin Cheese Co.;USA;57,4040790971847
+2012;Great Lakes Dairy;USA;63,1437652747601
+2012;Midwest Creamery;USA;41,7227724525029
+2012;American Artisan Cheese;USA;51,7536034955130
+2012;Prairie Gold Dairy;USA;60,9449552890855
+2012;Liberty Cheese Works;USA;68,9062833333601
+2012;Heartland Creamery;USA;57,3265313705485
+2013;Wisconsin Cheese Co.;USA;55,6829298377025
+2013;Great Lakes Dairy;USA;58,2644240591720
+2013;Midwest Creamery;USA;55,8705179342774
+2013;American Artisan Cheese;USA;71,0786004554419
+2013;Prairie Gold Dairy;USA;64,4964060690967
+2013;Liberty Cheese Works;USA;66,9302287578768
+2013;Heartland Creamery;USA;67,5458909346584
+2014;Wisconsin Cheese Co.;USA;62,0565357875657
+2014;Great Lakes Dairy;USA;46,4330513152534
+2014;Midwest Creamery;USA;63,7389611714490
+2014;American Artisan Cheese;USA;51,5557407451494
+2014;Prairie Gold Dairy;USA;46,3937120579165
+2014;Liberty Cheese Works;USA;60,7224570446041
+2014;Heartland Creamery;USA;47,9436540550110
+2015;Wisconsin Cheese Co.;USA;45,5338803173228
+2015;Great Lakes Dairy;USA;61,7948518893729
+2015;Midwest Creamery;USA;48,3991115836283
+2015;American Artisan Cheese;USA;50,9096473877522
+2015;Prairie Gold Dairy;USA;61,9929923224470
+2015;Liberty Cheese Works;USA;72,2898253166538
+2015;Heartland Creamery;USA;49,7337048111853
+2016;Wisconsin Cheese Co.;USA;55,0893096599181
+2016;Great Lakes Dairy;USA;56,8027672308224
+2016;Midwest Creamery;USA;53,7598301840841
+2016;American Artisan Cheese;USA;52,7711180123623
+2016;Prairie Gold Dairy;USA;84,7591587354373
+2016;Liberty Cheese Works;USA;40,8137602806555
+2016;Heartland Creamery;USA;49,5535968071934
+2017;Wisconsin Cheese Co.;USA;56,1774270936562
+2017;Great Lakes Dairy;USA;67,1471857956146
+2017;Midwest Creamery;USA;61,0510596728565
+2017;American Artisan Cheese;USA;43,3267204057877
+2017;Prairie Gold Dairy;USA;53,4257350799123
+2017;Liberty Cheese Works;USA;64,3510876022500
+2017;Heartland Creamery;USA;50,6697059439700
+2018;Wisconsin Cheese Co.;USA;55,9940875335802
+2018;Great Lakes Dairy;USA;49,3168544004218
+2018;Midwest Creamery;USA;62,1355028127563
+2018;American Artisan Cheese;USA;57,7414697034557
+2018;Prairie Gold Dairy;USA;53,0100540243415
+2018;Liberty Cheese Works;USA;49,8901565021856
+2018;Heartland Creamery;USA;57,3108411275880
+2019;Wisconsin Cheese Co.;USA;45,0072417463765
+2019;Great Lakes Dairy;USA;49,4431265782803
+2019;Midwest Creamery;USA;48,8387212207090
+2019;American Artisan Cheese;USA;57,4245974862892
+2019;Prairie Gold Dairy;USA;56,4337880476482
+2019;Liberty Cheese Works;USA;63,4782511965827
+2019;Heartland Creamery;USA;55,3350442019948
+2020;Wisconsin Cheese Co.;USA;53,6035806729595
+2020;Great Lakes Dairy;USA;56,8230338678291
+2020;Midwest Creamery;USA;56,0774266610353
+2020;American Artisan Cheese;USA;59,2844958097188
+2020;Prairie Gold Dairy;USA;57,1431965201747
+2020;Liberty Cheese Works;USA;58,0834442194924
+2020;Heartland Creamery;USA;53,5687583073145
+2021;Wisconsin Cheese Co.;USA;59,5984702766807
+2021;Great Lakes Dairy;USA;50,6404128285735
+2021;Midwest Creamery;USA;65,5713172021158
+2021;American Artisan Cheese;USA;63,5456667309793
+2021;Prairie Gold Dairy;USA;55,4757320004116
+2021;Liberty Cheese Works;USA;49,9206224293988
+2021;Heartland Creamery;USA;47,7285873831272
+2022;Wisconsin Cheese Co.;USA;58,7186684225266
+2022;Great Lakes Dairy;USA;61,3106950674526
+2022;Midwest Creamery;USA;60,2358737848463
+2022;American Artisan Cheese;USA;50,9781841570512
+2022;Prairie Gold Dairy;USA;73,9476616798271
+2022;Liberty Cheese Works;USA;47,9784643801377
+2022;Heartland Creamery;USA;50,0888393885698
+2023;Wisconsin Cheese Co.;USA;46,7602142479970
+2023;Great Lakes Dairy;USA;54,9636242118081
+2023;Midwest Creamery;USA;63,6293004794473
+2023;American Artisan Cheese;USA;36,7145333488544
+2023;Prairie Gold Dairy;USA;68,2964246453543
+2023;Liberty Cheese Works;USA;38,8575280527062
+2023;Heartland Creamery;USA;53,8524068383495
+2024;Wisconsin Cheese Co.;USA;69,3334583849017
+2024;Great Lakes Dairy;USA;46,5570727199971
+2024;Midwest Creamery;USA;49,9260733866998
+2024;American Artisan Cheese;USA;40,6897218406779
+2024;Prairie Gold Dairy;USA;53,9161064027709
+2024;Liberty Cheese Works;USA;43,5983954459788
+2024;Heartland Creamery;USA;48,4246613058788
