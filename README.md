@@ -18,4 +18,6 @@
 
 [Lecture 8 - Hypothesis Testing](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%208%20-%20Hypothesis%20testing/Slides.html)
 
+[Lecture 9 - Hypothesis Testing in Practice](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%209%20-%20Hypothesis%20testing%20in%20practice/Slides.html)
+
 
