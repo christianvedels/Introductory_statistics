@@ -22,4 +22,6 @@
 
 [Lecture 10 - ANOVA](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%2010%20-%20ANOVA/Slides.html#1)
 
+[Lecture 11 - chi squarred test](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%2011%20-%20Chi-squared%20test/Slides.html)
+
 
