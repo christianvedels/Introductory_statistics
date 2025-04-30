@@ -24,4 +24,6 @@
 
 [Lecture 11 - chi squarred test](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%2011%20-%20Chi-squared%20test/Slides.html)
 
+[Lecture 12 - Simple regression analysis](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%2012%20-%20Simple%20regression%20analysis/Slides.html)
+
 
