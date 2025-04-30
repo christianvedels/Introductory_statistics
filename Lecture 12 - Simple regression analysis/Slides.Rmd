@@ -127,7 +127,7 @@ class: middle
 .pull-left-wide[
 **Outline:**
 - Simple Regression: Model and Assumptions  
-- Statistics of fit ($R^2$ and $adj.\;R^2$)
+- Statistics of fit ($R^2$)
 - Hypothesis testing in regression models
 - Prediction versus inference
 - Hypothesis testing
@@ -479,26 +479,25 @@ class: middle
 ---
 class: middle
 
-# 6. Confidence & Prediction Intervals
+# 6. Confidence intervals: Inference vs. Prediction
 
 .pull-left[
-**Confidence Interval (mean response at $x_0$):**  
-- Captures uncertainty in estimating $\mathbb{E}[y\mid x_0]$.  
-- Narrower band, only reflects estimation error.
-
-**Prediction Interval (new observation at $x_0$):**  
-- Captures uncertainty in estimating a single future $y$.  
-- Wider band, includes both estimation error and residual variability.
+**Confidence Interval for the Slope**  
+- Inference about the true parameter $\beta_1$:  
+  $$CI_{\beta_1}: \hat\beta_1 \pm t_{\alpha/2,\,n-2}\;SE(\hat\beta_1)$$  
+- Where  
+  $$SE(\hat\beta_1) = \frac{s}{\sqrt{\sum_{i=1}^n (x_i - \bar x)^2}}$$  
+- Interprets how precisely we’ve estimated the effect of $x$ on $y$
 ]
 
 .pull-right[
-$$\hat y_0 = \hat\beta_0 + \hat\beta_1\,x_0$$
-
-$$CI: \hat y_0 \pm t_{\alpha/2,\,n-2}\;s\;\sqrt{\frac{1}{n} + \frac{(x_0 - \bar x)^2}{\sum (x_i - \bar x)^2}}$$
-
-$$PI: \hat y_0 \pm t_{\alpha/2,\,n-2}\;s\;\sqrt{1 + \frac{1}{n} + \frac{(x_0 - \bar x)^2}{\sum (x_i - \bar x)^2}}$$
+**Prediction Interval for a New Observation**  
+- Prediction of a future $y$ at $x_0$:  
+  $$PI: \hat y_0 \pm t_{\alpha/2,\,n-2}\;s\;\sqrt{\,1 \;+\;\frac{1}{n}\;+\;\frac{(x_0-\bar x)^2}{\sum_{i=1}^n (x_i-\bar x)^2}\,}$$  
+- Where  
+  $$\hat y_0 = \hat\beta_0 + \hat\beta_1\,x_0$$  
+- Reflects both uncertainty in estimating the line **and** the scatter of new points  
 ]
-
 
 ---
 class: middle
