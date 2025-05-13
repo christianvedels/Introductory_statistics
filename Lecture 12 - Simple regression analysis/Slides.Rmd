@@ -476,6 +476,33 @@ class: middle
 - Decision: $$5.21 > 2.57 \;\Rightarrow\; \text{reject }H_0$$
 ]
 
+```{r eval=FALSE, include=FALSE}
+# Example 
+slopes = c()
+for(i in 1:100){
+x = runif(10, 1, 10)
+y = 1*x+rnorm(10)
+
+slope = coef(lm(y~x))[2]
+
+data.frame(x=x, y=y) %>%
+  ggplot((aes(x, y))) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) + 
+  theme_minimal()
+
+cat("\nSample:\n")
+print(data.frame(x,y))
+
+cat("\nIn this sample beta_1 is estimated to be:", slope, "\n")
+slopes = c(slopes, slope)
+}
+
+hist(slopes)
+
+
+```
+
 ---
 class: middle
 
@@ -490,6 +517,8 @@ class: middle
 - Interprets how precisely we’ve estimated the effect of $x$ on $y$
 ]
 
+--
+
 .pull-right[
 **Prediction Interval for a New Observation**  
 - Prediction of a future $y$ at $x_0$:  
@@ -498,6 +527,26 @@ class: middle
   $$\hat y_0 = \hat\beta_0 + \hat\beta_1\,x_0$$  
 - Reflects both uncertainty in estimating the line **and** the scatter of new points  
 ]
+
+---
+# Prediction interval visual example
+```{r}
+library(tidyverse)
+set.seed(20)
+x = rnorm(100,0,10)
+y = 1 + 2*x + rnorm(100, 0, 20)
+
+data.frame(
+  x = x,
+  y = y
+) %>% 
+  ggplot(aes(x, y)) + 
+  geom_point() +
+  geom_smooth(method = "lm") + 
+  theme_minimal()
+
+```
+
 
 ---
 class: middle

@@ -1,0 +1,1 @@
+https://www.kaggle.com/datasets/carlmcbrideellis/data-anscombes-quartet
