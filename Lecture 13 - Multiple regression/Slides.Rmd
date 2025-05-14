@@ -128,7 +128,8 @@ class: middle
 **Outline:**
 - Multiple regression
 - Example 1: Heights of both parents and children heights
-- Example 2: Ice creams and drowning
+- Example 2: Education and income
+- Example 3: Ice creams and drowning
 ]
 
 .pull-right-narrow[
@@ -358,6 +359,9 @@ $+ \varepsilon_i$
 class: middle
 # Let us do multiple regression with the [Galton data](https://github.com/christianvedels/Introductory_statistics/raw/refs/heads/main/Lecture%2012%20-%20Simple%20regression%20analysis/Examples/Galton_data.xlsx)
 
+1. Simple and multiple prediction
+2. Predicting using the model
+
 ---
 class: middle
 
@@ -393,6 +397,34 @@ $$\hat y = \hat f(\mathbf{X}) = \hat\beta_0+\hat\beta_1x_1+\hat\beta_2x_2+\hat\b
 
 - .red[*It turns out that this also serves well for inference*]. 
 - Estimates of $\beta$'s reflect the relationship between $x$'s and $y$
+
+---
+# Two tasks
+*Differences in implementation*
+
+.pull-left[
+### Prediction
+
+*If we want the best prediction:*
+- Then we should include as many variables as possible
+- $R^2$ is important - it is a measure of predicitive performance
+- Consider splitting the data in 'training' and 'test' data to see performance in data that was not used in producing the model
+- Consider using more advanced machine learning methods
+
+
+]
+
+.pull-right[
+### Inference
+
+*If we want the best 'inference':*
+- Include the minimal number of variables
+- Only include variables, where we can clearly interpret the model
+- $R^2$ is not important. Don't look at it.
+
+
+
+]
 
 ---
 # (Note) *What if it is not linear?*
@@ -541,7 +573,7 @@ df0 %>% write_csv2("Examples/Educ_and_income.csv")
 
 .pull-right[
 
-### [Lets try]
+### [Lets try](https://github.com/christianvedels/Introductory_statistics/raw/refs/heads/main/Lecture%2013%20-%20Multiple%20regression/Examples/Educ_and_income.xlsx)
 
 - Notes: Which is the correct 'effect' of education on income? Why?
 
@@ -555,7 +587,7 @@ class: middle
 - We started the semester with this example
 - Now we have the tools to return to it
 - And also introduce: *Categorical variables* 
-- [Data can be found here]
+- [Data can be found here](https://github.com/christianvedels/Introductory_statistics/raw/refs/heads/main/Lecture%2013%20-%20Multiple%20regression/Examples/Ice_cream_kills.xlsx)
 
 
 ```{r eval=FALSE, include=FALSE}
@@ -601,7 +633,9 @@ fake_data %>% mutate_all(round, 2) %>% write_csv2("Examples/Ice_cream_kills.csv"
 ---
 class: middle
 
-# If time: Real estate regressions
+# If time: [Real estate regressions](https://www.kaggle.com/datasets/quantbruce/real-estate-price-prediction/data)
+
+From: https://www.kaggle.com/datasets/quantbruce/real-estate-price-prediction/data
 
 ```{r eval=FALSE, include=FALSE}
 library(tidyverse)
@@ -637,6 +671,55 @@ ma = df0 %>%
 ma %>% write_csv2("Examples/House_prices_MA/House_prices_MA.csv")
 
 ```
+
+---
+class: middle
+
+# Transformations
+
+.pull-left-wide[
+- If our model is not linear.
+  + Example 1: $y = \beta_0 + \beta_1 x_1 + beta_2 x_1^2 + \varepsilon$
+  + Example 2: $log(y) = \beta_0 + \beta_1 x_1 + \beta_1 x_2 + \varepsilon$
+
+- Then you can still estimate it with multiple regression. You just have to construct the variables accordingly:
+  + Example 1: You regress $y$ on $x_1$ and the square of $x_1$
+  + Example 2: You take the $log()$ of $y$ and regrss it on $x_1$ and $x_2$
+]
+  
+
+---
+class: middle
+
+# A reflection on science: A bit of practical advice
+
+.pull-left-wide[
+- If you play around with many variables then you will eventually find something
+- In this case it is very likely that what you have found is spurious
+
+#### Instead:
+1. Formulate a clear expectation (from e.g. theory) of your regression
+2. Then run the regression
+3. The more you tinker with it, the less you should trust your results
+
+.small123[.red[*The simpler model is often preferred*]]
+]
+
+
+
+---
+class: middle
+
+# Advanced notes
+
+.pull-left-wide[
+- In small samples normality is required - in large samples it does not matter
+  + This is a widespread misunderstanding - even in your book
+- Your model might not be linear
+- Heterescedasticity matters but you can adjust you standard errors to capture it
+  + Look up "Robust standard errors" or "White's standard errors"
+
+]
 
 
 ---
