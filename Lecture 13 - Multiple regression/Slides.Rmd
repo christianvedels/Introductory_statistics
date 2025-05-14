@@ -729,6 +729,7 @@ class: middle
 .pull-left[
 - Final lecture
 - [What do you want covered? https://forms.gle/ZqfRPTmX8uvWANEB8](https://forms.gle/ZqfRPTmX8uvWANEB8)
+
 ]
 
 .pull-right-narrow[
