@@ -26,4 +26,6 @@
 
 [Lecture 12 - Simple regression analysis](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%2012%20-%20Simple%20regression%20analysis/Slides.html)
 
+[Lecture 13 - Multiple regression](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%2013%20-%20Multiple%20regression/Slides.html#1)
+
 
