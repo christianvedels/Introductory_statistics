@@ -98,7 +98,8 @@ class: middle
 # Today's lecture
 .pull-left-wide[
 - Tying the 'knot' on what we have been doing here
-- An example of two from previous lectures based on your preference
+- Exam info
+- An example or two from previous lectures based on your preference
 ]
 
 
@@ -231,6 +232,19 @@ class: middle
 
 ---
 class: middle
+# Can we trust numbers?
+.pull-left-wide[
+- Generally: No
+- But there are degrees. 
+- A strict statistical analysis can provide valuable insights.
+- E.g. we can know whether painkillers work against headaches. 
+
+- **Point of this course:** To introduce you to the basic theoretical framework to evaluate whether you can trust a number or not. 
+]
+
+
+---
+class: middle
 
 # A nice tool
 .pull-left-wide[
@@ -238,6 +252,7 @@ class: middle
 - The arrows are the assumptions
 - It would have prevented the ice cream problem - and many others
 - Check: https://www.dagitty.net/dags.html#
+- It tells you what to be aware of based on your assumptions
 ]
 
 .pull-right-narrow[
@@ -252,75 +267,23 @@ class: middle
 
 ---
 class: middle
-# Can we trust numbers?
+
+# Exam 
 .pull-left-wide[
-- Generally: No
-- But there are degrees. 
-- A strict statistical analysis can provide valuable insights.
-- E.g. we can know whether painkillers work against headaches. 
-
-- **Point of this course:** To introduce you to the basic theoretical framework to evaluate whether you can trust a number or not. 
+- An exam is a communications exercise.
+  + If it is unclear to me, what you have done you might loose points
+  + **Implication:** Highlight results, structure your response
+- Strategy:
+  + Start by solving the problems you can solve
+- Formalities:
+  + 4 hours
+  + Open book - aids allowed - no communication
+  + Paper to be handed in a pdf
 ]
 
----
-class: middle
-# Why do we need statistics?  
-
-.pull-left-wide[
-- We need to study statistics, because it provides tools for generating new knowledge and evaluating the validity of existing claims. 
-- In turn this is part of providing you with one of the main takeaways from a university education: Tools to enable you to obtain new knowledge, scientifically and independently
-- Statistics is hard. But knowledge creation is generally hard. But also valuable. 
+.footnote[
+*Let's look at an [old exam](https://github.com/christianvedels/Introductory_statistics/blob/main/Lecture%2015%20-%20Final%20lecture/2024%2008%20BA%20Exam%20Statistics.pdf)
 ]
-
----
-class: center, middle
-### XKCD Comic
-
-![Correlation](https://imgs.xkcd.com/comics/correlation.png)  
-*Source: https://xkcd.com/552/*
-
----
-# What to expect
-.small123[
-- **Lectures is a cocktail of**
-  + 50 pct theory
-  + 50 pct practical examples
-- **Book:**
-  + Bowerman, O'Connell, Orries &amp; Porter "Essentials of Business Statistics", McGraw-Hill, latest edition. 
-  + Bøye "Statistics Companion" is supplementary
-- **Exam:**
-  + Written exam, 4 hours, all exam aids allowed, mo internet
-- **Course content:**
-  + Basic 'survival tools' for statistics
-- **Slides:**
-  + Might be available earlier. But only ready the night before the lecture. 
-  + Slides do not cover everything I say. Please bring a notepad and a pen.
-- **Course description:** Did I miss anything? 
-  + HA: https://odin.sdu.dk/sitecore/index.php?a=searchfagbesk&amp;bbcourseid=B105125401-1-E24&amp;lang=en 
-  + European Studies: https://odin.sdu.dk/sitecore/index.php?a=searchfagbesk&amp;bbcourseid=B300214401-1-F25&amp;lang=en
-]
-
-
----
-# Preperation
-.pull-left[
-- Read what is assigned 
-- Try to understand what is happening. Forgive yourself and move on if you don't
-- I will add notes from Niels Karl Sørensen (previous lecturer). They are good!
-- Please go off tangents. Tangents are the best - if not for this specific course.
-
-**Exercises:**
-- Almost the same exercises that have been used for years.
-- **The most important thing to attend**
-
-]
-
-.pull-right[
-![Desk](Figures/Desk.jpg)
-]
-
----
-# Course plan illustrated
 
 ---
 class: center, middle
@@ -329,165 +292,53 @@ class: center, middle
 
 ![Progression](Figures/Courese_progression.png)
 
-
 ---
-# Excel
-.pull-left-wide[
-- When I do statistics it typically looks like this:
+# What we have done
 
-``` r
-mod = lm(income ~ age + gender, data = df)
-mod %&gt;% summary()
-```
-
-]
---
-.pull-left-wide[
-#### But we will do something simpler
-- We use excel and the *Analysis Tool Pack*
-- Your TAs have some experience with this
-- Your lecturer (me) does not have much experience with this (but extensive excel experience). 
-- I will get up to speed. But listen to your TAs. They are smart :-)
-- Listen to me when it comes to theory
-]
-
----
-class: middle
-# Today's 'content'
-- Purpose and definition of statistics (already covered)
-- Data and data sources 
-- Population and samples 
-- Classification of scales
-
-
----
-# Data 
-.small123[*You probably know this. But it is still important to define terms. I will refer to these and expect you to know them.*]
+What should we spent more time on after the break? https://forms.gle/qBnnkt4VUL9oAv6k7
 
 .pull-left[
-- Data is a collection of structured information
-- Typically (and often good practice): 
-  + **Observations** (each row is an **entity**) and 
-  + **information** (each column is a **variable** containing information)
-]
+[Lecture 1 - Introduction](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%201%20-%20Introduction/Slides.html)  
 
---
-.pull-left[
-- **Observation**: Person, company, municipality, parish, country, etc. (these are refered to as 'entities') 
-- **Variable**: Information about that person
-]
+[Lecture 2 - Descriptive statistics I](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%202%20-%20Descriptive%20statistics/Slides.html)
 
---
-.pull-left[
-- **Information**: 120k (annual income), "female", 5 stars
-]
+[Lecture 3 - Descriptive statistics II](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%203%20-%20Descriptive%20statistics/Slides.html)
 
----
-# Example
+[Lecture 5 - Discrete Random Variables](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%205%20-%20Discrete%20Random%20Variables/Slides.html)
 
-| Observation     | Price | Location     | Size   | Building Rating |
-|-----------------|-------|--------------|--------|-----------------|
-| House 1         | 250k  | Suburb       | 120 sqm| A               |
-| House 2         | 350k  | City Center  | 80 sqm | C               |
-| House 3         | 450k  | Suburb       | 150 sqm| B               |
+[Lecture 6 - Continuous Random Variables](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%206%20-%20Continous%20Random%20Variables/Slides.html)
 
---
-.center[
-**What type of information can variables be?**
-]
+[Lecture 7 - Confidence Intervals](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%207%20-%20Confidence%20Intervals/Slides.html)
 
-
----
-# Types of variables
-.pull-left[
-### Quantiative variables 
-- Nominal scale:
-  + House price, income, years of education
-- Ordinal scale:
-  + Reviews (1, 2, ..., 5 stars),
-  + Bulding rating (A, B, C),
-  + etc.
-]
---
-.pull-right[
-### Qualitative variables
-- House color: "Red"
-- Location: "Suburban"
-- Tone of language: "Positive"
-
-**Note:** We can turn this into into something quantitative anyway. 
- + Dummy: Mark all "red" building with 1 and the rest with 0
- + Grouped statistics: Calculate the mean house price for each type of location
-
-]
-
----
-# Samples
-.pull-left[
-- We want to know something about the world
-- But we don't have data on all of it
-- We want to **infer** something about the **population** from a **sample** of it.
-
-- **Note 1:** Depending on what we measure, the idea of a 'population' might be abstract:
-  + Example 1: Average weight of newborn babies in 2024 `\(\rightarrow\)` Population: All babies in 2024
-  + Example 2: Company responses to a survey `\(\rightarrow\)` Population: This company? Similar companies?
-  
-- **Note 2:** We can only know something about the average for the population. Not the individuals (unless everyone is the same)
 ]
 
 .pull-right[
-![Sample](Figures/Sample.png)
-]
+[Lecture 8 - Hypothesis Testing](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%208%20-%20Hypothesis%20testing/Slides.html)
 
+[Lecture 9 - Hypothesis Testing in Practice](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%209%20-%20Hypothesis%20testing%20in%20practice/Slides.html)
 
----
-# Sampling in practice 
-.pull-left[
-- **Q**: Can you know something without asking everyone? 
-  + **A**: Sometimes. You will learn when/why (*Central Limit Theorem, Law of Large Numbers*)
-  + Note: Do you need to measure all apples to know what an apple weighs on average?
-- **Q**: What do we need to assume?
-  + Generally: The sample needs to be IID (independently identically distributed)
-  + But we can work with exceptions
-]
+[Lecture 10 - ANOVA](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%2010%20-%20ANOVA/Slides.html#1)
 
-.pull-right[
-.small123[https://x.com/LowKickLuke/status/1884450622868504890]
-.center[
-&lt;img src="Figures/Sampling_in_practice.png" alt="Greenland" width="350"/&gt;
-]
-]
+[Lecture 11 - chi squarred test](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%2011%20-%20Chi-squared%20test/Slides.html)
 
----
-# Different types of sources
+[Lecture 12 - Simple regression analysis](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%2012%20-%20Simple%20regression%20analysis/Slides.html)
 
-.pull-left[
-## 1. Primary
-### 1.a. Experimental
-- When you run an experiment and can control all the conditions
-- E.g. lab experiment
+[Lecture 13 - Multiple regression](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Lecture%2013%20-%20Multiple%20regression/Slides.html#1)
 
-### 1.b. Observational
-- When you observe the data and can control that 
-- E.g. survey data
-]
+*+ Video lecture to follow next week*
 
-.pull-right[
-## 2. Secondary (what we often work with)
-- Data just happens to exist for some reason
-- We use it to explore (social) scientific questions
-- E.g. Register data, public databases, *archival data*
 ]
 
 
 
 ---
-# Before next time
+# Conclusion
 .pull-left[
-- Have a look at the exercises (in class you will do the actual exercise)
-- Read the assigned reading
+- Here is some theory. The real world is different. I still hope it is useful
+- It's been a pleasure
+- Good luck out there
 
-- Next time: Descriptive statistics
+*Feel free to write me an email: christian-vs@sam.sdu.dk*
 ]
 
 
