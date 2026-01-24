@@ -1,1 +1,0 @@
-From: https://www.kaggle.com/datasets/quantbruce/real-estate-price-prediction/data
