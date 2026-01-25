@@ -1,0 +1,427 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options:
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistik
+## Forelæsning 10: Estimatorer for andre deskriptive mål
+
+### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Opdateret `r Sys.Date()`
+
+
+
+.footnote[
+.left[
+.small123[
+*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
+]
+]
+]
+
+
+---
+class: middle
+# Dagens forelæsning
+.pull-left-wide[
+**Emner:**
+
+- Estimator for variansen
+- Estimatorer for højere ordens momenter
+- Estimatorer for kovarians og korrelation
+- Estimation af en fordeling
+- Estimatorer for kvantiler
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Estimator for variansen
+
+---
+# Analogiprincippet
+
+--
+Vi konstruerede en estimator for middelværdien (stikprøvegennemsnittet) ved hjælp af analogiprincippet
+
+--
+
+Vi kan anvende samme princip til at konstruere en estimator for variansen
+
+--
+
+**Population:**
+$$Var(X) = \sum_{i=1}^N (x_i - \mu)^2 \cdot f_X(x_i)$$
+
+---
+# Estimator når $\mu$ er kendt
+
+--
+Antag vi kender $\mu$ i populationen
+
+--
+
+Erstat $f_X(x_i)$ med $1/n$:
+
+$$\tilde{S}^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2$$
+
+--
+
+Dette er en **forventningsret** estimator for $\sigma^2$
+
+---
+# Estimator når $\mu$ er ukendt
+
+--
+I praksis kender vi ikke $\mu$, så vi erstatter med $\bar{X}$:
+
+$$b^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2$$
+
+--
+
+Men denne estimator er **biased**:
+$$E(b^2) = \frac{n-1}{n} \cdot \sigma^2$$
+
+---
+# Stikprøvevariansen
+
+--
+For at få en forventningsret estimator justerer vi formlen:
+
+> **Stikprøvevariansen:**
+> $$S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2$$
+
+--
+
+**Bemærk:** Vi dividerer med $(n-1)$, ikke $n$!
+
+--
+
+Dette kaldes også "Bessels korrektion"
+
+---
+# Stikprøvestandardafvigelsen
+
+--
+Standardafvigelsen er kvadratroden af variansen
+
+--
+
+$$S = \sqrt{S^2}$$
+
+--
+
+**Advarsel:** $S$ er en *biased* estimator for $\sigma$!
+
+$$E(S) = E(\sqrt{S^2}) \neq \sqrt{E(S^2)} = \sigma$$
+
+--
+
+Men $S$ er stadig **konsistent**
+
+---
+# $\chi^2$-fordelingen
+
+--
+Fordelingen af $S^2$ kan udledes via $\chi^2$-fordelingen
+
+--
+
+Definer:
+$$Y = S^2 \cdot \frac{n-1}{\sigma^2}$$
+
+--
+
+I en tilstrækkelig stor stikprøve:
+$$Y \sim \chi^2(n-1)$$
+
+--
+
+$\chi^2$-fordelingen er *ikke* symmetrisk — den tager kun positive værdier
+
+---
+class: inverse, middle, center
+# Højere ordens momenter
+
+---
+# Det $k$-te centrerede moment
+
+--
+**Population:**
+$$m_k^* = E[(X - E(X))^k] = \sum_{i=1}^N (x_i - \mu)^k \cdot f_X(x_i)$$
+
+--
+
+**Stikprøve (analogiprincippet):**
+$$\hat{m}_k^* = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^k$$
+
+---
+# Skævhed (skewness)
+
+--
+Et skala-uafhængigt mål for asymmetri:
+
+--
+
+**Population:**
+$$\gamma_3 = \frac{m_3^*}{\sigma^3}$$
+
+--
+
+**Stikprøve:**
+$$\hat{\gamma}_3 = \frac{\hat{m}_3^*}{S^3}$$
+
+--
+
+For normalfordelingen: $\gamma_3 = 0$
+
+---
+# Kurtosis
+
+--
+Et mål for "spidshed" af fordelingen:
+
+--
+
+**Population:**
+$$\gamma_4 = \frac{m_4^*}{\sigma^4}$$
+
+--
+
+**Stikprøve:**
+$$\hat{\gamma}_4 = \frac{\hat{m}_4^*}{S^4}$$
+
+--
+
+For normalfordelingen: $\gamma_4 = 3$
+
+---
+class: inverse, middle, center
+# Kovarians og korrelation
+
+---
+# Stikprøvekovarians
+
+--
+**Population:**
+$$Cov(X,Y) = E[(X - \mu_X)(Y - \mu_Y)]$$
+
+--
+
+**Stikprøve:**
+$$\widehat{Cov}(X,Y) = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})$$
+
+---
+# Stikprøvekorrelation
+
+--
+**Population:**
+$$\rho(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var(X) \cdot Var(Y)}}$$
+
+--
+
+**Stikprøve:**
+$$\hat{\rho}(X,Y) = \frac{\widehat{Cov}(X,Y)}{\sqrt{S_X^2 \cdot S_Y^2}}$$
+
+--
+
+**Asymptotisk fordeling:**
+$$\hat{\rho}(X,Y) \overset{a}{\sim} \mathcal{N}\left(\rho, \frac{(1-\rho^2)^2}{n-2}\right)$$
+
+---
+class: inverse, middle, center
+# Estimation af en fordeling
+
+---
+# Empirisk fordelingsfunktion
+
+--
+Nogle gange er momenter ikke nok — vi vil estimere hele fordelingen
+
+--
+
+**Definition af CDF:**
+$$F_X(x) = P(X \leq x)$$
+
+--
+
+**Empirisk fordelingsfunktion:**
+$$\hat{F}_X(x) = \frac{\text{antal observationer med } x_i \leq x}{n}$$
+
+---
+# Egenskaber
+
+--
+For en simpel tilfældig stikprøve er $\hat{F}_X(x)$:
+
+--
+
+- **Forventningsret:** $E[\hat{F}_X(x)] = F_X(x)$
+
+--
+
+- **Konsistent**
+
+--
+
+- **Asymptotisk normal:**
+$$\hat{F}_X(x) \overset{a}{\sim} \mathcal{N}\left(F_X(x), \frac{F_X(x)[1-F_X(x)]}{n}\right)$$
+
+---
+class: inverse, middle, center
+# Estimatorer for kvantiler
+
+---
+# Estimerede kvantiler
+
+--
+Kvantiler defineres via CDF: $p$-kvantilen er værdien $q_p$ hvor CDF springer fra under $p$ til over $p$
+
+--
+
+Vi estimerer kvantiler via den empiriske fordelingsfunktion
+
+--
+
+**Eksempel:** Stikprøvemedianen er værdien hvor $\hat{F}_X(x)$ springer fra under 0.5 til over 0.5
+
+---
+# Ordensstatistik
+
+--
+> $X_{(k)}$ er den **$k$-te ordensstatistik**: den $k$-te mindste observation
+
+--
+
+**Estimator for $p$-kvantilen:**
+
+$$\hat{q}_p = \begin{cases} X_{(np+1)}, & \text{hvis } np \text{ ikke er heltal} \\ \frac{X_{(np)} + X_{(np+1)}}{2}, & \text{hvis } np \text{ er heltal} \end{cases}$$
+
+---
+# Stikprøvemedianen
+
+--
+$$\hat{q}_{0.5} = \begin{cases} X_{\left(\frac{n+1}{2}\right)}, & \text{hvis } n \text{ er ulige} \\ \frac{X_{\left(\frac{n}{2}\right)} + X_{\left(\frac{n}{2}+1\right)}}{2}, & \text{hvis } n \text{ er lige} \end{cases}$$
+
+---
+# Opsummering
+
+--
+.small123[
+| Mål | Population | Stikprøve |
+|-----|------------|-----------|
+| Varians | $\sigma^2$ | $S^2 = \frac{1}{n-1}\sum(X_i - \bar{X})^2$ |
+| Skævhed | $\gamma_3 = m_3^*/\sigma^3$ | $\hat{\gamma}_3 = \hat{m}_3^*/S^3$ |
+| Kurtosis | $\gamma_4 = m_4^*/\sigma^4$ | $\hat{\gamma}_4 = \hat{m}_4^*/S^4$ |
+| Kovarians | $Cov(X,Y)$ | $\widehat{Cov}(X,Y)$ |
+| Korrelation | $\rho$ | $\hat{\rho}$ |
+]
+
+---
+# Før næste gang
+
+.pull-left[
+**Læs:**
+- Kapitel 12 i lærebogen
+
+**Overvej:**
+- Hvorfor dividerer vi med $(n-1)$ i stikprøvevariansen?
+- Hvad fortæller skævhed og kurtosis os?
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

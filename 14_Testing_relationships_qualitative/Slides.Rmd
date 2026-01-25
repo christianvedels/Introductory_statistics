@@ -1,0 +1,342 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options:
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistik
+## Forelæsning 14: Test af sammenhænge (kvalitative data)
+
+### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Opdateret `r Sys.Date()`
+
+
+
+.footnote[
+.left[
+.small123[
+*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
+]
+]
+]
+
+
+---
+class: middle
+# Dagens forelæsning
+.pull-left-wide[
+**Emner:**
+
+- $\chi^2$-testen
+- Test af en fordeling
+- Test af uafhængighed
+- Test af homogenitet
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# $\chi^2$-testen
+
+---
+# Kvalitative data
+
+--
+Diskrete stokastiske variable opstår ved kvalitative data:
+
+--
+
+- Højeste uddannelsesniveau
+- Køn
+- Biltype (benzin, diesel, hybrid, el)
+
+--
+
+Vi vil teste om den observerede fordeling matcher en given fordeling
+
+---
+# Setup
+
+--
+Lad $X$ have $K$ kategorier: $x_1, x_2, \ldots, x_K$
+
+--
+
+Sandsynligheden for kategori $k$: $p_k = P(X = x_k)$
+
+--
+
+**Hypoteser:**
+$$H_0: p_1 = \pi_1, p_2 = \pi_2, \ldots, p_K = \pi_K$$
+$$H_1: \text{mindst én } p_k \neq \pi_k$$
+
+---
+# Hypotesemål
+
+--
+$$h(p_1, \ldots, p_K) = \sum_{k=1}^K (p_k - \pi_k)^2$$
+
+--
+
+**Estimator:** Lad $Z_k$ være antal observationer med værdi $x_k$
+
+$$\hat{p}_k = \frac{Z_k}{n}$$
+
+---
+# Teststatistik
+
+--
+$$\chi^2 = \sum_{k=1}^K \frac{(Z_k - n \cdot \pi_k)^2}{n \cdot \pi_k}$$
+
+--
+
+Under $H_0$: $\chi^2 \sim \chi^2(K-1)$
+
+--
+
+**Beslutningsregel:**
+- Forkast ikke $H_0$ hvis $\chi^2 \leq \chi^2_{1-\alpha}(K-1)$
+- Forkast $H_0$ hvis $\chi^2 > \chi^2_{1-\alpha}(K-1)$
+
+---
+class: inverse, middle, center
+# Test af en fordeling
+
+---
+# Kendt fordeling
+
+--
+**Eksempel: Er en terning fair?**
+
+--
+
+Teoretisk fordeling:
+$$\pi_1 = \pi_2 = \cdots = \pi_6 = \frac{1}{6}$$
+
+--
+
+Sammenlign observeret fordeling med teoretisk via $\chi^2$-test
+
+---
+# Ukendt parameter
+
+--
+Nogle gange kender vi fordelingens *form*, men ikke dens *parametre*
+
+--
+
+**Eksempel:** Binomialfordeling med kendt $n$, ukendt $p$
+
+--
+
+- Estimér $p$ fra stikprøven
+- Teststatistik følger $\chi^2(K-2)$ (mister én frihedsgrad)
+
+---
+class: inverse, middle, center
+# Test af uafhængighed
+
+---
+# Uafhængighed
+
+--
+To variable $X$ og $Y$ er uafhængige hvis:
+$$f(x,y) = f_X(x) \cdot f_Y(y)$$
+
+--
+
+**Hypoteser:**
+$$H_0: f(x,y) = f_X(x) \cdot f_Y(y) \text{ for alle } x, y$$
+$$H_1: f(x,y) \neq f_X(x) \cdot f_Y(y) \text{ for nogle } x, y$$
+
+---
+# Setup
+
+--
+- $X$ har $J$ værdier: $x_1, \ldots, x_J$
+- $Y$ har $L$ værdier: $y_1, \ldots, y_L$
+- $K = J \cdot L$ kategorier
+
+--
+
+Stikprøve: $((X_1, Y_1), (X_2, Y_2), \ldots, (X_n, Y_n))$
+
+---
+# Estimering af sandsynligheder
+
+--
+**Marginalfordelinger:**
+$$\hat{f}_X(x_j) = \frac{\text{antal med } X = x_j}{n}$$
+$$\hat{f}_Y(y_l) = \frac{\text{antal med } Y = y_l}{n}$$
+
+--
+
+**Simultanfordeling:**
+$$\hat{f}(x_j, y_l) = \frac{\text{antal med } X = x_j \text{ og } Y = y_l}{n}$$
+
+---
+# Teststatistik
+
+--
+$$\chi^2 = \sum_{j=1}^J \sum_{l=1}^L \frac{[Z_{jl} - n \cdot \hat{f}_X(x_j) \cdot \hat{f}_Y(y_l)]^2}{n \cdot \hat{f}_X(x_j) \cdot \hat{f}_Y(y_l)}$$
+
+--
+
+Under $H_0$: $\chi^2 \sim \chi^2((J-1)(L-1))$
+
+--
+
+**Frihedsgrader:**
+- Mister $(J-1)$ for at estimere $f_X$
+- Mister $(L-1)$ for at estimere $f_Y$
+
+---
+class: inverse, middle, center
+# Test af homogenitet
+
+---
+# Homogenitet
+
+--
+Er fordelingen af $X$ den samme på tværs af grupper?
+
+--
+
+**Eksempel:** Er aldersfordelingen ens for mænd og kvinder?
+
+--
+
+- $X$: Alder
+- $Y$: Køn (definerer grupper)
+
+---
+# Sammenhæng med uafhængighed
+
+--
+Hvis $f_{X|Y}(x|Y=1) = f_{X|Y}(x|Y=2)$ for alle $x$
+
+--
+
+$\Rightarrow$ $X$ og $Y$ er uafhængige!
+
+--
+
+**Konklusion:** Test af homogenitet = Test af uafhængighed
+
+---
+# Opsummering
+
+--
+| Test | Teststatistik | Frihedsgrader |
+|------|---------------|---------------|
+| Én fordeling | $\sum \frac{(Z_k - n\pi_k)^2}{n\pi_k}$ | $K - 1$ |
+| Ukendt parameter | $\sum \frac{(Z_k - n\hat{\pi}_k)^2}{n\hat{\pi}_k}$ | $K - 2$ |
+| Uafhængighed | $\sum\sum \frac{(O - E)^2}{E}$ | $(J-1)(L-1)$ |
+
+---
+# Før næste gang
+
+.pull-left[
+**Læs:**
+- Kapitel 16 i lærebogen
+
+**Overvej:**
+- Hvornår bruger vi $\chi^2$-testen?
+- Hvad er forskellen på test af uafhængighed og homogenitet?
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

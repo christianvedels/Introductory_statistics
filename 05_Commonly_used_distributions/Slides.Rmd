@@ -1,0 +1,625 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options:
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistik
+## Forelæsning 5: Almindeligt brugte fordelinger
+
+### Christian Vedel,<br>Department of Economics
+
+### Email: [christian-vs@sam.sdu.dk](christian-vs@sam.sdu.dk)
+
+### Opdateret `r Sys.Date()`
+
+
+
+.footnote[
+.left[
+.small123[
+*Kapitel 6 i "Probability and Statistics for Economists" af Bruce Hansen*
+]
+]
+]
+
+
+---
+class: middle
+# Dagens forelæsning
+.pull-left-wide[
+**Diskrete fordelinger:**
+- Bernoulli-fordelingen
+- Binomialfordelingen
+- Hypergeometrisk fordeling
+- Poisson-fordelingen
+
+**Kontinuerte fordelinger:**
+- Normalfordelingen
+
+**Fælles fordelinger:**
+- Multinomialfordelingen
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Bernoulli-fordelingen
+
+---
+# Bernoulli-population
+
+--
+> En **Bernoulli-population** er en population, der kun indeholder to typer elementer: *succeser* og *fiaskoer*.
+
+--
+
+**Eksempler:**
+- Møntkast: "plat" og "krone"
+- "Stemte du ved sidste valg?": "ja" og "nej"
+
+--
+
+Da der kun er to mulige udfald:
+- Lad $p$ være sandsynligheden for succes
+- Lad $(1-p)$ være sandsynligheden for fiasko
+
+---
+# Bernoulli-fordelingen
+
+--
+Lad $X$ beskrive, om resultatet af eksperimentet er succes eller fiasko
+
+--
+
+> $X$ følger en **Bernoulli-fordeling** med parameter $p$:
+> $$X \sim Bernoulli(p) \text{ eller } X \sim Ber(p)$$
+
+--
+
+**Konvention:**
+- $X = 1$ repræsenterer succes (f.eks. "plat", "ja")
+- $X = 0$ repræsenterer fiasko (f.eks. "krone", "nej")
+
+--
+
+**Sandsynlighedsfunktion:**
+$$f(0) = 1 - p \qquad f(1) = p$$
+
+---
+# Bernoulli: Momenter
+
+--
+Det kan let vises at:
+
+$$E(X) = 1 \cdot p + 0 \cdot (1-p) = p$$
+
+--
+
+$$E(X^2) = 1^2 \cdot p + 0^2 \cdot (1-p) = p$$
+
+--
+
+$$Var(X) = E(X^2) - [E(X)]^2 = p - p^2 = p(1-p)$$
+
+---
+class: inverse, middle, center
+# Binomialfordelingen
+
+---
+# Binomialfordelingen: Motivation
+
+--
+Betragt eksperimentet: Du kaster en mønt 5 gange og vil vide, hvor mange gange "plat" vises
+
+--
+
+- Hver møntkast er en Bernoulli-variabel
+- Men hvad er resultatet af hele eksperimentet?
+
+--
+
+> **Binomialfordelingen** opstår, når du trækker uafhængigt et givet antal gange fra en Bernoulli-population og tæller antallet af succeser
+
+--
+
+**To parametre:**
+- $p$: Sandsynligheden for succes i hver trækning
+- $n$: Antallet af træk
+
+---
+# Binomialfordelingen
+
+--
+Lad $Y$ være antallet af succeser i eksperimentet
+
+> $Y$ følger en **binomialfordeling** med parametre $n$ og $p$:
+> $$Y \sim Bin(n, p)$$
+
+--
+
+$Y$ er en diskret stokastisk variabel, der kan tage $(n+1)$ værdier: $0, 1, 2, \ldots, n$
+
+--
+
+**Relation til Bernoulli:**
+
+Lad $X_i$ være den $i$-te trækning (Bernoulli med parameter $p$). Da er:
+$$Y = X_1 + X_2 + \ldots + X_n = \sum_{i=1}^n X_i$$
+
+---
+# Binomialkoefficienten
+
+--
+For at finde sandsynlighedsfunktionen skal vi vide, hvor mange kombinationer der giver $k$ succeser
+
+--
+
+> **Binomialkoefficienten** giver antallet af kombinationer af $k$ succeser ud af $n$ elementer:
+> $${n \choose k} = \frac{n!}{k!(n-k)!}$$
+> hvor $n! = 1 \cdot 2 \cdot \ldots \cdot n$
+
+--
+
+**Eksempel:** Antal kombinationer med 2 succeser ud af 5 træk:
+$${5 \choose 2} = \frac{5!}{2! \cdot 3!} = \frac{120}{2 \cdot 6} = 10$$
+
+---
+# Binomial: Sandsynlighedsfunktion
+
+--
+Sandsynligheden for $k$ succeser i $n$ træk:
+
+$$f(k) = {n \choose k} \cdot p^k \cdot (1-p)^{n-k}$$
+
+--
+
+**Eksempel:** Sandsynligheden for 3 plat i 5 møntkast $(p = 0.5)$:
+
+$$f(3) = {5 \choose 3} \cdot 0.5^3 \cdot 0.5^2 = 10 \cdot 0.125 \cdot 0.25 = 0.3125$$
+
+---
+# Binomial: Momenter
+
+--
+Da $Y$ er summen af uafhængige Bernoulli-variable:
+
+$$E(Y) = np$$
+
+$$Var(Y) = np(1-p)$$
+
+--
+
+**Eksempel:** 5 møntkast $(n=5, p=0.5)$:
+- $E(Y) = 5 \cdot 0.5 = 2.5$
+- $Var(Y) = 5 \cdot 0.5 \cdot 0.5 = 1.25$
+
+---
+class: inverse, middle, center
+# Hypergeometrisk fordeling
+
+---
+# Med eller uden tilbagelægning
+
+--
+I binomialfordelingen er hver trækning uafhængig (sampling *med* tilbagelægning)
+
+--
+
+**Eksempel med urne:**
+- Blå kugler (succes) og røde kugler (fiasko)
+- Ved tilbagelægning: Sandsynligheden for blå er den samme i hver trækning
+
+--
+
+**Men hvad hvis vi *ikke* lægger tilbage?**
+- Sandsynligheden for blå ændres mellem træk
+- Trækningerne er *ikke* uafhængige
+
+---
+# Hypergeometrisk fordeling
+
+--
+> **Hypergeometrisk fordeling**: Antal succeser ved trækning *uden* tilbagelægning
+
+--
+
+**Tre parametre:**
+- $n$: Antal træk
+- $M$: Antal succeser i populationen
+- $N$: Totalt antal elementer i populationen $(N \geq n)$
+
+--
+
+> $Y$ følger en hypergeometrisk fordeling:
+> $$Y \sim Hyp(n, M, N)$$
+
+---
+# Hypergeometrisk: Sandsynlighedsfunktion
+
+--
+**Eksempel:** Urne med 10 kugler $(N=10)$, 4 blå $(M=4)$, træk 3 $(n=3)$
+
+Sandsynlighed for 2 blå kugler:
+
+$$P(Y=2) = \frac{{4 \choose 2} \cdot {6 \choose 1}}{{10 \choose 3}} = \frac{6 \cdot 6}{120} = 0.3$$
+
+--
+
+**Generelt:**
+$$f(k) = \frac{{M \choose k} \cdot {N-M \choose n-k}}{{N \choose n}}$$
+
+---
+# Hypergeometrisk: Momenter
+
+--
+$$E(Y) = \frac{nM}{N}$$
+
+$$Var(Y) = n \cdot \frac{M}{N} \cdot \frac{N-M}{N} \cdot \frac{N-n}{N-1}$$
+
+--
+
+Bemærk: Når $N$ er meget stor i forhold til $n$, nærmer hypergeometrisk sig binomial
+
+---
+class: inverse, middle, center
+# Poisson-fordelingen
+
+---
+# Motivation for Poisson
+
+--
+Binomial og hypergeometrisk spørger: "Hvor mange succeser i $n$ træk?"
+
+--
+
+Alternativt spørgsmål: "Hvor mange succeser i en *tidsenhed*?"
+
+--
+
+**Eksempel:**
+- "Hvor mange gange gik du til lægen i år?"
+- Vi kunne dele året op i måneder, uger, dage, timer...
+- Men personen kan gå til lægen mere end én gang per interval
+
+--
+
+$\Rightarrow$ Vi ønsker tidsintervallet så lille som muligt $(\Delta t \rightarrow 0)$
+
+$\Rightarrow$ **Poisson-fordelingen**
+
+---
+# Poisson-fordelingen
+
+--
+> **Poisson-fordelingen** giver antallet af succeser, når vi *kontinuerligt* trækker fra en Bernoulli-population i en given periode
+
+--
+
+**Tre betingelser:**
+1. Antal succeser i hvert tidsinterval er uafhængigt
+2. Sandsynligheden for et givet antal succeser er den samme i alle intervaller af samme længde
+3. Sandsynligheden for mere end én succes i et meget kort interval er nul
+
+--
+
+> $Y$ følger en Poisson-fordeling med parameter $\lambda$:
+> $$Y \sim Poisson(\lambda)$$
+
+---
+# Poisson: Sandsynlighedsfunktion
+
+--
+$$f(k) = \frac{\lambda^k e^{-\lambda}}{k!}$$
+
+--
+
+hvor $\lambda$ er den forventede værdi af $Y$
+
+--
+
+**Bemærk:**
+- $Y$ kan tage uendeligt mange værdier $(0, 1, 2, 3, \ldots)$
+- Men det er en *tællelig* uendelighed $\Rightarrow$ diskret variabel
+
+---
+# Poisson: Momenter
+
+--
+En interessant egenskab ved Poisson-fordelingen:
+
+$$E(Y) = \lambda$$
+
+$$Var(Y) = \lambda$$
+
+--
+
+Middelværdi og varians er begge lig $\lambda$!
+
+--
+
+Dette er ikke altid realistisk — der findes generaliseringer af Poisson, hvor $E(Y) \neq Var(Y)$
+
+---
+class: inverse, middle, center
+# Normalfordelingen
+
+---
+# Normalfordelingen
+
+--
+Alle fordelinger indtil nu var diskrete
+
+--
+
+Ofte har vi brug for at modellere populationer med *utælleligt* mange værdier
+
+--
+
+> **Normalfordelingen** er en af de mest populære *kontinuerte* fordelinger
+
+--
+
+- Kaldes "normal" fordi den beskriver mange naturlige fænomener
+- Kendt for "klokkekurven"
+- Meget vigtig fordi mange statistiske mål følger normalfordelingen
+
+---
+# Normalfordelingen: Definition
+
+--
+Normalfordelingen er defineret over hele $\mathbb{R}$ og afhænger af to parametre:
+- Middelværdi $\mu$
+- Varians $\sigma^2$
+
+--
+
+> $Y$ er normalfordelt:
+> $$Y \sim \mathcal{N}(\mu, \sigma^2)$$
+
+--
+
+**Tæthedsfunktion:**
+$$f(y) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(y-\mu)^2}{2\sigma^2}}$$
+
+---
+# Standardnormalfordelingen
+
+--
+> **Standardnormalfordelingen** har middelværdi 0 og varians 1:
+> $$Z \sim \mathcal{N}(0, 1)$$
+
+--
+
+Speciel notation for CDF og PDF:
+$$F(z) = \Phi(z) \qquad f(z) = \phi(z) = \frac{1}{\sqrt{2\pi}} e^{-\frac{z^2}{2}}$$
+
+--
+
+Værdierne af $\Phi(z)$ er tabuleret i de fleste statistikbøger
+
+---
+# Standardisering
+
+--
+> Lad $Y$ have middelværdi $\mu$ og varians $\sigma^2$. $Y$ **standardiseres** ved:
+> $$Z = \frac{Y - \mu}{\sigma}$$
+
+--
+
+**Vigtig egenskab:**
+
+Hvis $Y \sim \mathcal{N}(\mu, \sigma^2)$, så er $Z \sim \mathcal{N}(0, 1)$
+
+---
+# Egenskaber for normalfordelingen
+
+--
+Lad $Y \sim \mathcal{N}(\mu, \sigma^2)$. Da gælder:
+
+--
+
+$$P(Y \leq a) = \Phi\left(\frac{a - \mu}{\sigma}\right)$$
+
+--
+
+$$P(Y \geq a) = 1 - \Phi\left(\frac{a - \mu}{\sigma}\right)$$
+
+--
+
+$$P(b \leq Y \leq a) = \Phi\left(\frac{a - \mu}{\sigma}\right) - \Phi\left(\frac{b - \mu}{\sigma}\right)$$
+
+--
+
+**Symmetri:** $\Phi(-a) = 1 - \Phi(a)$
+
+---
+class: inverse, middle, center
+# Multinomialfordelingen
+
+---
+# Motivation for multinomial
+
+--
+Binomialfordelingen: to mulige udfald ("succes"/"fiasko")
+
+--
+
+Hvad hvis der er *mere* end to udfald?
+
+--
+
+**Eksempel:** "Vil du stemme ved næste valg?"
+- "Ja"
+- "Nej"
+- "Ved ikke"
+
+--
+
+Hvis vi er interesserede i antallet af svar i *alle* kategorier, kan vi ikke bruge binomialfordelingen
+
+---
+# Multinomialfordelingen
+
+--
+Vi kan "splitte" problemet:
+- Lad $Y_1$ = antal "ja"-svar
+- Lad $Y_2$ = antal "nej"-svar
+- Lad $Y_3$ = antal "ved ikke"-svar
+
+--
+
+Hver $Y_i$ er binomialfordelt individuelt
+
+--
+
+> **Multinomialfordelingen** er den *simultane* fordeling af $(Y_1, Y_2, \ldots, Y_m)$
+
+$$\Rightarrow$$ Generalisering af binomialfordelingen til mere end to udfald
+
+---
+# Multinomialkoefficient
+
+--
+Antal kombinationer af $k_1$ af udfald 1, $k_2$ af udfald 2, ..., $k_m$ af udfald $m$:
+
+$${n \choose k_1, k_2, \ldots, k_m} = \frac{n!}{k_1! \cdot k_2! \cdot \ldots \cdot k_m!}$$
+
+--
+
+hvor $k_1 + k_2 + \ldots + k_m = n$
+
+---
+# Multinomial: Sandsynlighedsfunktion
+
+--
+$$(Y_1, Y_2, \ldots, Y_m) \sim M(n, p_1, p_2, \ldots, p_m)$$
+
+--
+
+$$f(k_1, k_2, \ldots, k_m) = {n \choose k_1, k_2, \ldots, k_m} \cdot p_1^{k_1} \cdot p_2^{k_2} \cdot \ldots \cdot p_m^{k_m}$$
+
+--
+
+**Momenter for hver variabel:**
+- $E(Y_i) = np_i$
+- $Var(Y_i) = np_i(1-p_i)$
+
+---
+# Opsummering
+
+--
+.small123[
+| Fordeling | Type | Parametre | $E(X)$ | $Var(X)$ |
+|-----------|------|-----------|--------|----------|
+| Bernoulli | Diskret | $p$ | $p$ | $p(1-p)$ |
+| Binomial | Diskret | $n, p$ | $np$ | $np(1-p)$ |
+| Hypergeometrisk | Diskret | $n, M, N$ | $\frac{nM}{N}$ | $n\frac{M}{N}\frac{N-M}{N}\frac{N-n}{N-1}$ |
+| Poisson | Diskret | $\lambda$ | $\lambda$ | $\lambda$ |
+| Normal | Kontinuert | $\mu, \sigma^2$ | $\mu$ | $\sigma^2$ |
+]
+
+---
+# Før næste gang
+
+.pull-left[
+**Læs:**
+- Kapitel 6 i lærebogen
+
+**Overvej:**
+- Hvornår bruger man hvilken fordeling?
+- Hvad er forskellen på binomial og hypergeometrisk?
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

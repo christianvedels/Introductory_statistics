@@ -1,0 +1,588 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options:
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistik
+## Forelæsning 7: Stikprøveprocessen
+
+### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Opdateret `r Sys.Date()`
+
+
+
+.footnote[
+.left[
+.small123[
+*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
+]
+]
+]
+
+
+---
+class: middle
+# Dagens forelæsning
+.pull-left-wide[
+**Emner:**
+
+- Deduktiv og induktiv slutning
+- Design af stikprøveprocessen
+- Stikprøvemetoder
+- Repræsentative stikprøver
+- Fejlkilder i stikprøveprocessen
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Deduktiv og induktiv slutning
+
+---
+# Deduktiv slutning
+
+--
+Indtil nu har vi antaget, at stokastiske variable repræsenterer populationer med *kendte* fordelinger
+
+--
+
+- Fordelingen af den stokastiske variabel var den samme som fordelingen i populationen
+
+--
+
+- Dette tillod os at beregne momenter (middelværdi, varians) og sandsynligheder
+
+--
+
+> **Deduktiv slutning:** At gå fra det generelle (population) til det specifikke (stikprøve)
+
+---
+# Induktiv slutning
+
+--
+Nu vender vi processen om!
+
+--
+
+- Vi vil lære noget om populationen og/eller udvælgelsesmekanismen *fra* en stikprøve
+
+--
+
+> **Induktiv slutning:** At gå fra det specifikke (stikprøve) til det generelle (population)
+
+--
+
+Den viden vi opnår, kan bruges til at lave **forudsigelser** om fremtidige stikprøver
+
+---
+# Statistisk inferens
+
+--
+> Hovedmålet med **statistisk inferens** er at opnå viden om en ukendt fordeling (f.eks. indkomstfordelingen)
+
+--
+
+- Det er normalt ikke muligt at undersøge hele populationen
+
+--
+
+- Derfor er vi afhængige af en stikprøve
+
+--
+
+- Kvaliteten af stikprøven er ekstremt vigtig: "garbage in, garbage out"
+
+---
+class: inverse, middle, center
+# Design af stikprøveprocessen
+
+---
+# Fire vigtige aspekter
+
+--
+Når man designer en stikprøveproces, skal man overveje:
+
+--
+
+1. **Population og karakteristika:** Valg af population og interesseområder
+
+--
+
+2. **Stikprøveenheder og -ramme:** Specifikation af enheder og hvordan de findes
+
+--
+
+3. **Stikprøvemetode:** Hvordan enhederne udvælges
+
+--
+
+4. **Måling:** Hvordan karakteristika måles
+
+---
+# Valg af population
+
+--
+Normalt bestemmes valget af population og karakteristika af undersøgelsens formål
+
+--
+
+**Praktiske udfordringer:**
+
+--
+
+- Etiske begrænsninger (f.eks. test af skadelige stoffer på mennesker)
+
+--
+
+- Omkostninger (stikprøve fra underpopulation og generalisering)
+
+--
+
+> **Målpopulation:** Den population, vi er interesserede i
+>
+> **Population:** Den population, der faktisk studeres
+
+---
+# Karakteristika af interesse
+
+--
+Specifikation af interesseområder kan være vanskelig
+
+--
+
+**Eksempel:** Vi vil studere skolers kvalitet
+- Måles gennem testscorer
+- Men elever har forskellige færdigheder i forvejen
+- Hvad er "færdigheder"? IQ? Koncentrationsevne?
+
+--
+
+Statistisk teori kan ikke hjælpe her — forskere må bruge faglig viden til at begrunde valget
+
+---
+# Stikprøveenheder
+
+--
+> **Stikprøveenheder:** De elementer fra populationen, vi udtrækker
+
+--
+
+- Ofte er enhederne bare elementer (f.eks. individer)
+- Men ikke altid (f.eks. husstande som enheder, individer som interesse)
+
+--
+
+Det er ofte billigere at vælge flere enheder sammen (f.eks. en skole, en husstand)
+
+---
+# Stikprøveramme
+
+--
+> **Stikprøveramme:** En måde at liste alle mulige stikprøveenheder og hvordan de kan kontaktes
+
+--
+
+**Eksempler på kontaktoplysninger:**
+- Postadresser
+- Telefonnumre
+- Email-adresser
+- Tilstedeværelse på et bestemt tidspunkt og sted
+
+---
+class: inverse, middle, center
+# Stikprøvemetoder
+
+---
+# To kategorier
+
+--
+.pull-left[
+### Sandsynlighedsudvælgelse
+- Sandsynligheden for at vælge hver enhed er **kendt**
+- Muliggør vurdering af undersøgelsens kvalitet
+- Giver et "sandt" billede af populationen
+]
+
+--
+
+.pull-right[
+### Ikke-sandsynlighedsudvælgelse
+- Sandsynligheden for at vælge hver enhed er **ukendt**
+- Umuligt at vurdere kvaliteten
+- Bruges ofte pga. omkostninger eller praktiske begrænsninger
+]
+
+---
+# Ikke-sandsynlighedsudvælgelse
+
+--
+**Fire eksempler:**
+
+--
+
+1. **Bekvemmelighedsudvælgelse:** Vælges ud fra lethed (f.eks. interview i indkøbscenter)
+
+--
+
+2. **Formålsudvælgelse:** Forskeren identificerer hvem der studeres (f.eks. eksperter)
+
+--
+
+3. **Kvoteudvælgelse:** Bestemte andele af visse grupper (f.eks. minoriteter)
+
+--
+
+4. **Sneboldsudvælgelse:** Udvalgte enheder bruges til at finde nye (f.eks. illegale spillere)
+
+---
+# Måling af karakteristika
+
+--
+.pull-left[
+### Observation
+- Forskeren observerer og registrerer
+- Vigtigt ikke at påvirke adfærd
+- Eksempel: Kliniske studier
+]
+
+--
+
+.pull-right[
+### Selvrapportering
+- Elementet måler selv sine karakteristika
+- Spørgsmål om vilje og nøjagtighed
+- To typer information:
+  - *Revealed preference* (tidligere adfærd)
+  - *Stated preference* (planlagt fremtidig adfærd)
+]
+
+---
+# Reliabilitet og validitet
+
+--
+> **Reliabilitet:** Evnen til at gentage stikprøveudvælgelsen og opnå lignende resultater
+
+--
+
+> **Validitet:** Resultaterne repræsenterer det, undersøgelsen har til formål at studere
+
+---
+class: inverse, middle, center
+# Stikprøver og tilfældighed
+
+---
+# Stikprøve
+
+--
+Fra nu af antager vi sandsynlighedsudvælgelse
+
+--
+
+Lad $X_i$ være den stokastiske variabel, der repræsenterer værdien af karakteristikken for element $i$
+
+--
+
+> En **stikprøve** med $n$ elementer kan repræsenteres ved $n$ stokastiske variable:
+> $$(X_1, X_2, \ldots, X_n)$$
+
+--
+
+> En **realiseret stikprøve** består af de faktiske værdier:
+> $$(x_1, x_2, \ldots, x_n)$$
+
+---
+# Stikprøvefordeling
+
+--
+> **Stikprøvefordelingen** er den simultane fordeling af $(X_1, X_2, \ldots, X_n)$
+
+--
+
+$$f(x_1, x_2, \ldots, x_n)$$
+
+--
+
+- Sandsynlighedsfunktion, hvis $X_i$ er diskrete
+- Tæthedsfunktion, hvis $X_i$ er kontinuerte
+
+---
+# Udvælgelseskarakteristik
+
+--
+I praksis udvælges en stikprøve baseret på en *anden* karakteristik end den, vi vil studere
+
+--
+
+Lad $Z_i$ være **udvælgelseskarakteristikken** (f.eks. CPR-nummer)
+
+--
+
+**Eksempel:**
+- Vi vil udvælge 5.000 personer baseret på CPR-nummer
+- For ethvert CPR-nummer $z$: $f_{Z_i}(z) = \frac{1}{5.000} = 0,0002$
+
+---
+class: inverse, middle, center
+# Repræsentative stikprøver
+
+---
+# Definition
+
+--
+Vi ønsker et "sandt" billede af populationen
+
+--
+
+> En stikprøve er **repræsentativ** for $X$, hvis marginalfordelingen af $X_i$ er lig med den relative frekvens af $X$ i populationen:
+> $$f_{X_i}(x) = f_X(x) \text{ for alle } i = 1, 2, \ldots, n$$
+
+---
+# Betingelser for repræsentativitet
+
+--
+Marginalfordelingen af $X_i$ er:
+$$f_{X_i}(x) = \sum_z f_{X_i|Z_i}(x|z) \cdot f_{Z_i}(z)$$
+
+--
+
+Stikprøven er repræsentativ, hvis:
+
+1. $f_{Z_i}(z) = f_Z(z)$ (udvælgelsessandsynlighed = andel i population)
+
+2. $f_{X_i|Z_i}(x|z) = f_{X|Z}(x|z)$ (betinget fordeling matcher)
+
+--
+
+**Undtagelse:** Hvis $X$ og $Z$ er uafhængige, kan stikprøven stadig være repræsentativ selvom $f_{Z_i}(z) \neq f_Z(z)$
+
+---
+class: inverse, middle, center
+# Fejlkilder i stikprøveprocessen
+
+---
+# Tre hovedkilder
+
+--
+1. **Fejl i stikprøverammen:** Dele af populationen udelades
+
+--
+
+2. **Non-response:** Ikke alle kan eller vil deltage
+
+--
+
+3. **Selv-selektion:** Individers adfærd påvirker sandsynligheden for udvælgelse
+
+---
+# Fejl i stikprøverammen
+
+--
+**Eksempel:** Vi vil undersøge interesse for hybridbiler
+
+--
+
+- Vi interviewer besøgende på en bilmesse
+- Men besøgende på bilmesser er mere interesserede i "showbiler"
+- Sandsynligheden for at foretrække hybridbil og besøge messen er ikke uafhængige
+
+--
+
+$\Rightarrow$ Ikke-repræsentativ stikprøve
+
+---
+# Non-response
+
+--
+> **Non-respondenter:** Individer der ikke kan eller vil deltage
+
+--
+
+**Årsager:**
+- Følsomme spørgsmål (indkomst, seksuel orientering)
+- Tid til at besvare
+- Generel holdning til undersøgelser
+
+--
+
+Hvis sandsynligheden for non-response er korreleret med interessekarakteristikken $\Rightarrow$ ikke-repræsentativ stikprøve
+
+---
+# Selv-selektion
+
+--
+> **Selv-selektion:** En persons adfærd påvirker sandsynligheden for at blive udvalgt
+
+--
+
+**Eksempel:** Lønfordeling i populationen
+- Vi kan kun udtrække fra folk, der arbejder
+- Men mange arbejder ikke, fordi lønnen ville være for lav
+- Deres adfærd bestemmer sandsynligheden for udvælgelse (nul)
+
+---
+class: inverse, middle, center
+# Observationsfejl
+
+---
+# Typer af observationsfejl
+
+--
+> **Observationsfejl:** Den faktiske værdi afviger fra den målte værdi
+
+--
+
+.pull-left[
+**Responsefejl:**
+- Spørgsmålsfejl
+- Interviewerfejl
+- Registrerings-/kodningsfejl
+]
+
+.pull-right[
+**Målefejl:**
+- Vanskeligheder ved præcis måling
+]
+
+---
+# Model for observationsfejl
+
+--
+Lad $X^*$ være den "sande" værdi og $\epsilon$ være fejlen:
+
+$$X = X^* + \epsilon$$
+
+--
+
+**Hvis $E(\epsilon) = 0$:**
+$$E(X) = E(X^*) + E(\epsilon) = E(X^*)$$
+
+Middelværdien påvirkes ikke!
+
+--
+
+**Variansen påvirkes altid** (antag $Cov(X^*, \epsilon) = 0$):
+$$Var(X) = Var(X^*) + Var(\epsilon) \geq Var(X^*)$$
+
+---
+# Opsummering
+
+--
+.small123[
+| Aspekt | Nøglebegreber |
+|--------|---------------|
+| **Slutning** | Deduktiv (population → stikprøve) vs. Induktiv (stikprøve → population) |
+| **Design** | Population, stikprøveenheder, stikprøveramme, stikprøvemetode, måling |
+| **Metoder** | Sandsynlighed vs. ikke-sandsynlighed |
+| **Repræsentativitet** | $f_{X_i}(x) = f_X(x)$ |
+| **Fejlkilder** | Stikprøveramme, non-response, selv-selektion |
+| **Observationsfejl** | $X = X^* + \epsilon$ |
+]
+
+---
+# Før næste gang
+
+.pull-left[
+**Læs:**
+- Kapitel 9 i lærebogen
+
+**Overvej:**
+- Hvornår er en stikprøve repræsentativ?
+- Hvordan påvirker non-response resultaterne?
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

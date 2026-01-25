@@ -1,0 +1,673 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options:
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistik
+## Forelæsning 2: Usikkerhed og sandsynlighed
+
+### Christian Vedel,<br>Department of Economics
+
+### Email: [christian-vs@sam.sdu.dk](christian-vs@sam.sdu.dk)
+
+### Opdateret `r Sys.Date()`
+
+
+
+.footnote[
+.left[
+.small123[
+*Kapitel 3 i "Probability and Statistics for Economists" af Bruce Hansen*
+]
+]
+]
+
+
+---
+class: middle
+# Dagens forelæsning
+.pull-left-wide[
+**Emner:**
+
+- Usikkerhed
+- Population vs. stikprøve
+- Sandsynlighedsmodellen
+- Beregning af sandsynligheder
+- Betinget sandsynlighed
+- Uafhængighed og spuriøse sammenhænge
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Usikkerhed
+
+---
+# Usikkerhed
+
+--
+- I samfundsvidenskab arbejder vi ofte med usikkerhed — men hvad er "usikkerhed" egentlig?
+
+--
+- Generelt betragter vi en situation som usikker, når vi ikke kender udfaldet
+
+--
+- Vi kender som regel de mulige alternative udfald, men vi ved ikke, hvilket der vil indtræffe
+
+--
+
+**Eksempel:**
+- Vi kender ikke morgendagens rente, men vi kender intervallet af mulige værdier (mellem 0 og $\infty$), og vi ved, at nogle værdier er meget usandsynlige (f.eks. over 100%)
+
+---
+# Hvorfor kvantificere usikkerhed?
+
+--
+- Antag at du overvejer at optage et lån
+
+--
+- I så fald vil du gerne have en idé om, hvad renten vil være i morgen
+
+--
+- Med andre ord: Vi ønsker at *kvantificere* usikkerheden ved hjælp af matematiske modeller og værktøjer
+
+--
+- For at gøre dette skal vi først introducere nogle begreber
+
+---
+class: inverse, middle, center
+# Fra population til stikprøve
+
+---
+# Population
+
+--
+- **Population** = samling af individer, fysiske objekter eller abstrakte konstruktioner
+
+--
+- Når vi taler om en population, mener vi *alle* de objekter, der tilhører denne kategori
+
+--
+
+**Eksempler:**
+- Hvis vi studerer terningekast, er populationen de seks sider af terningen
+- Hvis vi studerer obligationsmarkedet, er populationen alle eksisterende obligationer på markedet
+- Hvis vi studerer beskæftigelse på arbejdsmarkedet, er populationen alle beskæftigede personer
+
+--
+
+En population er *sikker* i den forstand, at vi kan afgøre, om et givet objekt skal være en del af den, udelukkende baseret på de karakteristika, der definerer populationen
+
+---
+# Reelle populationer og superpopulationer
+
+--
+.pull-left[
+### Reelle populationer
+- Eksisterer i den virkelige verden
+- Er generelt endelige
+
+**Eksempler:**
+- Alle beskæftigede personer i Danmark
+- Alle obligationer på børsen
+]
+
+--
+
+.pull-right[
+### Superpopulationer
+- Abstrakte konstruktioner
+- Kan være uendelige
+
+**Eksempler:**
+- Alle mulige obligationspriser (som ikke nødvendigvis eksisterer)
+- Alle mulige lønninger (som ikke nødvendigvis eksisterer)
+]
+
+---
+# Stikprøve og udvælgelsesmekanisme
+
+--
+- **Stikprøve** = et sæt elementer fra populationen, opnået gennem en **udvælgelsesmekanisme**
+
+--
+
+**Eksempler:**
+
+| Population | Stikprøve | Udvælgelsesmekanisme |
+|------------|-----------|----------------------|
+| Terningens sider | Resultatet af 3 kast | Kast terningen, gentag 3 gange |
+| Obligationsmarkedet | Obligationer handlet en given dag | Vælg en dato, vælg alle obligationer handlet den dag |
+| Beskæftigede personer | 1.000 beskæftigede | Tag navne, læg i en hat, træk 1.000 navne |
+
+--
+
+En stikprøve er *usikker*, fordi vi ikke kan afgøre, om en person er i stikprøven, kun baseret på populationskarakteristika
+
+---
+# Typer af udvælgelse
+
+--
+Udvælgelsesmekanismen kan være baseret på:
+
+--
+
+.pull-left[
+### Probabilistisk udvælgelse
+- Baseret på tilfældig forekomst
+- F.eks. terningekast eller trækning fra en hat
+
+$\Rightarrow$ **Tilfældig udvælgelse**
+]
+
+--
+
+.pull-right[
+### Systematisk udvælgelse
+- Baseret på deterministiske regler
+- F.eks. "vælg altid obligationer til 100 kr."
+
+$\Rightarrow$ **Ikke-tilfældig udvælgelse**
+]
+
+---
+# Eksperiment
+
+--
+- **Eksperiment** = en population, stikprøve og udvælgelsesmekanisme
+
+--
+- Vi er interesserede i stikprøver, fordi de giver os mulighed for at drage slutninger om populationen, især når det er svært eller umuligt at observere hele populationen (**induktion**)
+
+--
+- Paradoksalt nok: Jo mere tilfældighed i udvælgelsesmekanismen, jo mere pålidelig er vores slutning om populationen
+
+--
+
+**Eksempel:**
+- Hvis vi vil analysere priser på obligationsmarkedet, ønsker vi ikke altid at vælge obligationer til 100 kr. — vi vil have obligationer udvalgt så tilfældigt som muligt
+
+---
+class: inverse, middle, center
+# Sandsynlighedsmodellen
+
+---
+# Sandsynlighedsmodellen
+
+--
+En sandsynlighedsmodel giver os mulighed for at formalisere usikkerhed
+
+--
+
+Den består af tre elementer:
+
+1. **Udfaldsrum** (sample space)
+2. **Hændelsesrum** (event space)
+3. **Sandsynlighedsmål** (probability measure)
+
+---
+# Udfaldsrum
+
+--
+> **Udfaldsrummet** $\Omega$ for et eksperiment er mængden af alle mulige udfald af eksperimentet.
+
+--
+
+**Eksempler:**
+
+| Eksperiment | Udfaldsrum |
+|-------------|------------|
+| Terningekast | $\Omega = \{1, 2, 3, 4, 5, 6\}$ |
+| Møntkast | $\Omega = \{P, K\}$ (Plat, Krone) |
+| To møntkast | $\Omega = \{(P,P), (P,K), (K,P), (K,K)\}$ |
+
+---
+# Hændelse
+
+--
+> En **hændelse** er en mængde af udfald. En hændelse siges at være indtruffet, hvis et af dens udfald realiseres. Formelt er en hændelse $A$ en delmængde af udfaldsrummet: $A \subset \Omega$.
+
+--
+
+**Eksempler:**
+
+| Eksperiment | Hændelse | Beskrivelse |
+|-------------|----------|-------------|
+| Terningekast | $A = \{1, 3, 5\}$ | "Ulige tal" |
+| Møntkast | $A = \{P\}$ | "Plat" |
+| To møntkast | $A = \{(P,P), (K,K)\}$ | "Samme side begge gange" |
+
+---
+# Hændelsesrum
+
+--
+> **Hændelsesrummet** er mængden af alle mulige hændelser.
+
+--
+
+**Eksempel (møntkast):**
+
+| Hændelse | Beskrivelse |
+|----------|-------------|
+| $A = \{P\}$ | "Plat" |
+| $A = \{K\}$ | "Krone" |
+| $A = \{P, K\}$ | "Plat eller krone" (den sikre hændelse) |
+| $A = \varnothing$ | "Hverken plat eller krone" (den umulige hændelse) |
+
+---
+# Fællesmængde og foreningsmængde
+
+--
+> Lad $A$ og $B$ være to hændelser. **Fællesmængden** af $A$ og $B$, $A \cap B$, er mængden af udfald, der er inkluderet i både $A$ og $B$. **Foreningsmængden** af $A$ og $B$, $A \cup B$, er mængden af udfald, der er inkluderet i $A$, $B$ eller begge.
+
+--
+
+**Eksempel (møntkast):**
+
+.pull-left[
+$A = \{P\}$ og $B = \{P, K\}$:
+- Fællesmængde: $A \cap B = \{P\}$
+- Foreningsmængde: $A \cup B = \{P, K\}$
+]
+
+.pull-right[
+$A = \{P\}$ og $B = \{K\}$:
+- Fællesmængde: $A \cap B = \varnothing$
+- Foreningsmængde: $A \cup B = \{P, K\}$
+]
+
+---
+# Komplementær hændelse
+
+--
+> Lad $A$ være en hændelse. **Komplementet** af $A$, $A^c$, er mængden af alle udfald, der ikke er inkluderet i $A$.
+
+--
+
+**Eksempel (møntkast):**
+- Lad $A = \{P\}$ ("plat") $\Rightarrow$ $A^c = \{K\}$
+- Lad $A = \{P, K\}$ ("plat eller krone") $\Rightarrow$ $A^c = \varnothing$
+
+--
+
+**Egenskaber:**
+- $A \cap A^c = \varnothing$
+- $A \cup A^c = \Omega$
+
+---
+# Sandsynlighedsmål
+
+--
+> Et **sandsynlighedsmål** er en funktion $P(\cdot)$, der tildeler et tal (sandsynlighed) til enhver hændelse i hændelsesrummet.
+
+--
+
+**Funktionen skal opfylde følgende betingelser:**
+
+1. $0 \leq P(A) \leq 1$ for enhver hændelse $A \subset \Omega$
+
+2. $P(\Omega) = 1$, hvor $\Omega$ er den sikre hændelse
+
+3. $P(A \cup B) = P(A) + P(B)$, hvis hændelserne $A$ og $B$ er gensidigt udelukkende (disjunkte), dvs. hvis $A \cap B = \varnothing$
+
+---
+# Sandsynlighedsmål: Eksempel
+
+--
+**Møntkast:**
+
+| Hændelse | Sandsynlighed |
+|----------|---------------|
+| "Plat" ($A$) | $\frac{1}{2}$ |
+| "Krone" ($B$) | $\frac{1}{2}$ |
+| "Plat eller krone" ($\Omega$) | $1$ |
+| "Hverken plat eller krone" ($\varnothing$) | $0$ |
+
+--
+
+**Er dette et gyldigt sandsynlighedsmål?**
+- Sandsynligheden for hver hændelse er mellem 0 og 1 ✓
+- $P(\Omega) = 1$ ✓
+- $A \cap B = \varnothing$ og $P(A \cup B) = P(\Omega) = 1 = P(A) + P(B)$ ✓
+
+---
+# Hvordan tildeler vi sandsynligheder?
+
+--
+**Intuitive tilgange:**
+
+.pull-left[
+### Lige sandsynlige udfald
+Sandsynlighed = $\frac{1}{\text{antal mulige udfald}}$
+
+*Eksempel:* Terningekast
+$$P(\{1\}) = \frac{1}{6}$$
+]
+
+--
+
+.pull-right[
+### Relative frekvenser
+Sandsynlighed = andel af forekomster
+
+*Eksempel:* Træk en kugle fra en urne med 3 blå og 5 røde kugler
+$$P(\text{blå}) = \frac{3}{8}$$
+]
+
+---
+class: inverse, middle, center
+# Beregning af sandsynligheder
+
+---
+# Additionsreglen
+
+--
+> Lad $A$ og $B$ være to hændelser. Da gælder:
+> $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+
+--
+
+**Eksempel (terningekast):**
+
+Lad $A = \{1, 3, 5\}$ ("ulige tal") og $B = \{1, 2, 3\}$ ("mindre end 4")
+
+--
+
+.pull-left[
+- $A \cup B = \{1, 2, 3, 5\}$
+- $P(A \cup B) = \frac{4}{6}$
+- $P(A) = \frac{3}{6}$
+]
+
+.pull-right[
+- $P(B) = \frac{3}{6}$
+- $A \cap B = \{1, 3\}$
+- $P(A \cap B) = \frac{2}{6}$
+]
+
+--
+
+$$P(A) + P(B) - P(A \cap B) = \frac{3}{6} + \frac{3}{6} - \frac{2}{6} = \frac{4}{6} = P(A \cup B) \; \checkmark$$
+
+---
+# Egenskaber med komplementet
+
+--
+Fra additionsreglen kan vi udlede:
+
+--
+
+$$P(A \cup A^c) = P(\Omega) = 1 \Rightarrow P(A^c) = 1 - P(A)$$
+
+--
+
+$$P(A \cap A^c) = P(\varnothing) = 0$$
+
+--
+
+$$P(A) = P(A \cap B) + P(A \cap B^c)$$
+
+---
+class: inverse, middle, center
+# Betinget sandsynlighed
+
+---
+# Betinget sandsynlighed
+
+--
+- Nogle gange kan vi bruge information om en tidligere hændelse til at drage slutninger om en fremtidig hændelse
+
+--
+- F.eks. kan kendskab til nedbørsmængden indtil sommer hjælpe med at forudsige årets høst
+
+--
+
+> Den **betingede sandsynlighed for hændelse $A$ givet hændelse $B$** er defineret som:
+> $$P(A | B) = \frac{P(A \cap B)}{P(B)}$$
+> forudsat at $P(B) > 0$
+
+---
+# Betinget sandsynlighed med flere betingelser
+
+--
+Vi kan udvide dette til situationer, hvor vi har forhåndsviden om mere end én hændelse, f.eks. $B$ og $C$
+
+--
+
+Vi kan så definere sandsynligheden for hændelse $A$ betinget på både $B$ og $C$: $P(A | B, C)$
+
+--
+
+Da vi har brug for, at både $B$ og $C$ realiseres, svarer dette til realisationen af $(B \cap C)$
+
+--
+
+Lad $D = B \cap C$. Vi kan da skrive:
+
+$$P(A | B, C) = P\big(A | (B \cap C)\big) = P(A | D) = \frac{P(A \cap D)}{P(D)} = \frac{P(A \cap B \cap C)}{P(B \cap C)}$$
+
+---
+class: inverse, middle, center
+# Uafhængighed og spuriøse sammenhænge
+
+---
+# Uafhængighed
+
+--
+> To hændelser $A$ og $B$ er **uafhængige** hvis og kun hvis
+> $$P(A \cap B) = P(A) \cdot P(B)$$
+
+--
+
+**Dette indebærer:**
+- $P(A | B) = P(A)$ når $P(B) > 0$
+- $P(B | A) = P(B)$ når $P(A) > 0$
+
+--
+
+**Intuitivt:** $A$ og $B$ er uafhængige, hvis det faktum, at vi observerer, at den ene er realiseret, ikke giver os nogen information om, hvor sandsynlig den anden er
+
+--
+
+To uafhængige hændelser er urelaterede — men to afhængige hændelser er ikke nødvendigvis direkte forbundet (husk nattelys-eksemplet?)
+
+---
+# Betinget uafhængighed
+
+--
+Hvis en tredje faktor kan forklare den tilsyneladende sammenhæng mellem to hændelser, kan vi tale om betinget uafhængighed
+
+--
+
+> To hændelser $A$ og $B$ er **uafhængige betinget på hændelse $C$** (hvor $P(C) > 0$) hvis og kun hvis
+> $$P(A \cap B | C) = P(A | C) \cdot P(B | C)$$
+
+--
+
+**Dette indebærer:**
+- $P(A | B, C) = P(A | C)$ når $P(B) > 0$
+- $P(B | A, C) = P(B | C)$ når $P(A) > 0$
+
+--
+
+Hvis du allerede ved, at hændelse $C$ er realiseret, giver det faktum, at $A$ eller $B$ er realiseret, ingen information om den anden
+
+---
+# Direkte, indirekte og spuriøs korrelation
+
+--
+Mange statistiske undersøgelser ser på forholdet mellem to størrelser
+
+--
+
+Du bør altid overveje, om undersøgelsen har taget højde for muligheden for, at andre faktorer kan være den underliggende årsag
+
+--
+
+**Tre situationer hvor vi finder en sammenhæng mellem $A$ og $B$:**
+
+| Type | Beskrivelse | Notation |
+|------|-------------|----------|
+| Direkte afhængighed | $A$ bestemmer $B$ eller omvendt | $A \rightarrow B$ eller $B \rightarrow A$ |
+| Indirekte afhængighed | Forbundet gennem tredje faktor $C$ | $A \rightarrow C \rightarrow B$ |
+| Spuriøs korrelation | Begge afhænger af faktor $C$ | $C \rightarrow A$ og $C \rightarrow B$ |
+
+--
+
+Når vi taler om **kausalitet**, har vi den første situation i tankerne
+
+---
+# Spuriøs korrelation: Et eksempel
+
+--
+Du kan (eller bør kunne) finde ud af, om en sammenhæng er spuriøs ved at kontrollere, om en tredje faktor $C$ eksisterer, således at $A$ og $B$ er betinget uafhængige
+
+--
+
+**Nattelys-eksemplet:**
+
+Er børns nærsynethed og brug af nattelys direkte relateret, indirekte relateret, eller er de betinget uafhængige?
+
+--
+
+.pull-left[
+**Observation:**
+- Børn med nattelys har oftere nærsynethed
+- $\Rightarrow$ Sammenhæng mellem $A$ og $B$?
+]
+
+--
+
+.pull-right[
+**Mulig forklaring:**
+- Nærsynede forældre bruger oftere nattelys
+- Nærsynethed er arvelig
+- $\Rightarrow$ Spuriøs korrelation via $C$ (forældres syn)
+]
+
+---
+# Opsummering
+
+--
+.pull-left[
+**Nøglebegreber:**
+- Usikkerhed og kvantificering
+- Population vs. stikprøve
+- Udvælgelsesmekanisme
+- Udfaldsrum og hændelser
+- Sandsynlighedsmål
+]
+
+.pull-right[
+**Vigtige formler:**
+- $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+- $P(A^c) = 1 - P(A)$
+- $P(A | B) = \frac{P(A \cap B)}{P(B)}$
+- Uafhængighed: $P(A \cap B) = P(A) \cdot P(B)$
+]
+
+---
+# Før næste gang
+
+.pull-left[
+**Læs:**
+- Kapitel 3 i lærebogen
+
+**Overvej:**
+- Hvordan bruger vi sandsynlighed i hverdagen?
+- Kan du finde eksempler på spuriøse korrelationer?
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

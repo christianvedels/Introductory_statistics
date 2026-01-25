@@ -1,0 +1,409 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options:
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistik
+## Forelæsning 1: Introduktion
+
+### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Opdateret `r Sys.Date()`
+
+
+
+.footnote[
+.left[
+.small123[
+*Jeg arbejder på slides indtil sidste øjeblik før forelæsningen. Indtil da er dette kun et udkast.*
+]
+]
+]
+
+
+---
+class: middle
+# Dagens forelæsning
+.pull-left-wide[
+**Indhold:**
+
+- **Om mig**
+- **Hvorfor statistik?**
+  + Hvad er økonomi?
+  + Korrelation vs. kausalitet
+- **Om kurset**
+  + Hvordan vil vi studere statistik?
+  + Kursusmaterialer
+  + Øvelser
+  + Eksamen
+  + Kontaktpunkter
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Om mig
+
+---
+# Om mig
+
+.pull-left[
+- **Christian Vedel** ([christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk))
+
+- **Uddannelse:**
+  + Cand.oecon., Syddansk Universitet
+  + Ph.d. i økonomi, Syddansk Universitet (2023)
+
+--
+
+- **Ansættelse:**
+  + Postdoc, Institut for Virksomhedsledelse og Økonomi, SDU (2023-nu)
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+# Om mig
+
+.pull-left-wide[
+- **Forskningsinteresser:**
+
+  + Økonomisk historie
+  + Machine learning anvendt på historiske data
+  + Hvordan og hvorfor bestemte steder blev velstående
+
+--
+
+- *Statistik er den centrale metodiske bekymring i al moderne kvantitativ samfundsvidenskab*
+]
+
+---
+class: inverse, middle, center
+# Hvorfor studere statistik?
+
+---
+# Hvad er økonomi?
+
+.pull-left-wide[
+> *"Economics is above all a science of measurement. It comprises an extraordinarily powerful and flexible set of tools that can reliably assess a thicket of information to determine the effect of any one factor, or even the whole effect. [...] Since the science of economics is primarily a set of tools, as opposed to a subject matter, then no subject, however offbeat, need be beyond its reach."*
+>
+> — Steven Levitt & Stephen Dubner, *Freakonomics*
+]
+
+---
+# Hvad er økonomi?
+
+.pull-left-wide[
+**Hvad er "værktøjerne" i økonomi-værktøjskassen?**
+
+--
+
+- Økonomisk intuition (f.eks. incitamenter betyder noget!)
+
+--
+
+- Dataanalyseværktøjer, også kaldet *økonometri*
+
+--
+
+**Statistik er fundamentet, som økonometri er bygget på**
+
+--
+
+**Hvad kan man med økonometri?**
+- *Alt!* Men vær forsigtig: med stor magt følger stort ansvar!
+]
+
+---
+class: inverse, middle, center
+# Korrelation vs. kausalitet
+
+---
+# Korrelation vs. kausalitet
+
+.pull-left-wide[
+I økonomi (og økonometri) er vi primært interesserede i **kausalitet**:
+- Forårsager $A$ $B$?
+- Hvis vi kan få $A$ til at ske, kan vi så generelt opnå $B$ som resultat?
+
+--
+
+**Meget vigtig distinktion mellem kausalitet og korrelation!**
+]
+
+---
+# Eksempel: Natlys og nærsynethed
+
+.pull-left-wide[
+- En undersøgelse fra University of Pennsylvania (publiceret maj 1999 i *Nature*) fandt, at natlys er stærkt forbundet med nærsynethed hos børn
+
+- $\Rightarrow$ "Natlys forårsager nærsynethed"
+
+--
+
+- En opfølgende undersøgelse, også publiceret i *Nature* (marts 2000), fandt andre resultater:
+  + Nærsynede forældre har større tendens til at lade natlys være tændt (for deres egen skyld, ikke børnenes!)
+  + Nærsynethed nedarves typisk fra forældre til børn
+]
+
+---
+# Eksempel: Natlys og nærsynethed
+
+.pull-left-wide[
+$\Rightarrow$ Børn, der sov med natlys, var mere tilbøjelige til at være nærsynede, **fordi deres forældre var nærsynede** – ikke på grund af eksponering for natlyset!
+
+--
+
+.red[**Forestil jer konsekvenserne af sådanne fejl, når man rådgiver om pengepolitik, arbejdsløshed, cancerbehandlinger osv.!**]
+]
+
+---
+class: center, middle
+# XKCD
+
+![Correlation](Figures/xkcd_correlation.png)
+
+.small123[Kilde: xkcd.com (http://xkcd.com/552/)]
+
+---
+class: inverse, middle, center
+# Om kurset
+
+---
+# Hvordan vil vi studere statistik?
+
+.pull-left-wide[
+**Vi starter med det grundlæggende og arbejder os op:**
+
+--
+
+- Hvad er en stokastisk variabel?
+
+--
+
+- Hvordan karakteriserer vi stokastiske variable?
+
+--
+
+- Hvordan bruger vi stokastiske variable til at teste hypoteser?
+]
+
+---
+# Hvordan vil vi studere statistik?
+
+.pull-left-wide[
+**Kurset inkluderer forelæsninger og øvelser:**
+
+- **Forelæsninger:** Se semesterplan på itslearning for tider og lokaler
+
+- **Øvelser:** 2 timer pr. uge
+
+--
+
+**Tjek forelæsningsplanen på itslearning for tidsplan.**
+
+*Planen på itslearning er kun vejledende – vi kan gå hurtigere eller langsommere.*
+]
+
+---
+# Kursusmaterialer
+
+.pull-left-wide[
+**Lærebog:**
+- Bowerman, O'Connell, Orries & Porter: *"Essentials of Business Statistics"*, McGraw-Hill, nyeste udgave
+- Bøye: *"Statistics Companion"* (supplerende)
+
+--
+
+**Note:** I opfordres stærkt til at læse de relevante kapitler fra lærebogen for at sikre, at begreberne er klare. Kapitlerne for hver forelæsning er angivet i forelæsningsplanen på itslearning.
+]
+
+---
+# Kursusmaterialer
+
+.pull-left-wide[
+**Kursusmaterialer:**
+- Kursusside på **itslearning**: Tjek regelmæssigt for meddelelser eller nye kursusmaterialer
+- Forelæsningsslides (på itslearning + GitHub)
+- Opgavesæt og løsninger (på itslearning)
+]
+
+---
+# Øvelser
+
+.pull-left-wide[
+**Øvelser (diskussionstimer) afvikles således:**
+
+--
+
+1. Et opgavesæt uploades på itslearning ugen før øvelsen
+
+--
+
+2. I løser opgaverne og medbringer jeres løsninger til øvelsen
+
+--
+
+3. Instruktoren gennemgår nogle af de "officielle" løsninger og besvarer jeres spørgsmål
+
+--
+
+**Forelæsninger og øvelser er *den bedste forberedelse* til eksamen $\Rightarrow$ I opfordres *stærkt* til at deltage**
+]
+
+---
+# Eksamen
+
+.pull-left-wide[
+**Evaluering:**
+
+- Skriftlig eksamen (4 timer)
+- Alle hjælpemidler tilladt, **ingen internet**
+- Individuel
+
+--
+
+**Værktøjer:**
+- Vi bruger **Excel** og *Analysis ToolPak*
+- Jeres instruktorer har erfaring med dette
+- Lyt til instruktorerne når det gælder Excel
+- Lyt til mig når det gælder teori
+]
+
+---
+# Kontaktpunkter
+
+.pull-left-wide[
+Hvis I har spørgsmål om kursusadministration, kig venligst først i **kursusbeskrivelsen**. De fleste svar bør være der.
+
+--
+
+**Hvis I stadig har et ubesvaret spørgsmål:**
+
+1. **Studienævn:** Information om kursusadministration, dispensationer, eksamendatoer og regler osv.
+
+2. **Instruktor:** Spørgsmål vedrørende Excel og løsninger til opgavesæt
+
+3. **Underviser:** Indholdsmæssige spørgsmål om emner dækket i forelæsningen
+]
+
+---
+class: middle
+# Opsummering
+
+.pull-left-wide[
+**I dag lærte vi:**
+
+1. Statistik er fundamentet for økonometri og dataanalyse
+2. Korrelation $\neq$ kausalitet (natlys-eksemplet)
+3. Kurset bygger op fra grundlæggende begreber til hypotesetestning
+4. Forelæsninger + øvelser = bedste eksamensforberedelse
+]
+
+---
+# Inden næste gang
+
+.pull-left[
+- Kig på øvelserne
+- Læs den tildelte læsning (se semesterplan)
+
+**Næste gang:** Usikkerhed og sandsynlighed
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

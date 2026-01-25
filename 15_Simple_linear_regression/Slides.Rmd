@@ -1,0 +1,339 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options:
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistik
+## Forelæsning 15: Simpel lineær regression
+
+### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Opdateret `r Sys.Date()`
+
+
+
+.footnote[
+.left[
+.small123[
+*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
+]
+]
+]
+
+
+---
+class: middle
+# Dagens forelæsning
+.pull-left-wide[
+**Emner:**
+
+- Regression og den betingede middelværdi
+- Simpel lineær regression
+- Estimation med OLS
+- Hypotesetest og konfidensintervaller
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Regression
+
+---
+# Motivation
+
+--
+Sammenhængen mellem $X$ og $Y$ specificeres af deres simultane fordeling $f(x,y)$
+
+--
+
+Vi kan også studere sammenhængen via den **betingede fordeling** $f_{Y|X}(y|x)$
+
+--
+
+Hvis $X$ og $Y$ ikke er uafhængige, giver kendskab til $X$ information om $Y$
+
+---
+# Regressionsfunktionen
+
+--
+> **Regressionsfunktionen** er den betingede middelværdi:
+> $$E(Y|X=x)$$
+
+--
+
+**Navne:**
+- $Y$: **Afhængig** (forklaret) variabel
+- $X$: **Uafhængig** (forklarende) variabel
+
+---
+# Fejlled
+
+--
+Den faktiske værdi af $Y$ er sjældent lig den forventede
+
+--
+
+> **Fejlled (residual):**
+> $$U = Y - E(Y|X=x)$$
+
+--
+
+Per konstruktion: $E(U|X=x) = 0$
+
+--
+
+**Bemærk:** Regression beskriver en *statistisk* sammenhæng — ikke nødvendigvis *kausalitet*!
+
+---
+class: inverse, middle, center
+# Simpel lineær regression
+
+---
+# Lineær sammenhæng
+
+--
+Vi antager ofte en lineær sammenhæng:
+
+> **Simpel lineær regression:**
+> $$E(Y|X=x) = \beta_0 + \beta_1 \cdot x$$
+
+--
+
+**Koefficienter:**
+- $\beta_0$: **Intercept** (skæring med y-aksen)
+- $\beta_1$: **Hældningskoefficient**
+
+---
+# Beregning af koefficienter
+
+--
+$$\beta_1 = \frac{Cov(X,Y)}{Var(X)}$$
+
+--
+
+$$\beta_0 = E(Y) - \beta_1 \cdot E(X)$$
+
+--
+
+**Fortolkning:**
+- Fortegnet af $\beta_1$ = fortegnet af korrelationen
+- $\beta_1$ = effekten af én enheds ændring i $X$ på $Y$
+
+---
+class: inverse, middle, center
+# Estimation
+
+---
+# Analogiprincippet
+
+--
+Givet stikprøve: $((X_1,Y_1), (X_2,Y_2), \ldots, (X_n,Y_n))$
+
+--
+
+**Stikprøvestørrelser:**
+$$\widehat{Cov}(X,Y) = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})$$
+
+$$S_X^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar{X})^2$$
+
+---
+# OLS-estimatorer
+
+--
+> **Ordinary Least Squares (OLS):**
+
+$$\hat{\beta}_1 = \frac{\sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})}{\sum_{i=1}^n (X_i - \bar{X})^2}$$
+
+$$\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \cdot \bar{X}$$
+
+---
+# Mindste kvadraters metode
+
+--
+OLS minimerer summen af kvadrerede fejl:
+
+$$\min_{b_0, b_1} \sum_{i=1}^n [Y_i - (b_0 + b_1 X_i)]^2$$
+
+--
+
+Dette svarer til den "bedste" rette linje gennem punkterne
+
+---
+class: inverse, middle, center
+# Inferens
+
+---
+# Hypotesetest
+
+--
+**Er $X$ og $Y$ relaterede?**
+
+$$H_0: \beta_1 = 0 \quad \text{mod} \quad H_1: \beta_1 \neq 0$$
+
+--
+
+**Teststatistik:**
+$$Z = \frac{\hat{\beta}_1 - 0}{\sqrt{S_{\hat{\beta}_1}^2}} \overset{a}{\sim} \mathcal{N}(0,1)$$
+
+---
+# Beslutningsregel
+
+--
+- Forkast ikke $H_0$ hvis $z_{\alpha/2} \leq Z \leq z_{1-\alpha/2}$
+- Forkast $H_0$ hvis $|Z| > z_{1-\alpha/2}$
+
+--
+
+**Generelt:** Test $H_0: \beta_1 = \beta_1^0$
+
+$$Z = \frac{\hat{\beta}_1 - \beta_1^0}{\sqrt{S_{\hat{\beta}_1}^2}}$$
+
+---
+# Konfidensinterval
+
+--
+$$\hat{I} = \left[\hat{\beta}_1 - z_{1-\alpha/2} \cdot \sqrt{S_{\hat{\beta}_1}^2}, \; \hat{\beta}_1 + z_{1-\alpha/2} \cdot \sqrt{S_{\hat{\beta}_1}^2}\right]$$
+
+--
+
+Tilsvarende for $\beta_0$
+
+---
+# Opsummering
+
+--
+.small123[
+| Komponent | Population | Stikprøve |
+|-----------|------------|-----------|
+| Hældning | $\beta_1 = \frac{Cov(X,Y)}{Var(X)}$ | $\hat{\beta}_1 = \frac{\widehat{Cov}(X,Y)}{S_X^2}$ |
+| Intercept | $\beta_0 = E(Y) - \beta_1 E(X)$ | $\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1\bar{X}$ |
+| Regression | $E(Y\|X=x) = \beta_0 + \beta_1 x$ | $\hat{Y} = \hat{\beta}_0 + \hat{\beta}_1 X$ |
+]
+
+---
+# Kursusopsummering
+
+--
+.small123[
+**Vi har lært:**
+- Sandsynlighedsteori og stokastiske variable
+- Deskriptive mål og fordelinger
+- Stikprøveprocessen
+- Estimation og estimatorer
+- Konfidensintervaller
+- Hypotesetest
+- Regression
+]
+
+--
+
+**Næste skridt:** Økonometri!
+
+---
+# Før eksamen
+
+.pull-left[
+**Læs:**
+- Kapitel 17 i lærebogen
+- Gennemgå alle kapitler
+
+**Øv:**
+- Opgaver fra alle emner
+- Tidligere eksamensopgaver
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

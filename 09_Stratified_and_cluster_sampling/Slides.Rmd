@@ -1,0 +1,368 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options:
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistik
+## Forelæsning 9: Stratificeret og klyngeudvælgelse
+
+### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Opdateret `r Sys.Date()`
+
+
+
+.footnote[
+.left[
+.small123[
+*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
+]
+]
+]
+
+
+---
+class: middle
+# Dagens forelæsning
+.pull-left-wide[
+**Emner:**
+
+- Stratificering
+- Egenskaber ved stratificeret stikprøvegennemsnit
+- Valg af stratumstørrelse
+- Klyngeudvælgelse (cluster sampling)
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Stratificering
+
+---
+# Motivation for stratificering
+
+--
+Vi ved ofte mere om en population end bare den karakteristik, vi er interesserede i
+
+--
+
+Denne viden kan potentielt bruges til at udvælge en stikprøve, der giver *mere* information end en simpel tilfældig stikprøve
+
+--
+
+> **Stratificering** bygger på forhåndsviden om fordelingen af en karakteristik i populationen
+
+---
+# Strata
+
+--
+Antag hvert element har to karakteristika:
+- $X$: Karakteristikken af interesse (f.eks. indkomst)
+- $Y$: En anden karakteristik med kendt fordeling (f.eks. køn)
+
+--
+
+> Et **stratum** (flertal: strata) består af alle elementer med samme værdi af $Y$
+
+--
+
+**Stratificering:**
+1. Opdel populationen i grupper (strata) baseret på $Y$
+2. Brug simpel tilfældig udvælgelse inden for hver gruppe
+
+---
+# Loven om itererede forventninger
+
+--
+> **Loven om itererede forventninger:**
+> $$E_X(X) = E_Y[E_{X|Y}(X|Y)] = \sum_{j=1}^m E_{X|Y}(X|Y=y_j) \cdot f_Y(y_j)$$
+
+--
+
+Med andre ord: Middelværdien af $X$ er et vægtet gennemsnit af middelværdierne i hvert stratum
+
+---
+# Stratificeret populationsgennemsnit
+
+--
+Vægtene er den relative størrelse af hvert stratum:
+$$w_j = f_Y(y_j) = \frac{N_j}{N}$$
+
+--
+
+hvor $N_j$ er antal elementer i stratum $j$ og $N$ er total antal elementer
+
+--
+
+Hvis $\mu_j$ er middelværdien af $X$ i stratum $j$:
+$$\mu = E(X) = \sum_{j=1}^m \mu_j \cdot w_j$$
+
+---
+# Stratificeret stikprøvegennemsnit
+
+--
+Vi anvender analogiprincippet: Erstat ukendte størrelser med stikprøvestørrelser
+
+--
+
+**Stratum-gennemsnit:**
+$$\bar{X}_j = \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ij}$$
+
+--
+
+**Stratificeret stikprøvegennemsnit:**
+$$\bar{X}_{st} = \sum_{j=1}^m \bar{X}_j \cdot w_j$$
+
+---
+class: inverse, middle, center
+# Egenskaber ved stratificeret estimator
+
+---
+# Forventningsrethed
+
+--
+En stratificeret stikprøve er generelt *ikke* repræsentativ (hvis $n_j/n \neq N_j/N$)
+
+--
+
+Derfor er det simple stikprøvegennemsnit en *biased* estimator i en stratificeret stikprøve
+
+--
+
+Men det stratificerede stikprøvegennemsnit er **forventningsret**:
+$$E(\bar{X}_{st}) = \sum_{j=1}^m E(\bar{X}_j) \cdot w_j = \sum_{j=1}^m \mu_j \cdot w_j = \mu$$
+
+---
+# Varians
+
+--
+Variansen af stratum-gennemsnittet:
+$$Var(\bar{X}_j) = \frac{\sigma_j^2}{n_j}$$
+
+hvor $\sigma_j^2 = Var(X|Y=y_j)$
+
+--
+
+**Varians af stratificeret stikprøvegennemsnit:**
+$$Var(\bar{X}_{st}) = \sum_{j=1}^m \frac{\sigma_j^2}{n_j} \cdot w_j^2$$
+
+---
+# Effektivitet og konsistens
+
+--
+**Effektivitet:**
+- Hvis $X$ og $Y$ er uafhængige: Ingen forskel fra simpel stikprøve
+- Hvis $X$ og $Y$ er korrelerede: Potentielt lavere varians
+
+--
+
+**Konsistens:**
+- Variansen afhænger negativt af stikprøvestørrelsen
+- Da estimatoren er forventningsret $\Rightarrow$ konsistent
+
+---
+class: inverse, middle, center
+# Valg af stratumstørrelse
+
+---
+# Optimal allokering
+
+--
+Hvis vi kender $\sigma_j^2$ i populationen, kan vi vælge $n_j$ så variansen minimeres:
+
+$$n_j^* = n \cdot \frac{\sigma_j \cdot w_j}{\sum_{j=1}^m \sigma_j \cdot w_j}$$
+
+--
+
+**Stratumstørrelsen bør være større for strata, der:**
+- Har større varians af $X$ (høj $\sigma_j^2$)
+- Udgør en stor andel af populationen (høj $w_j$)
+
+---
+# Proportional allokering
+
+--
+Hvis vi ikke kender varianserne, kan vi vælge stratumstørrelser proportionalt med populationsstørrelserne:
+
+$$\frac{n_j}{n} = \frac{N_j}{N}$$
+
+--
+
+I dette tilfælde:
+$$\bar{X}_{st,prop} = \frac{1}{n} \sum_{j=1}^m \sum_{i=1}^{n_j} X_{ij}$$
+
+--
+
+$$Var(\bar{X}_{st,prop}) = \frac{1}{n} \sum_{j=1}^m \sigma_j^2 \cdot w_j$$
+
+---
+class: inverse, middle, center
+# Klyngeudvælgelse
+
+---
+# Motivation
+
+--
+Omkostningerne ved stikprøveudvælgelse kan være betydelige:
+- Geografisk afstand
+- Omkostninger ved eksperimenter
+
+--
+
+Det kan være billigere at gruppere elementer i **klynger** (clusters)
+
+--
+
+**Klyngeudvælgelse:**
+1. Opdel populationen i klynger
+2. Udvælg nogle klynger via simpel tilfældig udvælgelse
+3. Inkludér alle elementer i de valgte klynger (ét-trins) eller udvælg elementer inden for klynger (to-trins)
+
+---
+# Strata vs. klynger
+
+--
+| | Strata | Klynger |
+|---|---|---|
+| **Homogenitet** | Homogene (samme $Y$) | Heterogene |
+| **Formål** | Minimere varians | Reducere omkostninger |
+| **Udvælgelse** | Fra *alle* strata | Fra *nogle* klynger |
+
+--
+
+Klyngeudvælgelse er motiveret af **omkostninger**, ikke statistiske overvejelser
+
+---
+# Klyngeestimator
+
+--
+Antag populationen er opdelt i $K$ klynger af samme størrelse $\bar{N} = N/K$
+
+--
+
+Vi udvælger $k$ af de $K$ klynger
+
+--
+
+**Klyngeestimator:**
+$$\bar{X}_{cluster} = \frac{1}{k} \sum_{j=1}^k \bar{X}_j = \frac{1}{k \cdot \bar{N}} \sum_{j=1}^k \sum_{i=1}^{\bar{N}} X_{ij}$$
+
+---
+# Opsummering
+
+--
+.small123[
+| Metode | Fordel | Egenskaber |
+|--------|--------|------------|
+| **Simpel tilfældig** | Simpel | Forventningsret, konsistent |
+| **Stratificeret** | Lavere varians | Forventningsret, konsistent, potentielt mere effektiv |
+| **Klynge** | Lavere omkostninger | Forventningsret, men ofte højere varians |
+]
+
+---
+# Før næste gang
+
+.pull-left[
+**Læs:**
+- Kapitel 11 i lærebogen
+
+**Overvej:**
+- Hvornår er stratificering en god idé?
+- Hvad er forskellen på strata og klynger?
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

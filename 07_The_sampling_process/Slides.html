@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Slides.knit</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/panelset-0.3.0/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.3.0/panelset.js"></script>
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, inverse, middle
+
+
+
+
+
+<style>.xe__progress-bar__container {
+  top:0;
+  opacity: 1;
+  position:absolute;
+  right:0;
+  left: 0;
+}
+.xe__progress-bar {
+  height: 0.25em;
+  background-color: #808080;
+  width: calc(var(--slide-current) / var(--slide-total) * 100%);
+}
+.remark-visible .xe__progress-bar {
+  animation: xe__progress-bar__wipe 200ms forwards;
+  animation-timing-function: cubic-bezier(.86,0,.07,1);
+}
+@keyframes xe__progress-bar__wipe {
+  0% { width: calc(var(--slide-previous) / var(--slide-total) * 100%); }
+  100% { width: calc(var(--slide-current) / var(--slide-total) * 100%); }
+}</style>
+
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+&lt;/style&gt;
+
+
+
+# Statistik
+## Forelæsning 7: Stikprøveprocessen
+
+### Christian Vedel,&lt;br&gt;Department of Economics
+
+### Email: [christian-vs@sam.sdu.dk](christian-vs@sam.sdu.dk)
+
+### Opdateret 2026-01-24
+
+
+
+.footnote[
+.left[
+.small123[
+*Kapitel 9 i "Probability and Statistics for Economists" af Bruce Hansen*
+]
+]
+]
+
+
+---
+class: middle
+# Dagens forelæsning
+.pull-left-wide[
+**Emner:**
+
+- Deduktiv og induktiv slutning
+- Design af stikprøveprocessen
+- Stikprøvemetoder
+- Repræsentative stikprøver
+- Fejlkilder i stikprøveprocessen
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Deduktiv og induktiv slutning
+
+---
+# Deduktiv slutning
+
+--
+Indtil nu har vi antaget, at stokastiske variable repræsenterer populationer med *kendte* fordelinger
+
+--
+
+- Fordelingen af den stokastiske variabel var den samme som fordelingen i populationen
+
+--
+
+- Dette tillod os at beregne momenter (middelværdi, varians) og sandsynligheder
+
+--
+
+&gt; **Deduktiv slutning:** At gå fra det generelle (population) til det specifikke (stikprøve)
+
+---
+# Induktiv slutning
+
+--
+Nu vender vi processen om!
+
+--
+
+- Vi vil lære noget om populationen og/eller udvælgelsesmekanismen *fra* en stikprøve
+
+--
+
+&gt; **Induktiv slutning:** At gå fra det specifikke (stikprøve) til det generelle (population)
+
+--
+
+Den viden vi opnår, kan bruges til at lave **forudsigelser** om fremtidige stikprøver
+
+---
+# Statistisk inferens
+
+--
+&gt; Hovedmålet med **statistisk inferens** er at opnå viden om en ukendt fordeling (f.eks. indkomstfordelingen)
+
+--
+
+- Det er normalt ikke muligt at undersøge hele populationen
+
+--
+
+- Derfor er vi afhængige af en stikprøve
+
+--
+
+- Kvaliteten af stikprøven er ekstremt vigtig: "garbage in, garbage out"
+
+---
+class: inverse, middle, center
+# Design af stikprøveprocessen
+
+---
+# Fire vigtige aspekter
+
+--
+Når man designer en stikprøveproces, skal man overveje:
+
+--
+
+1. **Population og karakteristika:** Valg af population og interesseområder
+
+--
+
+2. **Stikprøveenheder og -ramme:** Specifikation af enheder og hvordan de findes
+
+--
+
+3. **Stikprøvemetode:** Hvordan enhederne udvælges
+
+--
+
+4. **Måling:** Hvordan karakteristika måles
+
+---
+# Valg af population
+
+--
+Normalt bestemmes valget af population og karakteristika af undersøgelsens formål
+
+--
+
+**Praktiske udfordringer:**
+
+--
+
+- Etiske begrænsninger (f.eks. test af skadelige stoffer på mennesker)
+
+--
+
+- Omkostninger (stikprøve fra underpopulation og generalisering)
+
+--
+
+&gt; **Målpopulation:** Den population, vi er interesserede i
+&gt;
+&gt; **Population:** Den population, der faktisk studeres
+
+---
+# Karakteristika af interesse
+
+--
+Specifikation af interesseområder kan være vanskelig
+
+--
+
+**Eksempel:** Vi vil studere skolers kvalitet
+- Måles gennem testscorer
+- Men elever har forskellige færdigheder i forvejen
+- Hvad er "færdigheder"? IQ? Koncentrationsevne?
+
+--
+
+Statistisk teori kan ikke hjælpe her — forskere må bruge faglig viden til at begrunde valget
+
+---
+# Stikprøveenheder
+
+--
+&gt; **Stikprøveenheder:** De elementer fra populationen, vi udtrækker
+
+--
+
+- Ofte er enhederne bare elementer (f.eks. individer)
+- Men ikke altid (f.eks. husstande som enheder, individer som interesse)
+
+--
+
+Det er ofte billigere at vælge flere enheder sammen (f.eks. en skole, en husstand)
+
+---
+# Stikprøveramme
+
+--
+&gt; **Stikprøveramme:** En måde at liste alle mulige stikprøveenheder og hvordan de kan kontaktes
+
+--
+
+**Eksempler på kontaktoplysninger:**
+- Postadresser
+- Telefonnumre
+- Email-adresser
+- Tilstedeværelse på et bestemt tidspunkt og sted
+
+---
+class: inverse, middle, center
+# Stikprøvemetoder
+
+---
+# To kategorier
+
+--
+.pull-left[
+### Sandsynlighedsudvælgelse
+- Sandsynligheden for at vælge hver enhed er **kendt**
+- Muliggør vurdering af undersøgelsens kvalitet
+- Giver et "sandt" billede af populationen
+]
+
+--
+
+.pull-right[
+### Ikke-sandsynlighedsudvælgelse
+- Sandsynligheden for at vælge hver enhed er **ukendt**
+- Umuligt at vurdere kvaliteten
+- Bruges ofte pga. omkostninger eller praktiske begrænsninger
+]
+
+---
+# Ikke-sandsynlighedsudvælgelse
+
+--
+**Fire eksempler:**
+
+--
+
+1. **Bekvemmelighedsudvælgelse:** Vælges ud fra lethed (f.eks. interview i indkøbscenter)
+
+--
+
+2. **Formålsudvælgelse:** Forskeren identificerer hvem der studeres (f.eks. eksperter)
+
+--
+
+3. **Kvoteudvælgelse:** Bestemte andele af visse grupper (f.eks. minoriteter)
+
+--
+
+4. **Sneboldsudvælgelse:** Udvalgte enheder bruges til at finde nye (f.eks. illegale spillere)
+
+---
+# Måling af karakteristika
+
+--
+.pull-left[
+### Observation
+- Forskeren observerer og registrerer
+- Vigtigt ikke at påvirke adfærd
+- Eksempel: Kliniske studier
+]
+
+--
+
+.pull-right[
+### Selvrapportering
+- Elementet måler selv sine karakteristika
+- Spørgsmål om vilje og nøjagtighed
+- To typer information:
+  - *Revealed preference* (tidligere adfærd)
+  - *Stated preference* (planlagt fremtidig adfærd)
+]
+
+---
+# Reliabilitet og validitet
+
+--
+&gt; **Reliabilitet:** Evnen til at gentage stikprøveudvælgelsen og opnå lignende resultater
+
+--
+
+&gt; **Validitet:** Resultaterne repræsenterer det, undersøgelsen har til formål at studere
+
+---
+class: inverse, middle, center
+# Stikprøver og tilfældighed
+
+---
+# Stikprøve
+
+--
+Fra nu af antager vi sandsynlighedsudvælgelse
+
+--
+
+Lad `\(X_i\)` være den stokastiske variabel, der repræsenterer værdien af karakteristikken for element `\(i\)`
+
+--
+
+&gt; En **stikprøve** med `\(n\)` elementer kan repræsenteres ved `\(n\)` stokastiske variable:
+&gt; `$$(X_1, X_2, \ldots, X_n)$$`
+
+--
+
+&gt; En **realiseret stikprøve** består af de faktiske værdier:
+&gt; `$$(x_1, x_2, \ldots, x_n)$$`
+
+---
+# Stikprøvefordeling
+
+--
+&gt; **Stikprøvefordelingen** er den simultane fordeling af `\((X_1, X_2, \ldots, X_n)\)`
+
+--
+
+`$$f(x_1, x_2, \ldots, x_n)$$`
+
+--
+
+- Sandsynlighedsfunktion, hvis `\(X_i\)` er diskrete
+- Tæthedsfunktion, hvis `\(X_i\)` er kontinuerte
+
+---
+# Udvælgelseskarakteristik
+
+--
+I praksis udvælges en stikprøve baseret på en *anden* karakteristik end den, vi vil studere
+
+--
+
+Lad `\(Z_i\)` være **udvælgelseskarakteristikken** (f.eks. CPR-nummer)
+
+--
+
+**Eksempel:**
+- Vi vil udvælge 5.000 personer baseret på CPR-nummer
+- For ethvert CPR-nummer `\(z\)`: `\(f_{Z_i}(z) = \frac{1}{5.000} = 0,0002\)`
+
+---
+class: inverse, middle, center
+# Repræsentative stikprøver
+
+---
+# Definition
+
+--
+Vi ønsker et "sandt" billede af populationen
+
+--
+
+&gt; En stikprøve er **repræsentativ** for `\(X\)`, hvis marginalfordelingen af `\(X_i\)` er lig med den relative frekvens af `\(X\)` i populationen:
+&gt; `$$f_{X_i}(x) = f_X(x) \text{ for alle } i = 1, 2, \ldots, n$$`
+
+---
+# Betingelser for repræsentativitet
+
+--
+Marginalfordelingen af `\(X_i\)` er:
+`$$f_{X_i}(x) = \sum_z f_{X_i|Z_i}(x|z) \cdot f_{Z_i}(z)$$`
+
+--
+
+Stikprøven er repræsentativ, hvis:
+
+1. `\(f_{Z_i}(z) = f_Z(z)\)` (udvælgelsessandsynlighed = andel i population)
+
+2. `\(f_{X_i|Z_i}(x|z) = f_{X|Z}(x|z)\)` (betinget fordeling matcher)
+
+--
+
+**Undtagelse:** Hvis `\(X\)` og `\(Z\)` er uafhængige, kan stikprøven stadig være repræsentativ selvom `\(f_{Z_i}(z) \neq f_Z(z)\)`
+
+---
+class: inverse, middle, center
+# Fejlkilder i stikprøveprocessen
+
+---
+# Tre hovedkilder
+
+--
+1. **Fejl i stikprøverammen:** Dele af populationen udelades
+
+--
+
+2. **Non-response:** Ikke alle kan eller vil deltage
+
+--
+
+3. **Selv-selektion:** Individers adfærd påvirker sandsynligheden for udvælgelse
+
+---
+# Fejl i stikprøverammen
+
+--
+**Eksempel:** Vi vil undersøge interesse for hybridbiler
+
+--
+
+- Vi interviewer besøgende på en bilmesse
+- Men besøgende på bilmesser er mere interesserede i "showbiler"
+- Sandsynligheden for at foretrække hybridbil og besøge messen er ikke uafhængige
+
+--
+
+`\(\Rightarrow\)` Ikke-repræsentativ stikprøve
+
+---
+# Non-response
+
+--
+&gt; **Non-respondenter:** Individer der ikke kan eller vil deltage
+
+--
+
+**Årsager:**
+- Følsomme spørgsmål (indkomst, seksuel orientering)
+- Tid til at besvare
+- Generel holdning til undersøgelser
+
+--
+
+Hvis sandsynligheden for non-response er korreleret med interessekarakteristikken `\(\Rightarrow\)` ikke-repræsentativ stikprøve
+
+---
+# Selv-selektion
+
+--
+&gt; **Selv-selektion:** En persons adfærd påvirker sandsynligheden for at blive udvalgt
+
+--
+
+**Eksempel:** Lønfordeling i populationen
+- Vi kan kun udtrække fra folk, der arbejder
+- Men mange arbejder ikke, fordi lønnen ville være for lav
+- Deres adfærd bestemmer sandsynligheden for udvælgelse (nul)
+
+---
+class: inverse, middle, center
+# Observationsfejl
+
+---
+# Typer af observationsfejl
+
+--
+&gt; **Observationsfejl:** Den faktiske værdi afviger fra den målte værdi
+
+--
+
+.pull-left[
+**Responsefejl:**
+- Spørgsmålsfejl
+- Interviewerfejl
+- Registrerings-/kodningsfejl
+]
+
+.pull-right[
+**Målefejl:**
+- Vanskeligheder ved præcis måling
+]
+
+---
+# Model for observationsfejl
+
+--
+Lad `\(X^*\)` være den "sande" værdi og `\(\epsilon\)` være fejlen:
+
+`$$X = X^* + \epsilon$$`
+
+--
+
+**Hvis `\(E(\epsilon) = 0\)`:**
+`$$E(X) = E(X^*) + E(\epsilon) = E(X^*)$$`
+
+Middelværdien påvirkes ikke!
+
+--
+
+**Variansen påvirkes altid** (antag `\(Cov(X^*, \epsilon) = 0\)`):
+`$$Var(X) = Var(X^*) + Var(\epsilon) \geq Var(X^*)$$`
+
+---
+# Opsummering
+
+--
+.small123[
+| Aspekt | Nøglebegreber |
+|--------|---------------|
+| **Slutning** | Deduktiv (population → stikprøve) vs. Induktiv (stikprøve → population) |
+| **Design** | Population, stikprøveenheder, stikprøveramme, stikprøvemetode, måling |
+| **Metoder** | Sandsynlighed vs. ikke-sandsynlighed |
+| **Repræsentativitet** | `\(f_{X_i}(x) = f_X(x)\)` |
+| **Fejlkilder** | Stikprøveramme, non-response, selv-selektion |
+| **Observationsfejl** | `\(X = X^* + \epsilon\)` |
+]
+
+---
+# Før næste gang
+
+.pull-left[
+**Læs:**
+- Kapitel 9 i lærebogen
+
+**Overvej:**
+- Hvornår er en stikprøve repræsentativ?
+- Hvordan påvirker non-response resultaterne?
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(SDU_logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 125px;
+  height: 60px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // insert more to hide here
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

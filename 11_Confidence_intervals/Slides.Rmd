@@ -1,0 +1,382 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options:
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistik
+## Forelæsning 11: Konfidensintervaller
+
+### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Opdateret `r Sys.Date()`
+
+
+
+.footnote[
+.left[
+.small123[
+*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
+]
+]
+]
+
+
+---
+class: middle
+# Dagens forelæsning
+.pull-left-wide[
+**Emner:**
+
+- Konfidensinterval for middelværdien
+- Konfidensinterval for variansen
+- Konfidensinterval for forskellen mellem to middelværdier
+- Bestemmelse af stikprøvestørrelse
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Konfidensintervaller
+
+---
+# Motivation
+
+--
+Estimatorer er stokastiske variable $\Rightarrow$ sandsynligheden for at de er *præcis* lig populationsværdien er nul
+
+--
+
+Vi håber, at de er "tæt på" de sande værdier
+
+--
+
+> **Konfidensinterval:** Et interval af værdier, der siger noget om usikkerheden på estimatet
+
+---
+# Konfidensinterval for $\mu$
+
+--
+Vi konstruerer et interval centreret omkring $\bar{X}$:
+
+$$\hat{I} = [\bar{X} - k, \bar{X} + k]$$
+
+--
+
+Da $\bar{X}$ er stokastisk, er grænserne også stokastiske
+
+--
+
+$\mu$ er en konstant — intervallet vil ikke *altid* indeholde $\mu$
+
+---
+# Konfidensniveau
+
+--
+> **Konfidensniveauet** $(1-\alpha)$ er sandsynligheden for, at intervallet indeholder $\mu$
+
+--
+
+$$1 - \alpha = P(\mu \in \hat{I}) = P(\bar{X} - k \leq \mu \leq \bar{X} + k)$$
+
+---
+# Simpel tilfældig stikprøve
+
+--
+Husk at $\bar{X}$ følger en approksimativ normalfordeling:
+$$\bar{X} \overset{a}{\sim} \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)$$
+
+--
+
+Standardiser:
+$$Z = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}} \overset{a}{\sim} \mathcal{N}(0,1)$$
+
+---
+# Kritiske værdier
+
+--
+> **Kritisk værdi** $z_{1-\alpha/2}$ er defineret ved:
+> $$\Phi(z_{1-\alpha/2}) = 1 - \frac{\alpha}{2}$$
+
+--
+
+**Almindelige værdier:**
+- 90% konfidensinterval: $z_{0.95} = 1.645$
+- 95% konfidensinterval: $z_{0.975} = 1.96$
+- 99% konfidensinterval: $z_{0.995} = 2.576$
+
+---
+# Konfidensinterval: $\sigma^2$ kendt
+
+--
+$$\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}, \; \bar{X} + z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\right]$$
+
+---
+# Konfidensinterval: $\sigma^2$ ukendt
+
+--
+Erstat $\sigma$ med stikprøvestandardafvigelsen $S$:
+
+$$\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \frac{S}{\sqrt{n}}, \; \bar{X} + z_{1-\alpha/2} \cdot \frac{S}{\sqrt{n}}\right]$$
+
+--
+
+Dette er et **approksimativt** konfidensinterval
+
+---
+# $t$-fordelingen
+
+--
+Hvis $X \sim \mathcal{N}(\mu, \sigma^2)$ og $\sigma^2$ er ukendt:
+
+$$t = \frac{\bar{X} - \mu}{S/\sqrt{n}} \sim t(n-1)$$
+
+--
+
+$t$-fordelingen ligner normalfordelingen, men med "federe haler"
+
+--
+
+**Eksakt konfidensinterval:**
+$$\hat{I} = \left[\bar{X} - t_{1-\alpha/2}(n-1) \cdot \frac{S}{\sqrt{n}}, \; \bar{X} + t_{1-\alpha/2}(n-1) \cdot \frac{S}{\sqrt{n}}\right]$$
+
+---
+# Bernoulli-tilfældet
+
+--
+Hvis $X \sim Bernoulli(p)$:
+- $E(X) = p$
+- $Var(X) = p(1-p)$
+
+--
+
+Estimér variansen med $\bar{X}(1-\bar{X})$:
+
+$$\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \sqrt{\frac{\bar{X}(1-\bar{X})}{n}}, \; \bar{X} + z_{1-\alpha/2} \cdot \sqrt{\frac{\bar{X}(1-\bar{X})}{n}}\right]$$
+
+---
+class: inverse, middle, center
+# Konfidensinterval for variansen
+
+---
+# $\chi^2$-fordelingen
+
+--
+Husk at:
+$$\frac{(n-1) \cdot S^2}{\sigma^2} \overset{a}{\sim} \chi^2(n-1)$$
+
+--
+
+$\chi^2$-fordelingen er **ikke** symmetrisk — kun positive værdier
+
+---
+# Konfidensinterval for $\sigma^2$
+
+--
+$$\hat{I} = \left[\frac{(n-1) \cdot S^2}{\chi^2_{1-\alpha/2}(n-1)}, \; \frac{(n-1) \cdot S^2}{\chi^2_{\alpha/2}(n-1)}\right]$$
+
+--
+
+**Bemærk:** Intervallet er *ikke* symmetrisk omkring $S^2$
+
+---
+class: inverse, middle, center
+# Forskel mellem to middelværdier
+
+---
+# To uafhængige stikprøver
+
+--
+Vi har stikprøver fra to grupper og vil sammenligne $\mu_1$ og $\mu_2$
+
+--
+
+**Estimator:**
+$$\bar{X}_1 - \bar{X}_2$$
+
+--
+
+**Forventningsret:**
+$$E(\bar{X}_1 - \bar{X}_2) = \mu_1 - \mu_2$$
+
+--
+
+**Varians:**
+$$Var(\bar{X}_1 - \bar{X}_2) = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}$$
+
+---
+# Konfidensinterval for $\mu_1 - \mu_2$
+
+--
+**Med kendte varianser:**
+$$\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}\right]$$
+
+--
+
+**Med ukendte varianser:**
+$$\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}\right]$$
+
+---
+# Pooled varians
+
+--
+Hvis $\sigma_1^2 = \sigma_2^2$ (ens varianser):
+
+$$S_p^2 = \frac{(n_1-1) \cdot S_1^2 + (n_2-1) \cdot S_2^2}{n_1 + n_2 - 2}$$
+
+--
+
+**Konfidensinterval:**
+$$\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{S_p^2 \cdot \left(\frac{1}{n_1} + \frac{1}{n_2}\right)}\right]$$
+
+---
+class: inverse, middle, center
+# Stikprøvestørrelse
+
+---
+# Bredden af konfidensintervallet
+
+--
+Bredden af konfidensintervallet for $\mu$:
+$$2 \cdot z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$$
+
+--
+
+Hvis vi ønsker bredden $\leq 2K$:
+
+$$n^* = \frac{\sigma^2}{K^2} \cdot z_{1-\alpha/2}^2$$
+
+---
+# Bernoulli-tilfældet
+
+--
+For $X \sim Bernoulli(p)$: $\sigma^2 = p(1-p)$
+
+--
+
+Maksimal varians når $p = 0.5$: $\sigma^2 = 0.25$
+
+--
+
+**Konservativ stikprøvestørrelse:**
+$$n^* = \frac{0.25}{K^2} \cdot z_{1-\alpha/2}^2$$
+
+---
+# Opsummering
+
+--
+.small123[
+| Parameter | Fordeling | Konfidensinterval |
+|-----------|-----------|-------------------|
+| $\mu$, $\sigma^2$ kendt | Normal | $\bar{X} \pm z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$ |
+| $\mu$, $\sigma^2$ ukendt | $t$ | $\bar{X} \pm t_{1-\alpha/2}(n-1) \cdot \frac{S}{\sqrt{n}}$ |
+| $\sigma^2$ | $\chi^2$ | $\frac{(n-1)S^2}{\chi^2_{1-\alpha/2}}, \frac{(n-1)S^2}{\chi^2_{\alpha/2}}$ |
+| $\mu_1 - \mu_2$ | Normal | $(\bar{X}_1-\bar{X}_2) \pm z_{1-\alpha/2} \cdot SE$ |
+]
+
+---
+# Før næste gang
+
+.pull-left[
+**Læs:**
+- Kapitel 13 i lærebogen
+
+**Overvej:**
+- Hvad betyder et 95% konfidensinterval?
+- Hvordan påvirker stikprøvestørrelsen intervallet?
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

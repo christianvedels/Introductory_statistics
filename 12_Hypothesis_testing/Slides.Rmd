@@ -1,0 +1,419 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options:
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistik
+## Forelæsning 12: Hypotesetest
+
+### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Opdateret `r Sys.Date()`
+
+
+
+.footnote[
+.left[
+.small123[
+*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
+]
+]
+]
+
+
+---
+class: middle
+# Dagens forelæsning
+.pull-left-wide[
+**Emner:**
+
+- Hypoteser og fejltyper
+- Konstruktion af hypotesetest
+- Test af middelværdi
+- $p$-værdien
+- Test af varians
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Hypoteser og fejltyper
+
+---
+# Hypotesetest
+
+--
+Nogle gange vil vi teste en specifik teori:
+- Er forbrugstilbøjeligheden mellem 0 og 1?
+- Motionerer folk det "sunde" antal timer per uge?
+
+--
+
+> **Hypotesetest:** En procedure til at teste teorier baseret på data
+
+---
+# Opskriften
+
+--
+1. Formulér teorien som to hypoteser
+
+--
+
+2. Konstruér en **teststatistik**
+
+--
+
+3. Vælg en **beslutningsregel**
+
+--
+
+**Vigtigt:** En teori er gyldig, indtil vi finder evidens imod den
+
+$\Rightarrow$ Vi kan **aldrig** acceptere en teori — kun undlade at forkaste den!
+
+---
+# Nul- og alternativhypotese
+
+--
+> **Nulhypotese** $H_0$: Den hypotese vi forsøger at forkaste
+
+--
+
+> **Alternativhypotese** $H_1$: Det vi konkluderer, hvis vi forkaster $H_0$
+
+--
+
+**Eksempler:**
+- Retssag: $H_0$: uskyldig, $H_1$: skyldig
+- Løndiskrimination: $H_0$: $\mu_{mænd} = \mu_{kvinder}$, $H_1$: $\mu_{mænd} \neq \mu_{kvinder}$
+
+---
+# To typer fejl
+
+--
+| | $H_0$ sand | $H_0$ falsk |
+|---|:---:|:---:|
+| **Forkast $H_0$** | Type I-fejl | OK |
+| **Forkast ikke $H_0$** | OK | Type II-fejl |
+
+--
+
+> **Type I-fejl:** Forkaste $H_0$ når den er sand
+
+> **Type II-fejl:** Ikke forkaste $H_0$ når den er falsk
+
+---
+# Signifikansniveau og styrke
+
+--
+**Signifikansniveau** $\alpha$:
+$$\alpha = P(\text{Type I-fejl}) = P(\text{forkast } H_0 | H_0 \text{ sand})$$
+
+--
+
+**Type II-fejl** $\beta$:
+$$\beta = P(\text{Type II-fejl}) = P(\text{forkast ikke } H_0 | H_0 \text{ falsk})$$
+
+--
+
+**Styrke (power):** $(1 - \beta)$
+
+---
+class: inverse, middle, center
+# Konstruktion af hypotesetest
+
+---
+# Teststatistik
+
+--
+Vi tester: $H_0: \mu = \mu_0$ mod $H_1: \mu = \mu_1$ (med $\mu_0 < \mu_1$)
+
+--
+
+**Teststatistik:**
+$$Z = \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}}$$
+
+--
+
+Under $H_0$: $Z \sim \mathcal{N}(0,1)$
+
+Under $H_1$: $Z \sim \mathcal{N}\left(\frac{\mu_1-\mu_0}{\sigma/\sqrt{n}}, 1\right)$
+
+---
+# Beslutningsregel
+
+--
+Store værdier af $Z$ er mere sandsynlige under $H_1$
+
+--
+
+**Beslutningsregel:**
+- Forkast ikke $H_0$ hvis $Z \leq c$
+- Forkast $H_0$ hvis $Z > c$
+
+--
+
+**Kritisk værdi:** $c = z_{1-\alpha}$
+
+---
+# Afvejning mellem fejltyper
+
+--
+$$\beta = \Phi\left(z_{1-\alpha} - \frac{\mu_1 - \mu_0}{\sigma/\sqrt{n}}\right)$$
+
+--
+
+- Når $\alpha$ falder $\Rightarrow$ $z_{1-\alpha}$ stiger $\Rightarrow$ $\beta$ stiger
+
+--
+
+Der er en **trade-off** mellem Type I og Type II-fejl!
+
+---
+class: inverse, middle, center
+# Test af middelværdi
+
+---
+# Ukendt fordeling, ukendt varians
+
+--
+Brug stikprøvevariansen:
+$$Z = \frac{\bar{X} - \mu_0}{S/\sqrt{n}} \overset{a}{\sim} \mathcal{N}(0,1)$$
+
+--
+
+**Beslutningsregel:**
+- Forkast ikke $H_0$ hvis $Z \leq z_{1-\alpha}$
+- Forkast $H_0$ hvis $Z > z_{1-\alpha}$
+
+---
+# Normalfordelte observationer, ukendt varians
+
+--
+$$Z = \frac{\bar{X} - \mu_0}{S/\sqrt{n}} \sim t(n-1)$$
+
+--
+
+**Beslutningsregel:**
+- Forkast ikke $H_0$ hvis $Z \leq t_{1-\alpha}(n-1)$
+- Forkast $H_0$ hvis $Z > t_{1-\alpha}(n-1)$
+
+---
+# Tosidet test
+
+--
+$$H_0: \mu = \mu_0 \quad \text{mod} \quad H_1: \mu \neq \mu_0$$
+
+--
+
+**Beslutningsregel:**
+- Forkast ikke $H_0$ hvis $z_{\alpha/2} \leq Z \leq z_{1-\alpha/2}$
+- Forkast $H_0$ hvis $Z < z_{\alpha/2}$ eller $Z > z_{1-\alpha/2}$
+
+---
+# Ensidet test
+
+--
+$$H_0: \mu = \mu_0 \quad \text{mod} \quad H_1: \mu > \mu_0$$
+
+--
+
+**Beslutningsregel:**
+- Forkast ikke $H_0$ hvis $Z \leq z_{1-\alpha}$
+- Forkast $H_0$ hvis $Z > z_{1-\alpha}$
+
+---
+class: inverse, middle, center
+# $p$-værdien
+
+---
+# Definition
+
+--
+> **$p$-værdien** er sandsynligheden for en Type I-fejl givet den observerede teststatistik
+
+--
+
+$$p = P(\text{forkast } H_0 | H_0 \text{ sand})$$
+
+--
+
+**Beslutningsregel:**
+- Forkast ikke $H_0$ hvis $p \geq \alpha$
+- Forkast $H_0$ hvis $p < \alpha$
+
+---
+# Beregning af $p$-værdi
+
+--
+**Ensidet test** ($H_1: \mu > \mu_0$):
+$$p = 1 - \Phi(z)$$
+
+--
+
+**Tosidet test** ($H_1: \mu \neq \mu_0$):
+$$p = 2 \cdot \Phi(-|z|)$$
+
+---
+class: inverse, middle, center
+# Test af varians
+
+---
+# Teststatistik for varians
+
+--
+$$H_0: \sigma^2 = \sigma_0^2 \quad \text{mod} \quad H_1: \sigma^2 \neq \sigma_0^2$$
+
+--
+
+**Teststatistik:**
+$$Y = (n-1) \cdot \frac{S^2}{\sigma_0^2} \overset{a}{\sim} \chi^2(n-1)$$
+
+---
+# Statistisk vs. økonomisk signifikans
+
+--
+**Statistisk signifikans:** Vi forkaster $H_0$
+
+--
+
+**Økonomisk signifikans:** Effekten er "stor nok" til at have praktisk betydning
+
+--
+
+**Eksempel:** Gennemsnitsindkomst på Fyn er 299.900 kr vs. 300.000 kr nationalt
+- Med stor stikprøve: Statistisk signifikant
+- Men er 100 kr økonomisk signifikant?
+
+---
+# Konfidensintervaller og hypotesetest
+
+--
+Hypotesetest svarer til at konstruere et konfidensinterval og forkaste $H_0$ hvis værdien ligger uden for intervallet
+
+--
+
+**Beslutningsregel:**
+- Forkast ikke $H_0$ hvis $\mu_0 \in \hat{I}$
+- Forkast $H_0$ hvis $\mu_0 \notin \hat{I}$
+
+---
+# Opsummering
+
+--
+.small123[
+| Test | Teststatistik | Forkast $H_0$ hvis |
+|------|---------------|-------------------|
+| $H_1: \mu > \mu_0$ | $Z = \frac{\bar{X}-\mu_0}{S/\sqrt{n}}$ | $Z > z_{1-\alpha}$ |
+| $H_1: \mu < \mu_0$ | $Z = \frac{\bar{X}-\mu_0}{S/\sqrt{n}}$ | $Z < z_{\alpha}$ |
+| $H_1: \mu \neq \mu_0$ | $Z = \frac{\bar{X}-\mu_0}{S/\sqrt{n}}$ | $\|Z\| > z_{1-\alpha/2}$ |
+| $H_1: \sigma^2 \neq \sigma_0^2$ | $Y = (n-1)\frac{S^2}{\sigma_0^2}$ | $Y < \chi^2_{\alpha/2}$ eller $Y > \chi^2_{1-\alpha/2}$ |
+]
+
+---
+# Før næste gang
+
+.pull-left[
+**Læs:**
+- Kapitel 14 i lærebogen
+
+**Overvej:**
+- Hvad er forskellen på Type I og Type II-fejl?
+- Hvad fortæller $p$-værdien os?
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

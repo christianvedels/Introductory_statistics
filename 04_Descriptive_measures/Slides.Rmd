@@ -1,0 +1,690 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options:
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistik
+## Forelæsning 4: Deskriptive mål
+
+### Christian Vedel,<br>Department of Economics
+
+### Email: [christian-vs@sam.sdu.dk](christian-vs@sam.sdu.dk)
+
+### Opdateret `r Sys.Date()`
+
+
+
+.footnote[
+.left[
+.small123[
+*Kapitel 5 i "Probability and Statistics for Economists" af Bruce Hansen*
+]
+]
+]
+
+
+---
+class: middle
+# Dagens forelæsning
+.pull-left-wide[
+**Emner:**
+
+- Deskriptive mål og stokastiske variable
+- Momenter (middelværdi, varians)
+- Kvantiler (median, percentiler)
+- Valg af deskriptive mål
+- Mål for sammenhænge (kovarians, korrelation)
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Deskriptive mål og stokastiske variable
+
+---
+# Hvorfor deskriptive mål?
+
+--
+- Antag at du vil studere indkomsten (eller højden) af mennesker i Danmark
+
+--
+- Danmarks befolkning er ca. 5,5 millioner $\Rightarrow$ du skal se på 5,5 millioner tal
+
+--
+- Det er svært at behandle al den information, og selv hvis du gør det — hvilke tal er relevante?
+
+--
+- Vi har brug for en måde at *opsummere* informationen i alle disse 5,5 millioner tal
+
+$\Rightarrow$ **Deskriptive mål**
+
+---
+# Typer af deskriptive mål
+
+--
+Der er to typer af deskriptive mål:
+
+--
+
+.pull-left[
+### Momenter
+- Baseret på gennemsnit
+- F.eks. gennemsnitlig indkomst, gennemsnitlig højde
+]
+
+--
+
+.pull-right[
+### Kvantiler
+- Baseret på opdelinger af fordelingen
+- F.eks. de rigeste 10%, de korteste 25%
+]
+
+--
+
+Når vi anvender disse mål på stokastiske variable, får vi information om den underliggende population
+
+---
+# Fordeling og populationsmål
+
+--
+- **Fordeling** = listen af sandsynligheder for værdierne, en stokastisk variabel kan antage (diskret) eller tæthedsfunktionen (kontinuert)
+
+--
+- Fordelingen af den stokastiske variabel repræsenterer fordelingen i den underliggende population
+
+--
+- Derfor kalder vi:
+  - Fordelingen af den stokastiske variabel: **populationsfordelingen**
+  - Deskriptive mål for den stokastiske variabel: **populationsmål**
+
+--
+- Dette er i kontrast til mål beregnet på en stikprøve: **stikprøvemål**
+
+---
+class: inverse, middle, center
+# Momenter
+
+---
+# Middelværdi (forventet værdi)
+
+--
+> **Middelværdien** af en diskret stokastisk variabel $X$ med sandsynlighedsfunktion $f(x)$ er:
+> $$E(X) = \sum_{i=1}^N x_i f(x_i) = \mu$$
+> hvor $x_1, x_2, \ldots, x_N$ er alle de mulige værdier af $X$.
+
+--
+
+**Eksempel: Terningekast**
+
+$$E(X) = 1 \cdot \frac{1}{6} + 2 \cdot \frac{1}{6} + 3 \cdot \frac{1}{6} + 4 \cdot \frac{1}{6} + 5 \cdot \frac{1}{6} + 6 \cdot \frac{1}{6} = 3.5$$
+
+---
+# Fortolkning af middelværdien
+
+--
+Bemærk at 3,5 *ikke* er en af de mulige værdier af $X$ — hvordan fortolker vi den?
+
+--
+
+**Eksempel:**
+- Du spiller et spil, hvor du vinder én krone for hvert øje på terningen
+- Middelværdien på 3,5 fortæller dig, at hvis du spiller 10 gange, bør du forvente at vinde ca. 35 kroner
+
+--
+
+**Intuition:**
+- Middelværdien er gennemsnittet af alle værdier, hvis du gentog eksperimentet uendeligt mange gange
+- Alternativ fortolkning: "massens centrum"
+
+---
+# Middelværdi: Kontinuerte variable
+
+--
+For kontinuerte variable erstatter vi summation med integration:
+
+> **Middelværdien** af en kontinuert stokastisk variabel $X$ med tæthedsfunktion $f(x)$ er:
+> $$E(X) = \int_{-\infty}^\infty x \cdot f(x) \, dx = \mu$$
+
+---
+# Egenskaber for middelværdien
+
+--
+Lad $h(\cdot)$ være en funktion, $a$ og $b$ konstanter, og $X$ en stokastisk variabel:
+
+--
+
+1. $E[h(X)] = \sum_{i=1}^N h(x_i) f(x_i)$ (for diskrete variable)
+
+--
+
+2. $E(a) = a$
+
+--
+
+3. $E(aX) = a \cdot E(X)$
+
+--
+
+4. $E(a + X) = a + E(X)$
+
+--
+
+5. $E(a + bX) = a + b \cdot E(X)$
+
+--
+
+**Vigtigt:** Generelt gælder at $E[h(X)] \neq h[E(X)]$
+
+---
+# Varians: Motivation
+
+--
+Betragt to spil relateret til møntkast:
+
+| Spil | Vind ved "plat" | Tab ved "krone" |
+|------|-----------------|-----------------|
+| Spil 1 ($X$) | 1 kr. | 1 kr. |
+| Spil 2 ($Y$) | 10 kr. | 10 kr. |
+
+--
+
+**Middelværdier:**
+$$E(X) = 1 \cdot \frac{1}{2} + (-1) \cdot \frac{1}{2} = 0$$
+$$E(Y) = 10 \cdot \frac{1}{2} + (-10) \cdot \frac{1}{2} = 0$$
+
+--
+
+Begge spil har samme middelværdi — men er de lige "risikable"?
+
+---
+# Varians
+
+--
+> **Variansen** af en stokastisk variabel $X$ betegnes $\sigma^2$ og defineres som:
+> $$Var(X) = E\left( [X - E(X)]^2 \right) = \sigma^2$$
+
+--
+
+**For diskrete variable:**
+$$Var(X) = \sum_{i=1}^N (x_i - \mu)^2 f(x_i)$$
+
+--
+
+**For kontinuerte variable:**
+$$Var(X) = \int_{-\infty}^\infty (x - \mu)^2 f(x) \, dx$$
+
+---
+# Varians: Eksempel
+
+--
+**Vores to spil:**
+
+$$Var(X) = (1 - 0)^2 \cdot \frac{1}{2} + (-1 - 0)^2 \cdot \frac{1}{2} = 1$$
+
+$$Var(Y) = (10 - 0)^2 \cdot \frac{1}{2} + (-10 - 0)^2 \cdot \frac{1}{2} = 100$$
+
+--
+
+$Y$ er mere "spredt ud" end $X$ — altså mere risikabelt!
+
+--
+
+**Intuition:** Variansen måler, hvor "spredt" fordelingen af en stokastisk variabel er
+
+---
+# Standardafvigelse
+
+--
+Et problem med variansen: Måleenheden er ikke den samme som for variablen
+
+- $X$ måles i kroner, men $Var(X)$ måles i kroner²
+
+--
+
+> **Standardafvigelsen** af en stokastisk variabel $X$ defineres som:
+> $$\sigma(X) = \sqrt{Var(X)} = \sqrt{\sigma^2}$$
+
+--
+
+Standardafvigelsen har samme måleenhed som den originale variabel
+
+---
+# Egenskaber for varians og standardafvigelse
+
+--
+.pull-left[
+**Varians:**
+1. $Var(a) = 0$
+2. $Var(aX) = a^2 \cdot Var(X)$
+3. $Var(a + X) = Var(X)$
+4. $Var(a + bX) = b^2 \cdot Var(X)$
+]
+
+--
+
+.pull-right[
+**Standardafvigelse:**
+1. $\sigma(a) = 0$
+2. $\sigma(aX) = |a| \cdot \sigma(X)$
+3. $\sigma(a + X) = \sigma(X)$
+4. $\sigma(a + bX) = |b| \cdot \sigma(X)$
+]
+
+---
+# Højere ordens momenter
+
+--
+> Det **$k$-te moment** af en stokastisk variabel $X$ defineres som:
+> $$m_k(X) = E(X^k)$$
+
+> Det **$k$-te centrerede moment** defineres som:
+> $$m_k^*(X) = E\left( [X - E(X)]^k \right)$$
+
+--
+
+**Bemærk:**
+- Middelværdien er det 1. moment: $E(X) = m_1(X)$
+- Variansen er det 2. centrerede moment: $Var(X) = m_2^*(X)$
+
+--
+
+**Andre nyttige momenter:**
+- $m_3^*(X)$: Skævhed (asymmetri i fordelingen)
+- $m_4^*(X)$: Kurtosis (hvor sandsynlige er ekstreme værdier)
+
+---
+# St. Petersborg-paradokset
+
+--
+Der findes fordelinger, hvor nogle momenter ikke eksisterer!
+
+--
+
+**Eksempel:**
+- Indsatsen starter ved 2 kr. og fordobles hver gang "plat" vises
+- Du vinder 2 kr. ved "plat" i 1. kast, 4 kr. ved 2. kast, osv.
+
+--
+
+**Forventet gevinst:**
+$$E(X) = 2 \cdot \frac{1}{2} + 4 \cdot \frac{1}{4} + 8 \cdot \frac{1}{8} + \ldots = 1 + 1 + 1 + \ldots = \infty$$
+
+--
+
+Denne stokastiske variabel har ikke et 1. moment!
+
+---
+class: inverse, middle, center
+# Kvantiler
+
+---
+# Kvantiler: Motivation
+
+--
+- Kvantiler er en anden måde at opsummere fordelingen af $X$
+
+--
+- Indkomstfordelingen er typisk meget asymmetrisk
+
+--
+- Derfor er middelværdien ikke særligt informativ
+
+--
+- Et mere almindeligt mål for skæve fordelinger er **medianen**
+
+--
+
+**Intuitivt:** Medianen er den værdi af $X$, der deler fordelingen i to halvdele
+
+---
+# Kvantiler: Definition
+
+--
+> **$p$-kvantilen** af en stokastisk variabel $X$ med CDF $F(x)$ er værdien $q_p$ sådan at:
+> - $P(X < q_p) \leq p$
+> - $P(X > q_p) \leq 1 - p$
+
+--
+
+**For kontinuerte variable:**
+$$F(q_p) = p$$
+
+--
+
+**Fortolkning:**
+- For kontinuerte variable: $p$-kvantilen deler fordelingen i $p$ til venstre og $1-p$ til højre
+- For diskrete variable: Værdien hvor CDF "springer" fra under $p$ til over $p$
+
+---
+# Specielle navne for kvantiler
+
+--
+| Kvantil | Navn |
+|---------|------|
+| $q_{0.5}$ | **Median** |
+| $q_{0.25}$, $q_{0.75}$ | **Kvartiler** |
+| $q_{0.1}, q_{0.2}, \ldots, q_{0.9}$ | **Deciler** |
+| $q_{0.01}, q_{0.02}, \ldots, q_{0.99}$ | **Percentiler** |
+
+--
+
+**Egenskaber:**
+- Kvantiler eksisterer *altid* (i modsætning til momenter)
+- Men de behøver ikke være unikke
+- Hvis der er flere medianer, bruges midtpunktet som konvention
+
+---
+class: inverse, middle, center
+# Valg af deskriptive mål
+
+---
+# Centraltendens
+
+--
+Forestil dig, at du vil studere indkomstfordelingen i Danmark
+
+--
+
+**Hvad fortæller en høj middelværdi?**
+- Den *gennemsnitlige* person har høj indkomst
+- Men det betyder ikke, at *alle* har høj indkomst
+- Vi kunne have to grupper: en virkelig rig og en virkelig fattig
+
+--
+
+**Hvad fortæller en høj median?**
+- Personen i midten af fordelingen har høj indkomst
+- Men igen ikke, at *alle* har høj indkomst
+
+--
+
+Begge mål beskriver **centraltendensen** — det "typiske" eller "midten" af fordelingen
+
+---
+# Median vs. middelværdi
+
+--
+- Hvis fordelingen er symmetrisk: median = middelværdi
+
+--
+- Medianen er generelt mere **robust** over for målefejl
+
+--
+- Ved skæve fordelinger (f.eks. indkomst) er medianen ofte mere informativ
+
+---
+# Typetal (mode)
+
+--
+> **Typetallet** af en stokastisk variabel $X$ er værdien $x_m$, hvor sandsynligheds(tætheds)funktionen opnår sit maksimum:
+> $$f(x_m) \geq f(x) \text{ for alle } x$$
+
+--
+
+**Egenskaber:**
+- Eksisterer altid, men behøver ikke være unikt
+- En fordeling er *unimodal* med ét typetal, *bimodal* med to
+
+--
+
+Typetallet kan identificeres som "toppen" af sandsynligheds(tætheds)funktionen
+
+---
+class: inverse, middle, center
+# Deskriptive mål for sammenhænge
+
+---
+# Motivation
+
+--
+Antag at du investerer i to forskellige aktier
+
+--
+- Den fremtidige pris på hver aktie er en stokastisk variabel
+
+--
+- Du vil vide, om priserne sandsynligvis bevæger sig sammen:
+  - Hvis begge stiger, vinder du mere
+  - Men hvis begge falder, taber du mere
+
+--
+
+**"Læg ikke alle dine æg i én kurv":**
+
+Du vil måske investere i aktier, hvis priser bevæger sig i *modsatte* retninger
+
+---
+# Middelværdi af en sum
+
+--
+Du køber $a$ aktier af $X$ og $b$ aktier af $Y$
+
+Hvad er den forventede værdi af din portefølje?
+
+--
+
+> **Middelværdien af en sum** af stokastiske variable $X$ og $Y$ er:
+> $$E(aX + bY) = a \cdot E(X) + b \cdot E(Y)$$
+
+--
+
+Denne formel gælder uanset om $X$ og $Y$ er diskrete eller kontinuerte, og uanset om de bevæger sig sammen eller ej
+
+---
+# Kovarians
+
+--
+> **Kovariansen** mellem to stokastiske variable $X$ og $Y$ defineres som:
+> $$Cov(X, Y) = E\left( [X - E(X)][Y - E(Y)] \right) = E(XY) - \mu_X \mu_Y$$
+
+--
+
+**Fortolkning:**
+- $Cov(X, Y) > 0$: Når $X$ er over sin middelværdi, er $Y$ sandsynligvis også over sin
+- $Cov(X, Y) < 0$: Når $X$ er over sin middelværdi, er $Y$ sandsynligvis under sin
+
+---
+# Egenskaber for kovarians
+
+--
+1. $Cov(X, Y) = Cov(Y, X)$
+
+--
+
+2. $Cov(aX, bY) = ab \cdot Cov(X, Y)$
+
+--
+
+3. $Cov(a + X, b + Y) = Cov(X, Y)$
+
+--
+
+4. $Cov(X + Z, Y) = Cov(X, Y) + Cov(Z, Y)$
+
+---
+# Varians af en sum
+
+--
+> **Variansen af en sum** af stokastiske variable $X$ og $Y$ er:
+> $$Var(aX + bY) = a^2 Var(X) + b^2 Var(Y) + 2ab \cdot Cov(X, Y)$$
+
+--
+
+**Risikodiversificering:**
+
+- Hvis $Cov(X, Y) < 0$: $Var(aX + bY) < Var(aX) + Var(bY)$
+  - $\Rightarrow$ Lavere risiko ved at sprede investeringerne!
+
+--
+- Hvis $Cov(X, Y) > 0$: $Var(aX + bY) > Var(aX) + Var(bY)$
+  - $\Rightarrow$ Højere risiko
+
+---
+# Korrelationskoefficient
+
+--
+Kovariansen har to ulemper:
+- Måleenheden er produktet af enhederne for $X$ og $Y$
+- Værdien er svær at fortolke
+
+--
+
+> **Korrelationskoefficienten** mellem $X$ og $Y$ defineres som:
+> $$\rho(X, Y) = \frac{Cov(X, Y)}{\sigma(X) \cdot \sigma(Y)}$$
+
+--
+
+Korrelationskoefficienten er altid mellem $-1$ og $1$
+
+---
+# Fortolkning af korrelation
+
+--
+| Værdi | Fortolkning |
+|-------|-------------|
+| $\rho = -1$ | Perfekt negativ korrelation |
+| $-1 < \rho < 0$ | Negativ korrelation |
+| $\rho = 0$ | Ingen korrelation |
+| $0 < \rho < 1$ | Positiv korrelation |
+| $\rho = 1$ | Perfekt positiv korrelation |
+
+--
+
+**Vigtigt:**
+
+Hvis $X$ og $Y$ er uafhængige, så er $Cov(X, Y) = \rho(X, Y) = 0$
+
+Men det omvendte er **ikke** sandt!
+
+---
+# Opsummering
+
+--
+.pull-left[
+**Momenter:**
+- Middelværdi: $E(X) = \mu$
+- Varians: $Var(X) = \sigma^2$
+- Standardafvigelse: $\sigma(X)$
+- Højere ordens momenter
+
+**Kvantiler:**
+- Median: $q_{0.5}$
+- Kvartiler, deciler, percentiler
+]
+
+.pull-right[
+**Sammenhænge:**
+- Kovarians: $Cov(X, Y)$
+- Korrelation: $\rho(X, Y)$
+
+**Vigtige formler:**
+- $E(aX + bY) = aE(X) + bE(Y)$
+- $Var(aX + bY) = a^2Var(X) + b^2Var(Y) + 2ab \cdot Cov(X,Y)$
+]
+
+---
+# Før næste gang
+
+.pull-left[
+**Læs:**
+- Kapitel 5 i lærebogen
+
+**Overvej:**
+- Hvornår er medianen bedre end middelværdien?
+- Hvad betyder negativ korrelation for risiko?
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

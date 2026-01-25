@@ -1,0 +1,469 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options:
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistik
+## Forelæsning 8: Estimation af middelværdien
+
+### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Opdateret `r Sys.Date()`
+
+
+
+.footnote[
+.left[
+.small123[
+*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
+]
+]
+]
+
+
+---
+class: middle
+# Dagens forelæsning
+.pull-left-wide[
+**Emner:**
+
+- Simpel tilfældig stikprøve
+- Konstruktion af en estimator for middelværdien
+- Egenskaber ved estimatorer
+- Fordelingen af stikprøvegennemsnittet
+- Den centrale grænseværdisætning
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Simpel tilfældig stikprøve
+
+---
+# Deskriptive mål i en stikprøve
+
+--
+Ofte vil vi udlede information fra en stikprøve om den ukendte fordeling i populationen
+
+--
+
+- Der er mange måder at karakterisere populationsfordelingen
+- Det er almindeligt at bruge deskriptive mål
+
+--
+
+**Spørgsmål:** Hvordan kan vi bruge informationen i stikprøven til at sige noget om deskriptive mål i populationen?
+
+---
+# Simpel tilfældig stikprøve
+
+--
+> En **simpel tilfældig stikprøve** er en stikprøve $(X_1, X_2, \ldots, X_n)$ sådan at:
+>
+> 1. $X_1, X_2, \ldots, X_n$ er statistisk **uafhængige**
+> 2. $X_1, X_2, \ldots, X_n$ har samme **marginalfordeling** $f_X(x)$
+
+--
+
+- Marginalfordelingen $f_X(x)$ er fordelingen af interesse (i populationen)
+- Betingelse 2 sikrer, at stikprøven er repræsentativ for $X$
+
+---
+# Fordeling af simpel tilfældig stikprøve
+
+--
+Vi kan bestemme fordelingen af stikprøven ved hjælp af de to betingelser:
+
+$$f(x_1, \ldots, x_n) = f_X(x_1) \cdot f_X(x_2) \cdot \ldots \cdot f_X(x_n)$$
+
+--
+
+**Eksempel:** $X \sim Bernoulli(0.7)$, $n = 3$
+
+$$P(X_1 = 0, X_2 = 0, X_3 = 0) = 0.3^3 = 0.027$$
+$$P(X_1 = 1, X_2 = 1, X_3 = 1) = 0.7^3 = 0.343$$
+
+--
+
+Men: Vi kender ikke fordelingen af $X$ i populationen...
+
+---
+class: inverse, middle, center
+# Konstruktion af en estimator
+
+---
+# Estimation af middelværdien
+
+--
+- Hvert element i stikprøven er en stokastisk variabel med samme fordeling
+
+--
+
+- Derfor har hvert element samme middelværdi
+
+--
+
+- Vi kunne bruge hver realiseret værdi som et estimat af middelværdien
+
+--
+
+- Dette giver os $n$ forskellige estimater af én værdi
+
+--
+
+$\Rightarrow$ Vi kan kombinere dem til én enkelt værdi!
+
+---
+# Analogiprincippet
+
+--
+> **Analogiprincippet:** Brug formlerne, vi ville bruge hvis vi kendte fordelingen i populationen, men erstat alle ukendte populationsstørrelser med de tilsvarende stikprøvestørrelser
+
+--
+
+Hvis vi kendte fordelingen af $X$:
+$$\mu = \sum_{i=1}^N x_i f(x_i)$$
+
+--
+
+I praksis har vi en stikprøve med $n$ værdier, hver med sandsynlighed $1/n$:
+$$\bar{x} = \sum_{i=1}^n x_i \cdot \frac{1}{n} = \frac{1}{n} \sum_{i=1}^n x_i$$
+
+---
+# Stikprøvegennemsnittet
+
+--
+> **Stikprøvegennemsnittet** defineres som:
+> $$\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$$
+
+--
+
+**Bemærk:**
+- $\bar{X}$ er en *stokastisk variabel*
+- $\bar{x}$ er en *realiseret værdi* af $\bar{X}$
+
+---
+# Estimat vs. estimator
+
+--
+.pull-left[
+### Estimator
+- En **stokastisk variabel**
+- Funktion af stikprøven
+- Forsøger at approksimere en parameter
+- Notation: $\bar{X}$
+]
+
+--
+
+.pull-right[
+### Estimat
+- En **realiseret værdi**
+- Baseret på en konkret stikprøve
+- Vores gæt på den sande værdi
+- Notation: $\bar{x}$
+]
+
+---
+class: inverse, middle, center
+# Egenskaber ved estimatorer
+
+---
+# Tre ønskelige egenskaber
+
+--
+Vi kan konstruere uendeligt mange estimatorer, men vi vil have en *god* estimator
+
+--
+
+**Tre vigtige egenskaber:**
+
+1. Forventningsrethed (unbiasedness)
+
+2. Effektivitet (efficiency)
+
+3. Konsistens (consistency)
+
+---
+# Forventningsrethed
+
+--
+> En estimator er **forventningsret** (unbiased), hvis dens forventede værdi er lig med den parameter, den forsøger at approksimere
+
+--
+
+**Intuition:**
+- Forestil dig, at vi kunne udtage mange stikprøver
+- Beregn estimatet i hver stikprøve
+- Gennemsnittet af alle estimater bør være lig med den sande værdi
+
+---
+# Forventningsrethed af $\bar{X}$
+
+--
+$$E(\bar{X}) = E\left[\frac{1}{n} \sum_{i=1}^n X_i\right]$$
+
+--
+
+$$= \frac{1}{n} \sum_{i=1}^n E(X_i)$$
+
+--
+
+$$= \frac{1}{n} \cdot n \cdot \mu = \mu$$
+
+--
+
+$\Rightarrow$ Stikprøvegennemsnittet er en **forventningsret estimator** for $\mu$
+
+---
+# Effektivitet
+
+--
+- I praksis kan vi kun udtage én stikprøve
+
+--
+
+- Selvom estimatoren er forventningsret, kan den realiserede værdi ligge langt fra den sande parameter
+
+--
+
+- Vi ønsker, at estimatoren tager værdier "tæt på" den sande værdi med høj sandsynlighed
+
+--
+
+> En estimator er mere **effektiv** end en anden, hvis dens varians er mindre
+
+---
+# Varians af $\bar{X}$
+
+--
+$$Var(\bar{X}) = Var\left[\frac{1}{n} \sum_{i=1}^n X_i\right]$$
+
+--
+
+$$= \frac{1}{n^2} \sum_{i=1}^n Var(X_i)$$
+
+(pga. uafhængighed)
+
+--
+
+$$= \frac{1}{n^2} \cdot n \cdot \sigma^2 = \frac{\sigma^2}{n}$$
+
+--
+
+**Bemærk:** Variansen afhænger af stikprøvestørrelsen — jo større $n$, jo mindre varians!
+
+---
+# Konsistens
+
+--
+Mange estimatorer har den egenskab, at deres varians er omvendt proportional med stikprøvestørrelsen
+
+--
+
+- Når $n \rightarrow \infty$: Variansen går mod nul
+- Fordelingen "kollapser" til en enkelt værdi
+
+--
+
+> En estimator er **konsistent**, hvis den konvergerer mod den sande værdi, når stikprøvestørrelsen går mod uendelig
+
+---
+# Konsistens af $\bar{X}$
+
+--
+Vi har:
+$$E(\bar{X}) = \mu$$
+
+--
+
+$$\lim_{n \rightarrow \infty} Var(\bar{X}) = \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} = 0$$
+
+--
+
+$\Rightarrow$ Stikprøvegennemsnittet er en **konsistent estimator** for $\mu$
+
+---
+class: inverse, middle, center
+# Fordelingen af $\bar{X}$
+
+---
+# Hvorfor fordelingen?
+
+--
+- Vi har beregnet $E(\bar{X})$ og $Var(\bar{X})$
+
+--
+
+- Nogle gange vil vi beregne sandsynligheden for, at estimatet ligger i et bestemt interval
+
+--
+
+- Til dette har vi brug for hele *fordelingen* af estimatoren
+
+---
+# Hvis $X$ er normalfordelt
+
+--
+Antag $X \sim \mathcal{N}(\mu, \sigma^2)$ i populationen
+
+--
+
+Da er hvert stikprøveelement også normalfordelt: $X_i \sim \mathcal{N}(\mu, \sigma^2)$
+
+--
+
+Som en sum af normalfordelte variable er $\bar{X}$ også normalfordelt:
+
+$$\bar{X} \sim \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)$$
+
+---
+# Den centrale grænseværdisætning
+
+--
+I praksis kender vi ikke fordelingen af $X$ i populationen
+
+--
+
+> **Den centrale grænseværdisætning (CLT):**
+>
+> Lad $(X_1, X_2, \ldots, X_n)$ være en simpel tilfældig stikprøve hvor $E(X_i) = \mu$ og $Var(X_i) = \sigma^2$.
+>
+> Når $n \rightarrow \infty$, følger stikprøvegennemsnittet en normalfordeling:
+> $$\bar{X} \sim \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)$$
+
+---
+# CLT i praksis
+
+--
+Hvis stikprøven er "stor nok", er fordelingen af $\bar{X}$ *tilnærmelsesvis* normal:
+
+$$\bar{X} \overset{a}{\sim} \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)$$
+
+--
+
+**Tommelfingerregel:** $n \geq 30$ er ofte tilstrækkeligt
+
+--
+
+Dette gælder *uanset* den oprindelige fordeling af $X$!
+
+---
+# Opsummering
+
+--
+| Egenskab | Formel/Resultat |
+|----------|-----------------|
+| **Estimator** | $\bar{X} = \frac{1}{n}\sum_{i=1}^n X_i$ |
+| **Forventningsret** | $E(\bar{X}) = \mu$ |
+| **Varians** | $Var(\bar{X}) = \frac{\sigma^2}{n}$ |
+| **Konsistent** | $Var(\bar{X}) \rightarrow 0$ når $n \rightarrow \infty$ |
+| **CLT** | $\bar{X} \overset{a}{\sim} \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)$ |
+
+---
+# Før næste gang
+
+.pull-left[
+**Læs:**
+- Kapitel 10 i lærebogen
+
+**Overvej:**
+- Hvad betyder det, at en estimator er konsistent?
+- Hvorfor er den centrale grænseværdisætning så vigtig?
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

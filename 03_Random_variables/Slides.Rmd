@@ -1,0 +1,694 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options:
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistik
+## Forelæsning 3: Stokastiske variable
+
+### Christian Vedel,<br>Department of Economics
+
+### Email: [christian-vs@sam.sdu.dk](christian-vs@sam.sdu.dk)
+
+### Opdateret `r Sys.Date()`
+
+
+
+.footnote[
+.left[
+.small123[
+*Kapitel 4 i "Probability and Statistics for Economists" af Bruce Hansen*
+]
+]
+]
+
+
+---
+class: middle
+# Dagens forelæsning
+.pull-left-wide[
+**Emner:**
+
+- Definition af stokastiske variable
+- Diskrete stokastiske variable
+- Sammenhænge mellem diskrete variable
+- Kontinuerte stokastiske variable
+- Sammenhænge mellem kontinuerte variable
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Definition af stokastiske variable
+
+---
+# Stokastisk variabel
+
+--
+> En **stokastisk variabel** er en *funktion*, der tildeler en numerisk værdi til ethvert udfald af et eksperiment.
+
+--
+
+**Eksempler:**
+
+.pull-left[
+*Møntkast:*
+$$X(\text{"plat"}) = 0$$
+$$X(\text{"krone"}) = 1$$
+]
+
+.pull-right[
+*Terningekast:*
+$$X(1) = 1, \; X(2) = 2, \; X(3) = 3$$
+$$X(4) = 4, \; X(5) = 5, \; X(6) = 6$$
+]
+
+---
+# Notation for stokastiske variable
+
+--
+Som en generel regel bruger vi bogstaver i slutningen af alfabetet:
+
+--
+- **Store bogstaver** til at betegne stokastiske variable (f.eks. $X$, $Y$)
+
+--
+- **Små bogstaver** til de specifikke værdier, en stokastisk variabel kan antage (f.eks. $x$, $y$)
+
+--
+
+**Eksempel:** "Vælg en tilfældig person, spørg om deres alder"
+- Udfald: værdier af "personens alder" (f.eks. 43 år)
+- Stokastisk variabel: tildel et tal til udfaldet "alder = 43 år"
+- "Naturlig" værdi: 43
+
+---
+# Typer af stokastiske variable
+
+--
+Der er to typer af stokastiske variable baseret på antallet af værdier, de kan antage:
+
+--
+
+.pull-left[
+### Diskrete stokastiske variable
+- Kan antage et *tælleligt* (endeligt eller uendeligt) antal værdier
+
+**Eksempler:**
+- Møntkast
+- Terningekast
+- Vælg et heltal
+]
+
+--
+
+.pull-right[
+### Kontinuerte stokastiske variable
+- Antager et *utælleligt* antal værdier
+
+**Eksempler:**
+- Præcis nedbørsmængde over et år
+- Præcist afkast på en aktie
+]
+
+--
+
+Bemærk: Det samme eksperiment kan producere en diskret eller kontinuert variabel, afhængigt af hvor "præcist" udfaldet måles
+
+---
+class: inverse, middle, center
+# Diskrete stokastiske variable
+
+---
+# Sandsynlighedsfunktion
+
+--
+En fordel ved at bruge stokastiske variable er, at vi nu arbejder med tal i stedet for abstrakte hændelser
+
+--
+
+> **Sandsynlighedsfunktionen** $f(\cdot)$ for en diskret stokastisk variabel $X$ er defineret som:
+> $$f(x) = P(X = x)$$
+
+--
+
+Når vi arbejder med flere stokastiske variable (f.eks. $X$ og $Y$), kan det være nyttigt at skelne deres sandsynlighedsfunktioner ved at indeksere dem: $f_X(x)$ og $f_Y(y)$
+
+---
+# Sandsynlighedsfunktion: Eksempel
+
+--
+**Møntkast:**
+
+$$f(0) = P(X = 0) = P(\text{"plat"}) = \frac{1}{2}$$
+$$f(1) = P(X = 1) = P(\text{"krone"}) = \frac{1}{2}$$
+
+--
+
+**Egenskaber for sandsynlighedsfunktionen:**
+
+1. $0 \leq f(x) \leq 1$ for alle $x$
+
+2. $\displaystyle\sum_{i=1}^N f(x_i) = f(x_1) + f(x_2) + \ldots + f(x_N) = 1$
+
+   hvor $x_1, x_2, \ldots, x_N$ er de mulige værdier af $X$
+
+---
+# Kumulativ fordelingsfunktion (CDF)
+
+--
+> Den **kumulative fordelingsfunktion** $F(\cdot)$ for en diskret stokastisk variabel $X$ er defineret som:
+> $$F(x) = P(X \leq x) = \sum_{x_i \leq x} f(x_i)$$
+
+--
+
+Bemærk at den kumulative fordeling per konstruktion er en *stigende* funktion
+
+--
+
+**Eksempel (terningekast):**
+
+$$f(4) = P(X = 4) = \frac{1}{6}$$
+
+$$F(4) = P(X \leq 4) = f(1) + f(2) + f(3) + f(4) = \frac{4}{6}$$
+
+---
+# CDF: Sandsynlighed for et interval
+
+--
+Den kumulative fordelingsfunktion giver os også mulighed for at beregne sandsynligheden for, at $X$ antager en værdi i et givet interval:
+
+--
+
+$$P(a < X \leq b) = F(b) - F(a)$$
+
+--
+
+$$P(a \leq X \leq b) = F(b) - F(a) + f(a)$$
+
+---
+# Sandsynlighedsfunktioner og relative frekvenser
+
+--
+- Antag at frekvensen af et bestemt udfald $z$ i populationen er givet ved funktionen $g(z)$
+
+--
+- F.eks. i en urne med 3 røde kugler og 5 blå kugler har røde kugler en relativ frekvens på "3 ud af 8"
+
+--
+- Lad $Z$ være en stokastisk variabel, hvis værdier angiver udfaldet (kuglens farve)
+
+--
+- Hvis alle elementer i populationen har lige stor chance for at blive udvalgt, så er sandsynlighedsfunktionen for $Z$:
+$$f(z) = g(z)$$
+
+--
+
+**Eksempel:** Hvis $Z = 1$ angiver "rød kugle" og $Z = 2$ angiver "blå kugle":
+$$f(1) = \frac{3}{8} \qquad f(2) = \frac{5}{8}$$
+
+---
+class: inverse, middle, center
+# Sammenhænge mellem diskrete stokastiske variable
+
+---
+# Hvorfor studere sammenhænge?
+
+--
+Nogle gange er vi interesserede i at studere forholdet mellem to typer af hændelser
+
+--
+
+**Eksempel:**
+- En bank vil vurdere risikoen for konkurs hos en virksomhed, der ansøger om lån
+- Banken ved, at dette afhænger af økonomiens tilstand: højkonjunktur eller recession
+- Banken vil gerne vide, hvor risikabelt lånet er som funktion af:
+  - Hvor sandsynligt det er, at virksomheden går konkurs
+  - Hvor sandsynligt det er, at økonomien er i recession
+
+---
+# Simultanfordeling
+
+--
+> Den **simultane sandsynlighedsfunktion** $f(\cdot, \cdot)$ for to diskrete stokastiske variable $X$ og $Y$ er defineret som:
+> $$f(x, y) = P(X = x \text{ og } Y = y)$$
+
+--
+
+**Eksempel:**
+
+| | $X = 0$ (konkurs) | $X = 1$ (ikke konkurs) |
+|---|:---:|:---:|
+| $Y = 0$ (recession) | 0.2 | 0.2 |
+| $Y = 1$ (højkonjunktur) | 0.1 | 0.5 |
+
+---
+# Egenskaber for simultanfordelingen
+
+--
+1. $0 \leq f(x, y) \leq 1$ for alle $x, y$
+
+--
+
+2. $\displaystyle \sum_{i=1}^{N_x} \sum_{j=1}^{N_y} f(x_i, y_j) = 1$
+
+--
+
+**I vores eksempel:**
+$$0.2 + 0.2 + 0.1 + 0.5 = 1 \; \checkmark$$
+
+---
+# Marginalfordeling
+
+--
+> Den **marginale sandsynlighedsfunktion** $f_X(\cdot)$ for en diskret stokastisk variabel $X$ er defineret som:
+> $$f_X(x) = \sum_{j=1}^{N_y} f(x, y_j) = f(x, y_1) + f(x, y_2) + \ldots + f(x, y_{N_y})$$
+
+--
+
+Marginalfordelingen af $X$ er kolonnesummen, og marginalfordelingen af $Y$ er rækkesum:
+
+| | $X = 0$ | $X = 1$ | $f_Y(\cdot)$ |
+|---|:---:|:---:|:---:|
+| $Y = 0$ | 0.2 | 0.2 | **0.4** |
+| $Y = 1$ | 0.1 | 0.5 | **0.6** |
+| $f_X(\cdot)$ | **0.3** | **0.7** | |
+
+---
+# Betinget sandsynlighed
+
+--
+Husk definitionen af betinget sandsynlighed:
+$$P(A | B) = \frac{P(A \cap B)}{P(B)}$$
+
+--
+
+Hvis hændelse $A$ repræsenteres af $X = x$ og hændelse $B$ af $Y = y$:
+$$P(X = x | Y = y) = \frac{P(X = x \text{ og } Y = y)}{P(Y = y)}$$
+
+--
+
+Bemærk at:
+- Tælleren er simultanfordelingen $f(x, y)$
+- Nævneren er marginalfordelingen $f_Y(y)$
+
+---
+# Betinget sandsynlighedsfunktion
+
+--
+> Den **betingede sandsynlighedsfunktion** $f_{X|Y}(\cdot | \cdot)$ for en diskret stokastisk variabel $X$ givet at $Y = y$ er defineret som:
+> $$f_{X|Y}(x | y) = \frac{f(x, y)}{f_Y(y)}$$
+> hvis $f_Y(y) > 0$
+
+--
+
+**Eksempel:**
+
+Hvad er sandsynligheden for konkurs ($X = 0$) givet højkonjunktur ($Y = 1$)?
+
+$$f_{X|Y}(0 | 1) = \frac{f(0, 1)}{f_Y(1)} = \frac{0.1}{0.6} = 0.167 = 16.7\%$$
+
+---
+# Bayes' sætning
+
+--
+Nogle gange kender vi den betingede sandsynlighed for $X$ givet $Y$, men vi er interesserede i det omvendte
+
+--
+
+**Eksempel:**
+- Du kender sandsynligheden for, at en "citron" (dårlig bil) har lav pris
+- Men du vil vide sandsynligheden for, at en billig bil er en citron
+
+--
+
+> **Bayes' sætning:**
+> $$f_{X|Y}(x | y) = f_{Y|X}(y | x) \cdot \frac{f_X(x)}{f_Y(y)}$$
+> $$f_{X|Y}(x | y) = f_{Y|X}(y | x) \cdot \frac{f_X(x)}{\sum_{i=1}^{N_x} f_{Y|X}(y | x_i) \cdot f_X(x_i)}$$
+
+---
+# Bayes' sætning: Eksempel
+
+--
+- $X$: om bilen er en citron ($X = 1$) eller ej ($X = 0$)
+- $Y$: om prisen er lav ($Y = 1$) eller ej ($Y = 0$)
+
+--
+
+**Information fra bilforhandler:**
+- 75% sandsynlighed for lav pris hvis bilen er en citron: $f_{Y|X}(1|1) = 0.75$
+- 20% sandsynlighed for lav pris hvis bilen ikke er en citron: $f_{Y|X}(1|0) = 0.20$
+
+--
+
+**Fra tekniske rapporter:**
+- 25% af bilerne på markedet er citroner: $f_X(1) = 0.25$, $f_X(0) = 0.75$
+
+---
+# Bayes' sætning: Eksempel (fortsat)
+
+--
+Anvend Bayes' sætning:
+
+$$f_{X|Y}(1 | 1) = f_{Y|X}(1 | 1) \cdot \frac{f_X(1)}{f_{Y|X}(1|0) \cdot f_X(0) + f_{Y|X}(1|1) \cdot f_X(1)}$$
+
+--
+
+$$= 0.75 \cdot \frac{0.25}{0.20 \cdot 0.75 + 0.75 \cdot 0.25}$$
+
+--
+
+$$= 0.75 \cdot \frac{0.25}{0.15 + 0.1875} = 0.75 \cdot \frac{0.25}{0.3375} = 0.556$$
+
+--
+
+**Konklusion:** Der er 55.6% chance for, at en bil er en citron, hvis den har lav pris
+
+---
+# Uafhængighed
+
+--
+Husk definitionen af uafhængighed mellem to hændelser:
+$$P(A \cap B) = P(A) \cdot P(B)$$
+
+--
+
+> To diskrete stokastiske variable $X$ og $Y$ er **uafhængige** hvis og kun hvis:
+> $$f(x, y) = f_X(x) \cdot f_Y(y)$$
+> for alle $x$ og $y$.
+
+--
+
+**Dette indebærer:**
+1. $f_{X|Y}(x | y) = f_X(x)$ for alle $y$ hvor $f_Y(y) > 0$
+2. $f_{Y|X}(y | x) = f_Y(y)$ for alle $x$ hvor $f_X(x) > 0$
+
+--
+
+**Eksempler:** At kaste en mønt to gange, at kaste en terning to gange
+
+---
+class: inverse, middle, center
+# Kontinuerte stokastiske variable
+
+---
+# Motivation
+
+--
+Forestil dig, at din virksomhed vil forudsige sin produktion næste år
+
+--
+- Du ved, at den vil producere mellem 10 og 20 tons beton
+- Det kan være *et hvilket som helst* tal mellem 10 og 20 (med lige stor sandsynlighed)
+
+--
+
+**Hvad er sandsynligheden for at producere præcis 15 tons?**
+
+--
+
+Grundlæggende nul!
+- Hvis den producerer 14.999999 eller 15.000001, er det ikke præcis 15
+- Det ville være ekstremt svært at ramme præcis 15 tons
+
+--
+
+$\Rightarrow$ Sandsynligheden for at producere *præcis* en bestemt mængde er nul
+
+$\Rightarrow$ Konceptet sandsynlighedsfunktion giver ikke mening for kontinuerte variable
+
+---
+# Kumulativ fordelingsfunktion (CDF)
+
+--
+> Den **kumulative fordelingsfunktion** $F(\cdot)$ for en kontinuert stokastisk variabel $X$ er defineret som:
+> $$F(x) = P(X \leq x)$$
+
+--
+
+Dette er samme definition som for diskrete variable
+
+--
+
+Men bemærk: For kontinuerte variable gør det ingen forskel, om uligheden er streng eller ej:
+
+$$P(X \leq x) = P(X < x) + P(X = x) = P(X < x)$$
+
+fordi $P(X = x) = 0$
+
+---
+# Tæthedsfunktion (PDF)
+
+--
+> **Tæthedsfunktionen** $f(\cdot)$ for en kontinuert stokastisk variabel $X$ er defineret som:
+> $$f(x) = \frac{dF(x)}{dx}$$
+
+--
+
+**Vigtige implikationer:**
+
+- Arealet under tæthedsfunktionen er altid lig med 1:
+$$\int_{-\infty}^\infty f(x) \, dx = 1$$
+
+--
+
+- Den kumulative fordelingsfunktion er integralet af tæthedsfunktionen:
+$$F(x) = \int_{-\infty}^x f(z) \, dz$$
+
+---
+# Eksempel: Uniform fordeling
+
+--
+I vores eksempel er sandsynligheden for enhver værdi mellem 10 og 20 den samme:
+$$f(x) = c$$
+
+--
+
+Vi kan bruge egenskaberne til at beregne $c$:
+$$\int_{10}^{20} c \, dx = (20 - 10) \cdot c = 1 \quad \Rightarrow \quad c = 0.1$$
+
+--
+
+**Tæthedsfunktion:**
+$$f(x) = \begin{cases} 0 & \text{hvis } x < 10 \\ 0.1 & \text{hvis } 10 \leq x \leq 20 \\ 0 & \text{hvis } x > 20 \end{cases}$$
+
+--
+
+**CDF:**
+$$F(x) = \begin{cases} 0 & \text{hvis } x < 10 \\ 0.1(x - 10) & \text{hvis } 10 \leq x \leq 20 \\ 1 & \text{hvis } x > 20 \end{cases}$$
+
+---
+# Visualisering af PDF og CDF
+
+.pull-left[
+**Tæthedsfunktion (PDF):**
+- Højden angiver "tætheden" af sandsynlighed
+- Arealet under kurven = 1
+- $P(a \leq X \leq b) = \int_a^b f(x) \, dx$
+]
+
+.pull-right[
+**Kumulativ fordeling (CDF):**
+- Stigende funktion fra 0 til 1
+- $F(x) = P(X \leq x)$
+- Hældningen = tæthedsfunktionen
+]
+
+---
+class: inverse, middle, center
+# Sammenhænge mellem kontinuerte variable
+
+---
+# Simultan tæthedsfunktion
+
+--
+Vi bruger de samme begreber som for diskrete variable, men erstatter:
+- Sandsynlighedsfunktion → Tæthedsfunktion
+- Summation → Integration
+
+--
+
+> Den **simultane tæthedsfunktion** $f(\cdot, \cdot)$ for to kontinuerte stokastiske variable $X$ og $Y$ skrives som $f(x, y)$.
+
+--
+
+Arealet under funktionen skal "summe op" til 1:
+$$\int_{-\infty}^\infty \int_{-\infty}^\infty f(x, y) \, dx \, dy = 1$$
+
+---
+# Marginal tæthedsfunktion
+
+--
+> Den **marginale tæthedsfunktion** $f_X(\cdot)$ for en kontinuert stokastisk variabel $X$ er defineret som:
+> $$f_X(x) = \int_{-\infty}^\infty f(x, y) \, dy$$
+
+--
+
+Arealet under marginalfordelingen er også 1:
+$$\int_{-\infty}^\infty f_X(x) \, dx = 1$$
+
+---
+# Betinget tæthedsfunktion
+
+--
+> Den **betingede tæthedsfunktion** $f_{X|Y}(x|y)$ for en kontinuert stokastisk variabel $X$ givet at $Y = y$ er defineret som:
+> $$f_{X|Y}(x | y) = \frac{f(x, y)}{f_Y(y)}$$
+> hvis $f_Y(y) > 0$
+
+--
+
+Igen gælder at arealet under funktionen er 1:
+$$\int_{-\infty}^\infty f_{X|Y}(x | y) \, dx = 1$$
+for alle $y$ hvor $f_Y(y) > 0$
+
+---
+# Bayes' sætning (kontinuert)
+
+--
+Bayes' sætning gælder også for kontinuerte variable:
+
+> **Bayes' sætning:**
+> $$f_{X|Y}(x | y) = f_{Y|X}(y | x) \cdot \frac{f_X(x)}{f_Y(y)}$$
+> $$f_{X|Y}(x | y) = f_{Y|X}(y | x) \cdot \frac{f_X(x)}{\int_{-\infty}^{\infty} f_{Y|X}(y | z) f_X(z) \, dz}$$
+
+---
+# Uafhængighed (kontinuert)
+
+--
+> To kontinuerte stokastiske variable $X$ og $Y$ er **uafhængige** hvis og kun hvis:
+> $$f(x, y) = f_X(x) \cdot f_Y(y)$$
+> for alle $x$ og $y$.
+
+--
+
+**Dette indebærer:**
+1. $f_{X|Y}(x | y) = f_X(x)$ for alle $y$ hvor $f_Y(y) > 0$
+2. $f_{Y|X}(y | x) = f_Y(y)$ for alle $x$ hvor $f_X(x) > 0$
+
+---
+# Opsummering
+
+--
+.pull-left[
+**Diskrete variable:**
+- Sandsynlighedsfunktion: $f(x) = P(X = x)$
+- CDF: $F(x) = \sum_{x_i \leq x} f(x_i)$
+- Simultanfordeling: $f(x,y)$
+- Marginalfordeling: $f_X(x) = \sum_j f(x, y_j)$
+- Betinget: $f_{X|Y}(x|y) = \frac{f(x,y)}{f_Y(y)}$
+]
+
+.pull-right[
+**Kontinuerte variable:**
+- Tæthedsfunktion: $f(x) = \frac{dF(x)}{dx}$
+- CDF: $F(x) = \int_{-\infty}^x f(z) dz$
+- Simultan tæthed: $f(x,y)$
+- Marginal tæthed: $f_X(x) = \int f(x, y) dy$
+- Betinget: $f_{X|Y}(x|y) = \frac{f(x,y)}{f_Y(y)}$
+]
+
+---
+# Før næste gang
+
+.pull-left[
+**Læs:**
+- Kapitel 4 i lærebogen
+
+**Overvej:**
+- Hvornår er en variabel diskret vs. kontinuert?
+- Hvordan bruger vi Bayes' sætning i praksis?
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]
