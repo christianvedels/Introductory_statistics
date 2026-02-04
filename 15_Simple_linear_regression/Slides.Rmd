@@ -90,41 +90,17 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 
 
-# Statistik
-## Forelæsning 15: Simpel lineær regression
+# Statistics
+## Simple linear regression
+### (Chapter 17)
 
-### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+### Seetha Menon,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
 
-### Opdateret `r Sys.Date()`
-
-
-
-.footnote[
-.left[
-.small123[
-*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
-]
-]
-]
+### Updated `r Sys.Date()`
 
 
----
-class: middle
-# Dagens forelæsning
-.pull-left-wide[
-**Emner:**
-
-- Regression og den betingede middelværdi
-- Simpel lineær regression
-- Estimation med OLS
-- Hypotesetest og konfidensintervaller
-]
-
-.pull-right-narrow[
-![Trees](Figures/Trees1.jpg)
-]
 
 ---
 class: inverse, middle, center
@@ -134,206 +110,230 @@ class: inverse, middle, center
 # Motivation
 
 --
-Sammenhængen mellem $X$ og $Y$ specificeres af deres simultane fordeling $f(x,y)$
+
+- The relationship between two random variables $X$ and $Y$ is specified by their joint probability distribution $f(x, y)$
 
 --
 
-Vi kan også studere sammenhængen via den **betingede fordeling** $f_{Y|X}(y|x)$
+- We can also study the relationship between a given value of $X$ and the distribution of $Y$
 
 --
 
-Hvis $X$ og $Y$ ikke er uafhængige, giver kendskab til $X$ information om $Y$
+- This relationship is given by the conditional distribution function $f_{Y|X}(y | x)$
+
+--
+
+- If $X$ and $Y$ are not independent, then knowing the value of $X$ gives us some information on the distribution of $Y$
 
 ---
-# Regressionsfunktionen
-
---
-> **Regressionsfunktionen** er den betingede middelværdi:
-> $$E(Y|X=x)$$
+# Regression function
 
 --
 
-**Navne:**
-- $Y$: **Afhængig** (forklaret) variabel
-- $X$: **Uafhængig** (forklarende) variabel
+- Regression analysis focuses on the conditional mean $E(Y | X = x)$
+
+--
+
+- This is a summary measure for the conditional distribution $f_{Y|X}(y | x)$, which makes it easier to interpret
+
+--
+
+- This function can be defined as follows:
+  - if $Y$ is discrete: $\displaystyle E(Y|X = x) = \sum_{i=1}^N \left[ y_i \cdot f_{Y|X}(y_i|x) \right]$
+  - if $Y$ is continuous: $\displaystyle E(Y|X = x) = \int_{-\infty}^\infty y \cdot f_{Y|X}(y|x) \, dy$
+
+--
+
+- In either case, note that $E(Y|X = x)$ is a function of $x$, and for this reason it is called **regression function** of $Y$ on $X$
+
+--
+
+- The two variables have different names:
+  - $Y$ is the **dependent (explained)** variable
+  - $X$ is the **independent (explanatory)** variable
 
 ---
-# Fejlled
-
---
-Den faktiske værdi af $Y$ er sjældent lig den forventede
+# Error
 
 --
 
-> **Fejlled (residual):**
-> $$U = Y - E(Y|X=x)$$
+- The regression function gives us the expected value of $Y$ for a given value of $X$
 
 --
 
-Per konstruktion: $E(U|X=x) = 0$
+- The *actual* value of $Y$ for a given value of $X$ is rarely equal to that
 
 --
 
-**Bemærk:** Regression beskriver en *statistisk* sammenhæng — ikke nødvendigvis *kausalitet*!
-
----
-class: inverse, middle, center
-# Simpel lineær regression
-
----
-# Lineær sammenhæng
-
---
-Vi antager ofte en lineær sammenhæng:
-
-> **Simpel lineær regression:**
-> $$E(Y|X=x) = \beta_0 + \beta_1 \cdot x$$
+- We can then define the error term or residual as the difference between the two:
+$$U = Y - E(Y|X = x)$$
 
 --
 
-**Koefficienter:**
-- $\beta_0$: **Intercept** (skæring med y-aksen)
-- $\beta_1$: **Hældningskoefficient**
-
----
-# Beregning af koefficienter
-
---
-$$\beta_1 = \frac{Cov(X,Y)}{Var(X)}$$
+- By construction, this error term has zero conditional mean:
+$$E(U | X = x) = E \! \left[ Y - E(Y|X = x) \right] = 0$$
 
 --
 
-$$\beta_0 = E(Y) - \beta_1 \cdot E(X)$$
-
---
-
-**Fortolkning:**
-- Fortegnet af $\beta_1$ = fortegnet af korrelationen
-- $\beta_1$ = effekten af én enheds ændring i $X$ på $Y$
+- Note that the regression function is simply a way of describing a statistical relationship between $Y$ and $X$: this does not imply *causality* (for this, see the next course...)
 
 ---
 class: inverse, middle, center
-# Estimation
+# Simple linear regression
 
 ---
-# Analogiprincippet
-
---
-Givet stikprøve: $((X_1,Y_1), (X_2,Y_2), \ldots, (X_n,Y_n))$
+# Linear regression
 
 --
 
-**Stikprøvestørrelser:**
-$$\widehat{Cov}(X,Y) = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})$$
+- If we want to say more about the relationship between $X$ and $Y$, we need to make some assumption about the nature of this relationship
 
-$$S_X^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar{X})^2$$
+--
+
+- In practice, we often assume a linear relationship
+
+--
+
+- This leads to the **simple linear regression** of $Y$ on $X$:
+$$E(Y | X = x) = \beta_0 + \beta_1 \cdot x$$
+
+--
+
+- The two betas also have specific names:
+  - $\beta_0$ is called **intercept**
+  - $\beta_1$ is called **slope coefficient**
 
 ---
-# OLS-estimatorer
-
---
-> **Ordinary Least Squares (OLS):**
-
-$$\hat{\beta}_1 = \frac{\sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})}{\sum_{i=1}^n (X_i - \bar{X})^2}$$
-
-$$\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \cdot \bar{X}$$
-
----
-# Mindste kvadraters metode
-
---
-OLS minimerer summen af kvadrerede fejl:
-
-$$\min_{b_0, b_1} \sum_{i=1}^n [Y_i - (b_0 + b_1 X_i)]^2$$
+# Coefficients
 
 --
 
-Dette svarer til den "bedste" rette linje gennem punkterne
+- It can be shown that the two coefficients can be calculated using only the variance of $X$ and the covariance between $X$ and $Y$:
+$$\begin{align*}
+  \beta_1 & = \frac{Cov(X, Y)}{Var(X)} \\
+  \beta_0 & = E(Y) - \beta_1 E(X)
+\end{align*}$$
+
+--
+
+- These formulas imply that:
+  - the sign of $\beta_1$ gives the sign of the correlation between $X$ and $Y$
+  - the effect of a unit change in $X$ on $Y$ is given by the magnitude of $\beta_1$
 
 ---
 class: inverse, middle, center
-# Inferens
+# Estimation of the simple linear regression
 
 ---
-# Hypotesetest
-
---
-**Er $X$ og $Y$ relaterede?**
-
-$$H_0: \beta_1 = 0 \quad \text{mod} \quad H_1: \beta_1 \neq 0$$
+# Analogy principle
 
 --
 
-**Teststatistik:**
-$$Z = \frac{\hat{\beta}_1 - 0}{\sqrt{S_{\hat{\beta}_1}^2}} \overset{a}{\sim} \mathcal{N}(0,1)$$
+- Suppose that we have a simple random sample:
+$$\big( (X_1, Y_1), (X_2, Y_2), \ldots, (X_n, Y_n) \big)$$
+
+--
+
+- We can use the analogy principle to calculate the two coefficients
+
+--
+
+- First, we need to calculate the corresponding sample measures to the three unknown quantities:
+$$\begin{align*}
+  Cov(X, Y): & \; \widehat{Cov}(X, Y) = \frac{1}{n-1} \sum_{i=1}^n \left[(X_i - \bar{X}) \cdot (Y_i - \bar{Y}) \right] \\
+  Var(X): & \; S_X^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2 \\
+  E(Y): & \; \bar{Y} = \frac{1}{n} \sum_{i=1}^n Y_i
+\end{align*}$$
 
 ---
-# Beslutningsregel
-
---
-- Forkast ikke $H_0$ hvis $z_{\alpha/2} \leq Z \leq z_{1-\alpha/2}$
-- Forkast $H_0$ hvis $|Z| > z_{1-\alpha/2}$
+# Estimators
 
 --
 
-**Generelt:** Test $H_0: \beta_1 = \beta_1^0$
+- By replacing in the two formulas, we obtain estimators for the two coefficients:
+$$\begin{align*}
+  \hat{\beta}_1 & = \frac{\widehat{Cov}(X, Y)}{S_X^2} = \frac{\sum_{i=1}^n \left[(X_i - \bar{X}) \cdot (Y_i - \bar{Y}) \right]}{\sum_{i=1}^n (X_i - \bar{X})^2} \\
+  \hat{\beta}_0 & = \bar{Y} - \hat{\beta}_1 \cdot \bar{X}
+\end{align*}$$
 
-$$Z = \frac{\hat{\beta}_1 - \beta_1^0}{\sqrt{S_{\hat{\beta}_1}^2}}$$
+--
+
+- These estimators are called the **ordinary least squares (OLS)** estimators
+
+--
+
+- This is because they are the solution to minimizing the following sum of squares:
+$$\sum_{i=1}^n \left[ Y_i - (b_0 + b_1 \cdot X_i) \right]^2$$
+
+--
+
+- This minimization problem is equivalent to the "best" fit of a straight line through the points represented by the elements of our sample
 
 ---
-# Konfidensinterval
-
---
-$$\hat{I} = \left[\hat{\beta}_1 - z_{1-\alpha/2} \cdot \sqrt{S_{\hat{\beta}_1}^2}, \; \hat{\beta}_1 + z_{1-\alpha/2} \cdot \sqrt{S_{\hat{\beta}_1}^2}\right]$$
-
---
-
-Tilsvarende for $\beta_0$
+class: inverse, middle, center
+# Hypothesis testing and confidence intervals
 
 ---
-# Opsummering
+# Hypothesis tests
 
 --
-.small123[
-| Komponent | Population | Stikprøve |
-|-----------|------------|-----------|
-| Hældning | $\beta_1 = \frac{Cov(X,Y)}{Var(X)}$ | $\hat{\beta}_1 = \frac{\widehat{Cov}(X,Y)}{S_X^2}$ |
-| Intercept | $\beta_0 = E(Y) - \beta_1 E(X)$ | $\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1\bar{X}$ |
-| Regression | $E(Y\|X=x) = \beta_0 + \beta_1 x$ | $\hat{Y} = \hat{\beta}_0 + \hat{\beta}_1 X$ |
-]
+
+- Once we have estimated our coefficients, we can move on to testing for their value
+
+--
+
+- First, we may want to test whether $X$ and $Y$ are indeed related
+
+--
+
+- This is simply a test of the hypotheses:
+$$\begin{align*}
+  H_0 &: \beta_1 = 0 \\
+  H_1 &: \beta_1 \not= 0
+\end{align*}$$
+
+--
+
+- In general, we may want to test $H_0: \beta_1 = \beta_1^0$, where $\beta_1^0$ is a value suggested by theory
 
 ---
-# Kursusopsummering
-
---
-.small123[
-**Vi har lært:**
-- Sandsynlighedsteori og stokastiske variable
-- Deskriptive mål og fordelinger
-- Stikprøveprocessen
-- Estimation og estimatorer
-- Konfidensintervaller
-- Hypotesetest
-- Regression
-]
+# Hypothesis tests
 
 --
 
-**Næste skridt:** Økonometri!
+- It can be shown that $\hat{\beta}_1$ is an unbiased estimator of $\beta_1$, meaning that $E(\hat{\beta}_1) = \beta_1$
+
+--
+
+- The test above then becomes a test of the mean value of $\hat{\beta}_1$
+
+--
+
+- Therefore, we can construct a test statistic similar to before:
+$$Z = \frac{\hat{\beta}_1 - \beta_1^0}{\sqrt{Var(\hat{\beta}_1 - \beta_1^0)}} = \frac{\hat{\beta}_1 - \beta_1^0}{\sqrt{S_{\hat{\beta}_1}^2}}$$
+
+--
+
+- This test statistic follows an approximate standard normal distribution
+
+--
+
+- Hence:
+  - do not reject $H_0$ if $z_{\alpha/2} \leq Z \leq z_{1 - \alpha/2}$
+  - reject $H_0$ if $Z < z_{\alpha/2}$ or $Z > z_{1 - \alpha/2}$
 
 ---
-# Før eksamen
+# Confidence intervals
 
-.pull-left[
-**Læs:**
-- Kapitel 17 i lærebogen
-- Gennemgå alle kapitler
+--
 
-**Øv:**
-- Opgaver fra alle emner
-- Tidligere eksamensopgaver
-]
+- We can also construct confidence intervals in a similar manner to before
 
-.pull-right[
-![Trees](Figures/Trees1.jpg)
-]
+--
+
+- A confidence interval at an $\alpha$ level of confidence is:
+$$\hat{I} = \left[ \hat{\beta}_1 - z_{1 - \alpha/2} \cdot \sqrt{S_{\hat{\beta}_1}^2}, \hat{\beta}_1 + z_{1 - \alpha/2} \cdot \sqrt{S_{\hat{\beta}_1}^2} \right]$$
+
+--
+
+- Finally, hypothesis tests and confidence intervals for $\beta_0$ are conducted in an analogous manner

@@ -90,584 +90,469 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 
 
-# Statistik
-## Forelæsning 2: Usikkerhed og sandsynlighed
+# Statistics
+## Uncertainty and probability
+### (Chapter 3)
 
-### Christian Vedel,<br>Department of Economics
+### Christian Vedel,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [christian-vs@sam.sdu.dk](christian-vs@sam.sdu.dk)
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
-### Opdateret `r Sys.Date()`
-
-
-
-.footnote[
-.left[
-.small123[
-*Kapitel 3 i "Probability and Statistics for Economists" af Bruce Hansen*
-]
-]
-]
+### Updated `r Sys.Date()`
 
 
----
-class: middle
-# Dagens forelæsning
-.pull-left-wide[
-**Emner:**
-
-- Usikkerhed
-- Population vs. stikprøve
-- Sandsynlighedsmodellen
-- Beregning af sandsynligheder
-- Betinget sandsynlighed
-- Uafhængighed og spuriøse sammenhænge
-]
-
-.pull-right-narrow[
-![Trees](Figures/Trees1.jpg)
-]
 
 ---
 class: inverse, middle, center
-# Usikkerhed
+# Uncertainty
 
 ---
-# Usikkerhed
-
---
-- I samfundsvidenskab arbejder vi ofte med usikkerhed — men hvad er "usikkerhed" egentlig?
-
---
-- Generelt betragter vi en situation som usikker, når vi ikke kender udfaldet
-
---
-- Vi kender som regel de mulige alternative udfald, men vi ved ikke, hvilket der vil indtræffe
+# Uncertainty
 
 --
 
-**Eksempel:**
-- Vi kender ikke morgendagens rente, men vi kender intervallet af mulige værdier (mellem 0 og $\infty$), og vi ved, at nogle værdier er meget usandsynlige (f.eks. over 100%)
+- In social sciences we often deal with uncertainty — but what exactly is "uncertainty"?
+
+--
+
+- In general, we consider a situation to be uncertain if we do not know the outcome
+
+--
+
+  - we usually know the possible alternative outcomes, but we do not know which one will realize
+
+--
+
+- For example, we do not know the value of the interest rate tomorrow, but we know the range of values it can take (between $0$ and $\infty$) and we know that some values are very unlikely (more than $100\%$)
 
 ---
-# Hvorfor kvantificere usikkerhed?
+# Uncertainty
 
 --
-- Antag at du overvejer at optage et lån
+
+- Suppose you are interested in taking out a loan
 
 --
-- I så fald vil du gerne have en idé om, hvad renten vil være i morgen
+
+- In this case, you would like to be able to have an idea of what the interest rate will be tomorrow
 
 --
-- Med andre ord: Vi ønsker at *kvantificere* usikkerheden ved hjælp af matematiske modeller og værktøjer
+
+- In other words, we would like to be able to *quantify* the uncertainty, using mathematical models and tools
 
 --
-- For at gøre dette skal vi først introducere nogle begreber
+
+- In order to do this, we first need to introduce some concepts
+
 
 ---
 class: inverse, middle, center
-# Fra population til stikprøve
+# From population to sample
 
 ---
 # Population
 
 --
-- **Population** = samling af individer, fysiske objekter eller abstrakte konstruktioner
 
---
-- Når vi taler om en population, mener vi *alle* de objekter, der tilhører denne kategori
-
---
-
-**Eksempler:**
-- Hvis vi studerer terningekast, er populationen de seks sider af terningen
-- Hvis vi studerer obligationsmarkedet, er populationen alle eksisterende obligationer på markedet
-- Hvis vi studerer beskæftigelse på arbejdsmarkedet, er populationen alle beskæftigede personer
+- **Population** = collection of individuals, physical objects, or abstract constructions
 
 --
 
-En population er *sikker* i den forstand, at vi kan afgøre, om et givet objekt skal være en del af den, udelukkende baseret på de karakteristika, der definerer populationen
+- When we talk about a population we mean *all* the objects that belong to that category
+
+--
+
+- Examples:
+  - if we study the roll of a dice, the population is the six sides of the dice
+  - if we study the bond market, the population is all bonds existing on the market
+  - if we study employment in the labor market, the population is all employed individuals
+
+--
+
+- Note that a population is *certain* in the sense that we can ascertain if a given object should be a part of it or not based only on the characteristics that define the population (e.g., if we know that an individual is employed, then we know that she is part of the population)
 
 ---
-# Reelle populationer og superpopulationer
-
---
-.pull-left[
-### Reelle populationer
-- Eksisterer i den virkelige verden
-- Er generelt endelige
-
-**Eksempler:**
-- Alle beskæftigede personer i Danmark
-- Alle obligationer på børsen
-]
+# Population
 
 --
 
-.pull-right[
-### Superpopulationer
-- Abstrakte konstruktioner
-- Kan være uendelige
+- All these examples represent **real populations**, which exist in the real world and so are generally finite
 
-**Eksempler:**
-- Alle mulige obligationspriser (som ikke nødvendigvis eksisterer)
-- Alle mulige lønninger (som ikke nødvendigvis eksisterer)
-]
+--
+
+- Note that we also can construct populations of abstract concepts, which we will call **super-populations** and which can be infinite
+
+--
+
+- Examples:
+  - if we study prices on the bond market, the population consists of all possible bond prices (which do not necessarily exist or may never exist)
+  - if we study wages on the labor market, the population comprises all possible wages (which do not necessarily exist or may never exist)
 
 ---
-# Stikprøve og udvælgelsesmekanisme
-
---
-- **Stikprøve** = et sæt elementer fra populationen, opnået gennem en **udvælgelsesmekanisme**
+# Sample and selection mechanism
 
 --
 
-**Eksempler:**
-
-| Population | Stikprøve | Udvælgelsesmekanisme |
-|------------|-----------|----------------------|
-| Terningens sider | Resultatet af 3 kast | Kast terningen, gentag 3 gange |
-| Obligationsmarkedet | Obligationer handlet en given dag | Vælg en dato, vælg alle obligationer handlet den dag |
-| Beskæftigede personer | 1.000 beskæftigede | Tag navne, læg i en hat, træk 1.000 navne |
+- **Sample** = a set of elements from the population, obtained through a **selection mechanism**
 
 --
 
-En stikprøve er *usikker*, fordi vi ikke kan afgøre, om en person er i stikprøven, kun baseret på populationskarakteristika
+- Examples:
+  - if we study the roll of a dice, a sample can be the result of three rolls
+    - selection mechanism: roll the dice, repeat 3 times
+  - if we study the bond market, a sample can be the bonds traded on a particular day
+    - selection mechanism: pick a date, choose all the bonds traded that day
+  - if we study employment in the labor market, the sample can be 1,000 employed individuals
+    - selection mechanism: take the names of all employed individuals, put them in a hat, draw 1,000 names
+
+--
+
+- Note that a sample is *uncertain* in the sense that we cannot tell if a given individual should be in the sample or not based only on the characteristics that define the population (e.g., it is not enough to know that a person is employed to know if she is part of the sample or not)
 
 ---
-# Typer af udvælgelse
-
---
-Udvælgelsesmekanismen kan være baseret på:
+# Sample and selection mechanism
 
 --
 
-.pull-left[
-### Probabilistisk udvælgelse
-- Baseret på tilfældig forekomst
-- F.eks. terningekast eller trækning fra en hat
-
-$\Rightarrow$ **Tilfældig udvælgelse**
-]
+- Note that when we deal with real populations, the selection mechanism can be seen as a physical action (roll of a dice, pulling names out of a hat)
 
 --
 
-.pull-right[
-### Systematisk udvælgelse
-- Baseret på deterministiske regler
-- F.eks. "vælg altid obligationer til 100 kr."
+- This is rarely the case for super-populations
 
-$\Rightarrow$ **Ikke-tilfældig udvælgelse**
-]
+--
+
+- Regardless of the population, the selection mechanism can be based on:
+  - random occurrence (e.g., rolling a dice, or pulling names off a hat) $\Rightarrow$ **probabilistic selection**
+  - deterministic rule (e.g., always pick bonds priced at 100 kr., choose wages between 150,000 and 250,000 kr) $\Rightarrow$ **systematic selection**
 
 ---
-# Eksperiment
-
---
-- **Eksperiment** = en population, stikprøve og udvælgelsesmekanisme
-
---
-- Vi er interesserede i stikprøver, fordi de giver os mulighed for at drage slutninger om populationen, især når det er svært eller umuligt at observere hele populationen (**induktion**)
-
---
-- Paradoksalt nok: Jo mere tilfældighed i udvælgelsesmekanismen, jo mere pålidelig er vores slutning om populationen
+# Experiment
 
 --
 
-**Eksempel:**
-- Hvis vi vil analysere priser på obligationsmarkedet, ønsker vi ikke altid at vælge obligationer til 100 kr. — vi vil have obligationer udvalgt så tilfældigt som muligt
+- **Experiment** = a population, sample, and selection mechanism
+
+--
+
+- We are interested in samples because they allow us to infer something about the population, particularly when it is difficult or impossible to observe the population (**induction**)
+
+--
+
+- Paradoxically, the more randomness we have in the selection mechanism, the more reliable the inference about the population
+
+--
+
+- Example:
+  - if we want to analyze prices in the bond market, we do not want to always select bonds priced at 100 kr.; rather, we want to have bonds selected as randomly as possible
+
 
 ---
 class: inverse, middle, center
-# Sandsynlighedsmodellen
+# The probability model
 
 ---
-# Sandsynlighedsmodellen
-
---
-En sandsynlighedsmodel giver os mulighed for at formalisere usikkerhed
+# Probability model
 
 --
 
-Den består af tre elementer:
+- A probability model allows us to formalize uncertainty
 
-1. **Udfaldsrum** (sample space)
-2. **Hændelsesrum** (event space)
-3. **Sandsynlighedsmål** (probability measure)
+--
+
+- It consists of three elements:
+  - sample space
+  - event space
+  - probability measure
 
 ---
-# Udfaldsrum
-
---
-> **Udfaldsrummet** $\Omega$ for et eksperiment er mængden af alle mulige udfald af eksperimentet.
+# Sample space
 
 --
 
-**Eksempler:**
+> The **sample space** $\Omega$ for an experiment is the set of all the possible outcomes of the experiment.
 
-| Eksperiment | Udfaldsrum |
-|-------------|------------|
-| Terningekast | $\Omega = \{1, 2, 3, 4, 5, 6\}$ |
-| Møntkast | $\Omega = \{P, K\}$ (Plat, Krone) |
-| To møntkast | $\Omega = \{(P,P), (P,K), (K,P), (K,K)\}$ |
+--
+
+- Examples:
+  - in the experiment of rolling a dice, $\Omega = \{ 1, 2, 3, 4, 5, 6 \}$
+  - in the experiment of flipping a coin, $\Omega = \{ H, T \}$ (where $H$ represents "heads" and $T$ "tails")
+  - in the experiment of flipping a coin twice, $\Omega = \{ (H, H), (H, T), (T, H), (T, T) \}$ (where each pair represents the result of the first toss and of the second toss, respectively)
 
 ---
-# Hændelse
-
---
-> En **hændelse** er en mængde af udfald. En hændelse siges at være indtruffet, hvis et af dens udfald realiseres. Formelt er en hændelse $A$ en delmængde af udfaldsrummet: $A \subset \Omega$.
+# Event
 
 --
 
-**Eksempler:**
+> An **event** is a set of outcomes. An event is said to have occurred if one of its outcomes is realized. Formally, an event $A$ is a subset of the sample space: $A \subset \Omega$.
 
-| Eksperiment | Hændelse | Beskrivelse |
-|-------------|----------|-------------|
-| Terningekast | $A = \{1, 3, 5\}$ | "Ulige tal" |
-| Møntkast | $A = \{P\}$ | "Plat" |
-| To møntkast | $A = \{(P,P), (K,K)\}$ | "Samme side begge gange" |
+--
+
+- Examples:
+  - in the experiment of rolling a dice, an event can be "rolling an odd number": $A = \{ 1, 3, 5 \}$
+  - in the experiment of flipping a coin, an event can be "heads": $A = \{ H \}$
+  - in the experiment of flipping a coin twice, an event can be "getting the same side both times": $A = \{ (H, H), (T, T) \}$
 
 ---
-# Hændelsesrum
-
---
-> **Hændelsesrummet** er mængden af alle mulige hændelser.
+# Event space
 
 --
 
-**Eksempel (møntkast):**
+> The **event space** is the set of all possible events.
 
-| Hændelse | Beskrivelse |
-|----------|-------------|
-| $A = \{P\}$ | "Plat" |
-| $A = \{K\}$ | "Krone" |
-| $A = \{P, K\}$ | "Plat eller krone" (den sikre hændelse) |
-| $A = \varnothing$ | "Hverken plat eller krone" (den umulige hændelse) |
+--
+
+- Examples:
+  - in the experiment of flipping a coin, the event set includes:
+    - "heads": $A = \{ H \}$
+    - "tails": $A = \{ T \}$
+    - "heads or tails": $A = \{ H, T \}$ (the sure event)
+    - "neither heads nor tails": $A = \varnothing$ (the impossible event)
 
 ---
-# Fællesmængde og foreningsmængde
-
---
-> Lad $A$ og $B$ være to hændelser. **Fællesmængden** af $A$ og $B$, $A \cap B$, er mængden af udfald, der er inkluderet i både $A$ og $B$. **Foreningsmængden** af $A$ og $B$, $A \cup B$, er mængden af udfald, der er inkluderet i $A$, $B$ eller begge.
+# Intersection and union of events
 
 --
 
-**Eksempel (møntkast):**
+> Let $A$ and $B$ be two events. The **intersection** of $A$ and $B$, $A \cap B$, is the set of outcomes that are included in both $A$ and $B$. The **union** of $A$ and $B$, $A \cup B$, is the set of outcomes that are included in $A$, $B$, or both.
 
-.pull-left[
-$A = \{P\}$ og $B = \{P, K\}$:
-- Fællesmængde: $A \cap B = \{P\}$
-- Foreningsmængde: $A \cup B = \{P, K\}$
-]
+--
 
-.pull-right[
-$A = \{P\}$ og $B = \{K\}$:
-- Fællesmængde: $A \cap B = \varnothing$
-- Foreningsmængde: $A \cup B = \{P, K\}$
-]
+- Example (flipping a coin):
+  - let $A = \{ H \}$ ("heads") and $B = \{ H, T \}$ ("heads or tails")
+    - intersection: $A \cap B = \{ H \}$
+    - union: $A \cup B = \{ H, T \}$
+  - let $A = \{ H \}$ ("heads") and $B = \{ T \}$ ("tails")
+    - intersection: $A \cap B = \varnothing$
+    - union: $A \cup B = \{ H, T \}$
 
 ---
-# Komplementær hændelse
-
---
-> Lad $A$ være en hændelse. **Komplementet** af $A$, $A^c$, er mængden af alle udfald, der ikke er inkluderet i $A$.
+# Complementary event
 
 --
 
-**Eksempel (møntkast):**
-- Lad $A = \{P\}$ ("plat") $\Rightarrow$ $A^c = \{K\}$
-- Lad $A = \{P, K\}$ ("plat eller krone") $\Rightarrow$ $A^c = \varnothing$
+> Let $A$ be an event. The **complement** of $A$, $A^c$, is the set of all the outcomes that are not included in $A$.
 
 --
 
-**Egenskaber:**
-- $A \cap A^c = \varnothing$
-- $A \cup A^c = \Omega$
+- Example (flipping a coin):
+  - let $A = \{ H \}$ ("heads") $\Rightarrow$ $A^c = \{ T \}$
+  - let $A = \{ H, T \}$ ("heads or tails") $\Rightarrow$ $A^c = \varnothing$
+
+--
+
+- By construction, the complement of $A$ has the following properties:
+  - $A \cap A^c = \varnothing$
+  - $A \cup A^c = \Omega$
 
 ---
-# Sandsynlighedsmål
-
---
-> Et **sandsynlighedsmål** er en funktion $P(\cdot)$, der tildeler et tal (sandsynlighed) til enhver hændelse i hændelsesrummet.
+# Probability measure
 
 --
 
-**Funktionen skal opfylde følgende betingelser:**
-
-1. $0 \leq P(A) \leq 1$ for enhver hændelse $A \subset \Omega$
-
-2. $P(\Omega) = 1$, hvor $\Omega$ er den sikre hændelse
-
-3. $P(A \cup B) = P(A) + P(B)$, hvis hændelserne $A$ og $B$ er gensidigt udelukkende (disjunkte), dvs. hvis $A \cap B = \varnothing$
+> A **probability measure** is a function $P(\cdot)$ that assigns a number (probability) to any event in the event space. This function must satisfy the following conditions:
+>
+> (i) $0 \leq P(A) \leq 1$, for any event $A \subset \Omega$;
+>
+> (ii) $P(\Omega) = 1$, where $\Omega$ is the sure event;
+>
+> (iii) $P(A \cup B) = P(A) + P(B)$, if the events $A$ and $B$ are mutually exclusive (disjoint), i.e., if $A \cap B = \varnothing$.
 
 ---
-# Sandsynlighedsmål: Eksempel
-
---
-**Møntkast:**
-
-| Hændelse | Sandsynlighed |
-|----------|---------------|
-| "Plat" ($A$) | $\frac{1}{2}$ |
-| "Krone" ($B$) | $\frac{1}{2}$ |
-| "Plat eller krone" ($\Omega$) | $1$ |
-| "Hverken plat eller krone" ($\varnothing$) | $0$ |
+# Probability measure
 
 --
 
-**Er dette et gyldigt sandsynlighedsmål?**
-- Sandsynligheden for hver hændelse er mellem 0 og 1 ✓
-- $P(\Omega) = 1$ ✓
-- $A \cap B = \varnothing$ og $P(A \cup B) = P(\Omega) = 1 = P(A) + P(B)$ ✓
-
----
-# Hvordan tildeler vi sandsynligheder?
-
---
-**Intuitive tilgange:**
-
-.pull-left[
-### Lige sandsynlige udfald
-Sandsynlighed = $\frac{1}{\text{antal mulige udfald}}$
-
-*Eksempel:* Terningekast
-$$P(\{1\}) = \frac{1}{6}$$
-]
+- Example: tossing a coin
+  - intuitively, what is the probability of each event?
+    - "heads" (let this be event $A$): $\frac{1}{2}$
+    - "tails" (let this be event $B$): $\frac{1}{2}$
+    - "either heads or tails" (event $\Omega$): $1$
+    - "neither heads nor tails" (event $\varnothing$): $0$
 
 --
 
-.pull-right[
-### Relative frekvenser
-Sandsynlighed = andel af forekomster
+  - does this define a probability measure?
+    - the probability of each event is between $0$ and $1$
+    - $P(\Omega) = 1$
+    - $A \cap B = \varnothing$ and $P(A \cup B) = P(\Omega) = 1 = P(A) + P(B)$
 
-*Eksempel:* Træk en kugle fra en urne med 3 blå og 5 røde kugler
-$$P(\text{blå}) = \frac{3}{8}$$
-]
+--
+
+- How do we intuitively assign probabilities to events?
+  - as 1/number of potential outcomes, if equally likely
+  - as relative frequency of outcome, if not equally likely (e.g., picking a ball from an urn with 3 blue and 5 red balls)
+
 
 ---
 class: inverse, middle, center
-# Beregning af sandsynligheder
+# Calculating probabilities
 
 ---
-# Additionsreglen
+# Addition
 
 --
-> Lad $A$ og $B$ være to hændelser. Da gælder:
+
+> Let $A$ and $B$ be two events. Then:
 > $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
 
 --
 
-**Eksempel (terningekast):**
-
-Lad $A = \{1, 3, 5\}$ ("ulige tal") og $B = \{1, 2, 3\}$ ("mindre end 4")
-
---
-
-.pull-left[
-- $A \cup B = \{1, 2, 3, 5\}$
-- $P(A \cup B) = \frac{4}{6}$
-- $P(A) = \frac{3}{6}$
-]
-
-.pull-right[
-- $P(B) = \frac{3}{6}$
-- $A \cap B = \{1, 3\}$
-- $P(A \cap B) = \frac{2}{6}$
-]
-
---
-
-$$P(A) + P(B) - P(A \cap B) = \frac{3}{6} + \frac{3}{6} - \frac{2}{6} = \frac{4}{6} = P(A \cup B) \; \checkmark$$
+- Example: dice roll
+  - let $A = \{1, 3, 5\}$ ("odd number") and $B = \{ 1, 2, 3\}$ ("less than 4")
+  - then:
+    - $A \cup B = \{1, 2, 3, 5\}$
+    - $P(A \cup B) = P(\{1, 2, 3, 5\}) = \frac{4}{6}$
+    - $P(A) = P(\{1, 3, 5\}) = \frac{3}{6}$
+    - $P(B) = P(\{1, 2, 3\}) = \frac{3}{6}$
+    - $A \cap B = \{1, 3\}$ $\Rightarrow$ $P(A \cap B) = P(\{1, 3\}) = \frac{2}{6}$
+    - $P(A) + P(B) - P(A \cap B) = \frac{3}{6} + \frac{3}{6} - \frac{2}{6} = \frac{4}{6} = P(A \cup B)$
 
 ---
-# Egenskaber med komplementet
-
---
-Fra additionsreglen kan vi udlede:
+# Addition
 
 --
 
-$$P(A \cup A^c) = P(\Omega) = 1 \Rightarrow P(A^c) = 1 - P(A)$$
+- We can now derive some properties of probabilities involving the complement of an event:
 
 --
 
-$$P(A \cap A^c) = P(\varnothing) = 0$$
+  - $P(A \cup A^c) = P(\Omega) = 1$ $\Rightarrow$ $P(A^c) = 1 - P(A)$
 
 --
 
-$$P(A) = P(A \cap B) + P(A \cap B^c)$$
+  - $P(A \cap A^c) = P(\varnothing) = 0$
+
+--
+
+  - $P(A) = P(A \cap B) + P(A \cap B^c)$
+
 
 ---
 class: inverse, middle, center
-# Betinget sandsynlighed
+# Conditional probability
 
 ---
-# Betinget sandsynlighed
-
---
-- Nogle gange kan vi bruge information om en tidligere hændelse til at drage slutninger om en fremtidig hændelse
-
---
-- F.eks. kan kendskab til nedbørsmængden indtil sommer hjælpe med at forudsige årets høst
+# Conditional probability
 
 --
 
-> Den **betingede sandsynlighed for hændelse $A$ givet hændelse $B$** er defineret som:
+- Sometimes, it is possible to use information about a past event to infer something about a future event
+
+--
+
+- For example, knowing how much it has rained until summer can help predict the crop for the year
+
+--
+
+> The **conditional probability of event $A$ given event $B$** is defined as:
 > $$P(A | B) = \frac{P(A \cap B)}{P(B)}$$
-> forudsat at $P(B) > 0$
+> provided that $P(B) > 0$.
 
 ---
-# Betinget sandsynlighed med flere betingelser
-
---
-Vi kan udvide dette til situationer, hvor vi har forhåndsviden om mere end én hændelse, f.eks. $B$ og $C$
+# Conditional probability
 
 --
 
-Vi kan så definere sandsynligheden for hændelse $A$ betinget på både $B$ og $C$: $P(A | B, C)$
+- We can extend this notion to situations when we have prior knowledge of more than one event, say $B$ and $C$
 
 --
 
-Da vi har brug for, at både $B$ og $C$ realiseres, svarer dette til realisationen af $(B \cap C)$
+- We can then define the probability of event $A$ conditional on both $B$ and $C$: $P(A | B, C)$
 
 --
 
-Lad $D = B \cap C$. Vi kan da skrive:
+- Since we need both $B$ and $C$ to realize, this is equivalent to the realization of $(B \cap C)$
 
-$$P(A | B, C) = P\big(A | (B \cap C)\big) = P(A | D) = \frac{P(A \cap D)}{P(D)} = \frac{P(A \cap B \cap C)}{P(B \cap C)}$$
+--
+
+- Let $D = B \cap C$. We can then write:
+
+$$P(A | B, C) = P\big(A | (B \cap C) \big) = P(A | D) = \frac{P(A \cap D)}{P(D)} = \frac{P(A \cap B \cap C)}{P(B \cap C)}$$
+
 
 ---
 class: inverse, middle, center
-# Uafhængighed og spuriøse sammenhænge
+# Independence and spurious relationships
 
 ---
-# Uafhængighed
+# Independence
 
 --
-> To hændelser $A$ og $B$ er **uafhængige** hvis og kun hvis
+
+> Two events $A$ and $B$ are **independent** if and only if
 > $$P(A \cap B) = P(A) \cdot P(B)$$
 
 --
 
-**Dette indebærer:**
-- $P(A | B) = P(A)$ når $P(B) > 0$
-- $P(B | A) = P(B)$ når $P(A) > 0$
+- This implies the following:
+  - $P(A | B) = P(A)$ whenever $P(B) > 0$
+  - $P(B | A) = P(B)$ whenever $P(A) > 0$
 
 --
 
-**Intuitivt:** $A$ og $B$ er uafhængige, hvis det faktum, at vi observerer, at den ene er realiseret, ikke giver os nogen information om, hvor sandsynlig den anden er
+- Intuitively, $A$ and $B$ are independent if the fact that we observe that one of them realized does not give us any information about how likely the other is to realize
 
 --
 
-To uafhængige hændelser er urelaterede — men to afhængige hændelser er ikke nødvendigvis direkte forbundet (husk nattelys-eksemplet?)
+- Two independent events are unrelated
+
+--
+
+- However, two dependent events are not necessarily directly connected (remember the night light example?)
 
 ---
-# Betinget uafhængighed
-
---
-Hvis en tredje faktor kan forklare den tilsyneladende sammenhæng mellem to hændelser, kan vi tale om betinget uafhængighed
+# Dependence and conditional independence
 
 --
 
-> To hændelser $A$ og $B$ er **uafhængige betinget på hændelse $C$** (hvor $P(C) > 0$) hvis og kun hvis
+- If there is a third factor that can explain the apparent relationship between two events, then we can talk about conditional independence
+
+--
+
+> Two events $A$ and $B$ are **independent conditional on event $C$** (where $P(C) > 0$) if and only if
 > $$P(A \cap B | C) = P(A | C) \cdot P(B | C)$$
 
 --
 
-**Dette indebærer:**
-- $P(A | B, C) = P(A | C)$ når $P(B) > 0$
-- $P(B | A, C) = P(B | C)$ når $P(A) > 0$
+- This implies the following:
+  - $P(A | B, C) = P(A | C)$ whenever $P(B) > 0$
+  - $P(B | A, C) = P(B | C)$ whenever $P(A) > 0$
 
 --
 
-Hvis du allerede ved, at hændelse $C$ er realiseret, giver det faktum, at $A$ eller $B$ er realiseret, ingen information om den anden
+- In other words, if you already know that event $C$ realized, the fact that we observe that one of $A$ or $B$ realized does not give us any information about how likely the other is to realize
 
 ---
-# Direkte, indirekte og spuriøs korrelation
-
---
-Mange statistiske undersøgelser ser på forholdet mellem to størrelser
+# Direct, indirect and spurious correlation
 
 --
 
-Du bør altid overveje, om undersøgelsen har taget højde for muligheden for, at andre faktorer kan være den underliggende årsag
+- Many statistical studies look at the relationship between two quantities
 
 --
 
-**Tre situationer hvor vi finder en sammenhæng mellem $A$ og $B$:**
-
-| Type | Beskrivelse | Notation |
-|------|-------------|----------|
-| Direkte afhængighed | $A$ bestemmer $B$ eller omvendt | $A \rightarrow B$ eller $B \rightarrow A$ |
-| Indirekte afhængighed | Forbundet gennem tredje faktor $C$ | $A \rightarrow C \rightarrow B$ |
-| Spuriøs korrelation | Begge afhænger af faktor $C$ | $C \rightarrow A$ og $C \rightarrow B$ |
+- You should always consider whether the study has taken into account the possibility that other entities (factors) may be the underlying cause of the relationship
 
 --
 
-Når vi taler om **kausalitet**, har vi den første situation i tankerne
+- There are three situations where we may find a relationship between $A$ and $B$:
+  - they depend directly on each other (*direct dependence*): either $A$ determines $B$ ( $A \rightarrow B$ ) or vice-versa ( $B \rightarrow A$ )
+  - they depend indirectly on each other through a third factor $C$ (*indirect dependence*): $A \rightarrow C \rightarrow B$, or $B \rightarrow C \rightarrow A$
+  - they do not depend on each other, but both depend on a third factor $C$ (*spurious correlation*): $C \rightarrow A$ and $C \rightarrow B$
+
+--
+
+- When we talk about causality, we have in mind the first situation
 
 ---
-# Spuriøs korrelation: Et eksempel
-
---
-Du kan (eller bør kunne) finde ud af, om en sammenhæng er spuriøs ved at kontrollere, om en tredje faktor $C$ eksisterer, således at $A$ og $B$ er betinget uafhængige
+# Direct, indirect and spurious correlation
 
 --
 
-**Nattelys-eksemplet:**
-
-Er børns nærsynethed og brug af nattelys direkte relateret, indirekte relateret, eller er de betinget uafhængige?
+- You can (or should be able to) figure out if that is the case by checking if a third factor $C$ exists such that $A$ and $B$ are conditionally independent
 
 --
 
-.pull-left[
-**Observation:**
-- Børn med nattelys har oftere nærsynethed
-- $\Rightarrow$ Sammenhæng mellem $A$ og $B$?
-]
+- In our night light example: are child myopia and use of night lights directly related, indirectly related, or are they conditionally independent?
 
---
-
-.pull-right[
-**Mulig forklaring:**
-- Nærsynede forældre bruger oftere nattelys
-- Nærsynethed er arvelig
-- $\Rightarrow$ Spuriøs korrelation via $C$ (forældres syn)
-]
-
----
-# Opsummering
-
---
-.pull-left[
-**Nøglebegreber:**
-- Usikkerhed og kvantificering
-- Population vs. stikprøve
-- Udvælgelsesmekanisme
-- Udfaldsrum og hændelser
-- Sandsynlighedsmål
-]
-
-.pull-right[
-**Vigtige formler:**
-- $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
-- $P(A^c) = 1 - P(A)$
-- $P(A | B) = \frac{P(A \cap B)}{P(B)}$
-- Uafhængighed: $P(A \cap B) = P(A) \cdot P(B)$
-]
-
----
-# Før næste gang
-
-.pull-left[
-**Læs:**
-- Kapitel 3 i lærebogen
-
-**Overvej:**
-- Hvordan bruger vi sandsynlighed i hverdagen?
-- Kan du finde eksempler på spuriøse korrelationer?
-]
-
-.pull-right[
-![Trees](Figures/Trees1.jpg)
-]

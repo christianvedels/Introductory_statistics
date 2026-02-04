@@ -90,183 +90,152 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 
 
-# Statistik
-## Forelæsning 3: Stokastiske variable
+# Statistics
+## Random variables
+### (Chapter 4)
 
-### Christian Vedel,<br>Department of Economics
+### Seetha Menon,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [christian-vs@sam.sdu.dk](christian-vs@sam.sdu.dk)
+### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
 
-### Opdateret `r Sys.Date()`
-
-
-
-.footnote[
-.left[
-.small123[
-*Kapitel 4 i "Probability and Statistics for Economists" af Bruce Hansen*
-]
-]
-]
+### Updated `r Sys.Date()`
 
 
----
-class: middle
-# Dagens forelæsning
-.pull-left-wide[
-**Emner:**
-
-- Definition af stokastiske variable
-- Diskrete stokastiske variable
-- Sammenhænge mellem diskrete variable
-- Kontinuerte stokastiske variable
-- Sammenhænge mellem kontinuerte variable
-]
-
-.pull-right-narrow[
-![Trees](Figures/Trees1.jpg)
-]
 
 ---
 class: inverse, middle, center
-# Definition af stokastiske variable
+# Definition of a random variable
 
 ---
-# Stokastisk variabel
-
---
-> En **stokastisk variabel** er en *funktion*, der tildeler en numerisk værdi til ethvert udfald af et eksperiment.
+# Random variable
 
 --
 
-**Eksempler:**
+> A **random variable** is a *function* that assigns a numerical value to any outcome of an experiment.
 
-.pull-left[
-*Møntkast:*
-$$X(\text{"plat"}) = 0$$
-$$X(\text{"krone"}) = 1$$
-]
+--
 
-.pull-right[
-*Terningekast:*
-$$X(1) = 1, \; X(2) = 2, \; X(3) = 3$$
-$$X(4) = 4, \; X(5) = 5, \; X(6) = 6$$
-]
+- Examples:
+  - in the experiment of tossing a coin, we could have:
+$$X(\text{"heads"}) = 0, \quad X(\text{"tails"}) = 1$$
+  - in the experiment of rolling a dice, we could have:
+$$X(1) = 1, \; X(2) = 2, \; X(3) = 3, \; X(4) = 4, \; X(5) = 5, \; X(6) = 6$$
 
 ---
-# Notation for stokastiske variable
-
---
-Som en generel regel bruger vi bogstaver i slutningen af alfabetet:
-
---
-- **Store bogstaver** til at betegne stokastiske variable (f.eks. $X$, $Y$)
-
---
-- **Små bogstaver** til de specifikke værdier, en stokastisk variabel kan antage (f.eks. $x$, $y$)
+# Random variable
 
 --
 
-**Eksempel:** "Vælg en tilfældig person, spørg om deres alder"
-- Udfald: værdier af "personens alder" (f.eks. 43 år)
-- Stokastisk variabel: tildel et tal til udfaldet "alder = 43 år"
-- "Naturlig" værdi: 43
+- As a general rule, we use letters at the end of the alphabet:
+  - uppercase to denote random variables (e.g., $X$, $Y$)
+  - lowercase for the specific values a random variable can take (e.g., $x$, $y$)
+
+--
+
+- Note that we can choose the values assigned to the various outcomes, but sometimes certain values may be more suited to the problem at hand
+
+--
+
+- For example, suppose that the experiment is "choose a person at random, ask her age"
+  - outcomes: values of "age of the person" (say, 43 years)
+  - random variable: assign a number to the outcome "age of person = 43 years"
+  - "natural" value: 43
 
 ---
-# Typer af stokastiske variable
-
---
-Der er to typer af stokastiske variable baseret på antallet af værdier, de kan antage:
+# Types of random variables
 
 --
 
-.pull-left[
-### Diskrete stokastiske variable
-- Kan antage et *tælleligt* (endeligt eller uendeligt) antal værdier
-
-**Eksempler:**
-- Møntkast
-- Terningekast
-- Vælg et heltal
-]
+- There are two types of random variables based on the number of values they can take:
 
 --
 
-.pull-right[
-### Kontinuerte stokastiske variable
-- Antager et *utælleligt* antal værdier
-
-**Eksempler:**
-- Præcis nedbørsmængde over et år
-- Præcist afkast på en aktie
-]
+  - **discrete random variables** can take a *countable* (finite or infinite) number of values
+    - examples: toss of a coin, roll of a dice, pick an integer
+    - if an experiment has a finite number of outcomes, then the corresponding random variable is *usually* discrete
 
 --
 
-Bemærk: Det samme eksperiment kan producere en diskret eller kontinuert variabel, afhængigt af hvor "præcist" udfaldet måles
+  - **continuous random variables** take an *uncountable* number of values
+    - examples: exact quantity of rainfall over a year, exact profit corresponding to a share (profit divided by number of shares)
+    - note that the same experiment can produce a discrete or a continuous random variable, depending on how "accurately" the outcome is measured
+
 
 ---
 class: inverse, middle, center
-# Diskrete stokastiske variable
+# Discrete random variables
 
 ---
-# Sandsynlighedsfunktion
-
---
-En fordel ved at bruge stokastiske variable er, at vi nu arbejder med tal i stedet for abstrakte hændelser
+# Probability function
 
 --
 
-> **Sandsynlighedsfunktionen** $f(\cdot)$ for en diskret stokastisk variabel $X$ er defineret som:
+- One advantage of using random variables is that now we work with numbers instead of abstract events
+
+--
+
+- So, we can use mathematical concepts built for numbers, such as functions
+
+--
+
+> The **probability function** $f(\cdot)$ of a discrete random variable $X$ is defined as:
 > $$f(x) = P(X = x)$$
 
 --
 
-Når vi arbejder med flere stokastiske variable (f.eks. $X$ og $Y$), kan det være nyttigt at skelne deres sandsynlighedsfunktioner ved at indeksere dem: $f_X(x)$ og $f_Y(y)$
+- When working with several random variables, say $X$ and $Y$, it is sometimes useful to distinguish their probability functions by indexing them: $f_X(x)$ and $f_Y(y)$
 
 ---
-# Sandsynlighedsfunktion: Eksempel
-
---
-**Møntkast:**
-
-$$f(0) = P(X = 0) = P(\text{"plat"}) = \frac{1}{2}$$
-$$f(1) = P(X = 1) = P(\text{"krone"}) = \frac{1}{2}$$
+# Probability function
 
 --
 
-**Egenskaber for sandsynlighedsfunktionen:**
+- Examples:
+  - in the experiment of tossing a coin, we would have:
+$$f(0) = P(X = 0) = P(\text{"heads"}) = \frac{1}{2}$$
+$$f(1) = P(X = 1) = P(\text{"tails"}) = \frac{1}{2}$$
 
-1. $0 \leq f(x) \leq 1$ for alle $x$
+--
 
-2. $\displaystyle\sum_{i=1}^N f(x_i) = f(x_1) + f(x_2) + \ldots + f(x_N) = 1$
-
-   hvor $x_1, x_2, \ldots, x_N$ er de mulige værdier af $X$
+> **Properties of the probability function:**
+>
+> (i) $0 \leq f(x) \leq 1$ for all $x$
+>
+> (ii) $\displaystyle\sum_{i=1}^N f(x_i) = f(x_1) + f(x_2) + \ldots + f(x_N) = 1$, where $x_1, x_2, \ldots, x_N$ are the possible values of $X$
 
 ---
-# Kumulativ fordelingsfunktion (CDF)
+# Cumulative distribution function
 
 --
-> Den **kumulative fordelingsfunktion** $F(\cdot)$ for en diskret stokastisk variabel $X$ er defineret som:
+
+> The **cumulative distribution function** $F(\cdot)$ of a discrete random variable $X$ is defined as:
 > $$F(x) = P(X \leq x) = \sum_{x_i \leq x} f(x_i)$$
 
 --
 
-Bemærk at den kumulative fordeling per konstruktion er en *stigende* funktion
+- Note that, by construction, the cumulative distribution is an *increasing* function
 
 --
 
-**Eksempel (terningekast):**
-
-$$f(4) = P(X = 4) = \frac{1}{6}$$
-
-$$F(4) = P(X \leq 4) = f(1) + f(2) + f(3) + f(4) = \frac{4}{6}$$
+- Example:
+  - in the experiment of rolling a dice, we would have:
+$$f(4) = P(X = 4) = P(\text{"dice shows 4"}) = \frac{1}{6}$$
+$$F(4) = P(X \leq 4) = P(\text{"dice shows at most 4"})$$
+$$= P(X = 1) + P(X = 2) + P(X = 3) + P(X = 4) = \frac{4}{6}$$
 
 ---
-# CDF: Sandsynlighed for et interval
+# Cumulative distribution function
+
+.center[
+![Discrete CDF](Figures/4. Discrete CDF.png)
+]
+
+---
+# Cumulative distribution function
 
 --
-Den kumulative fordelingsfunktion giver os også mulighed for at beregne sandsynligheden for, at $X$ antager en værdi i et givet interval:
+
+- The cumulative distribution function also allows us to calculate the probability that $X$ will take on a value in a given range:
 
 --
 
@@ -274,421 +243,484 @@ $$P(a < X \leq b) = F(b) - F(a)$$
 
 --
 
+and:
+
 $$P(a \leq X \leq b) = F(b) - F(a) + f(a)$$
 
 ---
-# Sandsynlighedsfunktioner og relative frekvenser
+# Probability functions and relative frequencies
 
 --
-- Antag at frekvensen af et bestemt udfald $z$ i populationen er givet ved funktionen $g(z)$
+
+- Suppose the frequency of a particular outcome $z$ in the population is given by the function $g(z)$ (e.g., in an urn including 3 red balls and 5 blue balls, red balls have a relative frequency of "3 in 8" and blue balls of "5 in 8")
 
 --
-- F.eks. i en urne med 3 røde kugler og 5 blå kugler har røde kugler en relativ frekvens på "3 ud af 8"
+
+- Let $Z$ be a random variable whose values indicate the outcome in this population (i.e., the color of the ball)
 
 --
-- Lad $Z$ være en stokastisk variabel, hvis værdier angiver udfaldet (kuglens farve)
 
---
-- Hvis alle elementer i populationen har lige stor chance for at blive udvalgt, så er sandsynlighedsfunktionen for $Z$:
+- If all elements in the population have an equal chance of being selected, then the probability function of $Z$ is:
 $$f(z) = g(z)$$
 
 --
 
-**Eksempel:** Hvis $Z = 1$ angiver "rød kugle" og $Z = 2$ angiver "blå kugle":
+- In our example, if $Z = 1$ indicates "red ball" and $Z = 2$ indicates "blue ball," then:
 $$f(1) = \frac{3}{8} \qquad f(2) = \frac{5}{8}$$
+
 
 ---
 class: inverse, middle, center
-# Sammenhænge mellem diskrete stokastiske variable
+# Relationships between discrete random variables
 
 ---
-# Hvorfor studere sammenhænge?
-
---
-Nogle gange er vi interesserede i at studere forholdet mellem to typer af hændelser
+# Relationships between random variables
 
 --
 
-**Eksempel:**
-- En bank vil vurdere risikoen for konkurs hos en virksomhed, der ansøger om lån
-- Banken ved, at dette afhænger af økonomiens tilstand: højkonjunktur eller recession
-- Banken vil gerne vide, hvor risikabelt lånet er som funktion af:
-  - Hvor sandsynligt det er, at virksomheden går konkurs
-  - Hvor sandsynligt det er, at økonomien er i recession
+- Sometimes, we are interested in studying the relationship between two types of events
+
+--
+
+- For example, suppose that a bank wants to assess the risk of bankruptcy of a company asking for a loan
+
+--
+
+- The bank knows that this will depend on the state of the economy: booming or in recession
+
+--
+
+- Hence, the bank would like to know how risky the loan is as a function of:
+  - how likely the company is to go bankrupt
+  - how likely the economy is to be in recession
 
 ---
-# Simultanfordeling
-
---
-> Den **simultane sandsynlighedsfunktion** $f(\cdot, \cdot)$ for to diskrete stokastiske variable $X$ og $Y$ er defineret som:
-> $$f(x, y) = P(X = x \text{ og } Y = y)$$
+# Joint probability
 
 --
 
-**Eksempel:**
+> The **joint probability function** $f(\cdot, \cdot)$ for two discrete random variables $X$ and $Y$ is defined as:
+> $$f(x, y) = P(X = x \text{ and } Y = y)$$
 
-| | $X = 0$ (konkurs) | $X = 1$ (ikke konkurs) |
+--
+
+- Example:
+
+| | $X = 0$ (bankrupt) | $X = 1$ (not bankrupt) |
 |---|:---:|:---:|
 | $Y = 0$ (recession) | 0.2 | 0.2 |
-| $Y = 1$ (højkonjunktur) | 0.1 | 0.5 |
+| $Y = 1$ (boom) | 0.1 | 0.5 |
 
 ---
-# Egenskaber for simultanfordelingen
-
---
-1. $0 \leq f(x, y) \leq 1$ for alle $x, y$
+# Joint probability
 
 --
 
-2. $\displaystyle \sum_{i=1}^{N_x} \sum_{j=1}^{N_y} f(x_i, y_j) = 1$
+> **Properties of the joint probability function:**
+>
+> 1. $0 \leq f(x, y) \leq 1$ for all $x, y$
+>
+> 2. $\displaystyle \sum_{i=1}^{N_x} \sum_{j=1}^{N_y} f(x_i, y_j) = f(x_1, y_1) + f(x_1, y_2) + \ldots + f(x_{N_x}, y_{N_y}) = 1$
+>
+> where $x_1, x_2, \ldots, x_{N_x}$ are all the possible values of $X$, and $y_1, y_2, \ldots, y_{N_y}$ are all the possible values of $Y$
 
 --
 
-**I vores eksempel:**
-$$0.2 + 0.2 + 0.1 + 0.5 = 1 \; \checkmark$$
+- In our example, what we need (for the second property) is:
+$$0.2 + 0.2 + 0.1 + 0.5 = 1$$
 
 ---
-# Marginalfordeling
+# Marginal probability
 
 --
-> Den **marginale sandsynlighedsfunktion** $f_X(\cdot)$ for en diskret stokastisk variabel $X$ er defineret som:
+
+> The **marginal probability function** $f_X(\cdot)$ of a discrete random variable $X$ is defined as:
 > $$f_X(x) = \sum_{j=1}^{N_y} f(x, y_j) = f(x, y_1) + f(x, y_2) + \ldots + f(x, y_{N_y})$$
 
+---
+# Marginal probability
+
 --
 
-Marginalfordelingen af $X$ er kolonnesummen, og marginalfordelingen af $Y$ er rækkesum:
+- In other words, the marginal probability function of $X$ is the column sum of probabilities (and the marginal probability function of $Y$ is the row sum):
 
-| | $X = 0$ | $X = 1$ | $f_Y(\cdot)$ |
+| | $X = 0$ (bankrupt) | $X = 1$ (not bankrupt) | $f_Y(\cdot)$ |
 |---|:---:|:---:|:---:|
-| $Y = 0$ | 0.2 | 0.2 | **0.4** |
-| $Y = 1$ | 0.1 | 0.5 | **0.6** |
-| $f_X(\cdot)$ | **0.3** | **0.7** | |
+| $Y = 0$ (recession) | 0.2 | 0.2 | 0.4 |
+| $Y = 1$ (boom) | 0.1 | 0.5 | 0.6 |
+| $f_X(\cdot)$ | 0.3 | 0.7 | |
 
 ---
-# Betinget sandsynlighed
+# Conditional probability
 
 --
-Husk definitionen af betinget sandsynlighed:
+
+- Recall the definition of the conditional probability:
 $$P(A | B) = \frac{P(A \cap B)}{P(B)}$$
 
 --
 
-Hvis hændelse $A$ repræsenteres af $X = x$ og hændelse $B$ af $Y = y$:
-$$P(X = x | Y = y) = \frac{P(X = x \text{ og } Y = y)}{P(Y = y)}$$
+- Now suppose that the event $A$ is represented by $X = x$ and the event $B$ by $Y = y$
 
 --
 
-Bemærk at:
-- Tælleren er simultanfordelingen $f(x, y)$
-- Nævneren er marginalfordelingen $f_Y(y)$
+- We can then write the conditional probability as:
+$$P(X = x | Y = y) = \frac{P(X = x \text{ and } Y = y)}{P(Y = y)}$$
+
+--
+
+- But note that, by definition:
+  - the numerator is the joint probability function $f(x, y)$
+  - the denominator is the marginal probability function $f_Y(y)$
 
 ---
-# Betinget sandsynlighedsfunktion
+# Conditional probability
 
 --
-> Den **betingede sandsynlighedsfunktion** $f_{X|Y}(\cdot | \cdot)$ for en diskret stokastisk variabel $X$ givet at $Y = y$ er defineret som:
+
+> The **conditional probability function** $f_{X|Y}(\cdot, \cdot)$ of a discrete random variable $X$ given that $Y = y$ is defined as:
 > $$f_{X|Y}(x | y) = \frac{f(x, y)}{f_Y(y)}$$
-> hvis $f_Y(y) > 0$
+> if $f_Y(y) > 0$
 
 --
 
-**Eksempel:**
-
-Hvad er sandsynligheden for konkurs ($X = 0$) givet højkonjunktur ($Y = 1$)?
-
+- Example:
+  - what is the probability of bankruptcy ( $X = 0$ ) given that we know we are in a boom ( $Y = 1$ )?
 $$f_{X|Y}(0 | 1) = \frac{f(0, 1)}{f_Y(1)} = \frac{0.1}{0.6} = 0.167 = 16.7\%$$
 
 ---
-# Bayes' sætning
-
---
-Nogle gange kender vi den betingede sandsynlighed for $X$ givet $Y$, men vi er interesserede i det omvendte
+# Bayes' theorem
 
 --
 
-**Eksempel:**
-- Du kender sandsynligheden for, at en "citron" (dårlig bil) har lav pris
-- Men du vil vide sandsynligheden for, at en billig bil er en citron
+- In practice, sometimes we know the conditional probability of $X$ given $Y$, but we are interested in the conditional probability of $Y$ given $X$
 
 --
 
-> **Bayes' sætning:**
-> $$f_{X|Y}(x | y) = f_{Y|X}(y | x) \cdot \frac{f_X(x)}{f_Y(y)}$$
-> $$f_{X|Y}(x | y) = f_{Y|X}(y | x) \cdot \frac{f_X(x)}{\sum_{i=1}^{N_x} f_{Y|X}(y | x_i) \cdot f_X(x_i)}$$
+- For example, you may know from a car dealer friend of yours what is the probability of a "lemon" (bad car) having a low price, but you would want to know what is the probability that a cheap car is a lemon
+
+--
+
+- We can use the definition of the conditional probability to write:
+$$f_{Y|X}(y | x) = \frac{f(x, y)}{f_X(x)}$$
+
+--
+
+- From here it is easy to prove the following theorem
 
 ---
-# Bayes' sætning: Eksempel
-
---
-- $X$: om bilen er en citron ($X = 1$) eller ej ($X = 0$)
-- $Y$: om prisen er lav ($Y = 1$) eller ej ($Y = 0$)
+# Bayes' theorem
 
 --
 
-**Information fra bilforhandler:**
-- 75% sandsynlighed for lav pris hvis bilen er en citron: $f_{Y|X}(1|1) = 0.75$
-- 20% sandsynlighed for lav pris hvis bilen ikke er en citron: $f_{Y|X}(1|0) = 0.20$
-
---
-
-**Fra tekniske rapporter:**
-- 25% af bilerne på markedet er citroner: $f_X(1) = 0.25$, $f_X(0) = 0.75$
+> **Bayes' theorem:**
+>
+> 1. $f_{X|Y}(x | y) = f_{Y|X}(y | x) \cdot \displaystyle\frac{f_X(x)}{f_Y(y)}$
+>
+> 2. $f_{X|Y}(x | y) = f_{Y|X}(y | x) \cdot \displaystyle\frac{f_X(x)}{\displaystyle\sum_{i=1}^{N_x} \left\{ f_{Y|X}(y | x_i) \cdot f_X(x_i)\right\}}$
 
 ---
-# Bayes' sætning: Eksempel (fortsat)
-
---
-Anvend Bayes' sætning:
-
-$$f_{X|Y}(1 | 1) = f_{Y|X}(1 | 1) \cdot \frac{f_X(1)}{f_{Y|X}(1|0) \cdot f_X(0) + f_{Y|X}(1|1) \cdot f_X(1)}$$
+# Bayes' theorem: Example
 
 --
 
-$$= 0.75 \cdot \frac{0.25}{0.20 \cdot 0.75 + 0.75 \cdot 0.25}$$
+- Let $X$ be the random variable indicating whether the car is a lemon ( $X = 1$ ) or not ( $X = 0$ )
 
 --
 
-$$= 0.75 \cdot \frac{0.25}{0.15 + 0.1875} = 0.75 \cdot \frac{0.25}{0.3375} = 0.556$$
+- Let $Y$ be the random variable indicating whether the price is low ( $Y = 1$ ) or not ( $Y = 0$ )
 
 --
 
-**Konklusion:** Der er 55.6% chance for, at en bil er en citron, hvis den har lav pris
+- From your car dealer friend, you know that there is a 75% probability of a low price if the car is a lemon and a 20% probability of a low price if the car is not a lemon
+
+--
+
+- This gives you the conditional probability function of $Y$ given $X$:
+$$f_{Y|X}(1 | 1) = 0.75, \quad f_{Y|X}(0 | 1) = 0.25$$
+$$f_{Y|X}(1 | 0) = 0.20, \quad f_{Y|X}(0 | 0) = 0.80$$
+
+--
+
+- From technical reports, you also know that 25% of the cars on the market are lemons, which gives you the marginal probability function of $X$:
+$$f_X(1) = 0.25 \quad f_X(0) = 0.75$$
 
 ---
-# Uafhængighed
+# Bayes' theorem: Example
 
 --
-Husk definitionen af uafhængighed mellem to hændelser:
+
+- From here you only need to apply Bayes' theorem to find the conditional probability of a lemon given that the price is low:
+
+$$f_{X|Y}(1 | 1) = f_{Y|X}(1 | 1) \cdot \frac{f_X(1)}{\displaystyle\sum_{i=1}^{N_x} \left\{ f_{Y|X}(1 | x_i) \cdot f_X(x_i)\right\}}$$
+
+--
+
+$$= f_{Y|X}(1 | 1) \cdot \frac{f_X(1)}{f_{Y|X}(1 | 0) \cdot f_X(0) + f_{Y|X}(1 | 1) \cdot f_X(1)}$$
+
+--
+
+$$= 0.75 \cdot \frac{0.25}{0.20 \cdot 0.75 + 0.75 \cdot 0.25} = 0.556$$
+
+--
+
+- Therefore, there is a 55.6% chance that a car is a lemon if it has a low price
+
+---
+# Independence
+
+--
+
+- Recall the definition of independence between two events $A$ and $B$:
 $$P(A \cap B) = P(A) \cdot P(B)$$
 
 --
 
-> To diskrete stokastiske variable $X$ og $Y$ er **uafhængige** hvis og kun hvis:
+- Now suppose that the event $A$ is represented by $X = x$ and the event $B$ by $Y = y$
+
+--
+
+- We can then write the independence condition as:
+$$P(X = x \text{ and } Y = y) = P(X = x) \cdot P(Y = y)$$
+
+--
+
+- But note that, by definition:
+  - the left hand side is the joint probability function $f(x, y)$
+  - the right hand side is the product of marginal probability functions $f_X(x)$ and $f_Y(y)$
+
+---
+# Independence
+
+--
+
+> Two discrete random variables $X$ and $Y$ are **independent** if and only if:
 > $$f(x, y) = f_X(x) \cdot f_Y(y)$$
-> for alle $x$ og $y$.
+> for all $x$ and $y$. This implies that:
+>
+> 1. $f_{X|Y}(x | y) = f_X(x)$ for all values $y$ such that $f_Y(y) > 0$
+>
+> 2. $f_{Y|X}(y | x) = f_Y(y)$ for all values $x$ such that $f_X(x) > 0$
 
 --
 
-**Dette indebærer:**
-1. $f_{X|Y}(x | y) = f_X(x)$ for alle $y$ hvor $f_Y(y) > 0$
-2. $f_{Y|X}(y | x) = f_Y(y)$ for alle $x$ hvor $f_X(x) > 0$
+- Examples: tossing a coin twice, rolling a dice twice
 
---
-
-**Eksempler:** At kaste en mønt to gange, at kaste en terning to gange
 
 ---
 class: inverse, middle, center
-# Kontinuerte stokastiske variable
+# Continuous random variables
 
 ---
-# Motivation
-
---
-Forestil dig, at din virksomhed vil forudsige sin produktion næste år
-
---
-- Du ved, at den vil producere mellem 10 og 20 tons beton
-- Det kan være *et hvilket som helst* tal mellem 10 og 20 (med lige stor sandsynlighed)
+# Continuous random variables
 
 --
 
-**Hvad er sandsynligheden for at producere præcis 15 tons?**
+- Imagine that your company wants to predict its output next year
 
 --
 
-Grundlæggende nul!
-- Hvis den producerer 14.999999 eller 15.000001, er det ikke præcis 15
-- Det ville være ekstremt svært at ramme præcis 15 tons
+- It knows that it will produce between 10 and 20 tons of concrete, but it can be *any* number between 10 and 20 (with equal probability)
 
 --
 
-$\Rightarrow$ Sandsynligheden for at producere *præcis* en bestemt mængde er nul
+- What is the probability that it will produce *exactly* 15 tons? Basically zero
+  - if it produces 14.999999 or 15.000001, this is not exactly 15
+  - it would be extremely hard to get to exactly 15 tons
 
-$\Rightarrow$ Konceptet sandsynlighedsfunktion giver ikke mening for kontinuerte variable
+--
+
+- Using the same argument, the probability of producing *exactly* any particular quantity is zero $\Rightarrow$ the concept of probability function does not make sense
+
+--
+
+- Since continuous random variables have an uncountable number of values, we cannot use the exact same concepts as in the case of discrete random variables
+
+--
+
+- However, we only need to make minor changes to them in order to generalize them to this type of variables
 
 ---
-# Kumulativ fordelingsfunktion (CDF)
+# Cumulative distribution function
 
 --
-> Den **kumulative fordelingsfunktion** $F(\cdot)$ for en kontinuert stokastisk variabel $X$ er defineret som:
+
+> The **cumulative distribution function** $F(\cdot)$ of a continuous random variable $X$ is defined as:
 > $$F(x) = P(X \leq x)$$
 
 --
 
-Dette er samme definition som for diskrete variable
+- This is the same definition as in the case of a discrete random variable
 
 --
 
-Men bemærk: For kontinuerte variable gør det ingen forskel, om uligheden er streng eller ej:
-
-$$P(X \leq x) = P(X < x) + P(X = x) = P(X < x)$$
-
-fordi $P(X = x) = 0$
+- However, note that in this case it does not make a difference if the inequality is strict or not:
+$$P(X \leq x) = P(X < x \text{ or } X = x) = P(X < x) + P(X = x) = P(X < x)$$
+because $P(X = x) = 0$
 
 ---
-# Tæthedsfunktion (PDF)
+# Cumulative distribution function
+
+.center[
+![Continuous CDF](Figures/4. Continuous CDF.png)
+]
+
+---
+# Probability density function
 
 --
-> **Tæthedsfunktionen** $f(\cdot)$ for en kontinuert stokastisk variabel $X$ er defineret som:
+
+> The **probability density function** $f(\cdot)$ of a continuous random variable $X$ is defined as:
 > $$f(x) = \frac{dF(x)}{dx}$$
 
 --
 
-**Vigtige implikationer:**
+- This definition has several implications:
 
-- Arealet under tæthedsfunktionen er altid lig med 1:
+--
+
+  - the area under the probability density function is always equal to one:
 $$\int_{-\infty}^\infty f(x) \, dx = 1$$
 
 --
 
-- Den kumulative fordelingsfunktion er integralet af tæthedsfunktionen:
+  - the cumulative distribution function is the integral of the probability density function:
 $$F(x) = \int_{-\infty}^x f(z) \, dz$$
 
 ---
-# Eksempel: Uniform fordeling
+# Example
 
 --
-I vores eksempel er sandsynligheden for enhver værdi mellem 10 og 20 den samme:
+
+- In our example, the likelihood of any value between 10 and 20 is the same
+
+--
+
+- In other words, the value of the density function is the same for all values of $X$:
 $$f(x) = c$$
 
 --
 
-Vi kan bruge egenskaberne til at beregne $c$:
-$$\int_{10}^{20} c \, dx = (20 - 10) \cdot c = 1 \quad \Rightarrow \quad c = 0.1$$
+- We can then use the properties of the probability density function to calculate the exact value of $c$:
+$$\int_{-\infty}^\infty f(x) \, dx = \int_{10}^{20} c \, dx = (20 - 10) c = 1 \; \Rightarrow \; c = 0.1$$
 
 --
 
-**Tæthedsfunktion:**
-$$f(x) = \begin{cases} 0 & \text{hvis } x < 10 \\ 0.1 & \text{hvis } 10 \leq x \leq 20 \\ 0 & \text{hvis } x > 20 \end{cases}$$
-
---
-
-**CDF:**
-$$F(x) = \begin{cases} 0 & \text{hvis } x < 10 \\ 0.1(x - 10) & \text{hvis } 10 \leq x \leq 20 \\ 1 & \text{hvis } x > 20 \end{cases}$$
+- We can now calculate the cumulative distribution function:
+$$F(x) = \int_{-\infty}^x f(z) \, dz = \int_{10}^x 0.1 \, dz = 0.1 (x - 10)$$
+for all $z$ such that $10 \leq z \leq 20$
 
 ---
-# Visualisering af PDF og CDF
+# Example
 
-.pull-left[
-**Tæthedsfunktion (PDF):**
-- Højden angiver "tætheden" af sandsynlighed
-- Arealet under kurven = 1
-- $P(a \leq X \leq b) = \int_a^b f(x) \, dx$
+--
+
+- Now we can write explicitly the probability density function:
+$$f(x) = \begin{cases} 0, & \text{if } x < 10 \\ 0.1, & \text{if } 10 \leq x \leq 20 \\ 0, & \text{if } x > 20 \end{cases}$$
+
+--
+
+- The cumulative distribution function is:
+$$F(x) = \begin{cases} 0, & \text{if } x < 10 \\ 0.1(x - 10), & \text{if } 10 \leq x \leq 20 \\ 1, & \text{if } x > 20 \end{cases}$$
+
+---
+# Probability density function
+
+.center[
+![Continuous PDF](Figures/4. Continuous PDF.png)
 ]
 
-.pull-right[
-**Kumulativ fordeling (CDF):**
-- Stigende funktion fra 0 til 1
-- $F(x) = P(X \leq x)$
-- Hældningen = tæthedsfunktionen
+---
+# Probability density and cumulative distribution functions
+
+.center[
+![Continuous PDF total area](Figures/4. Continuous PDF total area.png)
 ]
+
+---
+# Probability density and cumulative distribution functions
+
+.center[
+![Continuous PDF partial area](Figures/4. Continuous PDF partial area.png)
+]
+
 
 ---
 class: inverse, middle, center
-# Sammenhænge mellem kontinuerte variable
+# Relationships between continuous random variables
 
 ---
-# Simultan tæthedsfunktion
-
---
-Vi bruger de samme begreber som for diskrete variable, men erstatter:
-- Sandsynlighedsfunktion → Tæthedsfunktion
-- Summation → Integration
+# Joint probability density
 
 --
 
-> Den **simultane tæthedsfunktion** $f(\cdot, \cdot)$ for to kontinuerte stokastiske variable $X$ og $Y$ skrives som $f(x, y)$.
+- We can use the same notions defined in the case of discrete random variables, but replacing the probability function with the probability density function and summations with integrals
 
 --
 
-Arealet under funktionen skal "summe op" til 1:
+> The **joint probability density function** $f(\cdot, \cdot)$ for two continuous random variables $X$ and $Y$ is written as $f(x, y)$.
+
+--
+
+- Since this is a probability density function, the area under it must "sum up" to one:
 $$\int_{-\infty}^\infty \int_{-\infty}^\infty f(x, y) \, dx \, dy = 1$$
 
 ---
-# Marginal tæthedsfunktion
+# Marginal probability density
 
 --
-> Den **marginale tæthedsfunktion** $f_X(\cdot)$ for en kontinuert stokastisk variabel $X$ er defineret som:
+
+> The **marginal probability density function** $f_X(\cdot)$ of a continuous random variable $X$ is defined as:
 > $$f_X(x) = \int_{-\infty}^\infty f(x, y) \, dy$$
 
 --
 
-Arealet under marginalfordelingen er også 1:
+- Since this is a probability density function, the area under it must "sum up" to one:
 $$\int_{-\infty}^\infty f_X(x) \, dx = 1$$
 
 ---
-# Betinget tæthedsfunktion
-
---
-> Den **betingede tæthedsfunktion** $f_{X|Y}(x|y)$ for en kontinuert stokastisk variabel $X$ givet at $Y = y$ er defineret som:
-> $$f_{X|Y}(x | y) = \frac{f(x, y)}{f_Y(y)}$$
-> hvis $f_Y(y) > 0$
+# Conditional probability density
 
 --
 
-Igen gælder at arealet under funktionen er 1:
+> The **conditional probability density function** $f_{X|Y}(x|y)$ of a continuous random variable $X$ given that $Y = y$ is defined as:
+> $$f_{X|Y}(x | y) = \frac{f(x, y)}{f_Y(y)} \text{ if } f_Y(y) > 0.$$
+
+--
+
+- Again, the area under this function must "sum up" to one because it is a probability density function:
 $$\int_{-\infty}^\infty f_{X|Y}(x | y) \, dx = 1$$
-for alle $y$ hvor $f_Y(y) > 0$
+for all $y$ such that $f_Y(y) > 0$
 
 ---
-# Bayes' sætning (kontinuert)
+# Bayes' theorem
 
 --
-Bayes' sætning gælder også for kontinuerte variable:
 
-> **Bayes' sætning:**
-> $$f_{X|Y}(x | y) = f_{Y|X}(y | x) \cdot \frac{f_X(x)}{f_Y(y)}$$
-> $$f_{X|Y}(x | y) = f_{Y|X}(y | x) \cdot \frac{f_X(x)}{\int_{-\infty}^{\infty} f_{Y|X}(y | z) f_X(z) \, dz}$$
+- Bayes' theorem applies to the continuous case in a similar way to the discrete case
+
+--
+
+> **Bayes' theorem:**
+>
+> 1. $f_{X|Y}(x | y) = f_{Y|X}(y | x) \cdot \displaystyle\frac{f_X(x)}{f_Y(y)}$
+>
+> 2. $f_{X|Y}(x | y) = f_{Y|X}(y | x) \cdot \displaystyle\frac{f_X(x)}{\displaystyle\int_{-\infty}^{\infty} f_{Y|X}(y | z) f_X(z) \, dz}$
 
 ---
-# Uafhængighed (kontinuert)
+# Independence
 
 --
-> To kontinuerte stokastiske variable $X$ og $Y$ er **uafhængige** hvis og kun hvis:
+
+- Finally, the concept of independence is similar in the continuous case to the discrete case
+
+--
+
+> Two continuous random variables $X$ and $Y$ are **independent** if and only if:
 > $$f(x, y) = f_X(x) \cdot f_Y(y)$$
-> for alle $x$ og $y$.
+> for all $x$ and $y$. This implies that:
+>
+> 1. $f_{X|Y}(x | y) = f_X(x)$ for all values $y$ such that $f_Y(y) > 0$
+>
+> 2. $f_{Y|X}(y | x) = f_Y(y)$ for all values $x$ such that $f_X(x) > 0$
 
---
-
-**Dette indebærer:**
-1. $f_{X|Y}(x | y) = f_X(x)$ for alle $y$ hvor $f_Y(y) > 0$
-2. $f_{Y|X}(y | x) = f_Y(y)$ for alle $x$ hvor $f_X(x) > 0$
-
----
-# Opsummering
-
---
-.pull-left[
-**Diskrete variable:**
-- Sandsynlighedsfunktion: $f(x) = P(X = x)$
-- CDF: $F(x) = \sum_{x_i \leq x} f(x_i)$
-- Simultanfordeling: $f(x,y)$
-- Marginalfordeling: $f_X(x) = \sum_j f(x, y_j)$
-- Betinget: $f_{X|Y}(x|y) = \frac{f(x,y)}{f_Y(y)}$
-]
-
-.pull-right[
-**Kontinuerte variable:**
-- Tæthedsfunktion: $f(x) = \frac{dF(x)}{dx}$
-- CDF: $F(x) = \int_{-\infty}^x f(z) dz$
-- Simultan tæthed: $f(x,y)$
-- Marginal tæthed: $f_X(x) = \int f(x, y) dy$
-- Betinget: $f_{X|Y}(x|y) = \frac{f(x,y)}{f_Y(y)}$
-]
-
----
-# Før næste gang
-
-.pull-left[
-**Læs:**
-- Kapitel 4 i lærebogen
-
-**Overvej:**
-- Hvornår er en variabel diskret vs. kontinuert?
-- Hvordan bruger vi Bayes' sætning i praksis?
-]
-
-.pull-right[
-![Trees](Figures/Trees1.jpg)
-]

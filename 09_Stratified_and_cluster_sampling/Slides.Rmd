@@ -90,279 +90,669 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 
 
-# Statistik
-## Forelæsning 9: Stratificeret og klyngeudvælgelse
+# Statistics
+## Estimating the mean value using stratified sampling and cluster sampling
+### (Chapter 11)
 
-### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+### Seetha Menon,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
 
-### Opdateret `r Sys.Date()`
-
-
-
-.footnote[
-.left[
-.small123[
-*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
-]
-]
-]
+### Updated `r Sys.Date()`
 
 
----
-class: middle
-# Dagens forelæsning
-.pull-left-wide[
-**Emner:**
-
-- Stratificering
-- Egenskaber ved stratificeret stikprøvegennemsnit
-- Valg af stratumstørrelse
-- Klyngeudvælgelse (cluster sampling)
-]
-
-.pull-right-narrow[
-![Trees](Figures/Trees1.jpg)
-]
 
 ---
 class: inverse, middle, center
-# Stratificering
+# Stratification
 
 ---
-# Motivation for stratificering
-
---
-Vi ved ofte mere om en population end bare den karakteristik, vi er interesserede i
+# Stratification
 
 --
 
-Denne viden kan potentielt bruges til at udvælge en stikprøve, der giver *mere* information end en simpel tilfældig stikprøve
+- We may often know more about a population than just the characteristic of interest
 
 --
 
-> **Stratificering** bygger på forhåndsviden om fordelingen af en karakteristik i populationen
+- This knowledge can potentially be used to select a sample in a way that gives us more information about the characteristic of interest than a simple random sample
+
+--
+
+- One such method is **stratification**, which relies on prior knowledge of the distribution of some characteristic in the population
 
 ---
 # Strata
 
 --
-Antag hvert element har to karakteristika:
-- $X$: Karakteristikken af interesse (f.eks. indkomst)
-- $Y$: En anden karakteristik med kendt fordeling (f.eks. køn)
+
+- For example, suppose each element in the population has two characteristics:
 
 --
 
-> Et **stratum** (flertal: strata) består af alle elementer med samme værdi af $Y$
+  - the characteristic of interest $X$ (e.g., income)
 
 --
 
-**Stratificering:**
-1. Opdel populationen i grupper (strata) baseret på $Y$
-2. Brug simpel tilfældig udvælgelse inden for hver gruppe
+  - a second characteristic $Y$, with a known distribution (e.g., gender)
+
+--
+
+- A **stratum** (plural: strata) consists of all the elements in the population with the same value of $Y$
+
+--
+
+- Stratification divides the population into groups (strata) based on the known characteristic $Y$ (e.g., men and women), and then uses simple random sampling within each group
+
+--
+
+- If $Y$ can take $m$ different values in the population, then there will be $m$ different strata
 
 ---
-# Loven om itererede forventninger
-
---
-> **Loven om itererede forventninger:**
-> $$E_X(X) = E_Y[E_{X|Y}(X|Y)] = \sum_{j=1}^m E_{X|Y}(X|Y=y_j) \cdot f_Y(y_j)$$
+# Law of iterated expectations
 
 --
 
-Med andre ord: Middelværdien af $X$ er et vægtet gennemsnit af middelværdierne i hvert stratum
+- When using stratification, we would want to calculate the mean value of $X$ in the population based on the mean values of $X$ in each stratum
+
+--
+
+- In order to do that, we will rely on the **law of iterated expectations**:
+
+$$
+E_X(X) = E_Y \left[ E_{X|Y}(X|Y) \right] = \sum_{j = 1}^m E_{X|Y}(X | Y = y_j) \cdot f_Y(y_j)
+$$
 
 ---
-# Stratificeret populationsgennemsnit
-
---
-Vægtene er den relative størrelse af hvert stratum:
-$$w_j = f_Y(y_j) = \frac{N_j}{N}$$
+# Stratified population mean value
 
 --
 
-hvor $N_j$ er antal elementer i stratum $j$ og $N$ er total antal elementer
+- In other words, the mean value of $X$ is a weighted average of the mean values in each strata, with weights equal to $f_Y(y_j)$
 
 --
 
-Hvis $\mu_j$ er middelværdien af $X$ i stratum $j$:
-$$\mu = E(X) = \sum_{j=1}^m \mu_j \cdot w_j$$
+- It is easy to see that these weights are actually the relative size of each stratum:
+$$
+f_Y(y_j) = \frac{N_j}{N} = w_j
+$$
+where $N_j$ is the number of elements in the population in stratum $j$ (i.e., $Y = Y_j$), and $N$ is the total number of elements in the population
+
+--
+
+- In our example, the weights would be the fraction of men and of women in the population
+
+--
+
+- If we denote by $\mu_j$ the mean value of $X$ in stratum $j$, then:
+$$
+\mu = E(X) = \sum_{j=1}^m \mu_j \cdot w_j
+$$
 
 ---
-# Stratificeret stikprøvegennemsnit
-
---
-Vi anvender analogiprincippet: Erstat ukendte størrelser med stikprøvestørrelser
+# Stratum sample average
 
 --
 
-**Stratum-gennemsnit:**
-$$\bar{X}_j = \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ij}$$
+- To calculate the stratified sample average, we apply again the analogy principle of estimation
 
 --
 
-**Stratificeret stikprøvegennemsnit:**
-$$\bar{X}_{st} = \sum_{j=1}^m \bar{X}_j \cdot w_j$$
+- We replace all unknown quantities with corresponding values from the sample
+
+--
+
+- We know the relative size of each stratum in the population, $w_j$, so the only unknown quantities are the mean values of $X$ in each stratum
+
+--
+
+- Recall that we have a simple random sample in each stratum $\Rightarrow$ we can use the formula for the simple sample average in each stratum:
+$$
+\bar{X}_j = \frac{1}{n_j} \cdot \sum_{i = 1}^{n_j} X_{ij}
+$$
+where $n_j$ is the number of elements in the sample in stratum $j$, and $X_{ij}$ is the $i$-th element in stratum $j$
 
 ---
-class: inverse, middle, center
-# Egenskaber ved stratificeret estimator
+# Stratified sample average
+
+--
+
+- We can now calculate the stratified sample average:
+$$
+\bar{X}_{st} = \sum_{j = 1}^m \bar{X}_j \cdot w_j
+$$
+
+--
+
+- Thus, $\bar{X}_{st}$ is a weighted average of the $m$ strata sample averages
 
 ---
-# Forventningsrethed
-
---
-En stratificeret stikprøve er generelt *ikke* repræsentativ (hvis $n_j/n \neq N_j/N$)
+# Recap: Stratification
 
 --
 
-Derfor er det simple stikprøvegennemsnit en *biased* estimator i en stratificeret stikprøve
+1. **Stratification**
+   - Why? To increase precision
+   - When? If we have prior knowledge of the distribution of some characteristic in the population
 
 --
 
-Men det stratificerede stikprøvegennemsnit er **forventningsret**:
-$$E(\bar{X}_{st}) = \sum_{j=1}^m E(\bar{X}_j) \cdot w_j = \sum_{j=1}^m \mu_j \cdot w_j = \mu$$
-
----
-# Varians
-
---
-Variansen af stratum-gennemsnittet:
-$$Var(\bar{X}_j) = \frac{\sigma_j^2}{n_j}$$
-
-hvor $\sigma_j^2 = Var(X|Y=y_j)$
-
---
-
-**Varians af stratificeret stikprøvegennemsnit:**
-$$Var(\bar{X}_{st}) = \sum_{j=1}^m \frac{\sigma_j^2}{n_j} \cdot w_j^2$$
-
----
-# Effektivitet og konsistens
-
---
-**Effektivitet:**
-- Hvis $X$ og $Y$ er uafhængige: Ingen forskel fra simpel stikprøve
-- Hvis $X$ og $Y$ er korrelerede: Potentielt lavere varians
-
---
-
-**Konsistens:**
-- Variansen afhænger negativt af stikprøvestørrelsen
-- Da estimatoren er forventningsret $\Rightarrow$ konsistent
-
----
-class: inverse, middle, center
-# Valg af stratumstørrelse
-
----
-# Optimal allokering
-
---
-Hvis vi kender $\sigma_j^2$ i populationen, kan vi vælge $n_j$ så variansen minimeres:
-
-$$n_j^* = n \cdot \frac{\sigma_j \cdot w_j}{\sum_{j=1}^m \sigma_j \cdot w_j}$$
-
---
-
-**Stratumstørrelsen bør være større for strata, der:**
-- Har større varians af $X$ (høj $\sigma_j^2$)
-- Udgør en stor andel af populationen (høj $w_j$)
-
----
-# Proportional allokering
-
---
-Hvis vi ikke kender varianserne, kan vi vælge stratumstørrelser proportionalt med populationsstørrelserne:
-
-$$\frac{n_j}{n} = \frac{N_j}{N}$$
-
---
-
-I dette tilfælde:
-$$\bar{X}_{st,prop} = \frac{1}{n} \sum_{j=1}^m \sum_{i=1}^{n_j} X_{ij}$$
-
---
-
-$$Var(\bar{X}_{st,prop}) = \frac{1}{n} \sum_{j=1}^m \sigma_j^2 \cdot w_j$$
+2. **Stratified Sample Average**
+$$
+\bar{X}_{st} = \sum_{j = 1}^m \bar{X}_j \cdot w_j
+$$
+i.e., the weighted sum of mean values of $m$ strata
 
 ---
 class: inverse, middle, center
-# Klyngeudvælgelse
+# Properties of the stratified sample average
 
 ---
-# Motivation
-
---
-Omkostningerne ved stikprøveudvælgelse kan være betydelige:
-- Geografisk afstand
-- Omkostninger ved eksperimenter
+# Properties of the stratified sample average
 
 --
 
-Det kan være billigere at gruppere elementer i **klynger** (clusters)
+- We need to verify if the stratified sample average has the three desired properties of an estimator:
 
 --
 
-**Klyngeudvælgelse:**
-1. Opdel populationen i klynger
-2. Udvælg nogle klynger via simpel tilfældig udvælgelse
-3. Inkludér alle elementer i de valgte klynger (ét-trins) eller udvælg elementer inden for klynger (to-trins)
+  - unbiasedness
+
+--
+
+  - efficiency
+
+--
+
+  - consistency
+
+--
+
+- In particular, we will compare the stratified sample average with the simple sample average
 
 ---
-# Strata vs. klynger
-
---
-| | Strata | Klynger |
-|---|---|---|
-| **Homogenitet** | Homogene (samme $Y$) | Heterogene |
-| **Formål** | Minimere varians | Reducere omkostninger |
-| **Udvælgelse** | Fra *alle* strata | Fra *nogle* klynger |
+# Unbiasedness
 
 --
 
-Klyngeudvælgelse er motiveret af **omkostninger**, ikke statistiske overvejelser
+- In general, a stratified sample is not representative (especially if $n_j / n \not= N_j / N$ for some $j$)
+
+--
+
+- As a result, the simple sample average in a stratified sample is a biased estimator for the population mean value $\mu$
+
+--
+
+- This is because the simple sample average does not correct for the fact that the sample is non-representative
+
+--
+
+- In contrast, the stratified sample average is unbiased:
+
+$$
+E \left( \bar{X}_{st} \right) = E \left[ \sum_{j = 1}^m \bar{X}_j \cdot w_j \right] = \sum_{j = 1}^m \left[ E \left( \bar{X}_j \right) \cdot w_j \right] = \sum_{j = 1}^m \mu_j \cdot w_j = \mu
+$$
+
+--
+
+- Therefore, if we have a stratified sample and if we want an unbiased estimator, we should always use the stratified sample average and not the simple sample average
 
 ---
-# Klyngeestimator
-
---
-Antag populationen er opdelt i $K$ klynger af samme størrelse $\bar{N} = N/K$
+# Efficiency
 
 --
 
-Vi udvælger $k$ af de $K$ klynger
+- In order to discuss efficiency, we need to calculate the variance of the stratified sample average
 
 --
 
-**Klyngeestimator:**
-$$\bar{X}_{cluster} = \frac{1}{k} \sum_{j=1}^k \bar{X}_j = \frac{1}{k \cdot \bar{N}} \sum_{j=1}^k \sum_{i=1}^{\bar{N}} X_{ij}$$
+- For that, we first need to determine the variance of the stratum averages
+
+--
+
+- The stratum sample averages are simple sample averages, which means that the variance of the stratum $j$ sample average is:
+$$
+Var \left( \bar{X}_j \right) = \frac{\sigma_j^2}{n_j}
+$$
+where $\sigma_j^2 = Var(X | Y = y_j)$ is the variance of $X$ in stratum $j$ in the population
 
 ---
-# Opsummering
+# Variance of stratified sample average
 
 --
-.small123[
-| Metode | Fordel | Egenskaber |
-|--------|--------|------------|
-| **Simpel tilfældig** | Simpel | Forventningsret, konsistent |
-| **Stratificeret** | Lavere varians | Forventningsret, konsistent, potentielt mere effektiv |
-| **Klynge** | Lavere omkostninger | Forventningsret, men ofte højere varians |
-]
+
+- We can now calculate the variance of the stratified sample average:
+
+$$
+Var \left( \bar{X}_{st} \right) = Var \left[ \sum_{j=1}^m \bar{X}_j \cdot w_j \right] = \sum_{j=1}^m Var \left( \bar{X}_j \right) \cdot w_j^2
+$$
+
+--
+
+$$
+= \sum_{j=1}^m \frac{\sigma_j^2}{n_j} \cdot w_j^2
+$$
+
+--
+
+- Note that the variance of the stratified sample average depends on the sample size for each stratum, the variance in each stratum, and the weight of each stratum
 
 ---
-# Før næste gang
+# Efficiency
 
-.pull-left[
-**Læs:**
-- Kapitel 11 i lærebogen
+--
 
-**Overvej:**
-- Hvornår er stratificering en god idé?
-- Hvad er forskellen på strata og klynger?
-]
+- Therefore, it is difficult to compare the variance of the stratified sample average with the simple sample average in a random sample
 
-.pull-right[
-![Trees](Figures/Trees1.jpg)
-]
+--
+
+- However, we can see that if $X$ and $Y$ are independent then stratifying does not make any difference and so the variance of the stratified sample average will be equal to that of the simple sample average
+
+--
+
+- However, we may be able to reduce the variance if $X$ and $Y$ are correlated (in which case the variance in a stratum will likely be different from the variance in the population)
+
+---
+# Consistency
+
+--
+
+- Note that the variance of the stratified sample average also depends negatively on sample (stratum) size
+
+--
+
+- Recall that the stratified sample average is unbiased:
+$$
+E \left( \bar{X}_{st} \right) = \mu
+$$
+
+--
+
+- Therefore, the stratified sample average is a consistent estimator of $\mu$
+
+---
+# Recap: Properties
+
+--
+
+**Properties of the stratified sample average estimator:**
+
+--
+
+- **Unbiased:** $E \left( \bar{X}_{st} \right) = \mu$
+
+--
+
+- **Efficient:** $Var \left( \bar{X}_{st} \right) = \sum_{j=1}^m \frac{\sigma_j^2}{n_j} \cdot w_j^2$ (the weighted sum of variances of $m$ strata)
+
+--
+
+- **Consistent:** Because it is unbiased and its variance depends negatively on stratum sample size
+
+---
+class: inverse, middle, center
+# Choice of stratum sample size
+
+---
+# Choice of stratum sample size
+
+--
+
+- The variance of the stratified sample average depends on the stratum sample size
+
+--
+
+- If we want to improve on the simple random sample and simple sample average, then we need to choose a stratum sample size that leads to lower variance
+
+--
+
+- There are many ways to do so, but two common ones are:
+
+--
+
+  - optimal allocation
+
+--
+
+  - proportional allocation
+
+---
+# Optimal allocation
+
+--
+
+- If we know the variance in the population in each stratum, $\sigma_j^2$, then we can deduce the sample sizes for each stratum such that the variance of $\bar{X}_{st}$ is minimized (given total sample size $n$)
+
+--
+
+- The optimal size of stratum $j$ is:
+$$
+n_j^* = n \cdot \frac{\sigma_j \cdot w_j}{\sum_{j=1}^m \sigma_j \cdot w_j}
+$$
+
+--
+
+- What this formula says is that the stratum size should be larger for strata which:
+
+--
+
+  - have a larger variance of $X$ (i.e., $\sigma_j^2$ is high)
+
+--
+
+  - represent a large proportion of the population (i.e., $w_j$ is high)
+
+---
+# Optimal allocation vs simple sample average
+
+--
+
+- The variance of $\bar{X}_{st}$ with optimal strata sizes is:
+$$
+Var \left( \bar{X}_{st} \right) = \frac{\left( \sum_{j=1}^m \sigma_j \cdot w_j \right)^2}{n}
+$$
+
+--
+
+- Therefore, $Var \left( \bar{X}_{st} \right) < Var(\bar{X})$ if the weighted average of strata standard deviations is smaller than the overall standard deviation
+
+--
+
+- This will always be the case if the variance within strata is smaller than the overall variance
+
+---
+# Optimal allocation in practice
+
+--
+
+- In order to determine the optimal stratum size, we need to know the variance within each stratum
+
+--
+
+- In practice, they are most likely unknown
+
+--
+
+- What we can do is the following:
+
+--
+
+  - conduct a *pilot study* from which we obtain the variance within each stratum
+
+--
+
+  - we use the formula above, but replace the population variance in each stratum with the estimated variance within each stratum from the pilot study
+
+---
+# Proportional allocation
+
+--
+
+- Even if we cannot stratify using the optimal stratum size, stratification may still have benefits
+
+--
+
+- One strategy is to choose stratum sizes so that they are proportional to the stratum size in the population:
+$$
+\frac{n_j}{n} = \frac{N_j}{N}
+$$
+
+--
+
+- In this case, we actually do not need to weigh the observations anymore when calculating the average:
+$$
+\bar{X}_{st, prop} = \sum_{j=1}^m \bar{X}_j \cdot w_j = \frac{1}{n} \cdot \sum_{j=1}^m \sum_{i=1}^{n_j} X_{ij}
+$$
+
+--
+
+- The variance of the stratified sample average is:
+$$
+Var \left( \bar{X}_{st, prop} \right) = \frac{1}{n} \sum_{j=1}^m \sigma_j^2 \cdot w_j
+$$
+
+---
+# Predetermined stratification
+
+--
+
+- Up until now we considered situations where we can determine the structure of the sample
+
+--
+
+- In practice, we will mostly obtain our sample from a statistical agency, so we will have to rely on their sampling method
+
+--
+
+- If they use stratified sampling, then the size of each stratum will be given to us
+
+--
+
+- To correctly use such a sample, we will need to know for each stratum:
+
+--
+
+  - the sample size, $n_j$
+
+--
+
+  - the proportion of the stratum in the population, $w_j$
+
+---
+# Stratification without replacement
+
+--
+
+- We also assumed that we can draw a simple random sample in each stratum
+
+--
+
+- In order for each draw to be independent, we have to draw with replacement
+
+--
+
+- In practice, draws are often conducted without replacement
+
+--
+
+- This does not change the unbiasedness and consistency of the stratified sample average estimator
+
+--
+
+- But it does change its variance (because the elements of the sample are not independent anymore)
+
+---
+# Stratification without replacement: variances
+
+--
+
+- Suppose we drew a random sample without replacement from the entire population, and we calculated the simple average
+
+--
+
+- The variance of this simple average estimator is:
+$$
+Var \left( \bar{X}_{norep} \right) = \frac{\sigma^2}{n} \cdot \frac{N}{N - 1} \cdot \left( 1 - \frac{n}{N} \right)
+$$
+
+--
+
+- We can use this now to calculate the variance of the stratified sample average estimator when the sampling is done without replacement:
+$$
+Var \left( \bar{X}_{st, norep} \right) = \sum_{j=1}^m \left[ w_j^2 \cdot \frac{\sigma_j^2}{n_j} \cdot \frac{N_j}{N_j - 1} \cdot \left( 1 - \frac{n_j}{N_j} \right) \right]
+$$
+
+--
+
+- The optimal stratum size is also different:
+$$
+n_j^* = n \cdot \frac{w_j \cdot \sigma_j \cdot \sqrt{\frac{N_j}{N_j - 1}}}{ \sum_{j=1}^m \left[ w_j \cdot \sigma_j \cdot \sqrt{\frac{N_j}{N_j - 1}} \right]}
+$$
+
+---
+# Recap: Choice of stratum sample size
+
+--
+
+**Choice of Stratum Sample Size:**
+
+--
+
+- Optimal Allocation
+
+--
+
+- Proportional Allocation
+
+--
+
+- Predetermined Stratification
+
+--
+
+**Stratification without replacement**
+
+---
+class: inverse, middle, center
+# Cluster sampling
+
+---
+# Cluster sampling
+
+--
+
+- The cost of sampling can be quite substantial when it is difficult to obtain information about (certain) elements:
+
+--
+
+  - geographical distance
+
+--
+
+  - costs of running an experiment separately for different individuals
+
+--
+
+- Often times it may be cheaper to group elements into groups called **clusters** (e.g., different cities)
+
+--
+
+- After the population has been divided into clusters, we use simple random sampling to select some of the clusters
+
+--
+
+  - we can then include all the elements in the selected clusters (*one-step method*)
+
+--
+
+  - we can select some of the elements within each cluster via simple random sampling (*two-step method*)
+
+--
+
+- This method is called **cluster sampling**
+
+---
+# Strata v. Clusters
+
+--
+
+- There are conceptual and practical differences between clusters and strata:
+
+--
+
+  - strata are homogeneous (all elements with the same value of $Y$), with the purpose of minimizing the variance of $X$ in each stratum
+
+--
+
+  - in contrast, clusters are heterogeneous
+
+--
+
+  - in fact, the composition of each cluster should be representative of the population composition
+
+--
+
+- Similarly, there are differences between cluster sampling and stratified sampling:
+
+--
+
+  - in stratified sampling, we select elements from *all* the strata
+
+--
+
+  - in cluster sampling, we select *some* clusters
+
+--
+
+- Note that cluster sampling is motivated by cost considerations, and not statistical considerations (as in the case of stratified sampling)
+
+--
+
+- However, a lower cost implies that we can potentially have a larger sample...
+
+---
+# Cluster sample average
+
+--
+
+- Suppose the population is divided into $K$ clusters of the same size
+
+--
+
+- Let $\bar{N} = \dfrac{N}{K}$ be the size of the cluster
+
+--
+
+- Suppose we select $k$ of the $K$ samples
+
+--
+
+- The cluster estimator for the mean value of the population $\mu$ is given by:
+$$
+\bar{X}_{cluster} = \frac{1}{k} \cdot \sum_{j=1}^k \bar{X}_j =  \frac{1}{k \cdot \bar{N}} \cdot \sum_{j=1}^k \sum_{i=1}^{\bar{N}} X_{ij}
+$$
+
+---
+# Key Takeaways
+
+--
+
+1. **Stratification**
+   - Why? To increase precision
+   - When? If we have prior knowledge of the distribution of some characteristic in the population
+
+--
+
+2. **Stratified Sample Average**
+$$
+\bar{X}_{st} = \sum_{j = 1}^m \bar{X}_j \cdot w_j
+$$
+i.e., the weighted sum of mean values of $m$ strata
+
+---
+# Key Takeaways
+
+--
+
+3. **Properties of the stratified sample average estimator**
+   - Unbiased: $E \left( \bar{X}_{st} \right) = \mu$
+   - Efficient: $Var \left( \bar{X}_{st} \right) = \sum_{j=1}^m \frac{\sigma_j^2}{n_j} \cdot w_j^2$ (the weighted sum of variances of $m$ strata)
+   - Consistent: Because it is unbiased and its variance depends negatively on stratum sample size
+
+---
+# Key Takeaways
+
+--
+
+4. **Choice of Stratum Sample Size**
+   - Optimal Allocation
+   - Proportional Allocation
+   - Predetermined Stratification
+
+--
+
+5. **Stratification without replacement**
+
+--
+
+6. **Strata v. Clusters**

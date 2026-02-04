@@ -90,499 +90,1089 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 
 
-# Statistik
-## Forelæsning 7: Stikprøveprocessen
+# Statistics
+## The sampling process
+### (Chapter 9)
 
-### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+### Seetha Menon,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
 
-### Opdateret `r Sys.Date()`
-
-
-
-.footnote[
-.left[
-.small123[
-*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
-]
-]
-]
+### Updated `r Sys.Date()`
 
 
----
-class: middle
-# Dagens forelæsning
-.pull-left-wide[
-**Emner:**
-
-- Deduktiv og induktiv slutning
-- Design af stikprøveprocessen
-- Stikprøvemetoder
-- Repræsentative stikprøver
-- Fejlkilder i stikprøveprocessen
-]
-
-.pull-right-narrow[
-![Trees](Figures/Trees1.jpg)
-]
 
 ---
 class: inverse, middle, center
-# Deduktiv og induktiv slutning
+# Deductive and inductive reasoning
 
 ---
-# Deduktiv slutning
-
---
-Indtil nu har vi antaget, at stokastiske variable repræsenterer populationer med *kendte* fordelinger
+# Deductive reasoning
 
 --
 
-- Fordelingen af den stokastiske variabel var den samme som fordelingen i populationen
+- Up until now, we assumed that random variables represent populations with known distributions
 
 --
 
-- Dette tillod os at beregne momenter (middelværdi, varians) og sandsynligheder
+- The distribution of the random variable was then the same as the distribution of the population
 
 --
 
-> **Deduktiv slutning:** At gå fra det generelle (population) til det specifikke (stikprøve)
+- This allowed us to calculate moments (mean, variance) and probabilities for the random variable
+
+--
+
+- This type of analysis, moving from general (population) to specific (sample) is called **deductive reasoning**
 
 ---
-# Induktiv slutning
-
---
-Nu vender vi processen om!
+# Inductive reasoning
 
 --
 
-- Vi vil lære noget om populationen og/eller udvælgelsesmekanismen *fra* en stikprøve
+- We will now reverse the process
 
 --
 
-> **Induktiv slutning:** At gå fra det specifikke (stikprøve) til det generelle (population)
+- We will try to learn something about the population and/or the selection mechanism from a sample
 
 --
 
-Den viden vi opnår, kan bruges til at lave **forudsigelser** om fremtidige stikprøver
+- This type of analysis, moving from specific (sample) to general (population) is called **inductive reasoning**
+
+--
+
+- The knowledge we acquire about the population will allow us to make **predictions**, i.e., statements about what future samples would look like
+
+--
+
+- Note that predictions are based on a deductive reasoning
 
 ---
-# Statistisk inferens
-
---
-> Hovedmålet med **statistisk inferens** er at opnå viden om en ukendt fordeling (f.eks. indkomstfordelingen)
+# Statistical inference
 
 --
 
-- Det er normalt ikke muligt at undersøge hele populationen
+- The main goal of statistical inference is to obtain knowledge about an unknown distribution (e.g., the distribution of income)
 
 --
 
-- Derfor er vi afhængige af en stikprøve
+- In general, it is not possible to obtain information on the entire population, so we need to rely on a sample
 
 --
 
-- Kvaliteten af stikprøven er ekstremt vigtig: "garbage in, garbage out"
+- The quality of the sample is extremely important: you get what you put in ("rubbish in, rubbish out")
 
 ---
-class: inverse, middle, center
-# Design af stikprøveprocessen
-
----
-# Fire vigtige aspekter
-
---
-Når man designer en stikprøveproces, skal man overveje:
+# Designing the sampling process
 
 --
 
-1. **Population og karakteristika:** Valg af population og interesseområder
+- There are four important aspects that need to be considered when designing a sampling process:
 
 --
 
-2. **Stikprøveenheder og -ramme:** Specifikation af enheder og hvordan de findes
+  - the choice of a population and of characteristics of interest
 
 --
 
-3. **Stikprøvemetode:** Hvordan enhederne udvælges
+  - the specification of sampling units and of the sampling frame
 
 --
 
-4. **Måling:** Hvordan karakteristika måles
-
----
-# Valg af population
-
---
-Normalt bestemmes valget af population og karakteristika af undersøgelsens formål
+  - the specification of the sampling method
 
 --
 
-**Praktiske udfordringer:**
-
---
-
-- Etiske begrænsninger (f.eks. test af skadelige stoffer på mennesker)
-
---
-
-- Omkostninger (stikprøve fra underpopulation og generalisering)
-
---
-
-> **Målpopulation:** Den population, vi er interesserede i
->
-> **Population:** Den population, der faktisk studeres
-
----
-# Karakteristika af interesse
-
---
-Specifikation af interesseområder kan være vanskelig
-
---
-
-**Eksempel:** Vi vil studere skolers kvalitet
-- Måles gennem testscorer
-- Men elever har forskellige færdigheder i forvejen
-- Hvad er "færdigheder"? IQ? Koncentrationsevne?
-
---
-
-Statistisk teori kan ikke hjælpe her — forskere må bruge faglig viden til at begrunde valget
-
----
-# Stikprøveenheder
-
---
-> **Stikprøveenheder:** De elementer fra populationen, vi udtrækker
-
---
-
-- Ofte er enhederne bare elementer (f.eks. individer)
-- Men ikke altid (f.eks. husstande som enheder, individer som interesse)
-
---
-
-Det er ofte billigere at vælge flere enheder sammen (f.eks. en skole, en husstand)
-
----
-# Stikprøveramme
-
---
-> **Stikprøveramme:** En måde at liste alle mulige stikprøveenheder og hvordan de kan kontaktes
-
---
-
-**Eksempler på kontaktoplysninger:**
-- Postadresser
-- Telefonnumre
-- Email-adresser
-- Tilstedeværelse på et bestemt tidspunkt og sted
+  - measurement of the characteristics of interest
 
 ---
 class: inverse, middle, center
-# Stikprøvemetoder
+# Population and characteristics of interest
 
 ---
-# To kategorier
-
---
-.pull-left[
-### Sandsynlighedsudvælgelse
-- Sandsynligheden for at vælge hver enhed er **kendt**
-- Muliggør vurdering af undersøgelsens kvalitet
-- Giver et "sandt" billede af populationen
-]
+# Choice of population
 
 --
 
-.pull-right[
-### Ikke-sandsynlighedsudvælgelse
-- Sandsynligheden for at vælge hver enhed er **ukendt**
-- Umuligt at vurdere kvaliteten
-- Bruges ofte pga. omkostninger eller praktiske begrænsninger
-]
+- Normally, the choice of the population and of the characteristics of interest is determined by the object of the study
+
+--
+
+- In practice, this may be more difficult than it sounds
+
+--
+
+  - suppose you want to study the harmful effects of a substance on humans $\Rightarrow$ for ethical reasons, you cannot study this on a sample of humans (you may have to use substitutes in a lab)
+
+--
+
+  - suppose it is too expensive to sample from the entire population of interest $\Rightarrow$ you may select a sample from a subpopulation (e.g., one city) and then generalize your findings to the rest of the population
 
 ---
-# Ikke-sandsynlighedsudvælgelse
-
---
-**Fire eksempler:**
+# Population vs target population
 
 --
 
-1. **Bekvemmelighedsudvælgelse:** Vælges ud fra lethed (f.eks. interview i indkøbscenter)
+- The population of interest is called **target population**
 
 --
 
-2. **Formålsudvælgelse:** Forskeren identificerer hvem der studeres (f.eks. eksperter)
+- As a general rule, the term *population* will refer to the population involved in the statistical experiment, which may differ from the target population
 
 --
 
-3. **Kvoteudvælgelse:** Bestemte andele af visse grupper (f.eks. minoriteter)
+- When the population and the target population are different, one (really important) issue is how well the population studied mimics the target population
 
 --
 
-4. **Sneboldsudvælgelse:** Udvalgte enheder bruges til at finde nye (f.eks. illegale spillere)
+  - are lab cells similar to human cells? can we generalize the results in the lab to humans?
+
+--
+
+  - is the city selected similar to the rest of the country? can we extrapolate the results to all the regions?
 
 ---
-# Måling af karakteristika
-
---
-.pull-left[
-### Observation
-- Forskeren observerer og registrerer
-- Vigtigt ikke at påvirke adfærd
-- Eksempel: Kliniske studier
-]
+# Characteristics of interest
 
 --
 
-.pull-right[
-### Selvrapportering
-- Elementet måler selv sine karakteristika
-- Spørgsmål om vilje og nøjagtighed
-- To typer information:
-  - *Revealed preference* (tidligere adfærd)
-  - *Stated preference* (planlagt fremtidig adfærd)
-]
-
----
-# Reliabilitet og validitet
-
---
-> **Reliabilitet:** Evnen til at gentage stikprøveudvælgelsen og opnå lignende resultater
+- The specification of characteristics of interest can be difficult
 
 --
 
-> **Validitet:** Resultaterne repræsenterer det, undersøgelsen har til formål at studere
-
----
-class: inverse, middle, center
-# Stikprøver og tilfældighed
-
----
-# Stikprøve
-
---
-Fra nu af antager vi sandsynlighedsudvælgelse
+- Imagine that we want to study the quality of schools
 
 --
 
-Lad $X_i$ være den stokastiske variabel, der repræsenterer værdien af karakteristikken for element $i$
+  - we would measure this through test scores
 
 --
 
-> En **stikprøve** med $n$ elementer kan repræsenteres ved $n$ stokastiske variable:
-> $$(X_1, X_2, \ldots, X_n)$$
+  - but different schools may have students with different skills
 
 --
 
-> En **realiseret stikprøve** består af de faktiske værdier:
-> $$(x_1, x_2, \ldots, x_n)$$
-
----
-# Stikprøvefordeling
-
---
-> **Stikprøvefordelingen** er den simultane fordeling af $(X_1, X_2, \ldots, X_n)$
+  - therefore, it would be useful to have a measure of these skills *before* they enrolled in the school
 
 --
 
-$$f(x_1, x_2, \ldots, x_n)$$
+  - but what are "skills"? IQ? ability to take tests? capacity to concentrate?
 
 --
 
-- Sandsynlighedsfunktion, hvis $X_i$ er diskrete
-- Tæthedsfunktion, hvis $X_i$ er kontinuerte
-
----
-# Udvælgelseskarakteristik
-
---
-I praksis udvælges en stikprøve baseret på en *anden* karakteristik end den, vi vil studere
-
---
-
-Lad $Z_i$ være **udvælgelseskarakteristikken** (f.eks. CPR-nummer)
-
---
-
-**Eksempel:**
-- Vi vil udvælge 5.000 personer baseret på CPR-nummer
-- For ethvert CPR-nummer $z$: $f_{Z_i}(z) = \frac{1}{5.000} = 0,0002$
+- Statistical theory cannot help in these situations — the people designing the study have to use their knowledge of the topic to justify the choice of characteristics
 
 ---
 class: inverse, middle, center
-# Repræsentative stikprøver
+# Sampling units and sampling frame
 
 ---
-# Definition
-
---
-Vi ønsker et "sandt" billede af populationen
+# Sampling units
 
 --
 
-> En stikprøve er **repræsentativ** for $X$, hvis marginalfordelingen af $X_i$ er lig med den relative frekvens af $X$ i populationen:
-> $$f_{X_i}(x) = f_X(x) \text{ for alle } i = 1, 2, \ldots, n$$
+- The **sampling units** are the subset of elements from the population that we extract
+
+--
+
+- Usually, the sampling units are just the elements of the population (e.g., individuals), but not always (e.g., households may be the sampling units, while we are interested in the individual members of the household)
+
+--
+
+- It is often cheaper to select several sampling units together (e.g., a school, a household)
 
 ---
-# Betingelser for repræsentativitet
-
---
-Marginalfordelingen af $X_i$ er:
-$$f_{X_i}(x) = \sum_z f_{X_i|Z_i}(x|z) \cdot f_{Z_i}(z)$$
+# Sampling frame
 
 --
 
-Stikprøven er repræsentativ, hvis:
-
-1. $f_{Z_i}(z) = f_Z(z)$ (udvælgelsessandsynlighed = andel i population)
-
-2. $f_{X_i|Z_i}(x|z) = f_{X|Z}(x|z)$ (betinget fordeling matcher)
+- A **sampling frame** is a way of writing down all the possible sampling units and how each of them can be reached (e.g., postal addresses, telephone numbers, email addresses, etc.)
 
 --
 
-**Undtagelse:** Hvis $X$ og $Z$ er uafhængige, kan stikprøven stadig være repræsentativ selvom $f_{Z_i}(z) \neq f_Z(z)$
+- Depending on how the sample is chosen, the sampling frame may be more or less specific
+
+--
+
+  - if by phone/address, then the sampling frame is precise in how to contact people
+
+--
+
+  - if by interviewing people present at a particular time in a particular place, then less precise
 
 ---
-class: inverse, middle, center
-# Fejlkilder i stikprøveprocessen
-
----
-# Tre hovedkilder
-
---
-1. **Fejl i stikprøverammen:** Dele af populationen udelades
+# Sampling characteristic
 
 --
 
-2. **Non-response:** Ikke alle kan eller vil deltage
+- Often, the way to contact a sampling unit is a characteristic of the unit (e.g., address, CPR number, phone number)
 
 --
 
-3. **Selv-selektion:** Individers adfærd påvirker sandsynligheden for udvælgelse
-
----
-# Fejl i stikprøverammen
-
---
-**Eksempel:** Vi vil undersøge interesse for hybridbiler
+- These characteristics can also be less precise (e.g., presence at a particular time in a particular place)
 
 --
 
-- Vi interviewer besøgende på en bilmesse
-- Men besøgende på bilmesser er mere interesserede i "showbiler"
-- Sandsynligheden for at foretrække hybridbil og besøge messen er ikke uafhængige
-
---
-
-$\Rightarrow$ Ikke-repræsentativ stikprøve
-
----
-# Non-response
-
---
-> **Non-respondenter:** Individer der ikke kan eller vil deltage
-
---
-
-**Årsager:**
-- Følsomme spørgsmål (indkomst, seksuel orientering)
-- Tid til at besvare
-- Generel holdning til undersøgelser
-
---
-
-Hvis sandsynligheden for non-response er korreleret med interessekarakteristikken $\Rightarrow$ ikke-repræsentativ stikprøve
-
----
-# Selv-selektion
-
---
-> **Selv-selektion:** En persons adfærd påvirker sandsynligheden for at blive udvalgt
-
---
-
-**Eksempel:** Lønfordeling i populationen
-- Vi kan kun udtrække fra folk, der arbejder
-- Men mange arbejder ikke, fordi lønnen ville være for lav
-- Deres adfærd bestemmer sandsynligheden for udvælgelse (nul)
+- This type of characteristic is called a **sampling characteristic**
 
 ---
 class: inverse, middle, center
-# Observationsfejl
+# Sampling method
 
 ---
-# Typer af observationsfejl
-
---
-> **Observationsfejl:** Den faktiske værdi afviger fra den målte værdi
+# Sampling method
 
 --
 
-.pull-left[
-**Responsefejl:**
-- Spørgsmålsfejl
-- Interviewerfejl
-- Registrerings-/kodningsfejl
-]
+- The method used to select sampling units from the sampling frame is called **sampling method**
 
-.pull-right[
-**Målefejl:**
-- Vanskeligheder ved præcis måling
-]
+--
+
+- The type of method used is very important to determine the quality of the sample and/or the type of statistical methods that can (or should) be used when dealing with the sample
+
+--
+
+- We can divide these methods into two broad categories:
+
+--
+
+  - probability sampling
+
+--
+
+  - non-probability sampling
 
 ---
-# Model for observationsfejl
-
---
-Lad $X^*$ være den "sande" værdi og $\epsilon$ være fejlen:
-
-$$X = X^* + \epsilon$$
+# Probability sampling
 
 --
 
-**Hvis $E(\epsilon) = 0$:**
-$$E(X) = E(X^*) + E(\epsilon) = E(X^*)$$
-
-Middelværdien påvirkes ikke!
+- **Probability sampling** means that the probability of selecting each sampling unit is known
 
 --
 
-**Variansen påvirkes altid** (antag $Cov(X^*, \epsilon) = 0$):
-$$Var(X) = Var(X^*) + Var(\epsilon) \geq Var(X^*)$$
+- For example, we could compile a list of all addresses in Denmark and randomly choose 5,000 among them
+
+--
+
+- In this case, the probability of choosing each address is the same
+
+--
+
+- More complicated methods assign different probabilities of being selected to different sampling units
+
+--
+
+- Probability sampling has two major advantages:
+
+--
+
+  - it makes it possible to assess the quality of the study
+
+--
+
+  - it allows researchers to obtain a picture of the true population
 
 ---
-# Opsummering
+# Non-probability sampling
 
 --
-.small123[
-| Aspekt | Nøglebegreber |
-|--------|---------------|
-| **Slutning** | Deduktiv (population → stikprøve) vs. Induktiv (stikprøve → population) |
-| **Design** | Population, stikprøveenheder, stikprøveramme, stikprøvemetode, måling |
-| **Metoder** | Sandsynlighed vs. ikke-sandsynlighed |
-| **Repræsentativitet** | $f_{X_i}(x) = f_X(x)$ |
-| **Fejlkilder** | Stikprøveramme, non-response, selv-selektion |
-| **Observationsfejl** | $X = X^* + \epsilon$ |
-]
+
+- **Non-probability sampling** means that the probability of selecting each sampling unit is unknown
+
+--
+
+- This makes it impossible to assess the quality of the study
+
+--
+
+- This method is used in practice because it is usually inexpensive and/or because probability sampling is infeasible
+
+--
+
+- Treating such a sample as a probability sample results in several errors (to be discussed later)
+
+--
+
+- We will discuss four examples of non-probability sampling:
+
+--
+
+  - convenience sampling
+
+--
+
+  - purposive sampling
+
+--
+
+  - quota sampling
+
+--
+
+  - snowball sampling
 
 ---
-# Før næste gang
+# Convenience sampling
 
-.pull-left[
-**Læs:**
-- Kapitel 9 i lærebogen
+--
 
-**Overvej:**
-- Hvornår er en stikprøve repræsentativ?
-- Hvordan påvirker non-response resultaterne?
-]
+- **Convenience sampling** = the sample is chosen based on how easy it is to select the sampling units (e.g., interviewing people at a shopping mall)
 
-.pull-right[
-![Trees](Figures/Trees1.jpg)
-]
+--
+
+- Advantage: cheap
+
+--
+
+- Disadvantage: the researcher does not know the probability of a unit being selected into the sample
+
+--
+
+  - suppose you want to know what is the attitude of people toward shopping in a mall
+
+--
+
+  - it is convenient to survey people at a mall
+
+--
+
+  - but people who already are at a mall will have different shopping attitudes than those who are not
+
+--
+
+  - yet, they are much more likely to be interviewed
+
+--
+
+$\Rightarrow$ the picture obtained from the sample does not represent the entire population
+
+---
+# Purposive sampling
+
+--
+
+- **Purposive sampling** = the researcher identifies who will be studied (e.g., experts)
+
+--
+
+- Advantage: need to use fewer units, so cheaper
+
+--
+
+- Disadvantage: as before, we would not obtain a true picture of the entire population (not everyone is an expert!)
+
+---
+# Quota sampling
+
+--
+
+- **Quota sampling** = it is decided in advance that the sample must include a certain proportion of units with certain characteristics that are not the main object of the study (e.g., immigrants, minorities)
+
+--
+
+- The characteristics that are not the main object for the study are called **background characteristics**
+
+--
+
+- Advantage: it provides more information about certain groups (that would otherwise be underrepresented)
+
+--
+
+- Disadvantage: we may again not get a true picture of the population
+
+--
+
+- However, if we know the distribution of the background characteristics in the population (e.g., what fraction are immigrants), we may use this to improve the quality of the study
+
+--
+
+- This is the main idea behind *stratification*
+
+---
+# Snowball sampling
+
+--
+
+- **Snowball sampling** = selected sampling units are used to identify new sampling units
+
+--
+
+- This method is used when it is difficult to find people with certain characteristics (e.g., illegal gamblers, illegal drug users)
+
+---
+class: inverse, middle, center
+# Measurement of characteristics
+
+---
+# Measurement of characteristics
+
+--
+
+- Once the sampling units are selected, we need to measure their characteristics
+
+--
+
+- This can be done in two ways:
+
+--
+
+  - measurement by observation
+
+--
+
+  - self-reporting
+
+---
+# Measurement by observation
+
+--
+
+- **Measurement by observation** = the researcher observes and records the characteristic (e.g., clinical studies)
+
+--
+
+- It is important not to influence behavior or characteristics when observing them
+
+--
+
+  - individuals may try to eat healthier to impress the researcher
+
+--
+
+  - some objects may be destroyed in the process of measuring their characteristics (e.g., resistance to drugs)
+
+---
+# Self-reporting
+
+--
+
+- **Self-reporting** = the element itself measures its own characteristics
+
+--
+
+- It is important to realize whether the element is willing to do so or to provide accurate measurements
+
+--
+
+  - individuals may under-report their income if they fear higher taxes
+
+--
+
+  - individuals may not be aware of how to assess certain characteristics (e.g., their IQ)
+
+--
+
+- One advantage of self-reporting is that we can obtain two types of information:
+
+--
+
+  - characteristics based on past behavior (*revealed preference*)
+
+--
+
+  - characteristics based on planned future behavior (*stated preference*)
+
+---
+# Self-reporting: questions
+
+--
+
+- Usually, self-reported measures of characteristics are obtained by asking questions
+
+--
+
+- There are several issues that need to be considered when asking questions:
+
+--
+
+  - *how* we ask the questions (phone, email, printed survey), which can affect how much information can be given to the respondents, how we can ensure that the answers are accurate, etc.
+
+--
+
+  - how the *question itself* is presented, which can influence how the respondent will ask (e.g., the order of questions is very important)
+
+---
+# Reliability and validity
+
+--
+
+- In order to have confidence in the results of a study, we need to ensure that the study is reliable and valid
+
+--
+
+- **Reliability** = ability to repeat the sample selection and measurement and obtain similar results
+
+--
+
+- **Validity** = the results of the study represent the stated object of the study (i.e., we measure what we intend to measure)
+
+---
+# Key Takeaways
+
+--
+
+- **Deductive Reasoning v. Inductive Reasoning**
+
+--
+
+- **Choice of Population** - population studied v. target group
+
+--
+
+- **Characteristics of Interest** - Deciding what to measure and how to measure them
+
+--
+
+- **Sampling Units** - Can be cheaper to select several elements together into one sampling unit
+
+--
+
+- **Sampling Frame** - Identifies all potential sampling units and how to identify them
+
+--
+
+- **Sampling Methods** - Probability v. Non-Probability Sampling
+
+--
+
+- **Measurement of Characteristics** - Observation v. self-reports (modes of interviews)
+
+--
+
+- **Reliability and Validity**
+
+---
+class: inverse, middle, center
+# Sampling methods
+
+---
+# Sample
+
+--
+
+- From now on, unless otherwise mentioned, we will assume probability sampling
+
+--
+
+- With probability sampling, it is uncertain which units will be selected into the sample
+
+--
+
+- Hence, we can represent this process using random variables
+
+--
+
+- Let $X_i$ be the random variable representing the value of the studied characteristics of element $i$
+
+--
+
+- A **sample** containing $n$ elements can then be represented by $n$ random variables:
+$$
+(X_1, X_2, \ldots, X_n)
+$$
+
+---
+# Realized sample
+
+--
+
+- Note that a sample is an "abstract" notion: we have $n$ units, but we do not know who/what each of the units is
+
+--
+
+- Once we perform the actual selection of the units, then we can observe who/what is unit $i$ and what is the value of its characteristic $X_i$
+
+--
+
+- A **realized sample** with $n$ elements consists of $n$ values of the random variables $X_1$, $X_2$, $\ldots$, $X_n$:
+$$
+(x_1, x_2, \ldots, x_n)
+$$
+
+---
+# Sample distribution
+
+--
+
+- A sample is a collection of $n$ random variables
+
+--
+
+- Each random variable has a distribution, but in general we are interested in how the distribution of all the units are intertwined
+
+--
+
+- The **sample distribution** is the joint distribution of the $n$ random variables $(X_1, X_2, \ldots, X_n)$, given by $f(x_1, x_2, \ldots, x_n)$, which is:
+
+--
+
+  - the probability function, if $X_1, X_2, \ldots, X_n$ are discrete
+
+--
+
+  - the probability density function, if $X_1, X_2, \ldots, X_n$ are continuous
+
+---
+class: inverse, middle, center
+# A model for the sample
+
+---
+# Selection characteristic
+
+--
+
+- In practice, a sample is selected based on a characteristic *other than* the one that will be studied (e.g., CPR number, phone number, etc.)
+
+--
+
+- This characteristic is called *selection characteristic* and we will denote it by $Z$
+
+--
+
+- Let $Z_i$ be the random variable that indicates the value of the selection characteristic for unit $i$
+
+--
+
+- Then $f_{Z_i}(z_i)$ represents the selection mechanism
+
+--
+
+- Example:
+
+--
+
+  - you want to select 5,000 people based on their CPR number
+
+--
+
+  - you get a list of all the CPR numbers in Denmark
+
+--
+
+  - for any CPR number $z$, $f_{Z_i}(z) = \dfrac{1}{5,000} = 0.0002$
+
+--
+
+  - if you only want a sample of women, then $f(z) = 0$ for all CPR numbers of men
+
+---
+# Identified and non-identified elements
+
+--
+
+- An element in the population is **identified** if no other element in the population has the same value of the selection characteristic (otherwise, the element is non-identified)
+
+--
+
+- In the CPR number example, all the elements are identified because CPR numbers are unique
+
+--
+
+- This would not be the case if we used addresses, since more than one person can live at the same address
+
+---
+# Selection characteristic and characteristic of interest
+
+--
+
+- The relationship between the selection characteristic $Z$ and the characteristic of interest $X$ can be described by the conditional distribution of $X$ given $Z$: $f_{X_i|Z_i}(x|z)$
+
+--
+
+- This conditional distribution gives us the probability of selecting a specific value of the characteristic of interest, $x$, given a certain value of the selection characteristic, $z$
+
+--
+
+  - for example, what is the probability of selecting a person with income of 200,000 kr per year given that they live at a given address
+
+---
+# Identified and non-identified elements
+
+--
+
+- Consider an identified element in the population, and let $z_0$ and $x_0$ be the value of $Z$ and $X$ for that element
+
+--
+
+- Since this element is the *only one* with $Z = z_0$, then it has to be that:
+$$
+f_{X_i|Z_i}(x_0 | z_0) = 1
+$$
+
+--
+
+- Now consider a non-identified element in the population with $Z = z^*$ and $X = x^*$
+
+--
+
+- If all the other elements with $Z = z^*$ also have $X = x^*$, then:
+$$
+f_{X_i|Z_i}(x^* | z^*) = 1
+$$
+
+--
+
+- Otherwise:
+$$
+f_{X_i|Z_i}(x^* | z^*) < 1
+$$
+
+---
+# Distribution of the characteristic of interest
+
+--
+
+- The joint distribution of the characteristic of interest and of the selection characteristic is $f_{X_i, Z_i}(x, z)$
+
+--
+
+- From the definition of the conditional probability and of the joint probability, we can calculate the marginal distribution of the characteristic of interest:
+
+$$
+f_{X_i} (x) = \sum_z f_{X_i, Z_i}(x, z) = \sum_z \left[ f_{X_i|Z_i}(x | z) \cdot f_{Z_i}(z) \right]
+$$
+
+---
+class: inverse, middle, center
+# Representative sample
+
+---
+# Representative sample
+
+--
+
+- In most cases, we would like to obtain a "true" picture of the population without having to study the whole population
+
+--
+
+- In the population, the relative frequency of a characteristic $x_i$ tells us how often that characteristic occurs among the elements of the population
+
+--
+
+- Therefore, if our sample should give a "true" picture of the population, the marginal distribution of $x_i$ in the sample should mimic the relative frequency in the population
+
+--
+
+- A sample is **representative** for $X$ if the marginal distribution of $X_i$ is equal to the relative frequency function of $X$:
+$$
+f_{X_i}(x) = f_X(x) \text{ for all } i = 1, 2, \ldots, n
+$$
+
+--
+
+- A sample in which this condition is not satisfied is a non-representative sample
+
+---
+# Conditions for a representative sample
+
+--
+
+- Recall that the marginal probability of $X_i$ is:
+$$
+f_{X_i} (x) = \sum_z \left[ f_{X_i|Z_i}(x | z) \cdot f_{Z_i}(z) \right]
+$$
+
+--
+
+- The sample is representative if:
+
+--
+
+  - the probability distribution of the selection characteristic is equal to their proportion in the population (i.e., $f_{Z_i}(z) = f_Z(z)$), and
+
+--
+
+  - for a given value $z$ of the selection characteristic, the probability of selecting an element with characteristic $X_i = x$ is equal to the proportion of elements with $X_i = x$ in the population (i.e., $f_{X_i | Z_i}(x | z) = f_{X | Z}(x | z)$)
+
+--
+
+- In general, we will assume that the second condition is satisfied and we will focus on how the selection mechanism $f_{Z_i}(z)$ can lead to non-representative samples
+
+--
+
+- Note that there is one case when we still have a representative sample even though $f_{Z_i}(z) \not= f_Z(z)$: when $X$ and $Z$ are independent
+
+---
+class: inverse, middle, center
+# Consequences of a non-representative sample
+
+---
+# Consequences of a non-representative sample
+
+--
+
+- In general, having a non-representative sample produces misleading results
+
+--
+
+- For example, consider the mean of a characteristic in a population (which is the same as the expected value of that characteristic):
+$$
+E(X) = \sum_x x \cdot f_X(x)
+$$
+
+--
+
+- However, the mean of the characteristic for the $i$-th element is:
+$$
+E(X_i) = \sum_x x \cdot f_{X_i}(x) \not= \sum_x x \cdot f_X(x)
+$$
+
+--
+
+- If we know the distribution of the selection characteristic in the population (e.g., stratified sampling), we can correct the calculation of $E(X_i)$ so that we obtain $E(X)$
+
+--
+
+- In this case, we do not need a representative sample (but we need to know in which way the sample is non-representative)
+
+---
+class: inverse, middle, center
+# Sources of error in the sampling process
+
+---
+# Sources of error in the sampling process
+
+--
+
+- In practice, it is not always easy to select a sample based on the distribution of $Z$ in the population
+
+--
+
+- Sometimes, researchers wrongly believe they are sampling based on the population distribution of $Z$
+
+--
+
+- There are several situations in which this may occur:
+
+--
+
+  - errors in the sampling frame
+
+--
+
+  - non-respondents
+
+--
+
+  - self-selection
+
+---
+# Errors in the sampling frame
+
+--
+
+- Sometimes, the sampling frame (which specifies the sampling units that can be selected) is not very precise
+
+--
+
+- As a result, parts of the population are omitted
+
+--
+
+- For example, suppose that you want to find out what fraction of the population is interested in having a hybrid car
+
+--
+
+- You decide that these should be people who are interested in cars in general, so you survey visitors of a car show
+
+--
+
+- However, it is possible (and likely) that visitors to a car show are more interested in "show cars" than hybrid cars (in other words, the probability that a person prefers a hybrid car and the probability that they visit the car show are not independent)
+
+--
+
+- Then, you would obtain a non-representative sample that will likely prefer hybrid cars less than the entire population
+
+---
+# Non-respondents
+
+--
+
+- Not everybody can or is willing to take part in a study — these individuals are called **non-responders**
+
+--
+
+- If the probability of being a non-respondent is correlated with the characteristic of interest, then we have a non-representative sample
+
+--
+
+- Reasons for non-response:
+
+--
+
+  - sensitive question (e.g., income, sexual orientation, etc.)
+
+--
+
+  - time required to answer the question
+
+--
+
+  - general attitude toward the survey
+
+---
+# Modeling non-response
+
+--
+
+- Let $Z_i$ be the random variable indicating if person $i$ is a respondent ($Z_i = 1$) or not ($Z_i = 0$)
+
+--
+
+- The selection mechanism is then defined as:
+$$
+f_{Z_i}(z) =
+\begin{cases}
+0, & \text{if } z = 0 \\
+1, & \text{if } z = 1
+\end{cases}
+$$
+
+--
+
+- This gives us the marginal distribution of the characteristic of interest as:
+$$
+f_{X_i}(x) = f_{X|Z}(x | 1)
+$$
+
+--
+
+- In other words, the distribution of $X_i$ is the same as the distribution among responders
+
+--
+
+- This is equal to the distribution of $X$ in the entire population only if $X$ and $Z$ are independent
+
+--
+
+- Note that non-response and errors in the sampling frame both imply that some elements in the population have zero probability of being selected
+
+---
+# Self-selection
+
+--
+
+- **Self-selection** occurs when someone's behavior affects the probability that the person will be selected for the sample
+
+--
+
+- For example, suppose you want to study the distribution of wages in the population
+
+--
+
+  - by definition, you can only sample from among people who are working
+
+--
+
+  - but many people who are not working choose to do so because the wages they would receive would be too low for their taste
+
+--
+
+  - hence, their behavior determines their probability of being selected in the sample (which is zero, in this case)
+
+--
+
+- In less extreme cases of self-selection, the probability of being selected is non-zero but affected by the individual's behavior (e.g., online reviews of items or retailers)
+
+--
+
+- Note that non-respondents can be seen as an extreme case of self-selection
+
+---
+class: inverse, middle, center
+# Observation errors
+
+---
+# Observation errors
+
+--
+
+- **Observation errors** occur when the actual value of the characteristic of interest is different from the measured (or observed) value
+
+--
+
+- We can divide observation errors into two types:
+
+--
+
+  - **response errors** = the responder misunderstands the question or the answer is reported incorrectly
+
+--
+
+      - *question error* = the answer is incompatible with the question
+
+--
+
+      - *interview error* = the interviewer influenced the respondent to answer incorrectly
+
+--
+
+      - *recording or coding error* = the answer was recorded or coded incorrectly
+
+--
+
+  - **measurement error** = errors due to difficulty in measuring accurately the characteristic
+
+---
+# Modeling observation errors
+
+--
+
+- We generally assume that the observed value of the characteristic is a function of the "true" value and of the observation error
+
+--
+
+- We usually denote the correct value with a $*$ subscript: $X^*$
+
+--
+
+- The observation error $\epsilon$ (*epsilon*) is the difference between the observed value and the correct value:
+$$
+\epsilon = X - X^*
+$$
+
+--
+
+- Then, the observed value is equal to the correct value plus the observation error:
+$$
+X = X^* + \epsilon
+$$
+
+---
+# Consequences of observation errors
+
+--
+
+- The consequences of observation errors depend on what we are interested in studying
+
+--
+
+- We typically assume that observation errors have mean zero: $E(\epsilon) = 0$
+
+--
+
+- Then, the mean of the characteristic of interest is not affected:
+$$
+E(X) = E(X^* + \epsilon) = E(X^*) + E(\epsilon) = E(X^*)
+$$
+
+--
+
+- If the expected value of the observation error is non-zero (e.g., incorrectly-balanced scale), then $E(X) \not= E(X^*)$
+
+--
+
+- The variance of the observable characteristic is affected by observation error
+
+--
+
+- If we assume that $Cov(X^*, \epsilon) = 0$, then
+$$
+Var(X) = Var(X^* + \epsilon) = Var(X^*) + Var(\epsilon) \geq Var(X^*)
+$$
+
+--
+
+- In other words, we have more "noise" in the observed characteristic

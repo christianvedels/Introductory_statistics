@@ -90,293 +90,766 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 
 
-# Statistik
-## Forelæsning 11: Konfidensintervaller
+# Statistics
+## Confidence intervals
+### (Chapter 13)
 
-### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+### Seetha Menon,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
 
-### Opdateret `r Sys.Date()`
-
-
-
-.footnote[
-.left[
-.small123[
-*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
-]
-]
-]
+### Updated `r Sys.Date()`
 
 
----
-class: middle
-# Dagens forelæsning
-.pull-left-wide[
-**Emner:**
-
-- Konfidensinterval for middelværdien
-- Konfidensinterval for variansen
-- Konfidensinterval for forskellen mellem to middelværdier
-- Bestemmelse af stikprøvestørrelse
-]
-
-.pull-right-narrow[
-![Trees](Figures/Trees1.jpg)
-]
 
 ---
 class: inverse, middle, center
-# Konfidensintervaller
+# Confidence interval for the mean value
 
 ---
-# Motivation
-
---
-Estimatorer er stokastiske variable $\Rightarrow$ sandsynligheden for at de er *præcis* lig populationsværdien er nul
+# Confidence intervals
 
 --
 
-Vi håber, at de er "tæt på" de sande værdier
+- We saw how to construct estimators for the mean value, variance and other moments
 
 --
 
-> **Konfidensinterval:** Et interval af værdier, der siger noget om usikkerheden på estimatet
+- However, these estimators are random variables $\Rightarrow$ the probability that they are equal to the population values is virtually zero
+
+--
+
+- The hope is that they will be "close" to the population values
+
+--
+
+- We can use the distribution of these estimators to calculate the probability that they are "close"
+
+--
+
+- This is the intuition behind confidence intervals:
+
+--
+
+  - an estimator will give you one value in a particular sample (estimated value)
+
+--
+
+  - a confidence interval will give you a range of values that say something about the uncertainty of the estimated value
 
 ---
-# Konfidensinterval for $\mu$
-
---
-Vi konstruerer et interval centreret omkring $\bar{X}$:
-
-$$\hat{I} = [\bar{X} - k, \bar{X} + k]$$
+# Confidence interval for the mean value
 
 --
 
-Da $\bar{X}$ er stokastisk, er grænserne også stokastiske
+- We start by constructing confidence intervals for the mean value $\mu$
 
 --
 
-$\mu$ er en konstant — intervallet vil ikke *altid* indeholde $\mu$
+- To construct a confidence interval, we need to determine a **lower bound** $W_l$ and an **upper bound** $W_u$
+
+--
+
+- The **confidence interval** determined by these bounds, $\hat{I} = \left[ W_l, W_u \right]$, will contain the mean with a certain probability
+
+--
+
+- Recall that the simple sample average $\bar{X}$ is an unbiased estimator of $\mu$
+
+--
+
+- An obvious choice would be to build an interval centered around $\bar{X}$:
+$$
+\hat{I} = \left[ \bar{X} - k, \bar{X} + k \right]
+$$
+
+--
+
+- The fact that $\bar{X}$ is random implies that the lower and upper limits of the interval are random
+
+--
+
+- Therefore, the interval will not always include $\mu$ (keep in mind that $\mu$ is a constant!)
 
 ---
-# Konfidensniveau
-
---
-> **Konfidensniveauet** $(1-\alpha)$ er sandsynligheden for, at intervallet indeholder $\mu$
+# Bounds of the confidence interval
 
 --
 
-$$1 - \alpha = P(\mu \in \hat{I}) = P(\bar{X} - k \leq \mu \leq \bar{X} + k)$$
+- In order to determine the bounds, we start by choosing the probability that the interval contains $\mu$
+
+--
+
+- This probability is usually denoted by $1 - \alpha$ and is called **confidence level**
+
+--
+
+- Therefore, we need to find the constant $k$ that verifies:
+
+$$
+1 - \alpha = P \left( \mu \in \hat{I} \right) = P \left( \bar{X} - k \leq \mu \leq \bar{X} + k \right) = P \left( \mu - k \leq \bar{X} \leq \mu + k \right)
+$$
+
+--
+
+- We will consider the two types of sampling methods discussed until now:
+
+--
+
+  - simple random sample
+
+--
+
+  - stratified sample
 
 ---
-# Simpel tilfældig stikprøve
-
---
-Husk at $\bar{X}$ følger en approksimativ normalfordeling:
-$$\bar{X} \overset{a}{\sim} \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)$$
+# Simple random sample
 
 --
 
-Standardiser:
-$$Z = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}} \overset{a}{\sim} \mathcal{N}(0,1)$$
+- In order to calculate the two bounds, we need to know the distribution of $\bar{X}$
+
+--
+
+- Recall that $\bar{X}$ follows an approximate normal distribution:
+$$
+\bar{X} \overset{a}{\sim} \mathcal{N}\left(\mu, \dfrac{\sigma^2}{n} \right)
+$$
+
+--
+
+- We can standardize this as follows:
+$$
+Z = \frac{\bar{X} - \mu}{\dfrac{\sigma}{\sqrt{n}}} = \sqrt{n} \cdot \frac{\bar{X} - \mu}{\sigma} \overset{a}{\sim} \mathcal{N}(0, 1)
+$$
 
 ---
-# Kritiske værdier
-
---
-> **Kritisk værdi** $z_{1-\alpha/2}$ er defineret ved:
-> $$\Phi(z_{1-\alpha/2}) = 1 - \frac{\alpha}{2}$$
+# Confidence interval: simple random sample
 
 --
 
-**Almindelige værdier:**
-- 90% konfidensinterval: $z_{0.95} = 1.645$
-- 95% konfidensinterval: $z_{0.975} = 1.96$
-- 99% konfidensinterval: $z_{0.995} = 2.576$
+- We can then rewrite the definition of the confidence interval:
+
+$$
+1 - \alpha = P \left( \mu - k \leq \bar{X} \leq \mu + k \right)
+$$
+
+--
+
+$$
+= P \left( - k \leq \bar{X} - \mu \leq k \right)
+$$
+
+--
+
+$$
+= P \left( - \sqrt{n} \cdot \frac{k}{\sigma} \leq \sqrt{n} \cdot \frac{\bar{X} - \mu}{\sigma} \leq \sqrt{n} \cdot \frac{k}{\sigma} \right)
+$$
+
+--
+
+$$
+= P \left( - \sqrt{n} \cdot \frac{k}{\sigma} \leq Z \leq \sqrt{n} \cdot \frac{k}{\sigma} \right)
+$$
+
+--
+
+$$
+= P(-a \leq Z \leq a) \overset{a}{=} \Phi(a) - \Phi(-a)
+$$
+
+where $a = \sqrt{n} \cdot \frac{k}{\sigma}$
 
 ---
-# Konfidensinterval: $\sigma^2$ kendt
+# Critical values
 
 --
-$$\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}, \; \bar{X} + z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\right]$$
+
+- In other words, the bounds of the interval depend on the **critical value** $z_{\alpha/2}$ defined by:
+$$
+\Phi \left( z_{\alpha/2} \right) = \frac{\alpha}{2}
+$$
+
+--
+
+- Note that, because the normal distribution is symmetric, we might as well use the critical value $z_{1 - \alpha/2} = - z_{\alpha/2}$
+
+--
+
+- In our notation above, $-a = z_{\alpha/2}$ and $a = z_{1 - \alpha/2}$
+
+--
+
+- From this, we can calculate $k$:
+$$
+z_{1 - \alpha/2} = a = \sqrt{n} \cdot \frac{k}{\sigma} \; \Rightarrow k = \frac{z_{1 - \alpha/2} \cdot \sigma}{\sqrt{n}}
+$$
+
+--
+
+- Now we can go back and calculate the limits of the confidence interval:
+$$
+\hat{I} = \left[ \bar{X} - z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}}, \bar{X} + z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \right]
+$$
 
 ---
-# Konfidensinterval: $\sigma^2$ ukendt
-
---
-Erstat $\sigma$ med stikprøvestandardafvigelsen $S$:
-
-$$\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \frac{S}{\sqrt{n}}, \; \bar{X} + z_{1-\alpha/2} \cdot \frac{S}{\sqrt{n}}\right]$$
+# Common critical values
 
 --
 
-Dette er et **approksimativt** konfidensinterval
+**Common critical values from the standard normal distribution:**
+
+--
+
+- 90% confidence interval: $z_{0.95} = 1.645$
+
+--
+
+- 95% confidence interval: $z_{0.975} = 1.96$
+
+--
+
+- 99% confidence interval: $z_{0.995} = 2.576$
 
 ---
-# $t$-fordelingen
-
---
-Hvis $X \sim \mathcal{N}(\mu, \sigma^2)$ og $\sigma^2$ er ukendt:
-
-$$t = \frac{\bar{X} - \mu}{S/\sqrt{n}} \sim t(n-1)$$
+# Confidence interval when $\sigma^2$ is unknown
 
 --
 
-$t$-fordelingen ligner normalfordelingen, men med "federe haler"
+- Note that the bounds of the confidence interval depend on $\sigma$
 
 --
 
-**Eksakt konfidensinterval:**
-$$\hat{I} = \left[\bar{X} - t_{1-\alpha/2}(n-1) \cdot \frac{S}{\sqrt{n}}, \; \bar{X} + t_{1-\alpha/2}(n-1) \cdot \frac{S}{\sqrt{n}}\right]$$
+- In practice, we will rarely know the value of $\sigma$
+
+--
+
+- Fortunately, we have a consistent estimator of $\sigma$: the sample standard deviation $S$
+
+--
+
+- In this case, the confidence interval becomes:
+$$
+\hat{I} = \left[ \bar{X} - z_{1 - \alpha/2} \cdot \sqrt{\frac{S^2}{n}}, \bar{X} + z_{1 - \alpha/2} \cdot \sqrt{\frac{S^2}{n}} \right]
+$$
+
+--
+
+- Finally, keep in mind that this interval is *approximate* because it is based on the approximate distribution of $\bar{X}$
+
+--
+
+- If we know the distribution of $X$ in the population, we can construct *exact* confidence intervals
 
 ---
-# Bernoulli-tilfældet
-
---
-Hvis $X \sim Bernoulli(p)$:
-- $E(X) = p$
-- $Var(X) = p(1-p)$
+# Simple random sample, $X \sim \mathcal{N}(\mu, \sigma^2)$, $\sigma^2$ known
 
 --
 
-Estimér variansen med $\bar{X}(1-\bar{X})$:
+- Now suppose that we know that $X$ follows a normal distribution in the population:
+$$
+X \sim \mathcal{N}(\mu, \sigma^2)
+$$
 
-$$\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \sqrt{\frac{\bar{X}(1-\bar{X})}{n}}, \; \bar{X} + z_{1-\alpha/2} \cdot \sqrt{\frac{\bar{X}(1-\bar{X})}{n}}\right]$$
+--
+
+- Suppose also that we know the variance in the population, $\sigma^2$
+
+--
+
+- In this case, the confidence interval is *exact*:
+$$
+\hat{I} = \left[ \bar{X} - z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}}, \bar{X} + z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \right]
+$$
+
+---
+# Simple random sample, $X \sim \mathcal{N}(\mu, \sigma^2)$, $\sigma^2$ unknown
+
+--
+
+- Now suppose that we do not know the variance of $X$ in the population, $\sigma^2$
+
+--
+
+- It can be shown that the following variable follows what is called a ***t*-distribution**:
+$$
+t = \frac{\bar{X} - \mu}{\sqrt{\dfrac{S^2}{n}}} \sim t(n - 1)
+$$
+
+--
+
+- The $t$-distribution looks like the normal distribution, but with "fatter tails" (and when $n$ is large, they are almost identical)
+
+--
+
+- In this case, the confidence interval is *exact* and similar to the previous case, but with critical values from the $t$-distribution:
+$$
+\hat{I} = \left[ \bar{X} - t_{1 - \alpha/2}(n-1) \cdot \sqrt{\frac{S^2}{n}}, \bar{X} + t_{1 - \alpha/2}(n-1) \cdot \sqrt{\frac{S^2}{n}} \right]
+$$
+
+---
+# Simple random sample, $X \sim Bernoulli(p)$
+
+--
+
+- Finally, suppose that we know that $X$ follows a $Bernoulli(p)$ distribution in the population
+
+--
+
+- Recall that the mean and variance of a Bernoulli-distributed random variable are:
+$$
+E(X) = p \qquad Var(X) = p \cdot (1 - p)
+$$
+
+--
+
+- The sample average $\bar{X}$ is an estimator of the mean $p$
+
+--
+
+- Therefore, we can estimate the variance using $\bar{X} \cdot (1 - \bar{X})$
+
+--
+
+- This is a better estimator than the sample variance because it uses the additional information from the Bernoulli formula
+
+--
+
+- We can then construct an *approximate* confidence interval using this new estimator of the variance:
+$$
+\hat{I} = \left[ \bar{X} - z_{1 - \alpha/2} \cdot \sqrt{\frac{\bar{X} \cdot (1 - \bar{X})}{n}}, \bar{X} + z_{1 - \alpha/2} \cdot \sqrt{\frac{\bar{X} \cdot (1 - \bar{X})}{n}} \right]
+$$
+
+---
+# Stratified sampling
+
+--
+
+- Recall that if we have a stratified random sample, then we need to use the stratified sample average:
+$$
+\bar{X}_{st} = \sum_{j=1}^m \left( w_j \cdot \bar{X}_j \right) = \sum_{j=1}^m \left( \frac{N_j}{N} \cdot \bar{X}_j \right)
+$$
+
+--
+
+- In order to construct a confidence interval for $\mu$, we need to first determine the variance of the stratified sample average:
+$$
+Var \left( \bar{X}_{st} \right) = \sum_{j=1}^m \left( w_j^2 \cdot \frac{\sigma^2_j}{n_j} \right)
+$$
+
+--
+
+- Usually, we do not know the stratum-specific variances $\sigma^2_j$, so we need to replace them with the stratum-specific sample variances:
+$$
+S_j^2 = \frac{1}{n_j - 1} \sum_{i=1}^{n_j} \left( X_{ij} - \bar{X}_j \right)^2
+$$
+
+---
+# Stratified sampling: confidence interval
+
+--
+
+- This gives us an estimator for the variance of the stratified sample average:
+$$
+\widehat{Var} \left( \bar{X}_{st} \right) = \sum_{j=1}^m \left( w_j^2 \cdot \frac{S^2_j}{n_j} \right)
+$$
+
+--
+
+- Recall that the stratified sample average also follows an approximate normal distribution:
+$$
+\bar{X}_{st} \overset{a}{\sim} \mathcal{N} \left(\mu, Var \left( \bar{X}_{st} \right) \right)
+$$
+
+--
+
+- Therefore, we can again construct an approximate confidence interval using the critical values from the normal distribution and the estimator of the variance described above:
+$$
+\hat{I} = \left[ \bar{X}_{st} - z_{1 - \alpha/2} \cdot \sqrt{\widehat{Var} \left( \bar{X}_{st} \right)}, \bar{X}_{st} + z_{1 - \alpha/2} \cdot \sqrt{\widehat{Var} \left( \bar{X}_{st} \right)} \right]
+$$
 
 ---
 class: inverse, middle, center
-# Konfidensinterval for variansen
+# Confidence interval for the variance
 
 ---
-# $\chi^2$-fordelingen
-
---
-Husk at:
-$$\frac{(n-1) \cdot S^2}{\sigma^2} \overset{a}{\sim} \chi^2(n-1)$$
+# Confidence interval for the variance
 
 --
 
-$\chi^2$-fordelingen er **ikke** symmetrisk — kun positive værdier
+- We can also construct a confidence interval for the unknown variance $\sigma^2$
+
+--
+
+- We follow the same recipe: we calculate a lower bound and an upper bound on the interval based on the distribution of an estimator of $\sigma^2$
+
+--
+
+- The sample variance is an unbiased estimator of $\sigma^2$
+
+--
+
+- Recall that we know the approximate distribution of the following transformation of it:
+$$
+\frac{(n - 1) \cdot S^2}{\sigma^2} \overset{a}{\sim} \chi^2(n-1)
+$$
 
 ---
-# Konfidensinterval for $\sigma^2$
-
---
-$$\hat{I} = \left[\frac{(n-1) \cdot S^2}{\chi^2_{1-\alpha/2}(n-1)}, \; \frac{(n-1) \cdot S^2}{\chi^2_{\alpha/2}(n-1)}\right]$$
+# Critical values
 
 --
 
-**Bemærk:** Intervallet er *ikke* symmetrisk omkring $S^2$
+- Let $\chi^2_{\alpha/2}(n-1)$ and $\chi^2_{1 - \alpha/2}(n-1)$ be the critical values from the $\chi^2(n-1)$ distribution
+
+--
+
+- This means that, if $Z \sim \chi^2(n-1)$, then:
+
+$$
+P \left( Z \leq \chi^2_{\alpha/2}(n-1) \right) = \frac{\alpha}{2}
+$$
+
+$$
+P \left(Z \leq \chi^2_{1 - \alpha/2}(n-1) \right) = 1 - \frac{\alpha}{2}
+$$
+
+--
+
+- Then:
+$$
+P \left( \chi^2_{\alpha/2}(n-1) \leq \frac{(n - 1) \cdot S^2}{\sigma^2} \leq \chi^2_{1 - \alpha/2}(n-1) \right) \overset{a}{=} 1 - \alpha
+$$
+
+---
+# Confidence interval for the variance
+
+--
+
+- We can then rewrite the definition of the confidence interval:
+
+$$
+1 - \alpha \overset{a}{=} P \left( \chi^2_{\alpha/2}(n-1) \leq \frac{(n - 1) \cdot S^2}{\sigma^2} \leq \chi^2_{1 - \alpha/2}(n-1) \right)
+$$
+
+--
+
+$$
+= P \left( \frac{(n - 1) \cdot S^2}{\chi^2_{1 - \alpha/2}(n-1)} \leq \sigma^2 \leq \frac{(n - 1) \cdot S^2}{\chi^2_{\alpha/2}(n-1)} \right)
+$$
+
+--
+
+- Therefore, the approximate confidence interval is:
+$$
+\hat{I} = \left[ \frac{(n - 1) \cdot S^2}{\chi^2_{1 - \alpha/2}(n-1)} , \frac{(n - 1) \cdot S^2}{\chi^2_{\alpha/2}(n-1)} \right]
+$$
+
+--
+
+- Note that this confidence interval is *not* symmetric around $S^2$ anymore, because the $\chi^2$ distribution is not symmetric
 
 ---
 class: inverse, middle, center
-# Forskel mellem to middelværdier
+# Confidence interval for the difference between two mean values
 
 ---
-# To uafhængige stikprøver
-
---
-Vi har stikprøver fra to grupper og vil sammenligne $\mu_1$ og $\mu_2$
+# Difference in means
 
 --
 
-**Estimator:**
-$$\bar{X}_1 - \bar{X}_2$$
+- Sometimes we are interested in examining the difference between two groups in the population (e.g., wage difference between men and women)
 
 --
 
-**Forventningsret:**
-$$E(\bar{X}_1 - \bar{X}_2) = \mu_1 - \mu_2$$
+- We would want then to construct a confidence interval for the difference between the means in the two groups, $\mu_1$ and $\mu_2$
 
 --
 
-**Varians:**
-$$Var(\bar{X}_1 - \bar{X}_2) = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}$$
+- We will assume that we have one simple random sample from each group and that the two samples are independent of each other
 
 ---
-# Konfidensinterval for $\mu_1 - \mu_2$
-
---
-**Med kendte varianser:**
-$$\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}\right]$$
+# Estimator of the difference in means
 
 --
 
-**Med ukendte varianser:**
-$$\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}\right]$$
+- The estimator for $(\mu_1 - \mu_2)$ will then be the difference between the sample averages: $\left( \bar{X}_1 - \bar{X}_2 \right)$
+
+--
+
+- This estimator is unbiased:
+$$
+E \left( \bar{X}_1 - \bar{X}_2 \right) = E \left( \bar{X}_1 \right) - E \left( \bar{X}_2 \right) = \mu_1 - \mu_2
+$$
+
+--
+
+- Its variance is:
+$$
+Var \left( \bar{X}_1 - \bar{X}_2 \right) = Var \left( \bar{X}_1 \right) + Var \left( \bar{X}_2 \right) = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}
+$$
+
+--
+
+- It follows an approximate normal distribution because $\bar{X}_1$ and $\bar{X}_2$ both follow approximate normal distributions
 
 ---
-# Pooled varians
-
---
-Hvis $\sigma_1^2 = \sigma_2^2$ (ens varianser):
-
-$$S_p^2 = \frac{(n_1-1) \cdot S_1^2 + (n_2-1) \cdot S_2^2}{n_1 + n_2 - 2}$$
+# Distribution of the estimator of the difference in means
 
 --
 
-**Konfidensinterval:**
-$$\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{S_p^2 \cdot \left(\frac{1}{n_1} + \frac{1}{n_2}\right)}\right]$$
+- Therefore, the standardized difference follows an approximate standard normal distribution:
+$$
+\frac{\left( \bar{X}_1 - \bar{X}_2 \right) - (\mu_1 - \mu_2)}{\sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}}} \overset{a}{\sim} \mathcal{N}(0,1)
+$$
+
+--
+
+- Then:
+$$
+P \left( z_{\alpha/2} \leq \frac{\left( \bar{X}_1 - \bar{X}_2 \right) - (\mu_1 - \mu_2)}{\sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}}} \leq z_{1 - \alpha/2} \right) \overset{a}{=} 1 - \alpha
+$$
+
+---
+# Confidence interval for the difference in means
+
+--
+
+- We can then construct a confidence interval for the difference in means:
+$$
+\hat{I} = \left[ \left( \bar{X}_1 - \bar{X}_2 \right) - z_{1 - \alpha/2} \cdot \sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}}, \left( \bar{X}_1 - \bar{X}_2 \right) + z_{1 - \alpha/2} \cdot \sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}} \right]
+$$
+
+--
+
+- Note again that this is an approximate confidence interval and requires that we know the two variances in the population
+
+---
+# Confidence interval, variances unknown
+
+--
+
+- If we do not know the two variances, then we need to replace them with estimators of them (sample variances)
+
+--
+
+- In this case, the confidence interval for the difference in means is:
+$$
+\hat{I} = \left[ \left( \bar{X}_1 - \bar{X}_2 \right) - z_{1 - \alpha/2} \cdot \sqrt{\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}}, \left( \bar{X}_1 - \bar{X}_2 \right) + z_{1 - \alpha/2} \cdot \sqrt{\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}} \right]
+$$
+
+---
+# Confidence interval, variances unknown but equal
+
+--
+
+- If we do not know the two variances, but we have good reason to believe that they are equal, then we can construct a better estimator for the variance of $\left( \bar{X}_1 - \bar{X}_2 \right)$
+
+--
+
+- This estimator is the **pooled variance estimator**:
+$$
+S_p^2 = \frac{(n_1 - 1) \cdot S_1^2 + (n_2 - 1) \cdot S_2^2}{n_1 + n_2 - 2}
+$$
+
+--
+
+- We can then write the confidence interval for the difference in means as:
+$$
+\hat{I} = \left[ \left( \bar{X}_1 - \bar{X}_2 \right) - z_{1 - \alpha/2} \cdot \sqrt{S_p^2 \cdot \left( \dfrac{1}{n_1} + \dfrac{1}{n_2} \right)}, \left( \bar{X}_1 - \bar{X}_2 \right) + z_{1 - \alpha/2} \cdot \sqrt{S_p^2 \cdot \left( \dfrac{1}{n_1} + \dfrac{1}{n_2} \right)} \right]
+$$
+
+---
+# Confidence interval, distribution of $X$ known
+
+--
+
+- As in the case of confidence intervals for the mean value, we can construct exact (or better) confidence intervals for the difference in means if we know the shape of the distribution of $X$ in the two groups:
+
+--
+
+  - normal distribution with known variance
+
+--
+
+  - normal distribution with unknown variance
+
+--
+
+  - $Bernoulli(p)$
 
 ---
 class: inverse, middle, center
-# Stikprøvestørrelse
+# Confidence interval for the ratio of two variances
 
 ---
-# Bredden af konfidensintervallet
-
---
-Bredden af konfidensintervallet for $\mu$:
-$$2 \cdot z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$$
+# Ratio of two variances
 
 --
 
-Hvis vi ønsker bredden $\leq 2K$:
+- We may also be interested whether the variation in the values of $X$ in one group is higher than in the second group
 
-$$n^* = \frac{\sigma^2}{K^2} \cdot z_{1-\alpha/2}^2$$
+--
+
+- We are again assuming that we have two simple random samples from each group, and that the two samples are independent of each other
+
+--
+
+- Suppose that $X$ follows a normal distribution in each sample: $\mathcal{N}(\mu_1, \sigma^2_1)$ and $\mathcal{N}(\mu_2, \sigma^2_2)$
+
+--
+
+- We will construct a confidence interval for the ratio of variances $\dfrac{\sigma_2^2}{\sigma_1^2}$
 
 ---
-# Bernoulli-tilfældet
-
---
-For $X \sim Bernoulli(p)$: $\sigma^2 = p(1-p)$
+# Ratio of two variances
 
 --
 
-Maksimal varians når $p = 0.5$: $\sigma^2 = 0.25$
+- In order to construct a confidence interval for the ratio of the variances, we will use the sample variances in each group
 
 --
 
-**Konservativ stikprøvestørrelse:**
-$$n^* = \frac{0.25}{K^2} \cdot z_{1-\alpha/2}^2$$
+- In particular, we can show that the following variable follows an ***F*-distribution** with $(n_1 - 1)$ and $(n_2 - 1)$ degrees of freedom:
+$$
+\frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} = \frac{S_1^2 \cdot \sigma_2^2}{S_2^2 \cdot \sigma_1^2} \sim F(n_1 - 1, n_2 - 1)
+$$
+
+--
+
+- The $F$-distribution is similar to the $\chi^2$ distribution
+
+--
+
+- In fact, when $n_2$ is very large, the $F$-distribution becomes almost identical to the $\chi^2(n_1 - 1)$ distribution divided by $n_1$
 
 ---
-# Opsummering
+# Critical values
 
 --
-.small123[
-| Parameter | Fordeling | Konfidensinterval |
-|-----------|-----------|-------------------|
-| $\mu$, $\sigma^2$ kendt | Normal | $\bar{X} \pm z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$ |
-| $\mu$, $\sigma^2$ ukendt | $t$ | $\bar{X} \pm t_{1-\alpha/2}(n-1) \cdot \frac{S}{\sqrt{n}}$ |
-| $\sigma^2$ | $\chi^2$ | $\frac{(n-1)S^2}{\chi^2_{1-\alpha/2}}, \frac{(n-1)S^2}{\chi^2_{\alpha/2}}$ |
-| $\mu_1 - \mu_2$ | Normal | $(\bar{X}_1-\bar{X}_2) \pm z_{1-\alpha/2} \cdot SE$ |
-]
+
+- Let $F_{\alpha/2}(n_1 - 1, n_2 - 1)$ and $F_{1 - \alpha/2}(n_1 - 1, n_2 - 1)$ be the critical values from the $F(n_1 - 1, n_2 - 1)$ distribution
+
+--
+
+- This means that, if $Z \sim F(n_1 - 1, n_2 - 1)$, then:
+
+$$
+P \left( Z \leq F_{\alpha/2}(n_1 - 1, n_2 - 1) \right) = \frac{\alpha}{2}
+$$
+
+$$
+P \left(Z \leq F_{1 - \alpha/2}(n_1 - 1, n_2 - 1) \right) = 1 - \frac{\alpha}{2}
+$$
+
+--
+
+- Then:
+$$
+P \left( F_{\alpha/2}(n_1 - 1, n_2 - 1) \leq \frac{S_1^2 \cdot \sigma_2^2}{S_2^2 \cdot \sigma_1^2} \leq F_{1 - \alpha/2}(n_1 - 1, n_2 - 1) \right) = 1 - \alpha
+$$
 
 ---
-# Før næste gang
+# Confidence interval for the ratio of variances
 
-.pull-left[
-**Læs:**
-- Kapitel 13 i lærebogen
+--
 
-**Overvej:**
-- Hvad betyder et 95% konfidensinterval?
-- Hvordan påvirker stikprøvestørrelsen intervallet?
-]
+- We can then construct an exact confidence interval for the ratio of variances $\dfrac{\sigma_2^2}{\sigma_1^2}$:
+$$
+\hat{I} = \left[ \frac{S_2^2}{S_1^2} \cdot F_{\alpha/2}(n_1 - 1, n_2 - 1) , \frac{S_2^2}{S_1^2} \cdot F_{1 - \alpha/2}(n_1 - 1, n_2 - 1) \right]
+$$
 
-.pull-right[
-![Trees](Figures/Trees1.jpg)
-]
+--
+
+- Note that this confidence interval is also *not* symmetric around $\dfrac{S_2^2}{S_1^2}$ anymore, because the $F$-distribution is not symmetric
+
+---
+class: inverse, middle, center
+# Determining the sample size based on a confidence interval
+
+---
+# Sample size and confidence interval
+
+--
+
+- Recall that the variance of $\bar{X}$ depends on the sample size, and also that the bounds of the confidence interval for the mean value depend on $Var \left( \bar{X} \right)$
+
+--
+
+- In other words: the sample size influences the *precision* of the estimator, and in turn this influences the *width* of the confidence interval
+
+--
+
+- In general, we would want "tight" confidence intervals
+
+--
+
+- Using the formulas above, we can determine what sample size is needed to obtain a confidence interval at a given confidence level (say, 95%) and with a given width
+
+---
+# Sample size and confidence interval for the mean
+
+--
+
+- Recall that the confidence interval for the mean value with known variance is:
+$$
+\hat{I} = \left[ \bar{X} - z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}}, \bar{X} + z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \right]
+$$
+
+--
+
+- The width of the confidence interval is:
+$$
+2 \cdot z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
+$$
+
+--
+
+- Suppose we want this width to be at most $2 \cdot K$
+
+--
+
+- This implies that:
+$$
+z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \leq K
+$$
+
+--
+
+- Therefore, the required sample size is:
+$$
+n^* = \frac{\sigma^2}{K^2} \cdot z_{1 - \alpha/2}^2
+$$
+
+---
+# Sample size
+
+--
+
+- Note that this formula requires that we know $\sigma^2$
+
+--
+
+- In practice, we can run a pilot study and obtain an estimate of $\sigma^2$ from that sample
+
+--
+
+- In addition, in some special cases we can even skip the pilot study:
+
+--
+
+  - suppose $X \sim Bernoulli(p)$
+
+--
+
+  - in this case, $\sigma^2 = p \cdot (1 - p)$
+
+--
+
+  - of course, $p$ is unknown, but the product $[p \cdot (1 - p)]$ is maximized when $p = 0.5$
+
+--
+
+  - we can then calculate the required sample size as:
+$$
+n^* = \frac{0.5 \cdot (1 - 0.5)}{K^2} \cdot z_{1 - \alpha/2}^2 = \frac{0.25}{K^2} \cdot z_{1 - \alpha/2}^2
+$$

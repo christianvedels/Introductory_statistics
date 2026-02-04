@@ -90,536 +90,895 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 
 
-# Statistik
-## Forelæsning 5: Almindeligt brugte fordelinger
+# Statistics
+## Commonly used distributions
+### (Chapter 6)
 
-### Christian Vedel,<br>Department of Economics
+### Seetha Menon,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [christian-vs@sam.sdu.dk](christian-vs@sam.sdu.dk)
+### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
 
-### Opdateret `r Sys.Date()`
-
-
-
-.footnote[
-.left[
-.small123[
-*Kapitel 6 i "Probability and Statistics for Economists" af Bruce Hansen*
-]
-]
-]
+### Updated `r Sys.Date()`
 
 
----
-class: middle
-# Dagens forelæsning
-.pull-left-wide[
-**Diskrete fordelinger:**
-- Bernoulli-fordelingen
-- Binomialfordelingen
-- Hypergeometrisk fordeling
-- Poisson-fordelingen
-
-**Kontinuerte fordelinger:**
-- Normalfordelingen
-
-**Fælles fordelinger:**
-- Multinomialfordelingen
-]
-
-.pull-right-narrow[
-![Trees](Figures/Trees1.jpg)
-]
 
 ---
 class: inverse, middle, center
-# Bernoulli-fordelingen
+# The Bernoulli distribution
 
 ---
-# Bernoulli-population
-
---
-> En **Bernoulli-population** er en population, der kun indeholder to typer elementer: *succeser* og *fiaskoer*.
+# The Bernoulli distribution
 
 --
 
-**Eksempler:**
-- Møntkast: "plat" og "krone"
-- "Stemte du ved sidste valg?": "ja" og "nej"
+> A **Bernoulli population** is a population that contains only two types of elements: *successes* and *failures*.
 
 --
 
-Da der kun er to mulige udfald:
-- Lad $p$ være sandsynligheden for succes
-- Lad $(1-p)$ være sandsynligheden for fiasko
+- Examples:
+  - the population described by the experiment "tossing a coin" (the types are "heads" and "tails")
+  - the population resulting from the experiment "ask a person if they voted in the last election" (the types are "yes" and "no")
+
+--
+
+- Since there are only two possible outcomes, let $p$ be the probability of a success and $(1 - p)$ the probability of a failure
+
+--
+
+- This type of distribution is called a **Bernoulli distribution**
 
 ---
-# Bernoulli-fordelingen
-
---
-Lad $X$ beskrive, om resultatet af eksperimentet er succes eller fiasko
+# The Bernoulli distribution
 
 --
 
-> $X$ følger en **Bernoulli-fordeling** med parameter $p$:
-> $$X \sim Bernoulli(p) \text{ eller } X \sim Ber(p)$$
+- Let $X$ be a random variable that describes this type of experiment, that is, whether the result of the experiment is a success or a failure
 
 --
 
-**Konvention:**
-- $X = 1$ repræsenterer succes (f.eks. "plat", "ja")
-- $X = 0$ repræsenterer fiasko (f.eks. "krone", "nej")
+- Then we say that $X$ follows a Bernoulli distribution with parameter $p$ and we write:
+$$X \sim Bernoulli(p) \text{ or } X \sim Ber(p)$$
 
 --
 
-**Sandsynlighedsfunktion:**
-$$f(0) = 1 - p \qquad f(1) = p$$
+- By construction, $X$ is a discrete random variable that can only take two values
+
+--
+
+- Usually, $X = 1$ represents a success (e.g., "heads", or "yes") and $X = 0$ represents a failure (e.g., "tails", or "no")
+
+--
+
+- The probability function of $X$ is:
+$$f(0) = 1- p$$
+$$f(1) = p$$
 
 ---
-# Bernoulli: Momenter
+# The Bernoulli distribution
+
+.center[
+![Bernoulli](Figures/6. Bernoulli.png)
+]
+
+---
+# The Bernoulli cumulative distribution function
+
+.center[
+![Bernoulli CDF](Figures/6. Bernoulli CDF.png)
+]
+
+---
+# The Bernoulli probability function
+
+.center[
+![Bernoulli PDF](Figures/6. Bernoulli PDF.png)
+]
+
+---
+# The Bernoulli distribution
 
 --
-Det kan let vises at:
 
-$$E(X) = 1 \cdot p + 0 \cdot (1-p) = p$$
-
---
-
-$$E(X^2) = 1^2 \cdot p + 0^2 \cdot (1-p) = p$$
+- It can be easily shown that:
+$$E(X) = 1 \cdot p + 0 \cdot (1- p) = p$$
 
 --
 
-$$Var(X) = E(X^2) - [E(X)]^2 = p - p^2 = p(1-p)$$
+$$E(X^2) = 1^2 \cdot p + 0^2 \cdot (1- p) = p$$
+
+--
+
+$$Var(X) = E(X^2) - [E(X)]^2 = p - p^2 = p (1 - p)$$
+
 
 ---
 class: inverse, middle, center
-# Binomialfordelingen
+# The binomial distribution
 
 ---
-# Binomialfordelingen: Motivation
-
---
-Betragt eksperimentet: Du kaster en mønt 5 gange og vil vide, hvor mange gange "plat" vises
+# The binomial distribution
 
 --
 
-- Hver møntkast er en Bernoulli-variabel
-- Men hvad er resultatet af hele eksperimentet?
+- Consider now the following experiment: you toss a coin 5 times and you want to know the number of times "heads" showed
 
 --
 
-> **Binomialfordelingen** opstår, når du trækker uafhængigt et givet antal gange fra en Bernoulli-population og tæller antallet af succeser
+- The result of each coin toss is a Bernoulli variable, but what is the result of the experiment?
 
 --
 
-**To parametre:**
-- $p$: Sandsynligheden for succes i hver trækning
-- $n$: Antallet af træk
+- The **binomial distribution** arises when you randomly draw a given number of times from a Bernoulli population, independently, and you want to count the number of successes
+
+--
+
+- The binomial distribution is characterized by two parameters:
+  - the probability of success in each draw, $p$
+  - the number of draws, $n$
 
 ---
-# Binomialfordelingen
-
---
-Lad $Y$ være antallet af succeser i eksperimentet
-
-> $Y$ følger en **binomialfordeling** med parametre $n$ og $p$:
-> $$Y \sim Bin(n, p)$$
+# The binomial distribution
 
 --
 
-$Y$ er en diskret stokastisk variabel, der kan tage $(n+1)$ værdier: $0, 1, 2, \ldots, n$
+- Let $Y$ be the random variable that shows the number of successes in this experiment
 
 --
 
-**Relation til Bernoulli:**
+- We then say that $Y$ follows a binomial distribution with parameters $n$ and $p$ and we write:
+$$Y \sim Bin(n, p)$$
 
-Lad $X_i$ være den $i$-te trækning (Bernoulli med parameter $p$). Da er:
+--
+
+- By construction, $Y$ is a discrete random variable that can take $(n + 1)$ values: $0, 1, \ldots, n$
+
+---
+# The binomial distribution
+
+--
+
+- Let $X_i$ be the random variable representing the $i$-th draw
+
+--
+
+- Then each $X_i$ is a random variable following a Bernoulli distribution with parameter $p$
+
+--
+
+- Moreover, it is easy to see that:
 $$Y = X_1 + X_2 + \ldots + X_n = \sum_{i=1}^n X_i$$
 
----
-# Binomialkoefficienten
-
---
-For at finde sandsynlighedsfunktionen skal vi vide, hvor mange kombinationer der giver $k$ succeser
-
 --
 
-> **Binomialkoefficienten** giver antallet af kombinationer af $k$ succeser ud af $n$ elementer:
-> $${n \choose k} = \frac{n!}{k!(n-k)!}$$
-> hvor $n! = 1 \cdot 2 \cdot \ldots \cdot n$
-
---
-
-**Eksempel:** Antal kombinationer med 2 succeser ud af 5 træk:
-$${5 \choose 2} = \frac{5!}{2! \cdot 3!} = \frac{120}{2 \cdot 6} = 10$$
+- Therefore, a binomial-distributed random variable is just a sum of independent Bernoulli-distributed random variables
 
 ---
-# Binomial: Sandsynlighedsfunktion
-
---
-Sandsynligheden for $k$ succeser i $n$ træk:
-
-$$f(k) = {n \choose k} \cdot p^k \cdot (1-p)^{n-k}$$
+# The binomial distribution
 
 --
 
-**Eksempel:** Sandsynligheden for 3 plat i 5 møntkast $(p = 0.5)$:
+- We still need to find the probability function, i.e., $f(0), f(1), \ldots, f(n)$
 
-$$f(3) = {5 \choose 3} \cdot 0.5^3 \cdot 0.5^2 = 10 \cdot 0.125 \cdot 0.25 = 0.3125$$
+--
+
+- The first and last are easy:
+  - the probability of zero successes is the probability of failure in every draw:
+$$f(0) = P(X_1 = 0, X_2 = 0, \ldots, X_n = 0) = (1-p)^n$$
+
+--
+
+  - the probability of $n$ successes is the probability of success in every draw:
+$$f(n) = P(X_1 = 1, X_2 = 1, \ldots, X_n = 1) = p^n$$
 
 ---
-# Binomial: Momenter
-
---
-Da $Y$ er summen af uafhængige Bernoulli-variable:
-
-$$E(Y) = np$$
-
-$$Var(Y) = np(1-p)$$
+# The binomial distribution
 
 --
 
-**Eksempel:** 5 møntkast $(n=5, p=0.5)$:
-- $E(Y) = 5 \cdot 0.5 = 2.5$
-- $Var(Y) = 5 \cdot 0.5 \cdot 0.5 = 1.25$
+- But what is the probability of two successes?
+
+--
+
+- Suppose the two successes occur in the first and the second draw:
+$$P(X_1 = 1, X_2 = 1, X_3 = 0, \ldots, X_n = 0) = p^2 (1 - p)^{n - 2}$$
+
+--
+
+- But this is only *one way* of getting two successes --- they can occur in *any two* draws!
+
+--
+
+- Therefore, we need to figure out all the possible ways of obtaining two successes given that we are trying $n$ times
+
+---
+# The binomial coefficient
+
+--
+
+- Fortunately, there is a formula that gives us the number of combinations that result in two successes in $n$ tries
+
+--
+
+> The **binomial coefficient** gives the number of possible combinations of $k$ successes drawn from among $n$ elements:
+> $${n \choose k} = \frac{n!}{k! (n-k)!}$$
+> where $n! = 1 \cdot 2 \cdot \ldots \cdot n$.
+
+--
+
+- Therefore, the number of combinations of draws that result in two successes is:
+$${n \choose 2} = \frac{n!}{2! (n-2)!} = \frac{n!}{2 \cdot (n-2)!}$$
+
+--
+
+- If $n=5$, this is equal to 10!
+
+---
+# The binomial distribution
+
+--
+
+- Therefore, the probability of obtaining two successes is the product of the number of scenarios that give two successes times the probability of one such scenario (which is the same for all):
+$$f(2) = {n \choose 2} \cdot p^2 \cdot (1 - p)^{n - 2}$$
+
+--
+
+- In general, the probability function of $Y$ is given by:
+$$f(k) = {n \choose k} \cdot p^k \cdot (1 - p)^{n - k}$$
+
+---
+# The binomial distribution
+
+--
+
+- Given that a binomial-distributed random variable is the sum of $n$ independent Bernoulli-distributed random variables, it can be easily shown that:
+$$E(Y) = E \left( \sum_{i = 1}^n X_i \right) = n p$$
+
+--
+
+$$Var(Y) = Var \left( \sum_{i = 1}^n X_i \right) = n p (1 - p)$$
+
+---
+# The binomial distribution example
+
+--
+
+- Consider the experiment of tossing a coin 5 times. What is the probability that you get 3 heads?
+
+--
+
+$$Y \sim Bin(n, p) \implies Y \sim Bin(5, 0.5)$$
+
+--
+
+$$f(k) = {n \choose k} \cdot p^k \cdot (1 - p)^{n - k}$$
+
+--
+
+$$\implies f(3) = {5 \choose 3} \cdot 0.5^3 \cdot (1 - 0.5)^{5 - 3} = 0.3125$$
+
+---
+# The binomial distribution example
+
+--
+
+- What is the mean of $Y$?
+$$E(Y) = np \implies 5 \cdot 0.5 = 2.5$$
+
+--
+
+- What is the variance of $Y$?
+$$Var(Y) = np(1 - p) \implies 5 \cdot 0.5 \cdot (1 - 0.5) = 1.25$$
+
 
 ---
 class: inverse, middle, center
-# Hypergeometrisk fordeling
+# The hypergeometric distribution
 
 ---
-# Med eller uden tilbagelægning
-
---
-I binomialfordelingen er hver trækning uafhængig (sampling *med* tilbagelægning)
+# Sampling with or without replacement
 
 --
 
-**Eksempel med urne:**
-- Blå kugler (succes) og røde kugler (fiasko)
-- Ved tilbagelægning: Sandsynligheden for blå er den samme i hver trækning
+- In the experiment generating the binomial distribution, each draw was independent
 
 --
 
-**Men hvad hvis vi *ikke* lægger tilbage?**
-- Sandsynligheden for blå ændres mellem træk
-- Trækningerne er *ikke* uafhængige
+- Suppose you have an urn with blue balls (success) and red balls (failure), and each draw consists of extracting a ball from the urn
+
+--
+
+- In order for the draws to be independent, you need to put the extracted ball back (replace it) into the urn
+
+--
+
+- This is called *draw (sampling) with replacement* and it ensures that the probability of drawing a blue ball is the same in each draw
+
+--
+
+- Therefore, sampling with replacement yields a Binomial distribution
+
+--
+
+- But what happens if we don't replace the ball? The probability of extracting a blue ball changes between each subsequent draw, so the draws are *not* independent
 
 ---
-# Hypergeometrisk fordeling
-
---
-> **Hypergeometrisk fordeling**: Antal succeser ved trækning *uden* tilbagelægning
+# The hypergeometric distribution
 
 --
 
-**Tre parametre:**
-- $n$: Antal træk
-- $M$: Antal succeser i populationen
-- $N$: Totalt antal elementer i populationen $(N \geq n)$
+- If we draw without replacement, the result is the **hypergeometric distribution**
 
 --
 
-> $Y$ følger en hypergeometrisk fordeling:
-> $$Y \sim Hyp(n, M, N)$$
+- The hypergeometric distribution depends on 3 parameters:
+  - the number of draws, $n$
+  - the number of successes in the population, $M$
+  - the number of elements in the population, $N$ ($N \geq n$)
+
+--
+
+- In our example:
+  - $n$ is the number of times we extract a ball from the urn
+  - $M$ is the number of blue balls
+  - $N$ is the total number of balls in the urn
+
+--
+
+- Let $Y$ be the random variable representing the number of successes in this experiment
+
+--
+
+- Then, we say that $Y$ follows a hypergeometric distribution with parameters $n$, $M$, and $N$, and we write:
+$$Y \sim Hyp(n, M, N)$$
 
 ---
-# Hypergeometrisk: Sandsynlighedsfunktion
-
---
-**Eksempel:** Urne med 10 kugler $(N=10)$, 4 blå $(M=4)$, træk 3 $(n=3)$
-
-Sandsynlighed for 2 blå kugler:
-
-$$P(Y=2) = \frac{{4 \choose 2} \cdot {6 \choose 1}}{{10 \choose 3}} = \frac{6 \cdot 6}{120} = 0.3$$
+# The hypergeometric distribution
 
 --
 
-**Generelt:**
-$$f(k) = \frac{{M \choose k} \cdot {N-M \choose n-k}}{{N \choose n}}$$
+- We can intuitively derive the probability function of the hypergeometric distribution as follows
+
+--
+
+- Suppose we have an urn with 10 balls ($N = 10$), of which 4 are blue ($M = 4$), and we extract 3 balls ($n = 3$)
+
+--
+
+- Let $A$ be the total number of combinations of balls that we can extract (i.e., all possible combinations of 3 balls out of the 10 balls in the urn)
+
+--
+
+- If we want to calculate the probability of extracting 2 blue balls, then what we need is:
+  - to extract 2 out of the 4 blue balls
+  - to extract one out of the 6 red balls
+
+--
+
+- Let $B$ be the total number of combinations of 2 balls that we can get of the 4 blue balls
+
+--
+
+- Let $C$ be the total number of combinations of one red ball that we can get out of the 6 red balls
 
 ---
-# Hypergeometrisk: Momenter
+# The hypergeometric distribution
 
 --
+
+- The total number of combinations of 2 blue balls and one red ball will be $B \cdot C$
+
+--
+
+- What is the probability of getting any one of these combinations? It is the ratio of $B \cdot C$ to the total number of draws, $A$
+
+--
+
+- Therefore, we only need to calculate $A$, $B$ and $C$, which we can do using the binomial coefficient:
+$$A = {10 \choose 3} \qquad B = {4 \choose 2} \qquad C = {6 \choose 1}$$
+
+--
+
+- This gives us the probability of selecting two blue balls:
+$$P(Y = 2) = \frac{{4 \choose 2} \cdot {6 \choose 1}}{{10 \choose 3}} = 0.3$$
+
+---
+# The hypergeometric cumulative distribution function ($n = 3$, $M = 4$, $N = 10$)
+
+.center[
+![Hypergeometric CDF](Figures/6. Hypergeometric CDF.png)
+]
+
+---
+# The hypergeometric probability function ($n = 3$, $M = 4$, $N = 10$)
+
+.center[
+![Hypergeometric PDF](Figures/6. Hypergeometric PDF.png)
+]
+
+---
+# The hypergeometric distribution
+
+--
+
+- In general, if $Y$ follows a hypergeometric distribution with parameters $n$, $M$ and $N$, its probability function is given by:
+$$f(k) = \frac{{M \choose k} \cdot {N - M \choose n - k}}{{N \choose n}}$$
+
+--
+
+- We can also show (although not quite that easily) that the expected value and variance of $Y$ are:
 $$E(Y) = \frac{nM}{N}$$
 
-$$Var(Y) = n \cdot \frac{M}{N} \cdot \frac{N-M}{N} \cdot \frac{N-n}{N-1}$$
-
 --
 
-Bemærk: Når $N$ er meget stor i forhold til $n$, nærmer hypergeometrisk sig binomial
+$$Var(Y) = n \cdot \frac{M}{N} \cdot \frac{N - M}{N} \cdot \frac{N - n}{N - 1}$$
+
 
 ---
 class: inverse, middle, center
-# Poisson-fordelingen
+# The Poisson distribution
 
 ---
-# Motivation for Poisson
-
---
-Binomial og hypergeometrisk spørger: "Hvor mange succeser i $n$ træk?"
+# The Poisson distribution
 
 --
 
-Alternativt spørgsmål: "Hvor mange succeser i en *tidsenhed*?"
+- The binomial distribution describes sampling with replacement: how many successes you can observe if you have $n$ independent draws
 
 --
 
-**Eksempel:**
-- "Hvor mange gange gik du til lægen i år?"
-- Vi kunne dele året op i måneder, uger, dage, timer...
-- Men personen kan gå til lægen mere end én gang per interval
+- The hypergeometric distribution describes sampling without replacement: how many successes you can observe if you have $n$ draws without replacing the element drawn
 
 --
 
-$\Rightarrow$ Vi ønsker tidsintervallet så lille som muligt $(\Delta t \rightarrow 0)$
+- In both cases, the question is "how many successes in $n$ draws," irrespective of how long it takes to make the $n$ draws
 
-$\Rightarrow$ **Poisson-fordelingen**
+--
+
+- Alternatively, we could ask: "how many successes can we observe in a unit of time," irrespective of the number of draws needed
 
 ---
-# Poisson-fordelingen
-
---
-> **Poisson-fordelingen** giver antallet af succeser, når vi *kontinuerligt* trækker fra en Bernoulli-population i en given periode
+# The Poisson distribution
 
 --
 
-**Tre betingelser:**
-1. Antal succeser i hvert tidsinterval er uafhængigt
-2. Sandsynligheden for et givet antal succeser er den samme i alle intervaller af samme længde
-3. Sandsynligheden for mere end én succes i et meget kort interval er nul
+- For example, we could ask: "How many times did you go to the family doctor this year?"
 
 --
 
-> $Y$ følger en Poisson-fordeling med parameter $\lambda$:
-> $$Y \sim Poisson(\lambda)$$
+- Let $Y$ be the random variable describing this experiment (so $Y$ is the number of times the person went to the doctor that year)
+
+--
+
+- We could divide the year into months, and ask for each month: "Did you go to the doctor this month?"
+
+--
+
+- This would be a Bernoulli-distributed random variable since it can only take 2 values ("yes" or "no")
+
+--
+
+- If the person went to the doctor at most once per month, $Y$ is the sum of 12 Bernoulli-distributed random variables
+
+--
+
+- If the probability that the individual goes to the doctor each month is independent from the other months, then $Y$ is a binomially-distributed random variable
 
 ---
-# Poisson: Sandsynlighedsfunktion
+# The Poisson distribution
 
 --
+
+- But it is possible that the person went to the doctor more than once per month, in which case $Y$ would not be equal to the number of times the individual went to the doctor
+
+--
+
+- We could make the time interval even shorter: week, day, hour, etc. $\Rightarrow$ $Y$ is the sum of 52, 365, or 8,760 Bernoulli-distributed random variables
+
+--
+
+- Still, there is a chance that the person went to the doctor more than once per week/day/hour
+
+--
+
+- Therefore, we want to make the time interval as small as possible ($\Delta t \rightarrow 0$) $\Rightarrow$ $Y$ is the sum of an infinity of Bernoulli-distributed random variables
+
+--
+
+- Which means that we cannot use the binomial distribution
+
+---
+# The Poisson distribution
+
+--
+
+- This distribution is called the **Poisson distribution**, and it gives the number of successes when we *continuously* draw (i.e., without interruption) from a Bernoulli population in a given period of time
+
+--
+
+- In order to obtain a Poisson distribution, the following three conditions need to be fulfilled:
+  - the number of successes in each time interval must be independent from each other
+  - the probability of observing a certain number of successes in any two time intervals of the same length has to be the same
+  - the probability of more than one success in a really short time interval is zero
+
+---
+# The Poisson distribution
+
+--
+
+- Let $Y$ be the random variable representing the number of successes in this experiment, and let $\lambda$ (*lambda*) be the expected value of $Y$
+
+--
+
+- Then, we say that $Y$ follows a Poisson distribution with parameter $\lambda$ and we write:
+$$Y \sim Poisson(\lambda)$$
+
+--
+
+- The probability function of $Y$ is given by:
 $$f(k) = \frac{\lambda^k e^{-\lambda}}{k!}$$
 
 --
 
-hvor $\lambda$ er den forventede værdi af $Y$
+- Note that $Y$ can take an infinity of values, because we can have an infinity of successes
 
 --
 
-**Bemærk:**
-- $Y$ kan tage uendeligt mange værdier $(0, 1, 2, 3, \ldots)$
-- Men det er en *tællelig* uendelighed $\Rightarrow$ diskret variabel
+- However, this is a *countable* infinite, meaning that $Y$ is again a discrete random variable
 
 ---
-# Poisson: Momenter
+# The Poisson cumulative distribution function ($\lambda = 4$)
+
+.center[
+![Poisson CDF](Figures/6. Poisson CDF.png)
+]
+
+---
+# The Poisson probability function ($\lambda = 4$)
+
+.center[
+![Poisson PDF](Figures/6. Poisson PDF.png)
+]
+
+---
+# The Poisson distribution
 
 --
-En interessant egenskab ved Poisson-fordelingen:
 
+- It can be shown that the expected value and the variance of the Poisson distribution are both equal to $\lambda$:
 $$E(Y) = \lambda$$
+
+--
 
 $$Var(Y) = \lambda$$
 
 --
 
-Middelværdi og varians er begge lig $\lambda$!
+- This is not a particularly attractive feature of the distribution: if the expected number of events is high, then the variance is also high (which may not necessarily be the case in reality)
 
 --
 
-Dette er ikke altid realistisk — der findes generaliseringer af Poisson, hvor $E(Y) \neq Var(Y)$
+- There are distributions that generalize the Poisson distribution so that $E(Y) \not= Var(Y)$
+
 
 ---
 class: inverse, middle, center
-# Normalfordelingen
+# The normal distribution
 
 ---
-# Normalfordelingen
-
---
-Alle fordelinger indtil nu var diskrete
+# The normal distribution
 
 --
 
-Ofte har vi brug for at modellere populationer med *utælleligt* mange værdier
+- All the distributions until now were described by discrete random variables (hence, they were *discrete distributions*), whether finite or infinite
 
 --
 
-> **Normalfordelingen** er en af de mest populære *kontinuerte* fordelinger
+- Oftentimes we need to model a population that can take an uncountably infinite number of values
 
 --
 
-- Kaldes "normal" fordi den beskriver mange naturlige fænomener
-- Kendt for "klokkekurven"
-- Meget vigtig fordi mange statistiske mål følger normalfordelingen
+- One of the most popular *continuous distributions* (i.e., a distribution described by a continuous random variable) is the **normal distribution**
+
+--
+
+- It is called "normal" because it captures the "natural" distribution of many natural occurrences (e.g., the maximum temperature in a given day of the year, return on a stock, etc.)
+
+--
+
+- It is most known for the "bell curve"
+
+--
+
+- It is a very useful distribution because many of the measures we will see later on follow a normal distribution
 
 ---
-# Normalfordelingen: Definition
-
---
-Normalfordelingen er defineret over hele $\mathbb{R}$ og afhænger af to parametre:
-- Middelværdi $\mu$
-- Varians $\sigma^2$
+# The normal distribution
 
 --
 
-> $Y$ er normalfordelt:
-> $$Y \sim \mathcal{N}(\mu, \sigma^2)$$
+- The normal distribution is defined over the entire set of real numbers $\mathbb{R}$
 
 --
 
-**Tæthedsfunktion:**
-$$f(y) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(y-\mu)^2}{2\sigma^2}}$$
+- The **normal distribution** depends on two parameters:
+  - its expected value, or mean, $\mu$
+  - its variance, $\sigma^2$
+
+--
+
+- A continuous random variable $Y$ is normally distributed, i.e.:
+$$Y \sim \mathcal{N}(\mu, \sigma^2)$$
+if it has the following probability density function:
+$$f(y) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(y - \mu)^2}{2 \sigma^2}}$$
+
+--
+
+- Unfortunately, there is no analytic form for the cumulative distribution function $F(y)$
 
 ---
-# Standardnormalfordelingen
+# Normal cumulative distribution function ($\mu = 2$, $\sigma^2 = 3$)
 
---
-> **Standardnormalfordelingen** har middelværdi 0 og varians 1:
-> $$Z \sim \mathcal{N}(0, 1)$$
-
---
-
-Speciel notation for CDF og PDF:
-$$F(z) = \Phi(z) \qquad f(z) = \phi(z) = \frac{1}{\sqrt{2\pi}} e^{-\frac{z^2}{2}}$$
-
---
-
-Værdierne af $\Phi(z)$ er tabuleret i de fleste statistikbøger
+.center[
+![Normal CDF](Figures/6. Normal CDF.png)
+]
 
 ---
-# Standardisering
+# The normal probability density function ($\mu = 2$, $\sigma^2 = 3$)
+
+.center[
+![Normal PDF](Figures/6. Normal PDF.png)
+]
+
+---
+# The standard normal distribution
 
 --
-> Lad $Y$ have middelværdi $\mu$ og varians $\sigma^2$. $Y$ **standardiseres** ved:
+
+- Fortunately, we can calculate cumulative probabilities based on only one particular normal distribution
+
+--
+
+- The **standard normal distribution** is a normal distribution with mean 0 and variance 1: $\mathcal{N}(0, 1)$
+
+--
+
+- The standard normal distribution is so important that its cumulative distribution function and probability density functions have their own notation, $\Phi(\cdot)$ and $\phi(\cdot)$ (*phi*):
+$$F(y) = P(Y \leq y) = \Phi(y)$$
+
+--
+
+$$f(y) = \phi(y) = \frac{1}{\sqrt{2 \pi}} e^{-\frac{y^2}{2}}$$
+
+--
+
+- The values of the cumulative distribution function of the standard normal distribution (calculated via computer simulations) are tabulated at the end of most statistics books
+
+---
+# The standard normal cumulative distribution function
+
+.center[
+![Standard normal CDF](Figures/6. Standard normal CDF.png)
+]
+
+---
+# The standard normal probability density function
+
+.center[
+![Standard normal PDF](Figures/6. Standard normal PDF.png)
+]
+
+---
+# Standardization of a random variable
+
+--
+
+> Let $Y$ be a random variable with expected value $E(Y) = \mu$ and variance $Var(Y) = \sigma^2$. The random variable is **standardized** by calculating:
 > $$Z = \frac{Y - \mu}{\sigma}$$
-
---
-
-**Vigtig egenskab:**
-
-Hvis $Y \sim \mathcal{N}(\mu, \sigma^2)$, så er $Z \sim \mathcal{N}(0, 1)$
+> In the particular case when $Y \sim \mathcal{N}(\mu, \sigma^2)$, then $Z \sim \mathcal{N}(0, 1)$ is a standard normal random variable
 
 ---
-# Egenskaber for normalfordelingen
-
---
-Lad $Y \sim \mathcal{N}(\mu, \sigma^2)$. Da gælder:
+# Properties of the normal distribution
 
 --
 
-$$P(Y \leq a) = \Phi\left(\frac{a - \mu}{\sigma}\right)$$
+- Let $Y \sim \mathcal{N}(\mu, \sigma^2)$. Then:
 
 --
 
-$$P(Y \geq a) = 1 - \Phi\left(\frac{a - \mu}{\sigma}\right)$$
+  - $P(Y \leq a) = F(a) = \Phi \left( \dfrac{a - \mu}{\sigma} \right)$
 
 --
 
-$$P(b \leq Y \leq a) = \Phi\left(\frac{a - \mu}{\sigma}\right) - \Phi\left(\frac{b - \mu}{\sigma}\right)$$
+  - $P(Y \geq a) = 1 - F(a) = 1 - \Phi \left( \dfrac{a - \mu}{\sigma} \right)$
 
 --
 
-**Symmetri:** $\Phi(-a) = 1 - \Phi(a)$
+  - $P(b \leq Y \leq a) = F(a) - F(b) = \Phi \left( \dfrac{a - \mu}{\sigma} \right) - \Phi \left( \dfrac{b - \mu}{\sigma} \right)$
+
+--
+
+- In addition, note that the probability density function of a standard normal random variable is symmetric around zero
+
+--
+
+- This implies that:
+$$\Phi(-a) = 1 - \Phi(a)$$
+
+---
+# The standard normal probability density function
+
+.center[
+![Symmetric standard normal PDF](Figures/6. Symmetric standard normal PDF.png)
+]
+
 
 ---
 class: inverse, middle, center
-# Multinomialfordelingen
+# The multinomial distribution
 
 ---
-# Motivation for multinomial
-
---
-Binomialfordelingen: to mulige udfald ("succes"/"fiasko")
+# The multinomial distribution
 
 --
 
-Hvad hvis der er *mere* end to udfald?
+- The binomial distribution described the following experiment: we draw $n$ times from a population where we can have only two outcomes, and we count the number of "successes"
 
 --
 
-**Eksempel:** "Vil du stemme ved næste valg?"
-- "Ja"
-- "Nej"
-- "Ved ikke"
+- Sometimes, the population can have more than two outcomes
 
 --
 
-Hvis vi er interesserede i antallet af svar i *alle* kategorier, kan vi ikke bruge binomialfordelingen
+- For example, suppose we ask people if they will vote in the next election
+
+--
+
+- They could answer "yes", "no" or "not sure"
+
+--
+
+- If we are interested in the number of answers for all categories, then we cannot use the binomial distribution anymore
 
 ---
-# Multinomialfordelingen
-
---
-Vi kan "splitte" problemet:
-- Lad $Y_1$ = antal "ja"-svar
-- Lad $Y_2$ = antal "nej"-svar
-- Lad $Y_3$ = antal "ved ikke"-svar
+# The multinomial distribution
 
 --
 
-Hver $Y_i$ er binomialfordelt individuelt
+- What we can do, however, is "split" the problem into smaller problems
 
 --
 
-> **Multinomialfordelingen** er den *simultane* fordeling af $(Y_1, Y_2, \ldots, Y_m)$
+- We can analyze each type of outcome separately:
+  - let $X$ be a random variable that indicates whether the individual answered "yes" or not (so we bunch "no" and "not sure" together)
+  - then $X$ follows a Bernoulli distribution
+  - let $Y_1$ be the random variable that counts the number of "yes" answers
 
-$$\Rightarrow$$ Generalisering af binomialfordelingen til mere end to udfald
+--
+
+- We can define in a similar way $Y_2$ and $Y_3$ as two random variables representing the number of "no" answers and of "not sure" answers, respectively
 
 ---
-# Multinomialkoefficient
-
---
-Antal kombinationer af $k_1$ af udfald 1, $k_2$ af udfald 2, ..., $k_m$ af udfald $m$:
-
-$${n \choose k_1, k_2, \ldots, k_m} = \frac{n!}{k_1! \cdot k_2! \cdot \ldots \cdot k_m!}$$
+# The multinomial distribution
 
 --
 
-hvor $k_1 + k_2 + \ldots + k_m = n$
+- If we were interested only in $Y_1$, or only in $Y_2$, or only in $Y_3$, then we could use the binomial distribution for each of them separately
+
+--
+
+- If, however, we are interested in $Y_1$, $Y_2$ and $Y_3$ at the same time, then we need a *joint* distribution
+
+--
+
+- The joint distribution of $(Y_1, Y_2, Y_3)$ is called a **multinomial distribution**
+
+--
+
+- The multinomial distribution is a generalization of the binomial distribution to situations when we have more than two outcomes
 
 ---
-# Multinomial: Sandsynlighedsfunktion
+# The multinomial distribution
 
 --
+
+- In order to calculate the probability function of $(Y_1, Y_2, Y_3)$, we apply a similar strategy to before
+
+--
+
+- Suppose we ask 6 people and that:
+  - $p_1 =$ probability of getting a "yes" answer
+  - $p_2 =$ probability of getting a "no" answer
+  - $p_3 = 1 - p_1 - p_2 =$ the probability of a "not sure" answer
+
+--
+
+- What is the probability of observing three "yes" answers, two "no" answers and one "not sure"?
+
+--
+
+- If the first three people answer "yes," the next two people answer "no," and the last person answers "not sure," we have:
+$$p_1 \cdot p_1 \cdot p_1 \cdot p_2 \cdot p_2 \cdot p_3 = p_1^3 \cdot p_2^2 \cdot p_3$$
+
+--
+
+- But this is just one of the potential combinations of answers that give us three "yes," two "no" and one "not sure"
+
+---
+# The multinomial distribution
+
+--
+
+- What is the total number of combinations of answers that give us three "yes," two "no" and one "not sure"?
+
+--
+
+- It is the product of:
+  - the total number of combinations that give us 3 "yes" answers out of 6 total answers: ${6 \choose 3}$
+  - the total number of combinations that give us 2 "no" answers out of the remaining $6 - 3 = 3$ answers: ${3 \choose 2}$
+  - the total number of combinations that give us one "not sure" answer out of the remaining $3 - 2 = 1$ answers: ${1 \choose 1}$
+
+---
+# The multinomial distribution
+
+--
+
+- The total number of combinations of answers that give us three "yes," two "no" and one "not sure" is then:
+$${6 \choose 3} \cdot {3 \choose 2} \cdot {1 \choose 1} = \frac{6!}{3! \cdot 2! \cdot 1!} = 60$$
+
+--
+
+- Thus, the probability of three "yes," two "no" and one "not sure" is:
+$$P(Y_1 = 3, Y_2 = 2, Y_3 = 1) = 60 \cdot p_1^3 \cdot p_2^2 \cdot p_3$$
+
+---
+# The multinomial distribution
+
+--
+
+- We can generalize this to the following experiment:
+  - $m$ possible outcomes
+  - probability of outcome 1 is $p_1$, of outcome 2 is $p_2$, ..., of outcome $m$ is $p_m$
+  - $n$ independent draws (with replacement)
+  - $Y_1$ is the number of times outcome 1 is drawn, $Y_2$ is the number of times outcome 2 is drawn, ..., $Y_m$ is the number of times outcome $m$ is drawn
+
+--
+
+- Then we say that $(Y_1, Y_2, \ldots, Y_m)$ follows a multinomial distribution with parameters $n$, $p_1$, $p_2$, ..., $p_m$, and we write:
 $$(Y_1, Y_2, \ldots, Y_m) \sim M(n, p_1, p_2, \ldots, p_m)$$
 
+---
+# The multinomial distribution
+
 --
 
-$$f(k_1, k_2, \ldots, k_m) = {n \choose k_1, k_2, \ldots, k_m} \cdot p_1^{k_1} \cdot p_2^{k_2} \cdot \ldots \cdot p_m^{k_m}$$
+- In order to calculate the probability function, we need to calculate the probability of observing $k_1$ of the first outcome, $k_2$ of the second, ..., $k_m$ of the $m$-th outcome, where:
+$$k_1 + k_2 + \ldots + k_m = n$$
 
 --
 
-**Momenter for hver variabel:**
-- $E(Y_i) = np_i$
-- $Var(Y_i) = np_i(1-p_i)$
+- The probability of *one* combination that gives us $k_1$ of the first outcome, $k_2$ of the second, ..., $k_m$ of the $m$-th outcome is:
+$$p_1^{k_1} \cdot p_2^{k_2} \cdot \ldots \cdot p_m^{k_m}$$
+
+--
+
+- The total number of combinations that give us $k_1$ of the first outcome, $k_2$ of the second, ..., $k_m$ of the $m$-th outcome is given by the **multinomial coefficient**:
+$${n \choose {k_1, k_2, \ldots, k_m}} = \frac{n!}{k_1! \cdot k_2! \cdot \ldots \cdot k_m!}$$
 
 ---
-# Opsummering
+# The multinomial distribution
 
 --
-.small123[
-| Fordeling | Type | Parametre | $E(X)$ | $Var(X)$ |
-|-----------|------|-----------|--------|----------|
-| Bernoulli | Diskret | $p$ | $p$ | $p(1-p)$ |
-| Binomial | Diskret | $n, p$ | $np$ | $np(1-p)$ |
-| Hypergeometrisk | Diskret | $n, M, N$ | $\frac{nM}{N}$ | $n\frac{M}{N}\frac{N-M}{N}\frac{N-n}{N-1}$ |
-| Poisson | Diskret | $\lambda$ | $\lambda$ | $\lambda$ |
-| Normal | Kontinuert | $\mu, \sigma^2$ | $\mu$ | $\sigma^2$ |
-]
 
----
-# Før næste gang
+- Therefore, the probability of observing $k_1$ of the first outcome, $k_2$ of the second, ..., $k_m$ of the $m$-th outcome is:
+$$f(k_1, k_2, \ldots, k_m) = {n \choose {k_1, k_2, \ldots, k_m}} \cdot p_1^{k_1} \cdot p_2^{k_2} \cdot \ldots \cdot p_m^{k_m}$$
 
-.pull-left[
-**Læs:**
-- Kapitel 6 i lærebogen
+--
 
-**Overvej:**
-- Hvornår bruger man hvilken fordeling?
-- Hvad er forskellen på binomial og hypergeometrisk?
-]
+- Since this is a joint distribution, we can calculate the mean and expected value for each individual random variable:
+  - $E(Y_i) = n p_i$
+  - $Var(Y_i) = n p_i (1 - p_i)$
 
-.pull-right[
-![Trees](Figures/Trees1.jpg)
-]
+--
+
+- This should not be entirely surprising, since each $Y_i$ is a binomial random variable with parameters $n$ and $p_i$
+

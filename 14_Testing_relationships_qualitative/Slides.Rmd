@@ -90,253 +90,280 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 
 
-# Statistik
-## Forelæsning 14: Test af sammenhænge (kvalitative data)
+# Statistics
+## Testing relationships using qualitative data
+### (Chapter 16)
 
-### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+### Seetha Menon,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
 
-### Opdateret `r Sys.Date()`
-
-
-
-.footnote[
-.left[
-.small123[
-*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
-]
-]
-]
+### Updated `r Sys.Date()`
 
 
----
-class: middle
-# Dagens forelæsning
-.pull-left-wide[
-**Emner:**
-
-- $\chi^2$-testen
-- Test af en fordeling
-- Test af uafhængighed
-- Test af homogenitet
-]
-
-.pull-right-narrow[
-![Trees](Figures/Trees1.jpg)
-]
 
 ---
 class: inverse, middle, center
-# $\chi^2$-testen
+# The $\chi^2$-test
 
 ---
-# Kvalitative data
-
---
-Diskrete stokastiske variable opstår ved kvalitative data:
+# Motivation
 
 --
 
-- Højeste uddannelsesniveau
-- Køn
-- Biltype (benzin, diesel, hybrid, el)
+- We will now turn to testing different properties of discrete random variables
 
 --
 
-Vi vil teste om den observerede fordeling matcher en given fordeling
+- Discrete random variables arise in practice when we deal with qualitative data
+
+--
+
+- For example:
+  - highest level of education attained
+  - gender
+  - type of car purchased (gas, diesel, hybrid, electric)
 
 ---
-# Setup
-
---
-Lad $X$ have $K$ kategorier: $x_1, x_2, \ldots, x_K$
+# The $\chi^2$ test
 
 --
 
-Sandsynligheden for kategori $k$: $p_k = P(X = x_k)$
+- We can test whether the observed (empirical) distribution of a discrete random variable is similar to a given distribution
 
 --
 
-**Hypoteser:**
-$$H_0: p_1 = \pi_1, p_2 = \pi_2, \ldots, p_K = \pi_K$$
-$$H_1: \text{mindst én } p_k \neq \pi_k$$
+- Let $X$ be the variable of interest, and suppose that it can only take $K$ values $x_1$, $x_2$, $\ldots$, $x_K$
+
+--
+
+- The $K$ values are usually called **categories**
+
+--
+
+- The probability of each category $k$ is $p_k$:
+$$P(X = x_k) = p_k$$
+
+--
+
+- The hypotheses of the $\chi^2$ test are:
+$$\begin{align*}
+  H_0 &:  p_1 = \pi_1, \;  p_2 = \pi_2, \ldots, p_K = \pi_K, \\
+  H_1 &:  \text{at least one } p_k \not= \pi_k
+\end{align*}$$
+where $\pi_1$, $\pi_2$, $\ldots$, $\pi_K$ are the probabilities from the given distribution
+
+--
+
+- For the moment being, we will assume that this distribution is given (we will see later on how we can choose it)
 
 ---
-# Hypotesemål
-
---
-$$h(p_1, \ldots, p_K) = \sum_{k=1}^K (p_k - \pi_k)^2$$
+# Hypothesis measure
 
 --
 
-**Estimator:** Lad $Z_k$ være antal observationer med værdi $x_k$
+- We can construct a hypothesis measure that is equal to zero under the null hypothesis and different from zero otherwise:
+$$h(p_1, p_2, \ldots, p_K) = \sum_{k=1}^K (p_k - \pi_k)^2$$
 
-$$\hat{p}_k = \frac{Z_k}{n}$$
+--
+
+- As before, the $p_k$'s are unknown, so we need to replace them with observed quantities
+
+--
+
+- Suppose we have a simple random sample $(X_1, X_2, \ldots, X_n)$ from this distribution
+
+--
+
+- Let $Z_k$ be the number of elements in the sample that have the value $x_k$
+
+--
+
+- Then an estimator for $p_k$ is simply $Z_k / n$
 
 ---
-# Teststatistik
+# Test statistic
 
 --
+
+- In order for the test statistic to have a "nice" distribution, we need to change the formula a little bit
+
+--
+
+- In particular, it can be shown that the following test statistic follows a $\chi^2$ distribution with $(K - 1)$ degrees of freedom under the null hypothesis:
 $$\chi^2 = \sum_{k=1}^K \frac{(Z_k - n \cdot \pi_k)^2}{n \cdot \pi_k}$$
 
 --
 
-Under $H_0$: $\chi^2 \sim \chi^2(K-1)$
+- The number of degrees of freedom is $(K - 1)$ because we can only freely assign values to $K - 1$ probabilities (the $K$-th one is 1 minus the others)
 
 --
 
-**Beslutningsregel:**
-- Forkast ikke $H_0$ hvis $\chi^2 \leq \chi^2_{1-\alpha}(K-1)$
-- Forkast $H_0$ hvis $\chi^2 > \chi^2_{1-\alpha}(K-1)$
+- If we conduct a hypothesis test at a $(1 - \alpha)$ confidence level, then we reject the null hypothesis if we observe too large values of $\chi^2$:
+  - do not reject $H_0$ if $\chi^2 \leq \chi^2_{1 - \alpha}(K-1)$
+  - reject $H_0$ if $\chi^2 > \chi^2_{1 - \alpha}(K-1)$
 
 ---
 class: inverse, middle, center
-# Test af en fordeling
+# Test of a distribution
 
 ---
-# Kendt fordeling
-
---
-**Eksempel: Er en terning fair?**
+# Known distribution
 
 --
 
-Teoretisk fordeling:
-$$\pi_1 = \pi_2 = \cdots = \pi_6 = \frac{1}{6}$$
+- We can use the $\chi^2$ test to check if the sample comes from a given distribution
 
 --
 
-Sammenlign observeret fordeling med teoretisk via $\chi^2$-test
+- For example, suppose that we roll a dice and we record the result of every roll
+
+--
+
+- We would want to compare the resulting distribution to the theoretical distribution from an "unbiased" dice: $\pi_1 = \pi_2 = \cdots = \pi_6 = \frac{1}{6}$
+
+--
+
+- We can conduct a similar test if we want to check if a coin is "loaded" by comparing the observed distribution to the theoretical one: $\pi_1 = \pi_2 = 0.5$
 
 ---
-# Ukendt parameter
-
---
-Nogle gange kender vi fordelingens *form*, men ikke dens *parametre*
+# Unknown distribution
 
 --
 
-**Eksempel:** Binomialfordeling med kendt $n$, ukendt $p$
+- Sometimes, we may guess the shape of the distribution, but not its particular parameters
 
 --
 
-- Estimér $p$ fra stikprøven
-- Teststatistik følger $\chi^2(K-2)$ (mister én frihedsgrad)
+- For example, we may know that the sample comes from a binomial distribution and one of the parameters ( $n$ ), but not the other ( $p$ )
+
+--
+
+- In this case, we can use the sample to obtain an estimate of this unknown parameter, and use this parameter to calculate the probabilities from the theoretical distribution
+
+--
+
+- The test statistic would then follow a $\chi^2$ distribution with $(K - 2)$ degrees of freedom (we "lose" one more degree of freedom because we need to estimate $p$ )
 
 ---
 class: inverse, middle, center
-# Test af uafhængighed
+# Testing the relationship between two discrete random variables
 
 ---
-# Uafhængighed
-
---
-To variable $X$ og $Y$ er uafhængige hvis:
-$$f(x,y) = f_X(x) \cdot f_Y(y)$$
+# Independence
 
 --
 
-**Hypoteser:**
-$$H_0: f(x,y) = f_X(x) \cdot f_Y(y) \text{ for alle } x, y$$
-$$H_1: f(x,y) \neq f_X(x) \cdot f_Y(y) \text{ for nogle } x, y$$
+- Recall that if two random variables are independent, then knowing the value of one of them does not allow us to infer anything about the value of the other
+
+--
+
+- We can use a $\chi^2$ test to check if two discrete random variables are indeed independent
+
+---
+# Hypotheses
+
+--
+
+- Recall that two random variables $X$ and $Y$ are independent if and only if the joint probability function is equal to the product of the marginal probability functions:
+$$f(x, y) = f_X(x) \cdot f_Y(y)$$
+
+--
+
+- Therefore, the hypotheses tested are:
+$$\begin{align*}
+  H_0 &: \text{Independence, that is, } f(x, y) = f_X(x) \cdot f_Y(y) \text{ for all } x, y, \\
+  H_1 &: \text{Dependence, that is, } f(x, y) \not= f_X(x) \cdot f_Y(y) \text{ for some } x, y
+\end{align*}$$
+
+--
+
+- We can interpret $f(x, y)$ as the unknown probabilities, and $f_X(x) \cdot f_Y(y)$ as the chosen distribution to be tested
 
 ---
 # Setup
 
 --
-- $X$ har $J$ værdier: $x_1, \ldots, x_J$
-- $Y$ har $L$ værdier: $y_1, \ldots, y_L$
-- $K = J \cdot L$ kategorier
+
+- Suppose $X$ can take $J$ possible values $x_1$, $x_2$, $\ldots$, $x_J$, and $Y$ can take $L$ different values $y_1$, $y_2$, $\ldots$, $y_L$
 
 --
 
-Stikprøve: $((X_1, Y_1), (X_2, Y_2), \ldots, (X_n, Y_n))$
+- We then have $K = J \cdot L$ categories
+
+--
+
+- We do not know $f_X(x)$ nor $f_Y(y)$, but we can again use the sample to obtain estimates
+
+--
+
+- Let us assume that we have a simple random sample of $n$ observations $((X_1, Y_1)$, $(X_2, Y_2)$, $\ldots$, $(X_n, Y_n))$
 
 ---
-# Estimering af sandsynligheder
-
---
-**Marginalfordelinger:**
-$$\hat{f}_X(x_j) = \frac{\text{antal med } X = x_j}{n}$$
-$$\hat{f}_Y(y_l) = \frac{\text{antal med } Y = y_l}{n}$$
+# Probabilities
 
 --
 
-**Simultanfordeling:**
-$$\hat{f}(x_j, y_l) = \frac{\text{antal med } X = x_j \text{ og } Y = y_l}{n}$$
+- We can construct estimates of the marginal probability functions in a similar way to before:
+$$\begin{align*}
+  \hat{f}_X(x_j) & = \frac{\text{number of sample elements with } X = x_j}{n} \\
+  \hat{f}_Y(y_l) & = \frac{\text{number of sample elements with } Y = y_l}{n}
+\end{align*}$$
+
+--
+
+- The joint probability function is just the observed (empirical) distribution:
+$$f(x_j, y_l) = \frac{\text{number of sample elements with } X = x_j \text{ and } Y = y_l}{n}$$
 
 ---
-# Teststatistik
-
---
-$$\chi^2 = \sum_{j=1}^J \sum_{l=1}^L \frac{[Z_{jl} - n \cdot \hat{f}_X(x_j) \cdot \hat{f}_Y(y_l)]^2}{n \cdot \hat{f}_X(x_j) \cdot \hat{f}_Y(y_l)}$$
+# Test statistic
 
 --
 
-Under $H_0$: $\chi^2 \sim \chi^2((J-1)(L-1))$
+- We can then construct the test statistic in a similar way to before:
+$$\chi^2 = \sum_{j=1}^J \sum_{l=1}^L \frac{\left[Z_{jl} - n \cdot \hat{f}_X(x_j) \cdot \hat{f}_Y(y_l)\right]^2}{n \cdot \hat{f}_X(x_j) \cdot \hat{f}_Y(y_l)}$$
 
 --
 
-**Frihedsgrader:**
-- Mister $(J-1)$ for at estimere $f_X$
-- Mister $(L-1)$ for at estimere $f_Y$
+- This test statistic follows a $\chi^2$ distribution
+
+--
+
+- In order to calculate it, we "lost" a number of degrees of freedom:
+  - $J - 1$, to calculate the marginal probability function $\hat{f}_X(x)$
+  - $L - 1$, to calculate the marginal probability function $\hat{f}_Y(y)$
+
+--
+
+- Therefore, the test statistic follows a $\chi^2$ distribution with $(J - 1) \cdot (L-1)$ degrees of freedom
 
 ---
 class: inverse, middle, center
-# Test af homogenitet
+# Test for homogeneity
 
 ---
-# Homogenitet
-
---
-Er fordelingen af $X$ den samme på tværs af grupper?
+# Homogeneity
 
 --
 
-**Eksempel:** Er aldersfordelingen ens for mænd og kvinder?
+- We can also test for homogeneity, that is, if the distribution is the same across groups
 
 --
 
-- $X$: Alder
-- $Y$: Køn (definerer grupper)
-
----
-# Sammenhæng med uafhængighed
-
---
-Hvis $f_{X|Y}(x|Y=1) = f_{X|Y}(x|Y=2)$ for alle $x$
+- For example, we may want to test if the age distribution of men and of women are the same
 
 --
 
-$\Rightarrow$ $X$ og $Y$ er uafhængige!
+- Let $X$ be the characteristic of interest (age), and $Y$ the characteristic that defines the groups ( $Y = 1$ for men and $Y = 2$ for women)
 
 --
 
-**Konklusion:** Test af homogenitet = Test af uafhængighed
-
----
-# Opsummering
+- A test of homogeneity is a comparison of the conditional distributions $f_{X|Y}(x | Y = 1)$ and $f_{X|Y}(x | Y = 2)$
 
 --
-| Test | Teststatistik | Frihedsgrader |
-|------|---------------|---------------|
-| Én fordeling | $\sum \frac{(Z_k - n\pi_k)^2}{n\pi_k}$ | $K - 1$ |
-| Ukendt parameter | $\sum \frac{(Z_k - n\hat{\pi}_k)^2}{n\hat{\pi}_k}$ | $K - 2$ |
-| Uafhængighed | $\sum\sum \frac{(O - E)^2}{E}$ | $(J-1)(L-1)$ |
 
----
-# Før næste gang
+- But recall that if $f_{X|Y}(x | Y = 1) = f_{X|Y}(x | Y = 2)$ for every $x$, this means that $X$ and $Y$ are independent
 
-.pull-left[
-**Læs:**
-- Kapitel 16 i lærebogen
+--
 
-**Overvej:**
-- Hvornår bruger vi $\chi^2$-testen?
-- Hvad er forskellen på test af uafhængighed og homogenitet?
-]
-
-.pull-right[
-![Trees](Figures/Trees1.jpg)
-]
+- So a test of homogeneity of $X$ between groups defined by $Y$ is simply a test of independence between $X$ and $Y$

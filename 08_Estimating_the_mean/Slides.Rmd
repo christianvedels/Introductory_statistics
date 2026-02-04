@@ -90,380 +90,467 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 
 
-# Statistik
-## Forelæsning 8: Estimation af middelværdien
+# Statistics
+## Estimating the mean using a simple random sample
+### (Chapter 10)
 
-### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+### Seetha Menon,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
 
-### Opdateret `r Sys.Date()`
-
-
-
-.footnote[
-.left[
-.small123[
-*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
-]
-]
-]
+### Updated `r Sys.Date()`
 
 
----
-class: middle
-# Dagens forelæsning
-.pull-left-wide[
-**Emner:**
-
-- Simpel tilfældig stikprøve
-- Konstruktion af en estimator for middelværdien
-- Egenskaber ved estimatorer
-- Fordelingen af stikprøvegennemsnittet
-- Den centrale grænseværdisætning
-]
-
-.pull-right-narrow[
-![Trees](Figures/Trees1.jpg)
-]
 
 ---
 class: inverse, middle, center
-# Simpel tilfældig stikprøve
+# Simple random sampling
 
 ---
-# Deskriptive mål i en stikprøve
-
---
-Ofte vil vi udlede information fra en stikprøve om den ukendte fordeling i populationen
+# Descriptive measures in a sample
 
 --
 
-- Der er mange måder at karakterisere populationsfordelingen
-- Det er almindeligt at bruge deskriptive mål
+- Often, we want to derive information from a sample about the unknown distribution in the population
 
 --
 
-**Spørgsmål:** Hvordan kan vi bruge informationen i stikprøven til at sige noget om deskriptive mål i populationen?
+- There are various ways to characterize the population distribution, but it is common to use a descriptive measure
+
+--
+
+- The question is: how can we use the information in the sample to infer something about the value of descriptive measure in the population?
 
 ---
-# Simpel tilfældig stikprøve
+# Simple random sample
 
 --
-> En **simpel tilfældig stikprøve** er en stikprøve $(X_1, X_2, \ldots, X_n)$ sådan at:
+
+> A **simple random sample** is a sample $(X_1, X_2, \ldots, X_n)$ such that:
 >
-> 1. $X_1, X_2, \ldots, X_n$ er statistisk **uafhængige**
-> 2. $X_1, X_2, \ldots, X_n$ har samme **marginalfordeling** $f_X(x)$
+> 1. $X_1$, $X_2$, $\ldots$, $X_n$ are statistically independent
+> 2. $X_1$, $X_2$, $\ldots$, $X_n$ have the same marginal distribution $f_X(x)$
 
 --
 
-- Marginalfordelingen $f_X(x)$ er fordelingen af interesse (i populationen)
-- Betingelse 2 sikrer, at stikprøven er repræsentativ for $X$
+- The marginal distribution $f_X(x)$ is the distribution of interest (in the population)
+
+--
+
+- Note that the second condition assures that the simple random sample is a representative sample for $X$
 
 ---
-# Fordeling af simpel tilfældig stikprøve
-
---
-Vi kan bestemme fordelingen af stikprøven ved hjælp af de to betingelser:
-
-$$f(x_1, \ldots, x_n) = f_X(x_1) \cdot f_X(x_2) \cdot \ldots \cdot f_X(x_n)$$
+# Distribution of a simple random sample
 
 --
 
-**Eksempel:** $X \sim Bernoulli(0.7)$, $n = 3$
-
-$$P(X_1 = 0, X_2 = 0, X_3 = 0) = 0.3^3 = 0.027$$
-$$P(X_1 = 1, X_2 = 1, X_3 = 1) = 0.7^3 = 0.343$$
+- It is easy to determine the distribution of the random sample by using the two conditions in the definition of the sample:
+$$
+f(x_1, \ldots, x_n) = f_X(x_1) \cdot \ldots \cdot f_X(x_n)
+$$
 
 --
 
-Men: Vi kender ikke fordelingen af $X$ i populationen...
+- So, if we knew the distribution of $X$ in the population, we would be able to determine the distribution of the simple random sample
 
 ---
-class: inverse, middle, center
-# Konstruktion af en estimator
-
----
-# Estimation af middelværdien
-
---
-- Hvert element i stikprøven er en stokastisk variabel med samme fordeling
+# Distribution of a simple random sample
 
 --
 
-- Derfor har hvert element samme middelværdi
+- For example, suppose $X$ follows a Bernoulli distribution with $p = 0.7$, and that $n = 3$
 
 --
 
-- Vi kunne bruge hver realiseret værdi som et estimat af middelværdien
+- Then we can calculate the probability of any realized sample:
 
 --
 
-- Dette giver os $n$ forskellige estimater af én værdi
+$$
+P(X_1 = 0, X_2 = 0, X_3 = 0) = P(X_1 = 0) \cdot P(X_2 = 0) \cdot P(X_3 = 0) = 0.3^3 = 0.027
+$$
 
 --
 
-$\Rightarrow$ Vi kan kombinere dem til én enkelt værdi!
-
----
-# Analogiprincippet
-
---
-> **Analogiprincippet:** Brug formlerne, vi ville bruge hvis vi kendte fordelingen i populationen, men erstat alle ukendte populationsstørrelser med de tilsvarende stikprøvestørrelser
+$$
+P(X_1 = 0, X_2 = 0, X_3 = 1) = P(X_1 = 0) \cdot P(X_2 = 0) \cdot P(X_3 = 1) = 0.3^2 \cdot 0.7 = 0.063
+$$
 
 --
 
-Hvis vi kendte fordelingen af $X$:
-$$\mu = \sum_{i=1}^N x_i f(x_i)$$
+$$
+\vdots
+$$
 
 --
 
-I praksis har vi en stikprøve med $n$ værdier, hver med sandsynlighed $1/n$:
-$$\bar{x} = \sum_{i=1}^n x_i \cdot \frac{1}{n} = \frac{1}{n} \sum_{i=1}^n x_i$$
-
----
-# Stikprøvegennemsnittet
-
---
-> **Stikprøvegennemsnittet** defineres som:
-> $$\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$$
+$$
+P(X_1 = 1, X_2 = 1, X_3 = 1) = P(X_1 = 1) \cdot P(X_2 = 1) \cdot P(X_3 = 1) = 0.7^3 = 0.343
+$$
 
 --
 
-**Bemærk:**
-- $\bar{X}$ er en *stokastisk variabel*
-- $\bar{x}$ er en *realiseret værdi* af $\bar{X}$
-
----
-# Estimat vs. estimator
-
---
-.pull-left[
-### Estimator
-- En **stokastisk variabel**
-- Funktion af stikprøven
-- Forsøger at approksimere en parameter
-- Notation: $\bar{X}$
-]
-
---
-
-.pull-right[
-### Estimat
-- En **realiseret værdi**
-- Baseret på en konkret stikprøve
-- Vores gæt på den sande værdi
-- Notation: $\bar{x}$
-]
+- But: we do not know the distribution of $X$ in the population...
 
 ---
 class: inverse, middle, center
-# Egenskaber ved estimatorer
+# Constructing an estimator of the mean value
 
 ---
-# Tre ønskelige egenskaber
-
---
-Vi kan konstruere uendeligt mange estimatorer, men vi vil have en *god* estimator
+# Estimating the mean value
 
 --
 
-**Tre vigtige egenskaber:**
+- Recall that each element of the sample is a random variable following the same distribution
 
-1. Forventningsrethed (unbiasedness)
+--
 
-2. Effektivitet (efficiency)
+- In other words, each element of the sample (random variable) has the same mean value
 
-3. Konsistens (consistency)
+--
+
+- We could then use each realized value as an estimate (approximation) of the mean
+
+--
+
+- This gives us $n$ different estimates of one value $\Rightarrow$ we could use this information better and combine it into one single value
 
 ---
-# Forventningsrethed
-
---
-> En estimator er **forventningsret** (unbiased), hvis dens forventede værdi er lig med den parameter, den forsøger at approksimere
+# The analogy principle
 
 --
 
-**Intuition:**
-- Forestil dig, at vi kunne udtage mange stikprøver
-- Beregn estimatet i hver stikprøve
-- Gennemsnittet af alle estimater bør være lig med den sande værdi
+- The **analogy principle** of estimation says that we should use the formulas we would use if we knew the distribution in the population, but replace all the unknown population quantities with the corresponding sample quantities
+
+--
+
+- If we knew the distribution of the random variable $X$, that can take the values $x_1, x_2, \ldots, x_n$ with probabilities $f(x_1)$, $f(x_2)$, $\ldots$, $f(x_N)$, then its mean value is:
+$$
+\mu = \sum_{i=1}^N x_i f(x_i) = x_1 f(x_1) + x_2 f(x_2) + \ldots + x_N f(x_N)
+$$
 
 ---
-# Forventningsrethed af $\bar{X}$
-
---
-$$E(\bar{X}) = E\left[\frac{1}{n} \sum_{i=1}^n X_i\right]$$
+# The sample average
 
 --
 
-$$= \frac{1}{n} \sum_{i=1}^n E(X_i)$$
+- In practice, we have a sample of $n$ values $x_1$, $x_2$, $\ldots$, $x_n$, each one occurring with probability $1/n$
 
 --
 
-$$= \frac{1}{n} \cdot n \cdot \mu = \mu$$
+- The analogy principle says that we should use these values in the formula above:
+$$
+\bar{x} = \sum_{i=1}^n x_i \cdot \frac{1}{n} = \frac{1}{n} \cdot \sum_{i=1}^n x_i
+$$
 
 --
 
-$\Rightarrow$ Stikprøvegennemsnittet er en **forventningsret estimator** for $\mu$
+- Since we can calculate this for any realized sample, we define the **sample average** as:
+$$
+\bar{X} = \sum_{i=1}^n X_i \cdot \frac{1}{n} = \frac{1}{n} \cdot \sum_{i=1}^n X_i
+$$
 
 ---
-# Effektivitet
-
---
-- I praksis kan vi kun udtage én stikprøve
+# Estimate vs estimator
 
 --
 
-- Selvom estimatoren er forventningsret, kan den realiserede værdi ligge langt fra den sande parameter
+- Note that $\bar{X}$ is a *random variable*, while $\bar{x}$ is a value (and same for $\mu$)
 
 --
 
-- Vi ønsker, at estimatoren tager værdier "tæt på" den sande værdi med høj sandsynlighed
+- Actually, $\bar{x}$ is a realized value of $\bar{X}$
 
 --
 
-> En estimator er mere **effektiv** end en anden, hvis dens varians er mindre
-
----
-# Varians af $\bar{X}$
-
---
-$$Var(\bar{X}) = Var\left[\frac{1}{n} \sum_{i=1}^n X_i\right]$$
+- $\bar{X}$ is an **estimator**, i.e., a random variable that is a function of the sample (random variables) and that aims to replicate a particular parameter in the population
 
 --
 
-$$= \frac{1}{n^2} \sum_{i=1}^n Var(X_i)$$
-
-(pga. uafhængighed)
+- In contrast, $\bar{x}$ is an **estimate** (or **estimated value**), i.e., a realized value of the estimator, based on a particular realized sample
 
 --
 
-$$= \frac{1}{n^2} \cdot n \cdot \sigma^2 = \frac{\sigma^2}{n}$$
-
---
-
-**Bemærk:** Variansen afhænger af stikprøvestørrelsen — jo større $n$, jo mindre varians!
-
----
-# Konsistens
-
---
-Mange estimatorer har den egenskab, at deres varians er omvendt proportional med stikprøvestørrelsen
-
---
-
-- Når $n \rightarrow \infty$: Variansen går mod nul
-- Fordelingen "kollapser" til en enkelt værdi
-
---
-
-> En estimator er **konsistent**, hvis den konvergerer mod den sande værdi, når stikprøvestørrelsen går mod uendelig
-
----
-# Konsistens af $\bar{X}$
-
---
-Vi har:
-$$E(\bar{X}) = \mu$$
-
---
-
-$$\lim_{n \rightarrow \infty} Var(\bar{X}) = \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} = 0$$
-
---
-
-$\Rightarrow$ Stikprøvegennemsnittet er en **konsistent estimator** for $\mu$
+- The estimate is our guess of the true value of the parameter
 
 ---
 class: inverse, middle, center
-# Fordelingen af $\bar{X}$
+# Properties of estimators
 
 ---
-# Hvorfor fordelingen?
-
---
-- Vi har beregnet $E(\bar{X})$ og $Var(\bar{X})$
+# Properties of estimators
 
 --
 
-- Nogle gange vil vi beregne sandsynligheden for, at estimatet ligger i et bestemt interval
+- We can construct an infinity of estimators, but we would want to have a *good* estimator
 
 --
 
-- Til dette har vi brug for hele *fordelingen* af estimatoren
+- We need to define what makes an estimator *good*, given that we do not know the true value of the parameter
+
+--
+
+- We are generally interested in three properties of estimators:
+
+--
+
+  - unbiasedness
+
+--
+
+  - efficiency
+
+--
+
+  - consistency
 
 ---
-# Hvis $X$ er normalfordelt
-
---
-Antag $X \sim \mathcal{N}(\mu, \sigma^2)$ i populationen
+# Unbiasedness
 
 --
 
-Da er hvert stikprøveelement også normalfordelt: $X_i \sim \mathcal{N}(\mu, \sigma^2)$
+- Recall that an estimator aims to approximate a particular parameter in the population
 
 --
 
-Som en sum af normalfordelte variable er $\bar{X}$ også normalfordelt:
+- Suppose we could sample many times and calculate the realized value of the estimator (the estimated value) in each sample
 
-$$\bar{X} \sim \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)$$
+--
+
+- We would want these values to be "around" the true value of the parameter
+
+--
+
+- In other words, we would want our estimator to be, "on average," equal to the true value of the parameter
+
+--
+
+- We say that an estimator is **unbiased** if its expected value is equal to the parameter that it aims to approximate
 
 ---
-# Den centrale grænseværdisætning
-
---
-I praksis kender vi ikke fordelingen af $X$ i populationen
+# Unbiasedness of sample average
 
 --
 
-> **Den centrale grænseværdisætning (CLT):**
+- We can easily check if the sample average is unbiased:
+
+--
+
+$$
+E(\bar{X}) = E \left[ \frac{1}{n} \sum_{i=1}^n X_i \right] = \frac{1}{n} \cdot E \left[ \sum_{i=1}^n X_i \right]
+$$
+
+--
+
+$$
+= \frac{1}{n} \cdot \sum_{i=1}^n E(X_i) = \frac{1}{n} \cdot n \cdot \mu
+$$
+
+--
+
+$$
+= \mu
+$$
+
+--
+
+- Hence, the sample average is an unbiased estimator of the expected value of $X$
+
+---
+# Efficiency
+
+--
+
+- In practice, we cannot resample many times (we usually only have one realization of the sample)
+
+--
+
+- Since the estimator is a random variable, its realized value can be very far from the parameter of interest even if it is unbiased (i.e., its average value is equal to the parameter of interest)
+
+--
+
+- Therefore, we would like our estimator to take values "very close" to the true value of the parameter with high probability
+
+--
+
+- In other words, we would want the variance of the estimator to be as small as possible (the estimator would then be *precise*)
+
+--
+
+- An estimator is more **efficient** than another if its variance is smaller
+
+---
+# Variance of sample average
+
+--
+
+- We can also calculate relatively easily the variance of the sample average, because the sample elements are all independent of each other:
+
+--
+
+$$
+Var(\bar{X}) = Var \left[ \frac{1}{n} \sum_{i=1}^n X_i \right] = \frac{1}{n^2} \cdot Var \left[ \sum_{i=1}^n X_i \right]
+$$
+
+--
+
+$$
+= \frac{1}{n^2} \cdot \sum_{i=1}^n Var(X_i) = \frac{1}{n^2} \cdot n \cdot \sigma^2
+$$
+
+--
+
+$$
+= \frac{\sigma^2}{n}
+$$
+
+--
+
+- Note that the variance of the sample average depends on the sample size: the larger the sample, the smaller the variance (i.e., the estimator is more precise)
+
+---
+# Consistency
+
+--
+
+- Several estimators have the property that their variance is inversely proportional to sample size
+
+--
+
+- As sample size grows toward infinity, the variance of the estimator goes toward zero
+
+--
+
+- This means that in an infinite sample, the distribution of the estimator collapses on a single value
+
+--
+
+- If that single value is the true value of the parameter of interest (i.e., if the estimator is unbiased), then the estimator is **consistent**
+
+--
+
+- This implies that, if the sample is "sufficiently large," a consistent estimator will have realized values "very close" to the true value of the parameter
+
+--
+
+- In this case, even one realized sample may be enough to have a "good approximation" of the true value of the parameter
+
+---
+# Consistency of sample average
+
+--
+
+- Recall that the sample average is unbiased:
+$$
+E(\bar{X}) = \mu
+$$
+
+--
+
+- Recall also that the variance of the sample average goes to zero as the sample size grows to infinity:
+$$
+\lim_{n \rightarrow \infty} Var(\bar{X}) = \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} = 0
+$$
+
+--
+
+- Therefore, the sample average is a consistent estimator of $\mu$
+
+---
+class: inverse, middle, center
+# The distribution of the estimator $\bar{X}$
+
+---
+# The distribution of $\bar{X}$
+
+--
+
+- We calculated the expected value and variance of $\bar{X}$
+
+--
+
+- However, in certain situations we may want to calculate the probability that the observed value of this estimator lies in a certain interval
+
+--
+
+- For this we would need to know the entire distribution of this estimator, not just the values of these two moments
+
+--
+
+- If the shape of the distribution of $X$ in the population is known (i.e., the type of distribution, but not necessarily its parameters), then we may be able to determine the distribution of $\bar{X}$
+
+---
+# The distribution of $\bar{X}$ if sample is normal
+
+--
+
+- Suppose that the distribution of $X$ in the population is normal, with mean $\mu$ and variance $\sigma^2$
+
+--
+
+- Then each individual element of the sample also follows the same distribution: $X_i \sim \mathcal{N}(\mu, \sigma^2)$
+
+--
+
+- In this case, we will have: $\dfrac{X_i}{n} \sim \mathcal{N}\left(\dfrac{\mu}{n}, \dfrac{\sigma^2}{n^2} \right)$
+
+--
+
+- The sample average is:
+$$
+\bar{X} = \frac{X_1}{n} + \frac{X_2}{n} + \ldots + \frac{X_n}{n}
+$$
+
+--
+
+- As a sum of normally-distributed random variables, $\bar{X}$ also follows normal distribution:
+$$
+\bar{X} \sim \mathcal{N}\left(\mu, \dfrac{\sigma^2}{n} \right)
+$$
+
+---
+# The approximate distribution of $\bar{X}$
+
+--
+
+- In practice, we will not know the distribution of $X$ in the population
+
+--
+
+- Even if we do, we may not be able to determine the distribution of $\bar{X}$ so easily
+
+--
+
+- Luckily, we have the following very important result
+
+--
+
+> **Central limit theorem**
 >
-> Lad $(X_1, X_2, \ldots, X_n)$ være en simpel tilfældig stikprøve hvor $E(X_i) = \mu$ og $Var(X_i) = \sigma^2$.
->
-> Når $n \rightarrow \infty$, følger stikprøvegennemsnittet en normalfordeling:
-> $$\bar{X} \sim \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)$$
+> Suppose we have a simple random sample of $n$ elements $X_1$, $X_2$, $\ldots$, $X_n$, where $E(X_i) = \mu$ and $Var(X_i) = \sigma^2$ for all $i$. If $n = \infty$, then the sample mean follows normal distribution: $\bar{X} \sim \mathcal{N}\left(\mu, \dfrac{\sigma^2}{n} \right)$
+
+--
+
+- This means that if the sample is "large enough," the distribution of $\bar{X}$ is *approximately normal*:
+$$
+\bar{X} \overset{a}{\sim} \mathcal{N}\left(\mu, \dfrac{\sigma^2}{n} \right)
+$$
 
 ---
-# CLT i praksis
-
---
-Hvis stikprøven er "stor nok", er fordelingen af $\bar{X}$ *tilnærmelsesvis* normal:
-
-$$\bar{X} \overset{a}{\sim} \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)$$
+# Key Takeaways
 
 --
 
-**Tommelfingerregel:** $n \geq 30$ er ofte tilstrækkeligt
+- Estimating the mean in a simple random sample
 
 --
 
-Dette gælder *uanset* den oprindelige fordeling af $X$!
-
----
-# Opsummering
+- Estimate v. Estimator
 
 --
-| Egenskab | Formel/Resultat |
-|----------|-----------------|
-| **Estimator** | $\bar{X} = \frac{1}{n}\sum_{i=1}^n X_i$ |
-| **Forventningsret** | $E(\bar{X}) = \mu$ |
-| **Varians** | $Var(\bar{X}) = \frac{\sigma^2}{n}$ |
-| **Konsistent** | $Var(\bar{X}) \rightarrow 0$ når $n \rightarrow \infty$ |
-| **CLT** | $\bar{X} \overset{a}{\sim} \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)$ |
 
----
-# Før næste gang
+- Properties of Estimators: Unbiased, Efficiency and Consistency
 
-.pull-left[
-**Læs:**
-- Kapitel 10 i lærebogen
+--
 
-**Overvej:**
-- Hvad betyder det, at en estimator er konsistent?
-- Hvorfor er den centrale grænseværdisætning så vigtig?
-]
-
-.pull-right[
-![Trees](Figures/Trees1.jpg)
-]
+- Central limit theorem

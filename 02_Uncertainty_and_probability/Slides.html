@@ -105,310 +105,470 @@ class: center, inverse, middle
 
 
 # Statistics
-## Lecture X: Template
+## Uncertainty and probability
+### (Chapter 3)
 
-### Christian Vedel,&lt;br&gt;Department of Economics
+### Christian Vedel,&lt;br&gt;Department of Economics&lt;br&gt;University of Southern Denmark
 
-### Email: [christian-vs@sam.sdu.dk](christian-vs@sam.sdu.dk)
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
-### Updated 2026-01-24
-
-
-
-.footnote[
-.left[
-.small123[
-*This is a template slide deck demonstrating Xaringan features*
-]
-]
-]
+### Updated 2026-02-04
 
 
----
-class: middle
-# Today's Lecture
-.pull-left-wide[
-**This template demonstrates:**
-
-- Basic slide structure and layouts
-- Two-column designs (wide/narrow)
-- Incremental reveal
-- Math with LaTeX
-- R code chunks
-- Images and figures
-- Text styling and colors
-]
-
-.pull-right-narrow[
-![Trees](Figures/Trees1.jpg)
-]
 
 ---
 class: inverse, middle, center
-# Section Headers
-Use `class: inverse, middle, center` for section dividers
+# Uncertainty
 
 ---
-# Two-Column Layouts
-
-.pull-left[
-### Equal columns (44% each)
-Use `.pull-left` and `.pull-right` for balanced layouts.
-
-- Point one
-- Point two
-- Point three
-]
-
-.pull-right[
-### Right column
-Perfect for placing images next to text or comparing concepts side by side.
-
-![Trees](Figures/Trees1.jpg)
-]
-
----
-# Wide/Narrow Layouts
-
-.pull-left-wide[
-### Wide column (66%)
-Use `.pull-left-wide` for content that needs more space.
-
-This is useful when you have:
-- Longer explanations
-- Code examples
-- Detailed bullet points
-
-The narrow column works well for:
-- Images
-- Key takeaways
-- Quick references
-]
-
-.pull-right-narrow[
-### Narrow (30%)
-
-.small123[
-*Perfect for images or brief notes*
-]
-
-![Trees](Figures/Trees1.jpg)
-]
-
----
-# Incremental Reveal
-
-Use `--` on a new line to reveal content step by step.
+# Uncertainty
 
 --
 
-**First point appears**
+- In social sciences we often deal with uncertainty — but what exactly is "uncertainty"?
 
 --
 
-**Second point appears**
+- In general, we consider a situation to be uncertain if we do not know the outcome
 
 --
 
-**Third point appears**
+  - we usually know the possible alternative outcomes, but we do not know which one will realize
 
 --
 
-This is great for:
-- Building up complex ideas
-- Keeping audience focused
-- Creating suspense
+- For example, we do not know the value of the interest rate tomorrow, but we know the range of values it can take (between `\(0\)` and `\(\infty\)`) and we know that some values are very unlikely (more than `\(100\%\)`)
 
 ---
-class: middle
-# Math with LaTeX
-
-.pull-left[
-### Inline math
-The sample mean is `\(\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i\)`
-
-### Display math
-`$$\hat{\beta}_1 = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}$$`
-]
-
-.pull-right[
-### More examples
-
-**Normal distribution:**
-`$$f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$`
-
-**Probability:**
-`$$P(A|B) = \frac{P(B|A)P(A)}{P(B)}$$`
-]
-
----
-# R Code Chunks
-
-.pull-left[
-### Code with output
-
-``` r
-library(ggplot2)
-```
-
-```
-## Warning: package 'ggplot2' was built under R version 4.4.3
-```
-
-``` r
-set.seed(42)
-df &lt;- data.frame(x = rnorm(50), y = rnorm(50))
-ggplot(df, aes(x, y)) +
-  geom_point() +
-  theme_minimal()
-```
-
-![](Slides_files/figure-html/example-plot-1.png)&lt;!-- --&gt;
-]
-
-.pull-right[
-### Code display only
-
-``` r
-# Regression example
-model &lt;- lm(y ~ x, data = df)
-summary(model)
-```
-
-### Hidden code (results only)
-
-```
-## Mean of x: -0.036
-```
-]
-
----
-# Text Styling
-
-.pull-left[
-### Size classes
-.tiny123[This is `.tiny123` (40% size)]
-
-.small123[This is `.small123` (80% size)]
-
-Normal text size
-
-.large123[`.large123`]
-]
-
-.pull-right[
-### Color classes
-- .red[This text is red] using `.red[]`
-- .orange[This text is orange] using `.orange[]`
-- .green[This text is green] using `.green[]`
-
-### Emphasis
-- **Bold text**
-- *Italic text*
-- ***Bold and italic***
-]
-
----
-# Blockquotes and Footnotes
-
-&gt; "Statistics is about quantifying what we **know** and what we **don't know** based on some analysis of some data."
+# Uncertainty
 
 --
 
-&gt; Use blockquotes for definitions, important quotes, or key takeaways.
+- Suppose you are interested in taking out a loan
 
-.footnote[
-.small123[
-**Note:** Footnotes appear at the bottom of the slide. Use `.footnote[]` combined with `.small123[]` for subtle references.
-]
-]
+--
 
----
-# Tables
+- In this case, you would like to be able to have an idea of what the interest rate will be tomorrow
 
-.pull-left[
-### Markdown tables
-| Variable | Type | Description |
-|----------|------|-------------|
-| `\(x\)` | Continuous | Predictor |
-| `\(y\)` | Continuous | Outcome |
-| `\(\varepsilon\)` | Random | Error term |
-]
+--
 
-.pull-right[
-### Example data
-| Obs | Price | Size |
-|-----|-------|------|
-| 1 | 250k | 120 sqm |
-| 2 | 350k | 80 sqm |
-| 3 | 450k | 150 sqm |
-]
+- In other words, we would like to be able to *quantify* the uncertainty, using mathematical models and tools
+
+--
+
+- In order to do this, we first need to introduce some concepts
+
 
 ---
-# Images
-
-.pull-left[
-### Markdown syntax
-```markdown
-![Caption](Figures/Trees1.jpg)
-```
-
-![Trees](Figures/Trees1.jpg)
-]
-
-.pull-right[
-### HTML for more control
-```html
-&lt;img src="Figures/Trees1.jpg"
-     width="300"/&gt;
-```
-
-&lt;img src="Figures/Trees1.jpg" width="250"/&gt;
-
-.small123[*Use HTML when you need specific dimensions*]
-]
+class: inverse, middle, center
+# From population to sample
 
 ---
-class: middle
-# Slide Classes
+# Population
 
-| Class | Effect |
-|-------|--------|
-| `class: middle` | Vertically center content |
-| `class: center` | Horizontally center content |
-| `class: inverse` | Dark background, light text |
-| Combine: `class: inverse, middle, center` | All effects together |
+--
 
----
-class: middle
-# Tips for Good Slides
+- **Population** = collection of individuals, physical objects, or abstract constructions
 
-.pull-left-wide[
-1. **Keep it simple** - One main idea per slide
-2. **Use visuals** - Images and figures help retention
-3. **Incremental reveal** - Don't overwhelm with information
-4. **Consistent styling** - Use the CSS classes provided
-5. **Code examples** - Show, don't just tell
-6. **White space** - Let your content breathe
-]
+--
+
+- When we talk about a population we mean *all* the objects that belong to that category
+
+--
+
+- Examples:
+  - if we study the roll of a dice, the population is the six sides of the dice
+  - if we study the bond market, the population is all bonds existing on the market
+  - if we study employment in the labor market, the population is all employed individuals
+
+--
+
+- Note that a population is *certain* in the sense that we can ascertain if a given object should be a part of it or not based only on the characteristics that define the population (e.g., if we know that an individual is employed, then we know that she is part of the population)
 
 ---
-# Before Next Time
+# Population
 
-.pull-left[
-- Duplicate this template folder for new lectures
-- Rename "Lecture X" to appropriate number
-- Update the title slide
-- Add your content
+--
 
-**Remember:**
-- Knit to HTML before class
-- Push to GitHub for students to access
-]
+- All these examples represent **real populations**, which exist in the real world and so are generally finite
 
-.pull-right[
-![Trees](Figures/Trees1.jpg)
-]
+--
+
+- Note that we also can construct populations of abstract concepts, which we will call **super-populations** and which can be infinite
+
+--
+
+- Examples:
+  - if we study prices on the bond market, the population consists of all possible bond prices (which do not necessarily exist or may never exist)
+  - if we study wages on the labor market, the population comprises all possible wages (which do not necessarily exist or may never exist)
+
+---
+# Sample and selection mechanism
+
+--
+
+- **Sample** = a set of elements from the population, obtained through a **selection mechanism**
+
+--
+
+- Examples:
+  - if we study the roll of a dice, a sample can be the result of three rolls
+    - selection mechanism: roll the dice, repeat 3 times
+  - if we study the bond market, a sample can be the bonds traded on a particular day
+    - selection mechanism: pick a date, choose all the bonds traded that day
+  - if we study employment in the labor market, the sample can be 1,000 employed individuals
+    - selection mechanism: take the names of all employed individuals, put them in a hat, draw 1,000 names
+
+--
+
+- Note that a sample is *uncertain* in the sense that we cannot tell if a given individual should be in the sample or not based only on the characteristics that define the population (e.g., it is not enough to know that a person is employed to know if she is part of the sample or not)
+
+---
+# Sample and selection mechanism
+
+--
+
+- Note that when we deal with real populations, the selection mechanism can be seen as a physical action (roll of a dice, pulling names out of a hat)
+
+--
+
+- This is rarely the case for super-populations
+
+--
+
+- Regardless of the population, the selection mechanism can be based on:
+  - random occurrence (e.g., rolling a dice, or pulling names off a hat) `\(\Rightarrow\)` **probabilistic selection**
+  - deterministic rule (e.g., always pick bonds priced at 100 kr., choose wages between 150,000 and 250,000 kr) `\(\Rightarrow\)` **systematic selection**
+
+---
+# Experiment
+
+--
+
+- **Experiment** = a population, sample, and selection mechanism
+
+--
+
+- We are interested in samples because they allow us to infer something about the population, particularly when it is difficult or impossible to observe the population (**induction**)
+
+--
+
+- Paradoxically, the more randomness we have in the selection mechanism, the more reliable the inference about the population
+
+--
+
+- Example:
+  - if we want to analyze prices in the bond market, we do not want to always select bonds priced at 100 kr.; rather, we want to have bonds selected as randomly as possible
+
+
+---
+class: inverse, middle, center
+# The probability model
+
+---
+# Probability model
+
+--
+
+- A probability model allows us to formalize uncertainty
+
+--
+
+- It consists of three elements:
+  - sample space
+  - event space
+  - probability measure
+
+---
+# Sample space
+
+--
+
+&gt; The **sample space** `\(\Omega\)` for an experiment is the set of all the possible outcomes of the experiment.
+
+--
+
+- Examples:
+  - in the experiment of rolling a dice, `\(\Omega = \{ 1, 2, 3, 4, 5, 6 \}\)`
+  - in the experiment of flipping a coin, `\(\Omega = \{ H, T \}\)` (where `\(H\)` represents "heads" and `\(T\)` "tails")
+  - in the experiment of flipping a coin twice, `\(\Omega = \{ (H, H), (H, T), (T, H), (T, T) \}\)` (where each pair represents the result of the first toss and of the second toss, respectively)
+
+---
+# Event
+
+--
+
+&gt; An **event** is a set of outcomes. An event is said to have occurred if one of its outcomes is realized. Formally, an event `\(A\)` is a subset of the sample space: `\(A \subset \Omega\)`.
+
+--
+
+- Examples:
+  - in the experiment of rolling a dice, an event can be "rolling an odd number": `\(A = \{ 1, 3, 5 \}\)`
+  - in the experiment of flipping a coin, an event can be "heads": `\(A = \{ H \}\)`
+  - in the experiment of flipping a coin twice, an event can be "getting the same side both times": `\(A = \{ (H, H), (T, T) \}\)`
+
+---
+# Event space
+
+--
+
+&gt; The **event space** is the set of all possible events.
+
+--
+
+- Examples:
+  - in the experiment of flipping a coin, the event set includes:
+    - "heads": `\(A = \{ H \}\)`
+    - "tails": `\(A = \{ T \}\)`
+    - "heads or tails": `\(A = \{ H, T \}\)` (the sure event)
+    - "neither heads nor tails": `\(A = \varnothing\)` (the impossible event)
+
+---
+# Intersection and union of events
+
+--
+
+&gt; Let `\(A\)` and `\(B\)` be two events. The **intersection** of `\(A\)` and `\(B\)`, `\(A \cap B\)`, is the set of outcomes that are included in both `\(A\)` and `\(B\)`. The **union** of `\(A\)` and `\(B\)`, `\(A \cup B\)`, is the set of outcomes that are included in `\(A\)`, `\(B\)`, or both.
+
+--
+
+- Example (flipping a coin):
+  - let `\(A = \{ H \}\)` ("heads") and `\(B = \{ H, T \}\)` ("heads or tails")
+    - intersection: `\(A \cap B = \{ H \}\)`
+    - union: `\(A \cup B = \{ H, T \}\)`
+  - let `\(A = \{ H \}\)` ("heads") and `\(B = \{ T \}\)` ("tails")
+    - intersection: `\(A \cap B = \varnothing\)`
+    - union: `\(A \cup B = \{ H, T \}\)`
+
+---
+# Complementary event
+
+--
+
+&gt; Let `\(A\)` be an event. The **complement** of `\(A\)`, `\(A^c\)`, is the set of all the outcomes that are not included in `\(A\)`.
+
+--
+
+- Example (flipping a coin):
+  - let `\(A = \{ H \}\)` ("heads") `\(\Rightarrow\)` `\(A^c = \{ T \}\)`
+  - let `\(A = \{ H, T \}\)` ("heads or tails") `\(\Rightarrow\)` `\(A^c = \varnothing\)`
+
+--
+
+- By construction, the complement of `\(A\)` has the following properties:
+  - `\(A \cap A^c = \varnothing\)`
+  - `\(A \cup A^c = \Omega\)`
+
+---
+# Probability measure
+
+--
+
+&gt; A **probability measure** is a function `\(P(\cdot)\)` that assigns a number (probability) to any event in the event space. This function must satisfy the following conditions:
+&gt;
+&gt; (i) `\(0 \leq P(A) \leq 1\)`, for any event `\(A \subset \Omega\)`;
+&gt;
+&gt; (ii) `\(P(\Omega) = 1\)`, where `\(\Omega\)` is the sure event;
+&gt;
+&gt; (iii) `\(P(A \cup B) = P(A) + P(B)\)`, if the events `\(A\)` and `\(B\)` are mutually exclusive (disjoint), i.e., if `\(A \cap B = \varnothing\)`.
+
+---
+# Probability measure
+
+--
+
+- Example: tossing a coin
+  - intuitively, what is the probability of each event?
+    - "heads" (let this be event `\(A\)`): `\(\frac{1}{2}\)`
+    - "tails" (let this be event `\(B\)`): `\(\frac{1}{2}\)`
+    - "either heads or tails" (event `\(\Omega\)`): `\(1\)`
+    - "neither heads nor tails" (event `\(\varnothing\)`): `\(0\)`
+
+--
+
+  - does this define a probability measure?
+    - the probability of each event is between `\(0\)` and `\(1\)`
+    - `\(P(\Omega) = 1\)`
+    - `\(A \cap B = \varnothing\)` and `\(P(A \cup B) = P(\Omega) = 1 = P(A) + P(B)\)`
+
+--
+
+- How do we intuitively assign probabilities to events?
+  - as 1/number of potential outcomes, if equally likely
+  - as relative frequency of outcome, if not equally likely (e.g., picking a ball from an urn with 3 blue and 5 red balls)
+
+
+---
+class: inverse, middle, center
+# Calculating probabilities
+
+---
+# Addition
+
+--
+
+&gt; Let `\(A\)` and `\(B\)` be two events. Then:
+&gt; `$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$`
+
+--
+
+- Example: dice roll
+  - let `\(A = \{1, 3, 5\}\)` ("odd number") and `\(B = \{ 1, 2, 3\}\)` ("less than 4")
+  - then:
+    - `\(A \cup B = \{1, 2, 3, 5\}\)`
+    - `\(P(A \cup B) = P(\{1, 2, 3, 5\}) = \frac{4}{6}\)`
+    - `\(P(A) = P(\{1, 3, 5\}) = \frac{3}{6}\)`
+    - `\(P(B) = P(\{1, 2, 3\}) = \frac{3}{6}\)`
+    - `\(A \cap B = \{1, 3\}\)` `\(\Rightarrow\)` `\(P(A \cap B) = P(\{1, 3\}) = \frac{2}{6}\)`
+    - `\(P(A) + P(B) - P(A \cap B) = \frac{3}{6} + \frac{3}{6} - \frac{2}{6} = \frac{4}{6} = P(A \cup B)\)`
+
+---
+# Addition
+
+--
+
+- We can now derive some properties of probabilities involving the complement of an event:
+
+--
+
+  - `\(P(A \cup A^c) = P(\Omega) = 1\)` `\(\Rightarrow\)` `\(P(A^c) = 1 - P(A)\)`
+
+--
+
+  - `\(P(A \cap A^c) = P(\varnothing) = 0\)`
+
+--
+
+  - `\(P(A) = P(A \cap B) + P(A \cap B^c)\)`
+
+
+---
+class: inverse, middle, center
+# Conditional probability
+
+---
+# Conditional probability
+
+--
+
+- Sometimes, it is possible to use information about a past event to infer something about a future event
+
+--
+
+- For example, knowing how much it has rained until summer can help predict the crop for the year
+
+--
+
+&gt; The **conditional probability of event `\(A\)` given event `\(B\)`** is defined as:
+&gt; `$$P(A | B) = \frac{P(A \cap B)}{P(B)}$$`
+&gt; provided that `\(P(B) &gt; 0\)`.
+
+---
+# Conditional probability
+
+--
+
+- We can extend this notion to situations when we have prior knowledge of more than one event, say `\(B\)` and `\(C\)`
+
+--
+
+- We can then define the probability of event `\(A\)` conditional on both `\(B\)` and `\(C\)`: `\(P(A | B, C)\)`
+
+--
+
+- Since we need both `\(B\)` and `\(C\)` to realize, this is equivalent to the realization of `\((B \cap C)\)`
+
+--
+
+- Let `\(D = B \cap C\)`. We can then write:
+
+`$$P(A | B, C) = P\big(A | (B \cap C) \big) = P(A | D) = \frac{P(A \cap D)}{P(D)} = \frac{P(A \cap B \cap C)}{P(B \cap C)}$$`
+
+
+---
+class: inverse, middle, center
+# Independence and spurious relationships
+
+---
+# Independence
+
+--
+
+&gt; Two events `\(A\)` and `\(B\)` are **independent** if and only if
+&gt; `$$P(A \cap B) = P(A) \cdot P(B)$$`
+
+--
+
+- This implies the following:
+  - `\(P(A | B) = P(A)\)` whenever `\(P(B) &gt; 0\)`
+  - `\(P(B | A) = P(B)\)` whenever `\(P(A) &gt; 0\)`
+
+--
+
+- Intuitively, `\(A\)` and `\(B\)` are independent if the fact that we observe that one of them realized does not give us any information about how likely the other is to realize
+
+--
+
+- Two independent events are unrelated
+
+--
+
+- However, two dependent events are not necessarily directly connected (remember the night light example?)
+
+---
+# Dependence and conditional independence
+
+--
+
+- If there is a third factor that can explain the apparent relationship between two events, then we can talk about conditional independence
+
+--
+
+&gt; Two events `\(A\)` and `\(B\)` are **independent conditional on event `\(C\)`** (where `\(P(C) &gt; 0\)`) if and only if
+&gt; `$$P(A \cap B | C) = P(A | C) \cdot P(B | C)$$`
+
+--
+
+- This implies the following:
+  - `\(P(A | B, C) = P(A | C)\)` whenever `\(P(B) &gt; 0\)`
+  - `\(P(B | A, C) = P(B | C)\)` whenever `\(P(A) &gt; 0\)`
+
+--
+
+- In other words, if you already know that event `\(C\)` realized, the fact that we observe that one of `\(A\)` or `\(B\)` realized does not give us any information about how likely the other is to realize
+
+---
+# Direct, indirect and spurious correlation
+
+--
+
+- Many statistical studies look at the relationship between two quantities
+
+--
+
+- You should always consider whether the study has taken into account the possibility that other entities (factors) may be the underlying cause of the relationship
+
+--
+
+- There are three situations where we may find a relationship between `\(A\)` and `\(B\)`:
+  - they depend directly on each other (*direct dependence*): either `\(A\)` determines `\(B\)` ( `\(A \rightarrow B\)` ) or vice-versa ( `\(B \rightarrow A\)` )
+  - they depend indirectly on each other through a third factor `\(C\)` (*indirect dependence*): `\(A \rightarrow C \rightarrow B\)`, or `\(B \rightarrow C \rightarrow A\)`
+  - they do not depend on each other, but both depend on a third factor `\(C\)` (*spurious correlation*): `\(C \rightarrow A\)` and `\(C \rightarrow B\)`
+
+--
+
+- When we talk about causality, we have in mind the first situation
+
+---
+# Direct, indirect and spurious correlation
+
+--
+
+- You can (or should be able to) figure out if that is the case by checking if a third factor `\(C\)` exists such that `\(A\)` and `\(B\)` are conditionally independent
+
+--
+
+- In our night light example: are child myopia and use of night lights directly related, indirectly related, or are they conditionally independent?
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

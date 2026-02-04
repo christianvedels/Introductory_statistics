@@ -90,319 +90,558 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 
 
-# Statistik
-## Forelæsning 1: Introduktion
+# Statistics
+## Introduction
 
-### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+### Christian Vedel,<br>Department of Economics<br>University of Southern Denmark
 
 ### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
-### Opdateret `r Sys.Date()`
+### Updated `r Sys.Date()`
 
-
-
-.footnote[
-.left[
-.small123[
-*Jeg arbejder på slides indtil sidste øjeblik før forelæsningen. Indtil da er dette kun et udkast.*
-]
-]
-]
 
 
 ---
 class: middle
-# Dagens forelæsning
+# Today's lecture
 .pull-left-wide[
-**Indhold:**
+*Getting to know each other, and getting to know what statistics is.*
 
-- **Om mig**
-- **Hvorfor statistik?**
-  + Hvad er økonomi?
-  + Korrelation vs. kausalitet
-- **Om kurset**
-  + Hvordan vil vi studere statistik?
-  + Kursusmaterialer
-  + Øvelser
-  + Eksamen
-  + Kontaktpunkter
-]
+- **Getting acquainted**
+- **Motivation:** What is statistics and why do we need it?
+  + What is it we do at a university?
+  + How do we obtain/create knowledge?
+  + Can we trust numbers? Spoiler: No
+  + Why do we need statistics?
 
-.pull-right-narrow[
-![Trees](Figures/Trees1.jpg)
+- **Course overview**
+  + What will you learn in this course?
+- **Practical matters**
+  + Exercises
+  + Exam
 ]
 
 ---
 class: inverse, middle, center
-# Om mig
+# Getting acquainted
 
 ---
-# Om mig
-
+# Who is everyone?
 .pull-left[
-- **Christian Vedel** ([christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk))
+- Economist - freshly minted PhD (2023)
+- Research at the intersection between machine learning and economic history.
+- Research on how and why particular places became well-off, using vast amounts of historical (very uncertain) data.
+- *Statistics is the core methodological concern of all modern quantitative social science*
+- I teach this and a data science course.
 
-- **Uddannelse:**
-  + Cand.oecon., Syddansk Universitet
-  + Ph.d. i økonomi, Syddansk Universitet (2023)
+- Write me emails: christian-vs@sam.sdu.dk
 
---
+- Office hours?
 
-- **Ansættelse:**
-  + Postdoc, Institut for Virksomhedsledelse og Økonomi, SDU (2023-nu)
+[Who are you? https://forms.office.com/e/4MYaBaswkA](https://forms.office.com/e/4MYaBaswkA)
+
 ]
 
 .pull-right[
-![Trees](Figures/Trees1.jpg)
+![Thesis](Figures/Defence.jpeg)
+.small123[*PhD defence, 2023-09-25*]
 ]
 
 ---
-# Om mig
-
-.pull-left-wide[
-- **Forskningsinteresser:**
-
-  + Økonomisk historie
-  + Machine learning anvendt på historiske data
-  + Hvordan og hvorfor bestemte steder blev velstående
+# My own statistics story
 
 --
 
-- *Statistik er den centrale metodiske bekymring i al moderne kvantitativ samfundsvidenskab*
+.pull-left-wide[
+- I took statistics myself in 2016. I thought it was kinda useless, and in the midterm I had a pretty bad grade.
 ]
+
+
+
+
+--
+
+.pull-left-wide[
+- In the second half of the course, I realized why it was useful.
+]
+
+--
+
+.pull-left-wide[
+- I then built my career on that -- now I apply these methods every day in my research. And I get to teach it to you.
+]
+
+--
+
+.pull-left-wide[
+*So bear with me if the first part feels abstract. It will click.*
+]
+
+---
+## Some problems caught in the wild
+--
+
+A government proposes raising the minimum wage. Opponents claim it will increase unemployment; supporters claim it will reduce poverty.
+> How would you figure out who is right?
+
+--
+
+You work at a central bank. Interest rates were raised last quarter and inflation fell. Your boss claims the rate hike caused the drop. But inflation was already trending down before the hike.
+> How would you determine whether the rate hike actually caused lower inflation?
+
+--
+
+You work at a consulting firm. A client wants to know if their employee training programme increased productivity. Employees who signed up for training are more productive than those who didn't.
+> Can you conclude the training worked?
+
+--
+
+You work in the ministry of justice. Areas with more police officers tend to have higher crime rates.
+> Should you recommend that they remove police officers from areas with higher crime rates?
+
+---
+class: middle
+# A definition
+> Statistics is about quantifying what we **know** and what we **don't know** based on some analysis of some data.
+
+
+.footnote[
+.small123[
+**Note:** In practice this is as much philosophy as it is maths. And increasingly computer science is also involved. In practice innovations come as much from every field that uses it: Social Science, Biology, Economics, Psychology, Business Studies, etc.
+]
+]
+
 
 ---
 class: inverse, middle, center
-# Hvorfor studere statistik?
+# What is statistics and why do we need it?
 
 ---
-# Hvad er økonomi?
-
+class: middle
 .pull-left-wide[
-> *"Economics is above all a science of measurement. It comprises an extraordinarily powerful and flexible set of tools that can reliably assess a thicket of information to determine the effect of any one factor, or even the whole effect. [...] Since the science of economics is primarily a set of tools, as opposed to a subject matter, then no subject, however offbeat, need be beyond its reach."*
->
-> — Steven Levitt & Stephen Dubner, *Freakonomics*
+# What is it we do at uni? (1/3)
+- Why did you choose your line of study?
+- **Interest:** Why do you think it is interesting?
+- **Function:** How are you planning on using what you learn? E.g. what kind of job (loosely speaking) do you hope to have in ~10 years time?
+
 ]
 
----
-# Hvad er økonomi?
 
+
+---
+class: middle
+# What is it we do at uni? (2/3)
+### The legal answer
+
+**Executive Order on Bachelor's and Master's Programs at Universities (Education Executive Order):**
+
+> "Section 2: The purpose of bachelor's degree programs is to:
+> [...] Provide the student with the academic knowledge and theoretical and **methodological qualifications and competencies**, enabling them to independently identify, formulate, and solve complex problems within the relevant components of the field(s) of study [...]"
+
+.small123[[*BEK nr 1328 af 15/11/2016* - chatGPT translation](https://www.retsinformation.dk/eli/lta/2016/1328)]
+
+---
+class: middle
 .pull-left-wide[
-**Hvad er "værktøjerne" i økonomi-værktøjskassen?**
-
---
-
-- Økonomisk intuition (f.eks. incitamenter betyder noget!)
-
---
-
-- Dataanalyseværktøjer, også kaldet *økonometri*
-
---
-
-**Statistik er fundamentet, som økonometri er bygget på**
-
---
-
-**Hvad kan man med økonometri?**
-- *Alt!* Men vær forsigtig: med stor magt følger stort ansvar!
-]
-
----
-class: inverse, middle, center
-# Korrelation vs. kausalitet
-
----
-# Korrelation vs. kausalitet
-
-.pull-left-wide[
-I økonomi (og økonometri) er vi primært interesserede i **kausalitet**:
-- Forårsager $A$ $B$?
-- Hvis vi kan få $A$ til at ske, kan vi så generelt opnå $B$ som resultat?
-
---
-
-**Meget vigtig distinktion mellem kausalitet og korrelation!**
-]
-
----
-# Eksempel: Natlys og nærsynethed
-
-.pull-left-wide[
-- En undersøgelse fra University of Pennsylvania (publiceret maj 1999 i *Nature*) fandt, at natlys er stærkt forbundet med nærsynethed hos børn
-
-- $\Rightarrow$ "Natlys forårsager nærsynethed"
-
---
-
-- En opfølgende undersøgelse, også publiceret i *Nature* (marts 2000), fandt andre resultater:
-  + Nærsynede forældre har større tendens til at lade natlys være tændt (for deres egen skyld, ikke børnenes!)
-  + Nærsynethed nedarves typisk fra forældre til børn
-]
-
----
-# Eksempel: Natlys og nærsynethed
-
-.pull-left-wide[
-$\Rightarrow$ Børn, der sov med natlys, var mere tilbøjelige til at være nærsynede, **fordi deres forældre var nærsynede** – ikke på grund af eksponering for natlyset!
-
---
-
-.red[**Forestil jer konsekvenserne af sådanne fejl, når man rådgiver om pengepolitik, arbejdsløshed, cancerbehandlinger osv.!**]
-]
-
----
-class: center, middle
-# XKCD
-
-![Correlation](Figures/xkcd_correlation.png)
-
-.small123[Kilde: xkcd.com (http://xkcd.com/552/)]
-
----
-class: inverse, middle, center
-# Om kurset
-
----
-# Hvordan vil vi studere statistik?
-
-.pull-left-wide[
-**Vi starter med det grundlæggende og arbejder os op:**
-
---
-
-- Hvad er en stokastisk variabel?
-
---
-
-- Hvordan karakteriserer vi stokastiske variable?
-
---
-
-- Hvordan bruger vi stokastiske variable til at teste hypoteser?
-]
-
----
-# Hvordan vil vi studere statistik?
-
-.pull-left-wide[
-**Kurset inkluderer forelæsninger og øvelser:**
-
-- **Forelæsninger:** Se semesterplan på itslearning for tider og lokaler
-
-- **Øvelser:** 2 timer pr. uge
-
---
-
-**Tjek forelæsningsplanen på itslearning for tidsplan.**
-
-*Planen på itslearning er kun vejledende – vi kan gå hurtigere eller langsommere.*
-]
-
----
-# Kursusmaterialer
-
-.pull-left-wide[
-**Lærebog:**
-- Bowerman, O'Connell, Orries & Porter: *"Essentials of Business Statistics"*, McGraw-Hill, nyeste udgave
-- Bøye: *"Statistics Companion"* (supplerende)
-
---
-
-**Note:** I opfordres stærkt til at læse de relevante kapitler fra lærebogen for at sikre, at begreberne er klare. Kapitlerne for hver forelæsning er angivet i forelæsningsplanen på itslearning.
-]
-
----
-# Kursusmaterialer
-
-.pull-left-wide[
-**Kursusmaterialer:**
-- Kursusside på **itslearning**: Tjek regelmæssigt for meddelelser eller nye kursusmaterialer
-- Forelæsningsslides (på itslearning + GitHub)
-- Opgavesæt og løsninger (på itslearning)
-]
-
----
-# Øvelser
-
-.pull-left-wide[
-**Øvelser (diskussionstimer) afvikles således:**
-
---
-
-1. Et opgavesæt uploades på itslearning ugen før øvelsen
-
---
-
-2. I løser opgaverne og medbringer jeres løsninger til øvelsen
-
---
-
-3. Instruktoren gennemgår nogle af de "officielle" løsninger og besvarer jeres spørgsmål
-
---
-
-**Forelæsninger og øvelser er *den bedste forberedelse* til eksamen $\Rightarrow$ I opfordres *stærkt* til at deltage**
-]
-
----
-# Eksamen
-
-.pull-left-wide[
-**Evaluering:**
-
-- Skriftlig eksamen (4 timer)
-- Alle hjælpemidler tilladt, **ingen internet**
-- Individuel
-
---
-
-**Værktøjer:**
-- Vi bruger **Excel** og *Analysis ToolPak*
-- Jeres instruktorer har erfaring med dette
-- Lyt til instruktorerne når det gælder Excel
-- Lyt til mig når det gælder teori
-]
-
----
-# Kontaktpunkter
-
-.pull-left-wide[
-Hvis I har spørgsmål om kursusadministration, kig venligst først i **kursusbeskrivelsen**. De fleste svar bør være der.
-
---
-
-**Hvis I stadig har et ubesvaret spørgsmål:**
-
-1. **Studienævn:** Information om kursusadministration, dispensationer, eksamendatoer og regler osv.
-
-2. **Instruktor:** Spørgsmål vedrørende Excel og løsninger til opgavesæt
-
-3. **Underviser:** Indholdsmæssige spørgsmål om emner dækket i forelæsningen
+# What is it we do at uni? (3/3)
+### A pragmatic answer
+- We don't teach you a lot of practical knowledge. Sometimes we do anyway as a happy accident.
+- We teach you methods and frameworks
+- We try to equip you with tools to have some expertise in navigating a complex world (in your particular sub-field)
+
+- Importantly: You need tools to generate new knowledge. Statistics provides some of the most important such tools.
+- Also: Makes you capable of reading and engaging with a lot of scientific literature.
 ]
 
 ---
 class: middle
-# Opsummering
-
+# How do we obtain/create knowledge? (1/4)
 .pull-left-wide[
-**I dag lærte vi:**
+> A. *"If you torture the data long enough, it will confess to anything"* (Attributed to Ronald Coase, 1961)
 
-1. Statistik er fundamentet for økonometri og dataanalyse
-2. Korrelation $\neq$ kausalitet (natlys-eksemplet)
-3. Kurset bygger op fra grundlæggende begreber til hypotesetestning
-4. Forelæsninger + øvelser = bedste eksamensforberedelse
+> B. *"It is better to be vaguely right than exactly wrong."* (Carveth Read, 1920)
+
+> C. *"We do not know; we can only guess."* (K. Popper, 1934)
+
+> D. *"For every complex problem there is an answer that is clear, simple, and wrong."* (Mencken, 1916)
+
+**Exercise:** Please explain, for the above quotes, the opportunities and limitations that they impose on knowledge creation in social science.
+
 ]
 
 ---
-# Inden næste gang
+# How do we obtain/create knowledge? (2/4)
+### An analogy of doing social science with statistics
+
+> *"Studying societies and people is like standing in a dark room, throwing darts into empty space. If one hits something, we then argue endlessly over what was hit, what the dart really is, and whether we ever threw it in the first place."*
+
+- Social science is *hard*
+
+--
+
+- Two paths forward:
+  1. Drop the idea of learning anything specific: Everything is endlessly complex, and the only task is to appreciate this
+  2. Cautious positivism: Pose certain ideas and then test them in data. Eventually we learn something. At least something which is (locally) useful.
+
+--
+
+*Statistics is often firmly in the second camp*
+
+---
+class: middle
+# How do we obtain/create knowledge? (3/4)
+.pull-left-wide[
+### Some hard questions to answer
+1. Does higher education cause higher income?
+2. Does social media cause mental health problems?
+3. Does joining the EU cause more prosperity for a society?
+4. Does more internal EU migration benefit the EU on aggregate? Who wins and who loses out?
+5. Was brexit a good idea?
+6. Is it a good idea for a company to focus on CSR?
+7. Can you boost employee retention with training programmes?
+8. Does increased advertising cause more sales?
+9. Is it beneficial for a company to have more diverse management?
+10. What places will be prosperous after climate change?
+]
+
+
+---
+class: middle
+# How do we obtain/create knowledge? (4/4)
+.pull-left[
+### How it ought to be
+*How we often assume it is in intro stats*
+- You have some idea about how to measure something
+- You collect data
+- You test whether the data lends support to your idea
+- You conclude or start over by collecting more data
+]
+
+.pull-right[
+### How it often is
+*The lived experience*
+- You have some data
+- You are asked to provide 'insights'
+- You start wondering about the type of questions you can answer
+- You test these ideas
+- Your results are inconclusive
+- Your boss demands that you make a conclusion anyway and move on to the next project.
+]
+
+***Note:*** *In this course we will start in a nice and simplified world and then the complexity follows in further courses.*
+
+---
+class: middle
+# Can we trust numbers?
+.pull-left-wide[
+- Generally: No
+- But there are degrees.
+- A strict statistical analysis can provide valuable insights.
+- E.g. we can know whether painkillers work against headaches.
+
+- **Point of this course:** To introduce you to the basic theoretical framework to evaluate whether you can trust a number or not.
+]
+
+---
+class: middle
+# Why do we need statistics?
+
+.pull-left-wide[
+- We need to study statistics, because it provides tools for generating new knowledge and evaluating the validity of existing claims.
+- In turn this is part of providing you with one of the main takeaways from a university education: Tools to enable you to obtain new knowledge, scientifically and independently
+- Statistics is hard. But knowledge creation is generally hard. But also valuable.
+- **Pragmatically:** You have a lot of courses that builds on this. Regression Analysis, Econometrics, Finance, Macro, Micro, etc.
+]
+
+---
+# Causation vs correlation
 
 .pull-left[
-- Kig på øvelserne
-- Læs den tildelte læsning (se semesterplan)
+- In economics (and econometrics), we are primarily concerned with *causality*: 
+  
+> Does $A$ cause $B$? If we can make $A$ happen, can we generally obtain $B$ as a result?
 
-**Næste gang:** Usikkerhed og sandsynlighed
 ]
+
+
+--
+
+.pull-left[
+**Very important distinction between causality and correlation:**
+> A study conducted by ophthalmologists at the University of Pennsylvania (and published in May 1999 in *Nature*) found that leaving night lights on is strongly associated with myopia in children → "night lights cause myopia"
+
+]
+
+--
+
+.pull-left[
+**A follow-up study, also published in *Nature* (in March 2000) found different results**
+> Myopic parents are more likely to leave night lights on (for themselves, not for the children!). Myopia is usually transmitted from parents to children
+
+]
+
+--
+
+.pull-right-narrow[
+
+> Imagine the consequences of such mistakes when advising on monetary policy, unemployment, cancer treatments, etc.!!
+
+]
+
+
+---
+class: middle
+# Ice cream & drowning
+.pull-left-wide[
+- [Ice_cream_kills.xlsx]()
+- Eating before swimming is dangerous! (Or is it?)
+]
+
+---
+# Why study statistics?
+
+.center[
+![xkcd correlation](Figures/xkcd_correlation.png)
+
+.small123[
+Source: xkcd.com (http://xkcd.com/552/)
+]
+
+
+]
+
+
+
+---
+class: inverse, middle, center
+# About the course
+
+---
+# How will we study statistics?
+
+- We will start with the basics and then make our way up:
+  - what is a random variable?
+  - how do we characterize random variables?
+  - how do we use random variables to test hypotheses?
+
+--
+
+- The course includes lectures and tutorials:
+  - lectures:
+    - Tuesdays, 8am--10am in U81
+    - Wednesdays, 10am--12pm in U81
+  - tutorials, 2 hours per week
+
+--
+
+- Please check the lecture plan on ItsLearning for the schedule of lectures and tutorials
+
+--
+
+- Plan on ItsLearning is guide only - We may progress faster or slower
+
+---
+# Course materials
+
+- Main textbook:
+  - "An Insight Into Statistics," by Nikolaj Malchow-Møller and Allan Würtz
+
+  **Note:** You are strongly advised to read the relevant chapters from the main textbook to ensure concepts are clear. The chapters for each lecture is indicated in the lecture plan on ItsLearning.
+
+--
+
+- Course materials:
+  - course page on ItsLearning: check regularly for announcements or new course materials
+  - lecture notes (on ItsLearning)
+  - problem sets and solutions (on ItsLearning)
+
+---
+class: middle
+
+# Tutorials
+
+.pull-left-wide[
+
+- Tutorials (discussion sessions) will be conducted as follows:
+  - a problem set will be posted on ItsLearning the week before the tutorial
+  - you need to solve the exercises and bring your solutions to the tutorial
+  - the TA will discuss some of the "official" solutions and answer your questions
+  - TA will introduce you to R in the earlier tutorials of the course
+
+- The lectures and tutorials are *the best preparation* for the exam → you are *strongly* encouraged to participate
+
+]
+
+---
+# How will we study statistics?
+
+- Evaluation -- your grade will come from two parts:
+
+1. Mid-term Exam (40%):
+   - conducted on the computer
+   - individual
+   - 2026-03-19, 10:15
+
+2. Final written exam (60%):
+   - conducted on the computer
+   - individual
+   - exact time and place TBD
+
+- You need to pass (i.e., have a grade of at least 02) *both* parts in order to pass the course
+
+- **Note:** R is introduced to you for use in future courses. Assessment in this course is not based on R.
+
+---
+# Points of contact
+
+If you have any questions about the course administration please look through the course description first. Most answers should be here.
+
+If you still have an unanswered question:
+
+--
+
+1. **Study Board:** Information about course administration, any type of exemptions, exam dates and regulations etc.
+
+--
+
+2. **Teaching Assistant:** Questions regarding R and solutions to exercise sets.
+
+--
+
+3. **Lecturer:** Substantive questions about topics covered in the lecture.
+
+---
+class: inverse, middle, center
+# Introduction to data concepts
+
+---
+# Data
+.small123[*You probably know this. But it is still important to define terms. I will refer to these and expect you to know them.*]
+
+.pull-left[
+- Data is a collection of structured information
+- Typically (and often good practice):
+  + **Observations** (each row is an **entity**) and
+  + **information** (each column is a **variable** containing information)
+]
+
+--
+.pull-left[
+- **Observation**: Person, company, municipality, parish, country, etc. (these are referred to as 'entities')
+- **Variable**: Information about that person
+]
+
+--
+.pull-left[
+- **Information**: 120k (annual income), "female", 5 stars
+]
+
+---
+# Example
+
+| Observation     | Price | Location     | Size   | Building Rating |
+|-----------------|-------|--------------|--------|-----------------|
+| House 1         | 250k  | Suburb       | 120 sqm| A               |
+| House 2         | 350k  | City Center  | 80 sqm | C               |
+| House 3         | 450k  | Suburb       | 150 sqm| B               |
+
+--
+.center[
+**What type of information can variables be?**
+]
+
+
+---
+# Types of variables
+.pull-left[
+### Quantitative variables
+- Nominal scale:
+  + House price, income, years of education
+- Ordinal scale:
+  + Reviews (1, 2, ..., 5 stars),
+  + Building rating (A, B, C),
+  + etc.
+]
+--
+.pull-right[
+### Qualitative variables
+- House color: "Red"
+- Location: "Suburban"
+- Tone of language: "Positive"
+
+**Note:** We can turn this into something quantitative anyway.
+ + Dummy: Mark all "red" buildings with 1 and the rest with 0
+ + Grouped statistics: Calculate the mean house price for each type of location
+
+]
+
+---
+# Samples
+.pull-left[
+- We want to know something about the world
+- But we don't have data on all of it
+- We want to **infer** something about the **population** from a **sample** of it.
+
+- **Note 1:** Depending on what we measure, the idea of a 'population' might be abstract:
+  + Example 1: Average weight of newborn babies in 2024 $\rightarrow$ Population: All babies in 2024
+  + Example 2: Company responses to a survey $\rightarrow$ Population: This company? Similar companies?
+
+- **Note 2:** We can only know something about the average for the population. Not the individuals (unless everyone is the same)
+]
+
+.pull-right[
+![Sample](Figures/Sample.png)
+]
+
+
+---
+# Sampling in practice
+.pull-left[
+- **Q**: Can you know something without asking everyone?
+  + **A**: Sometimes. You will learn when/why (*Central Limit Theorem, Law of Large Numbers*)
+  + Note: Do you need to measure all apples to know what an apple weighs on average?
+- **Q**: What do we need to assume?
+  + Generally: The sample needs to be IID (independently identically distributed)
+  + But we can work with exceptions
+]
+
+.pull-right[
+.small123[https://x.com/LowKickLuke/status/1884450622868504890]
+.center[
+<img src="Figures/Sampling_in_practice.png" alt="Greenland" width="350"/>
+]
+]
+
+---
+# Different types of sources
+
+.pull-left[
+## 1. Primary
+### 1.a. Experimental
+- When you run an experiment and can control all the conditions
+- E.g. lab experiment
+
+### 1.b. Observational
+- When you observe the data and can control that
+- E.g. survey data
+]
+
+.pull-right[
+## 2. Secondary (what we often work with)
+- Data just happens to exist for some reason
+- We use it to explore (social) scientific questions
+- E.g. Register data, public databases, *archival data*
+]
+
+
+
+---
+# Before next time
+.pull-left[
+- Read the assigned reading
+- Next time: Uncertainty and probability $\rightarrow$ Chapter 3
+]
+
 
 .pull-right[
 ![Trees](Figures/Trees1.jpg)

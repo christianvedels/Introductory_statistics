@@ -90,338 +90,504 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 
 
-# Statistik
-## Forelæsning 10: Estimatorer for andre deskriptive mål
+# Statistics
+## Estimators of other descriptive measures
+### (Chapter 12)
 
-### Christian Vedel,<br>Institut for Virksomhedsledelse og Økonomi
+### Seetha Menon,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
 
-### Opdateret `r Sys.Date()`
-
-
-
-.footnote[
-.left[
-.small123[
-*Baseret på "An Insight into Statistics" af Malchow-Møller og Würtz*
-]
-]
-]
+### Updated `r Sys.Date()`
 
 
----
-class: middle
-# Dagens forelæsning
-.pull-left-wide[
-**Emner:**
-
-- Estimator for variansen
-- Estimatorer for højere ordens momenter
-- Estimatorer for kovarians og korrelation
-- Estimation af en fordeling
-- Estimatorer for kvantiler
-]
-
-.pull-right-narrow[
-![Trees](Figures/Trees1.jpg)
-]
 
 ---
 class: inverse, middle, center
-# Estimator for variansen
+# An estimator of the variance
 
 ---
-# Analogiprincippet
-
---
-Vi konstruerede en estimator for middelværdien (stikprøvegennemsnittet) ved hjælp af analogiprincippet
+# The analogy principle of estimation
 
 --
 
-Vi kan anvende samme princip til at konstruere en estimator for variansen
+- Recall that we constructed an estimator of the expected value (the sample average) using the analogy principle of estimation
 
 --
 
-**Population:**
-$$Var(X) = \sum_{i=1}^N (x_i - \mu)^2 \cdot f_X(x_i)$$
+- We can apply the same principle to construct an estimator of the variance
+
+--
+
+- The variance of a discrete random variable $X$ is:
+$$
+Var(X) = \sum_{i = 1}^N (x_i - \mu)^2 \cdot f_X(x_i)
+$$
+
+--
+
+- To construct an estimator of the variance of $X$, $\sigma^2$, we need to replace all unknown quantities by corresponding sample quantities
 
 ---
-# Estimator når $\mu$ er kendt
-
---
-Antag vi kender $\mu$ i populationen
+# An estimator of the variance, $\mu$ known
 
 --
 
-Erstat $f_X(x_i)$ med $1/n$:
-
-$$\tilde{S}^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2$$
+- For simplicity, suppose we know the expected value of $X$ in the population, $\mu$
 
 --
 
-Dette er en **forventningsret** estimator for $\sigma^2$
+- The only unknown quantity is $f_X(x_i)$, which we can replace with $1/n$ (because each element in the sample has probability $1/n$)
+
+--
+
+- We then obtain the following estimator of $\sigma^2$:
+$$
+\tilde{S}^2 = \frac{1}{n} \cdot \sum_{i = 1}^n (X_i - \mu)^2
+$$
+
+--
+
+- We can easily show that $\tilde{S}^2$ is an unbiased estimator of $\sigma^2$
 
 ---
-# Estimator når $\mu$ er ukendt
-
---
-I praksis kender vi ikke $\mu$, så vi erstatter med $\bar{X}$:
-
-$$b^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2$$
+# An estimator of the variance, $\mu$ unknown
 
 --
 
-Men denne estimator er **biased**:
-$$E(b^2) = \frac{n-1}{n} \cdot \sigma^2$$
+- But, in general, we do not know the expected value of $X$ in the population, $\mu$, so we have two unknown quantities:
+
+--
+
+  - $f_X(x_i)$, which we can replace with $1/n$
+
+--
+
+  - $\mu$, which we can replace with the sample average $\bar{X}$
+
+--
+
+- We would then obtain the following estimator of $\sigma^2$:
+$$
+b^2 = \frac{1}{n} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2
+$$
+
+--
+
+- However, $b^2$ is a biased estimator of $\sigma^2$
+$$
+E \left( b^2 \right) = \frac{n - 1}{n} \cdot \sigma^2
+$$
+
+--
+
+- Therefore, we need to change the formula a bit to obtain an unbiased estimator of $\sigma^2$, called **sample variance**:
+$$
+S^2 = \frac{1}{n - 1} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2
+$$
 
 ---
-# Stikprøvevariansen
-
---
-For at få en forventningsret estimator justerer vi formlen:
-
-> **Stikprøvevariansen:**
-> $$S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2$$
+# An estimator of the standard deviation
 
 --
 
-**Bemærk:** Vi dividerer med $(n-1)$, ikke $n$!
+- Recall that the standard deviation is the square root of the variance
 
 --
 
-Dette kaldes også "Bessels korrektion"
+- We could then use $S = \sqrt{S^2}$ as an estimator of the standard deviation of $X$
+
+--
+
+- However, recall that $E[g(X)]$ is in general not equal to $g[E(X)]$
+
+--
+
+- In this case, this means that:
+$$
+E(S) = E \left( \sqrt{S^2} \right) \not= \sqrt{E(S^2)} = \sqrt{\sigma^2} = \sigma
+$$
+
+--
+
+- So $S$ is a *biased* estimator of $\sigma$ (but it is consistent)
 
 ---
-# Stikprøvestandardafvigelsen
-
---
-Standardafvigelsen er kvadratroden af variansen
+# Properties of the sample variance
 
 --
 
-$$S = \sqrt{S^2}$$
+- As mentioned earlier, the sample variance is an unbiased (and consistent) estimator of the variance of $X$
 
 --
 
-**Advarsel:** $S$ er en *biased* estimator for $\sigma$!
-
-$$E(S) = E(\sqrt{S^2}) \neq \sqrt{E(S^2)} = \sigma$$
-
---
-
-Men $S$ er stadig **konsistent**
-
----
-# $\chi^2$-fordelingen
-
---
-Fordelingen af $S^2$ kan udledes via $\chi^2$-fordelingen
+- It turns out that it is easier to find the distribution of $Y$ than of $S^2$, where $Y$ is defined as:
+$$
+Y = S^2 \cdot \frac{n-1}{\sigma^2}
+$$
 
 --
 
-Definer:
-$$Y = S^2 \cdot \frac{n-1}{\sigma^2}$$
+- In an infinite sample, $Y$ follows a $\chi^2$ (*chi-square*) distribution with $n - 1$ degrees of freedom
 
 --
 
-I en tilstrækkelig stor stikprøve:
-$$Y \sim \chi^2(n-1)$$
+- In a sufficiently large sample, $Y$ approximately follows a $\chi^2(n-1)$, which allows us to calculate the distribution of $S^2$:
+$$
+P(S^2 \leq a) = P \left( Y \cdot \frac{\sigma^2}{n-1} \leq a \right) = P \left( Y \leq a \cdot \frac{n-1}{\sigma^2} \right)
+$$
 
 --
 
-$\chi^2$-fordelingen er *ikke* symmetrisk — den tager kun positive værdier
+- Unlike the normal distribution, the $\chi^2$ distribution is not symmetric: such a random variable can only take positive values
 
 ---
 class: inverse, middle, center
-# Højere ordens momenter
+# Estimators of higher-order moments
 
 ---
-# Det $k$-te centrerede moment
-
---
-**Population:**
-$$m_k^* = E[(X - E(X))^k] = \sum_{i=1}^N (x_i - \mu)^k \cdot f_X(x_i)$$
+# Estimators of higher-order moments
 
 --
 
-**Stikprøve (analogiprincippet):**
-$$\hat{m}_k^* = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^k$$
+- Recall that the $k$-th central moment of $X$ is defined as:
+$$
+m_k^* = E \left( [X - E(X)]^k \right)
+$$
+
+--
+
+- If $X$ is a discrete variable, then we can calculate this moment as follows:
+$$
+m_k^* = \sum_{i=1}^N \left[ (x_i - \mu)^k \cdot f_X(x_i) \right]
+$$
+
+--
+
+- The analogy principle gives us an estimator of this moment:
+$$
+\hat{m}_k^* = \frac{1}{n} \cdot \sum_{i=1}^n \left( X_i - \bar{X} \right)^k
+$$
+
+--
+
+- Similarly, the estimator of the $k$-th moment, $E(X^k)$, is:
+$$
+\hat{m}_k = \frac{1}{n} \cdot \sum_{i=1}^n X_i^k
+$$
 
 ---
-# Skævhed (skewness)
-
---
-Et skala-uafhængigt mål for asymmetri:
+# Skewness
 
 --
 
-**Population:**
-$$\gamma_3 = \frac{m_3^*}{\sigma^3}$$
+- The moments depend on the unit of measurement of $X$ (e.g., if we change income from DKK to USD, the value of all of the moments changes)
 
 --
 
-**Stikprøve:**
-$$\hat{\gamma}_3 = \frac{\hat{m}_3^*}{S^3}$$
+- A scale-independent measure of **skewness** (asymmetry) of the distribution is the standardized third central moment:
+$$
+\gamma_3 = \frac{m_3^*}{\sigma^3}
+$$
 
 --
 
-For normalfordelingen: $\gamma_3 = 0$
+- Using the analogy principle, we can construct an estimator of this measure:
+$$
+\hat{\gamma}_3 = \frac{\hat{m}_3^*}{S^3}
+$$
 
 ---
 # Kurtosis
 
 --
-Et mål for "spidshed" af fordelingen:
+
+- The standardized fourth central moment is a measure of **kurtosis** (the "peakedness" of the probability distribution):
+$$
+\gamma_4 = \frac{m_4^*}{\sigma^4}
+$$
+
+--
+
+- Its estimator is:
+$$
+\hat{\gamma}_4 = \frac{\hat{m}_4^*}{S^4}
+$$
+
+--
+
+- Skewness and kurtosis are generally used to compare a distribution to the normal distribution
+
+--
+
+- For the normal distribution, $\gamma_3 = 0$ and $\gamma_4 = 3$
+
+---
+class: inverse, middle, center
+# Estimators of the covariance and the correlation coefficient
+
+---
+# An estimator of the covariance
+
+--
+
+- Recall that the covariance between two random variables $X$ and $Y$ is defined as:
+$$
+Cov(X, Y) = E \left[ (X - \mu_X) \cdot (Y - \mu_Y) \right]
+$$
+
+--
+
+- If both $X$ and $Y$ are discrete, then this formula becomes:
+$$
+Cov(X, Y) = \sum_{i=1}^N \sum_{j=1}^M \left[ (x_i - \mu_X) \cdot (y_j - \mu_Y) \cdot f(x_i, y_j) \right]
+$$
+
+--
+
+- We can again use the analogy principle to construct an estimator of the covariance, called **sample covariance**:
+$$
+\widehat{Cov}(X, Y) = \frac{1}{n} \cdot \sum_{i=1}^n \left[ \left( X_i - \bar{X} \right) \cdot \left( Y_i - \bar{Y} \right) \right]
+$$
+
+---
+# An estimator of the correlation coefficient
+
+--
+
+- Recall that the correlation coefficient between two random variables $X$ and $Y$ is defined as:
+$$
+\rho(X, Y) = \rho = \frac{Cov(X, Y)}{\sqrt{Var(X) \cdot Var(Y)}}
+$$
+
+--
+
+- We can again use the analogy principle to construct an estimator called the **sample correlation coefficient**:
+$$
+\hat{\rho}(X, Y) = \frac{\widehat{Cov}(X, Y)}{\sqrt{S_X^2 \cdot S_Y^2}}
+$$
+
+--
+
+- The sample correlation coefficient follows an approximate normal distribution:
+$$
+\hat{\rho}(X, Y) \overset{a}{\sim} \mathcal{N}\left(\rho, \dfrac{\left(1 - \rho^2 \right)^2}{n - 2} \right)
+$$
+
+---
+class: inverse, middle, center
+# Estimating a distribution
+
+---
+# Empirical distribution function
+
+--
+
+- Sometimes, estimating the moments of a distribution is not enough and we would like to have an idea of the shape of the distribution
+
+--
+
+- Based on a sample, we can derive an estimate of the cumulative distribution function $F_X(x)$
+
+--
+
+- Recall that the definition of the cumulative distribution function is:
+$$
+F_X(x) = P(X \leq x)
+$$
+
+--
+
+- Using the analogy principle, this becomes: the probability that $X \leq x$ is the fraction of the sample with values lower than $x$
+
+--
+
+- Therefore, we can construct the **empirical distribution function**:
+$$
+\hat{F}_X(x) = \frac{\text{number of sample elements with } x_i \leq x}{n}
+$$
+
+---
+# Properties of the empirical distribution function
+
+--
+
+- Suppose we have a simple random sample
+
+--
+
+- In this case, the empirical distribution function $\hat{F}_X(x)$ is an unbiased and consistent estimator of the cumulative distribution function:
+$$
+E \left[ \hat{F}_X(x) \right] = F_X(x) \quad \text{for all } x
+$$
+
+--
+
+- We can also show that $\hat{F}_X(x)$ has an approximate normal distribution for all $x$:
+$$
+\hat{F}_X(x) \overset{a}{\sim} \mathcal{N} \left( F_X(x), \dfrac{F_X(x) \left[1 - F_X(x) \right]}{n} \right)
+$$
+
+---
+class: inverse, middle, center
+# Estimators of quantiles
+
+---
+# Estimated quantiles
+
+--
+
+- Quantiles are the second type of moments used to describe a distribution
+
+--
+
+- Recall that quantiles are defined based on the cumulative distribution function: the $p$-th quantile is the value $q_p$ at which the cumulative distribution function jumps from below $p$ to above $p$
+
+--
+
+- We can construct estimators of quantiles based on the empirical distribution function: the estimate of the $p$-th quantile is the value at which the empirical distribution function jumps from below $p$ to above $p$
+
+--
+
+- For example, the estimate of the median is the value at which the empirical distribution function jumps from below 0.5 to above 0.5
+
+--
+
+- If this happens over an interval of values, then the convention is to use the midpoint of the interval as the sample median
+
+---
+# Order statistics
+
+--
+
+- Another way of characterizing quantiles is to use **order statistics**
+
+--
+
+- The $k$-th order statistic is written as $X_{(k)}$ defined as the $k$-th smallest observation in the sample
+
+--
+
+- We can then define estimators for the $p$-th quantile using order statistics:
+$$
+\hat{q}_p =
+\begin{cases}
+X_{(n \cdot p + 1)}, & \text{if } [n \cdot p] \not= n \cdot p \\
+\dfrac{X_{(n \cdot p)} + X_{(n \cdot p + 1)}}{2}, & \text{if } [n \cdot p] = n \cdot p
+\end{cases}
+$$
+where $[n \cdot p]$ is the integer part of $n \cdot p$
+
+--
+
+- In the case of the sample median, this becomes:
+$$
+\hat{q}_{0.5} =
+\begin{cases}
+X_{\left( \frac{n + 1}{2} \right)}, & \text{if $n$ is odd} \\
+\dfrac{X_{\left( \frac{n}{2} \right)} + X_{\left( \frac{n + 1}{2} \right)}}{2}, & \text{if $n$ is even}
+\end{cases}
+$$
+
+---
+class: inverse, middle, center
+# Key Takeaways
+
+---
+# Key Takeaways: Variance
+
+--
+
+**Estimator of the variance**
 
 --
 
 **Population:**
-$$\gamma_4 = \frac{m_4^*}{\sigma^4}$$
+$$Var(X) = \sum_{i = 1}^N (x_i - \mu)^2 \cdot f_X(x_i)$$
 
 --
 
-**Stikprøve:**
-$$\hat{\gamma}_4 = \frac{\hat{m}_4^*}{S^4}$$
+**Sample:**
+$$S^2 = \frac{1}{n - 1} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2$$
 
 --
 
-For normalfordelingen: $\gamma_4 = 3$
+The chi-square distribution allows us to approximate the distribution of $S^2$
 
 ---
-class: inverse, middle, center
-# Kovarians og korrelation
-
----
-# Stikprøvekovarians
+# Key Takeaways: Higher-order moments
 
 --
+
+**Estimators of higher-order moments**
+
+--
+
 **Population:**
-$$Cov(X,Y) = E[(X - \mu_X)(Y - \mu_Y)]$$
+$$m_k^* = \sum_{i=1}^N \left[ (x_i - \mu)^k \cdot f_X(x_i) \right]$$
 
 --
 
-**Stikprøve:**
-$$\widehat{Cov}(X,Y) = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})$$
+**Sample:**
+$$\hat{m}_k^* = \frac{1}{n} \cdot \sum_{i=1}^n \left( X_i - \bar{X} \right)^k$$
 
 ---
-# Stikprøvekorrelation
+# Key Takeaways: Skewness and Kurtosis
 
 --
+
+**Skewness** - A scale-independent measure of asymmetry (standardized third central moment)
+
+--
+
+**Population:** $\gamma_3 = \frac{m_3^*}{\sigma^3}$
+
+**Sample:** $\hat{\gamma}_3 = \frac{\hat{m}_3^*}{S^3}$
+
+--
+
+**Kurtosis** - A scale-independent measure of peakedness (standardized fourth central moment)
+
+--
+
+**Population:** $\gamma_4 = \frac{m_4^*}{\sigma^4}$
+
+**Sample:** $\hat{\gamma}_4 = \frac{\hat{m}_4^*}{S^4}$
+
+---
+# Key Takeaways: Covariance and Correlation
+
+--
+
+**Estimators of covariance and correlation coefficients**
+
+--
+
 **Population:**
-$$\rho(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var(X) \cdot Var(Y)}}$$
+$$Cov(X, Y) = \sum_{i=1}^N \sum_{j=1}^M \left[ (x_i - \mu_X) \cdot (y_j - \mu_Y) \cdot f(x_i, y_j) \right]$$
+
+**Sample:**
+$$\widehat{Cov}(X, Y) = \frac{1}{n} \cdot \sum_{i=1}^n \left[ \left( X_i - \bar{X} \right) \cdot \left( Y_i - \bar{Y} \right) \right]$$
 
 --
 
-**Stikprøve:**
-$$\hat{\rho}(X,Y) = \frac{\widehat{Cov}(X,Y)}{\sqrt{S_X^2 \cdot S_Y^2}}$$
+**Population:** $\rho(X, Y) = \frac{Cov(X, Y)}{\sqrt{Var(X) \cdot Var(Y)}}$
 
---
-
-**Asymptotisk fordeling:**
-$$\hat{\rho}(X,Y) \overset{a}{\sim} \mathcal{N}\left(\rho, \frac{(1-\rho^2)^2}{n-2}\right)$$
+**Sample:** $\hat{\rho}(X, Y) = \frac{\widehat{Cov}(X, Y)}{\sqrt{S_X^2 \cdot S_Y^2}}$
 
 ---
-class: inverse, middle, center
-# Estimation af en fordeling
-
----
-# Empirisk fordelingsfunktion
-
---
-Nogle gange er momenter ikke nok — vi vil estimere hele fordelingen
+# Key Takeaways: Quantiles
 
 --
 
-**Definition af CDF:**
-$$F_X(x) = P(X \leq x)$$
+**Estimators of quantiles**
 
 --
 
-**Empirisk fordelingsfunktion:**
-$$\hat{F}_X(x) = \frac{\text{antal observationer med } x_i \leq x}{n}$$
+**Population:** $q_p$
 
----
-# Egenskaber
-
---
-For en simpel tilfældig stikprøve er $\hat{F}_X(x)$:
+**Sample:** $\hat{q}_p$
 
 --
 
-- **Forventningsret:** $E[\hat{F}_X(x)] = F_X(x)$
-
---
-
-- **Konsistent**
-
---
-
-- **Asymptotisk normal:**
-$$\hat{F}_X(x) \overset{a}{\sim} \mathcal{N}\left(F_X(x), \frac{F_X(x)[1-F_X(x)]}{n}\right)$$
-
----
-class: inverse, middle, center
-# Estimatorer for kvantiler
-
----
-# Estimerede kvantiler
-
---
-Kvantiler defineres via CDF: $p$-kvantilen er værdien $q_p$ hvor CDF springer fra under $p$ til over $p$
-
---
-
-Vi estimerer kvantiler via den empiriske fordelingsfunktion
-
---
-
-**Eksempel:** Stikprøvemedianen er værdien hvor $\hat{F}_X(x)$ springer fra under 0.5 til over 0.5
-
----
-# Ordensstatistik
-
---
-> $X_{(k)}$ er den **$k$-te ordensstatistik**: den $k$-te mindste observation
-
---
-
-**Estimator for $p$-kvantilen:**
-
-$$\hat{q}_p = \begin{cases} X_{(np+1)}, & \text{hvis } np \text{ ikke er heltal} \\ \frac{X_{(np)} + X_{(np+1)}}{2}, & \text{hvis } np \text{ er heltal} \end{cases}$$
-
----
-# Stikprøvemedianen
-
---
-$$\hat{q}_{0.5} = \begin{cases} X_{\left(\frac{n+1}{2}\right)}, & \text{hvis } n \text{ er ulige} \\ \frac{X_{\left(\frac{n}{2}\right)} + X_{\left(\frac{n}{2}+1\right)}}{2}, & \text{hvis } n \text{ er lige} \end{cases}$$
-
----
-# Opsummering
-
---
-.small123[
-| Mål | Population | Stikprøve |
-|-----|------------|-----------|
-| Varians | $\sigma^2$ | $S^2 = \frac{1}{n-1}\sum(X_i - \bar{X})^2$ |
-| Skævhed | $\gamma_3 = m_3^*/\sigma^3$ | $\hat{\gamma}_3 = \hat{m}_3^*/S^3$ |
-| Kurtosis | $\gamma_4 = m_4^*/\sigma^4$ | $\hat{\gamma}_4 = \hat{m}_4^*/S^4$ |
-| Kovarians | $Cov(X,Y)$ | $\widehat{Cov}(X,Y)$ |
-| Korrelation | $\rho$ | $\hat{\rho}$ |
-]
-
----
-# Før næste gang
-
-.pull-left[
-**Læs:**
-- Kapitel 12 i lærebogen
-
-**Overvej:**
-- Hvorfor dividerer vi med $(n-1)$ i stikprøvevariansen?
-- Hvad fortæller skævhed og kurtosis os?
-]
-
-.pull-right[
-![Trees](Figures/Trees1.jpg)
-]
+Calculated exactly as done for the population, using the empirical distribution function or order statistics.
