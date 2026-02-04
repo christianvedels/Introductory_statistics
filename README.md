@@ -15,7 +15,7 @@ When it gets difficult, pay extra attention. Your brain quickly finds "good reas
 
 | Week    | Reading      | Lectures                                               | Slides | Notes    |
 | ------- | ------------ | ------------------------------------------------------ | ------ | -------- |
-| Week 6  | Ch. 3        | 2026-02-05 (12:00-14:00)<br>2026-02-06 (10:00-12:00)   |        |          |
+| Week 6  | Ch. 3        | 2026-02-05 (12:00-14:00)<br>2026-02-06 (10:00-12:00)   | [01_Intro](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/01_Introduction/Slides.html)       |          |
 | Week 7  | Ch. 3        | 2026-02-10 (10:00-12:00)<br>2026-02-13 (10:00-12:00)   |        |          |
 | Week 8  | Ch. 4        | 2026-02-17 (10:00-12:00)<br>2026-02-20 (10:00-12:00)   |        |          |
 | Week 9  | Ch. 4        | 2026-02-24 (10:00-12:00)<br>2026-02-27 (10:00-12:00)   |        |          |
