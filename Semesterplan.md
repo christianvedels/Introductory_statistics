@@ -9,7 +9,7 @@ You don't need to read statistics from A to Z. Start with a question and use the
 When it gets difficult, pay extra attention. Your brain quickly finds "good reasons" to procrastinate, but resistance is often a sign that you are about to learn something new. Switch gears instead of giving up -- work through one example, draw a figure, or solve one problem all the way through. Finish with a quick self-test. Can you explain the main idea in 60 seconds without looking?
 
 - **Read actively:** write 2-3 questions as you go and check whether the text actually answers them.
-- **Stay focused in small blocks:** 25 minutes of reading + 5 minutes of break beats long, unfocused hours.
+- **Stay focused in small blocks:** Repeating a cycle of 25 minutes of reading + 5 minutes of break works well. And often better than hours of unfocused reading.
 - **Use ChatGPT (or similar) as a study buddy:** have it quiz you on a section or explain a definition.
 
 | Week    | Topic                          | Reading      | Lectures                                               | Slides |
