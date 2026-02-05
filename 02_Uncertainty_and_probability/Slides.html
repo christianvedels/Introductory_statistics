@@ -115,6 +115,30 @@ class: center, inverse, middle
 ### Updated 2026-02-05
 
 
+.footnote[
+.left[
+.small123[
+*Please beware. I work on these slides until the last minute before the lecture and push most changes along the way. Until the actual lecture, this is just a draft*
+]
+]
+]
+
+
+---
+class: middle
+# Today's lecture
+.pull-left-wide[
+
+### Uncertainty and probability (Chapter 3)
+
+- What is uncertainty and why does it matter?
+- From population to sample
+- The probability model: sample space, events, and probability measures
+- Calculating probabilities
+- Conditional probability
+- Independence and spurious relationships
+
+]
 
 ---
 class: inverse, middle, center
@@ -123,40 +147,27 @@ class: inverse, middle, center
 ---
 # Uncertainty
 
---
-
+.pull-left-wide[
 - In social sciences we often deal with uncertainty — but what exactly is "uncertainty"?
 
---
-
 - In general, we consider a situation to be uncertain if we do not know the outcome
-
---
-
   - we usually know the possible alternative outcomes, but we do not know which one will realize
 
---
-
 - For example, we do not know the value of the interest rate tomorrow, but we know the range of values it can take (between `\(0\)` and `\(\infty\)`) and we know that some values are very unlikely (more than `\(100\%\)`)
+]
 
 ---
 # Uncertainty
 
---
-
+.pull-left-wide[
 - Suppose you are interested in taking out a loan
-
---
 
 - In this case, you would like to be able to have an idea of what the interest rate will be tomorrow
 
---
-
 - In other words, we would like to be able to *quantify* the uncertainty, using mathematical models and tools
 
---
-
 - In order to do this, we first need to introduce some concepts
+]
 
 
 ---
@@ -166,50 +177,54 @@ class: inverse, middle, center
 ---
 # Population
 
---
-
+.pull-left-wide[
 - **Population** = collection of individuals, physical objects, or abstract constructions
 
---
-
 - When we talk about a population we mean *all* the objects that belong to that category
-
---
 
 - Examples:
   - if we study the roll of a dice, the population is the six sides of the dice
   - if we study the bond market, the population is all bonds existing on the market
   - if we study employment in the labor market, the population is all employed individuals
 
---
-
 - Note that a population is *certain* in the sense that we can ascertain if a given object should be a part of it or not based only on the characteristics that define the population (e.g., if we know that an individual is employed, then we know that she is part of the population)
+]
 
 ---
 # Population
 
---
-
+.pull-left-wide[
 - All these examples represent **real populations**, which exist in the real world and so are generally finite
 
---
-
 - Note that we also can construct populations of abstract concepts, which we will call **super-populations** and which can be infinite
-
---
 
 - Examples:
   - if we study prices on the bond market, the population consists of all possible bond prices (which do not necessarily exist or may never exist)
   - if we study wages on the labor market, the population comprises all possible wages (which do not necessarily exist or may never exist)
+]
+
+---
+# .red[Practice: Population]
+
+.pull-left-wide[
+**Identify the population in each scenario:**
+
+1. A researcher wants to study the effectiveness of a new teaching method on university students in Denmark.
+
+2. A company wants to analyze customer satisfaction with their product.
+
+3. You want to study all possible outcomes when drawing a card from a standard deck.
+
+**Which of these are real populations and which are super-populations?**
+]
+
+
 
 ---
 # Sample and selection mechanism
 
---
-
+.pull-left-wide[
 - **Sample** = a set of elements from the population, obtained through a **selection mechanism**
-
---
 
 - Examples:
   - if we study the roll of a dice, a sample can be the result of three rolls
@@ -219,46 +234,105 @@ class: inverse, middle, center
   - if we study employment in the labor market, the sample can be 1,000 employed individuals
     - selection mechanism: take the names of all employed individuals, put them in a hat, draw 1,000 names
 
---
+]
 
-- Note that a sample is *uncertain* in the sense that we cannot tell if a given individual should be in the sample or not based only on the characteristics that define the population (e.g., it is not enough to know that a person is employed to know if she is part of the sample or not)
+.pull-left-wide[
+.small123[**Note:** A sample is *uncertain* in the sense that we cannot tell if a given individual should be in the sample or not based only on the characteristics that define the population (e.g., it is not enough to know that a person is employed to know if she is part of the sample or not)]
+]
+
 
 ---
 # Sample and selection mechanism
 
---
-
+.pull-left-wide[
 - Note that when we deal with real populations, the selection mechanism can be seen as a physical action (roll of a dice, pulling names out of a hat)
-
---
 
 - This is rarely the case for super-populations
 
---
-
 - Regardless of the population, the selection mechanism can be based on:
-  - random occurrence (e.g., rolling a dice, or pulling names off a hat) `\(\Rightarrow\)` **probabilistic selection**
-  - deterministic rule (e.g., always pick bonds priced at 100 kr., choose wages between 150,000 and 250,000 kr) `\(\Rightarrow\)` **systematic selection**
+  - Random occurrence (e.g., rolling a dice, or pulling names off a hat) `\(\Rightarrow\)` **probabilistic selection**
+  - Deterministic rule (e.g., always pick bonds priced at 100 kr., choose wages between 150,000 and 250,000 kr) `\(\Rightarrow\)` **systematic selection**
+]
+
+---
+# .red[Practice: Sample and selection mechanism]
+
+.pull-left-wide[
+**Scenario:** You want to study income levels in Copenhagen.
+
+1. Define a possible sample and describe a selection mechanism you could use.
+
+2. Is your selection mechanism probabilistic or systematic?
+
+3. Why might a probabilistic selection be preferable for making inferences about the population?
+]
+
+
 
 ---
 # Experiment
 
---
-
+.pull-left-wide[
 - **Experiment** = a population, sample, and selection mechanism
-
---
 
 - We are interested in samples because they allow us to infer something about the population, particularly when it is difficult or impossible to observe the population (**induction**)
 
---
-
 - Paradoxically, the more randomness we have in the selection mechanism, the more reliable the inference about the population
-
---
 
 - Example:
   - if we want to analyze prices in the bond market, we do not want to always select bonds priced at 100 kr.; rather, we want to have bonds selected as randomly as possible
+]
+
+
+---
+class: inverse, middle, center
+# What is probability?
+
+---
+class: middle
+# Probability
+
+.pull-left-wide[
+- Paraphrased exam answer: "Since Jenny can either buy 1 or 10 apples, there is 50/50 probability of each"
+- What is the problem with this statement?
+
+]
+
+---
+class: middle
+# A simple coin toss
+.pull-left[
+- How likely is heads?
+- How likely is tails?
+- And what does that mean?
+
+- We will do a few coin tosses in class
+- What is the probability of *heads* or *tails* if we flipped the coin but still haven't revealed the answer?
+]
+
+.pull-right[
+![cointoss](Figures/cointoss.webp)
+]
+
+---
+# Two interpretations of probability
+
+*You can use either interpretation. Which one do you think is more intuitive?*
+
+.pull-left[
+### Frequentist probability
+- The hidden coin, that has been tossed is either *heads* or *tails* with probability = 1
+- *probability* is equal to the *frequency*
+- I.e. if we toss the coin 1000 or 100000 times, then the probability of *heads* and *tails* will reveal themselves
+]
+
+.pull-right[
+### Subjective probability
+- The hidden coin is *heads* with probability 0.5 (and vice versa for *tails*)
+- Probability expresses *information*.
+- I.e. how much do we know about the coin? If prob = 1 (or prob = 0), then we are **certain** otherwise, we are unsure.
+
+]
 
 
 ---
@@ -268,53 +342,74 @@ class: inverse, middle, center
 ---
 # Probability model
 
---
-
+.pull-left-wide[
 - A probability model allows us to formalize uncertainty
-
---
 
 - It consists of three elements:
   - sample space
   - event space
   - probability measure
+]
 
 ---
 # Sample space
 
---
-
+.pull-left-wide[
 &gt; The **sample space** `\(\Omega\)` for an experiment is the set of all the possible outcomes of the experiment.
-
---
 
 - Examples:
   - in the experiment of rolling a dice, `\(\Omega = \{ 1, 2, 3, 4, 5, 6 \}\)`
   - in the experiment of flipping a coin, `\(\Omega = \{ H, T \}\)` (where `\(H\)` represents "heads" and `\(T\)` "tails")
   - in the experiment of flipping a coin twice, `\(\Omega = \{ (H, H), (H, T), (T, H), (T, T) \}\)` (where each pair represents the result of the first toss and of the second toss, respectively)
+]
+
+---
+# .red[Practice: Sample space]
+
+.pull-left-wide[
+**Write down the sample space `\(\Omega\)` for each experiment:**
+
+1. Rolling two dice and recording the sum of the faces.
+
+2. A student takes a multiple choice question with options A, B, C, D.
+
+3. Flipping a coin three times.
+]
+
+
 
 ---
 # Event
 
---
-
+.pull-left-wide[
 &gt; An **event** is a set of outcomes. An event is said to have occurred if one of its outcomes is realized. Formally, an event `\(A\)` is a subset of the sample space: `\(A \subset \Omega\)`.
-
---
 
 - Examples:
   - in the experiment of rolling a dice, an event can be "rolling an odd number": `\(A = \{ 1, 3, 5 \}\)`
   - in the experiment of flipping a coin, an event can be "heads": `\(A = \{ H \}\)`
   - in the experiment of flipping a coin twice, an event can be "getting the same side both times": `\(A = \{ (H, H), (T, T) \}\)`
+]
+
+---
+# .red[Practice: Events]
+
+.pull-left-wide[
+**For the experiment of rolling a dice (`\(\Omega = \{1, 2, 3, 4, 5, 6\}\)`), define the following events as sets:**
+
+1. Event `\(A\)`: "rolling an even number"
+
+2. Event `\(B\)`: "rolling a number greater than 4"
+
+3. Event `\(C\)`: "rolling a number less than or equal to 2"
+]
+
+
 
 ---
 # Event space
 
---
-
+.pull-left-wide[
 &gt; The **event space** is the set of all possible events.
-
---
 
 - Examples:
   - in the experiment of flipping a coin, the event set includes:
@@ -322,15 +417,36 @@ class: inverse, middle, center
     - "tails": `\(A = \{ T \}\)`
     - "heads or tails": `\(A = \{ H, T \}\)` (the sure event)
     - "neither heads nor tails": `\(A = \varnothing\)` (the impossible event)
+]
+
+---
+# A brief introduction to set theory
+
+.pull-left-wide[
+- Events are **sets** of outcomes, so we use **set theory** to work with them
+
+- Key operations on sets:
+  - **Union** ( `\(A \cup B\)` ): elements in `\(A\)` *or* `\(B\)` (or both)
+  - **Intersection** ( `\(A \cap B\)` ): elements in *both* `\(A\)` *and* `\(B\)`
+  - **Complement** ( `\(A^c\)` ): elements *not* in `\(A\)`
+
+- Two sets are **disjoint** (mutually exclusive) if they share no elements: `\(A \cap B = \varnothing\)`
+]
+
+---
+# Venn diagram: Unions, intersections, and complements
+
+.pull-right-wide[
+.pull-left-wide[
+![Venn diagram](Figures/venn_diagram.png)
+]
+]
 
 ---
 # Intersection and union of events
 
---
-
+.pull-left-wide[
 &gt; Let `\(A\)` and `\(B\)` be two events. The **intersection** of `\(A\)` and `\(B\)`, `\(A \cap B\)`, is the set of outcomes that are included in both `\(A\)` and `\(B\)`. The **union** of `\(A\)` and `\(B\)`, `\(A \cup B\)`, is the set of outcomes that are included in `\(A\)`, `\(B\)`, or both.
-
---
 
 - Example (flipping a coin):
   - let `\(A = \{ H \}\)` ("heads") and `\(B = \{ H, T \}\)` ("heads or tails")
@@ -339,31 +455,63 @@ class: inverse, middle, center
   - let `\(A = \{ H \}\)` ("heads") and `\(B = \{ T \}\)` ("tails")
     - intersection: `\(A \cap B = \varnothing\)`
     - union: `\(A \cup B = \{ H, T \}\)`
+]
+
+---
+# .red[Practice: Intersection and union]
+
+.pull-left-wide[
+**Using the events from before (dice roll):**
+- `\(A = \{2, 4, 6\}\)` (even number)
+- `\(B = \{5, 6\}\)` (greater than 4)
+
+**Find:**
+
+1. `\(A \cap B\)` = ?
+
+2. `\(A \cup B\)` = ?
+
+3. Are `\(A\)` and `\(B\)` mutually exclusive (disjoint)? Why or why not?
+]
+
+
 
 ---
 # Complementary event
 
---
-
+.pull-left-wide[
 &gt; Let `\(A\)` be an event. The **complement** of `\(A\)`, `\(A^c\)`, is the set of all the outcomes that are not included in `\(A\)`.
-
---
 
 - Example (flipping a coin):
   - let `\(A = \{ H \}\)` ("heads") `\(\Rightarrow\)` `\(A^c = \{ T \}\)`
   - let `\(A = \{ H, T \}\)` ("heads or tails") `\(\Rightarrow\)` `\(A^c = \varnothing\)`
 
---
-
 - By construction, the complement of `\(A\)` has the following properties:
   - `\(A \cap A^c = \varnothing\)`
   - `\(A \cup A^c = \Omega\)`
+]
+
+---
+# .red[Practice: Complement]
+
+.pull-left-wide[
+**For a dice roll (`\(\Omega = \{1, 2, 3, 4, 5, 6\}\)`):**
+
+Let `\(A = \{1, 2, 3\}\)` ("rolling 3 or less")
+
+1. What is `\(A^c\)`?
+
+2. Verify that `\(A \cap A^c = \varnothing\)`
+
+3. Verify that `\(A \cup A^c = \Omega\)`
+]
+
+
 
 ---
 # Probability measure
 
---
-
+.pull-left-wide[
 &gt; A **probability measure** is a function `\(P(\cdot)\)` that assigns a number (probability) to any event in the event space. This function must satisfy the following conditions:
 &gt;
 &gt; (i) `\(0 \leq P(A) \leq 1\)`, for any event `\(A \subset \Omega\)`;
@@ -371,12 +519,12 @@ class: inverse, middle, center
 &gt; (ii) `\(P(\Omega) = 1\)`, where `\(\Omega\)` is the sure event;
 &gt;
 &gt; (iii) `\(P(A \cup B) = P(A) + P(B)\)`, if the events `\(A\)` and `\(B\)` are mutually exclusive (disjoint), i.e., if `\(A \cap B = \varnothing\)`.
+]
 
 ---
 # Probability measure
 
---
-
+.pull-left-wide[
 - Example: tossing a coin
   - intuitively, what is the probability of each event?
     - "heads" (let this be event `\(A\)`): `\(\frac{1}{2}\)`
@@ -384,18 +532,46 @@ class: inverse, middle, center
     - "either heads or tails" (event `\(\Omega\)`): `\(1\)`
     - "neither heads nor tails" (event `\(\varnothing\)`): `\(0\)`
 
---
-
   - does this define a probability measure?
     - the probability of each event is between `\(0\)` and `\(1\)`
     - `\(P(\Omega) = 1\)`
     - `\(A \cap B = \varnothing\)` and `\(P(A \cup B) = P(\Omega) = 1 = P(A) + P(B)\)`
 
---
-
 - How do we intuitively assign probabilities to events?
   - as 1/number of potential outcomes, if equally likely
   - as relative frequency of outcome, if not equally likely (e.g., picking a ball from an urn with 3 blue and 5 red balls)
+]
+
+---
+# More examples of probability
+.pull-left-wide[
+- Dice:
+  + `\(P(1) = 1/6\)`, `\(P(2) = 1/6\)`, ... `\(P(6) = 1/6\)`
+- Exam passing:
+  + `\(P(\text{pass}) = 0.95\)`, `\(P(\text{fail}) = 0.05\)`
+- Language models (like ChatGPT):
+  + Answers: *what is the probability of each possible next word?*
+  + "Statistics is a course which is [missing]"
+  + `\(P(\text{"nice"}) = 0.21\)`, `\(P(\text{"useful"}) = 0.12\)`, etc.
+
+]
+
+---
+# .red[Practice: Probability measure]
+
+.pull-left-wide[
+**An urn contains 3 red balls, 2 blue balls, and 5 green balls. You draw one ball at random.**
+
+1. What is the sample space?
+
+2. What is `\(P(\text{red})\)`?
+
+3. What is `\(P(\text{blue or green})\)`?
+
+4. Verify that the probabilities of all outcomes sum to 1.
+]
+
+
 
 
 ---
@@ -405,12 +581,9 @@ class: inverse, middle, center
 ---
 # Addition
 
---
-
+.pull-left-wide[
 &gt; Let `\(A\)` and `\(B\)` be two events. Then:
 &gt; `$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$`
-
---
 
 - Example: dice roll
   - let `\(A = \{1, 3, 5\}\)` ("odd number") and `\(B = \{ 1, 2, 3\}\)` ("less than 4")
@@ -421,25 +594,40 @@ class: inverse, middle, center
     - `\(P(B) = P(\{1, 2, 3\}) = \frac{3}{6}\)`
     - `\(A \cap B = \{1, 3\}\)` `\(\Rightarrow\)` `\(P(A \cap B) = P(\{1, 3\}) = \frac{2}{6}\)`
     - `\(P(A) + P(B) - P(A \cap B) = \frac{3}{6} + \frac{3}{6} - \frac{2}{6} = \frac{4}{6} = P(A \cup B)\)`
+]
 
 ---
 # Addition
 
---
-
+.pull-left-wide[
 - We can now derive some properties of probabilities involving the complement of an event:
-
---
 
   - `\(P(A \cup A^c) = P(\Omega) = 1\)` `\(\Rightarrow\)` `\(P(A^c) = 1 - P(A)\)`
 
---
-
   - `\(P(A \cap A^c) = P(\varnothing) = 0\)`
 
---
-
   - `\(P(A) = P(A \cap B) + P(A \cap B^c)\)`
+]
+
+---
+# .red[Practice: Addition rule]
+
+.pull-left-wide[
+**In a class of 30 students:**
+- 18 students study economics
+- 12 students study statistics
+- 8 students study both economics and statistics
+
+Let `\(A\)` = "studies economics" and `\(B\)` = "studies statistics"
+
+1. What is `\(P(A)\)`, `\(P(B)\)`, and `\(P(A \cap B)\)`?
+
+2. Use the addition rule to find `\(P(A \cup B)\)` — the probability that a randomly selected student studies economics or statistics (or both).
+
+3. What is `\(P(A^c)\)`? Interpret this in words.
+]
+
+
 
 
 ---
@@ -449,40 +637,48 @@ class: inverse, middle, center
 ---
 # Conditional probability
 
---
-
+.pull-left-wide[
 - Sometimes, it is possible to use information about a past event to infer something about a future event
 
---
-
 - For example, knowing how much it has rained until summer can help predict the crop for the year
-
---
 
 &gt; The **conditional probability of event `\(A\)` given event `\(B\)`** is defined as:
 &gt; `$$P(A | B) = \frac{P(A \cap B)}{P(B)}$$`
 &gt; provided that `\(P(B) &gt; 0\)`.
+]
 
 ---
 # Conditional probability
 
---
-
+.pull-left-wide[
 - We can extend this notion to situations when we have prior knowledge of more than one event, say `\(B\)` and `\(C\)`
-
---
 
 - We can then define the probability of event `\(A\)` conditional on both `\(B\)` and `\(C\)`: `\(P(A | B, C)\)`
 
---
-
 - Since we need both `\(B\)` and `\(C\)` to realize, this is equivalent to the realization of `\((B \cap C)\)`
-
---
 
 - Let `\(D = B \cap C\)`. We can then write:
 
 `$$P(A | B, C) = P\big(A | (B \cap C) \big) = P(A | D) = \frac{P(A \cap D)}{P(D)} = \frac{P(A \cap B \cap C)}{P(B \cap C)}$$`
+]
+
+---
+# .red[Practice: Conditional probability]
+
+.pull-left-wide[
+**Using the class example from before:**
+- 30 students total
+- 18 study economics, 12 study statistics, 8 study both
+
+1. What is `\(P(\text{statistics} | \text{economics})\)`?
+   - *i.e., if a student studies economics, what is the probability they also study statistics?*
+
+2. What is `\(P(\text{economics} | \text{statistics})\)`?
+
+3. Are these two conditional probabilities the same? Why or why not?
+]
+
+
 
 
 ---
@@ -492,83 +688,93 @@ class: inverse, middle, center
 ---
 # Independence
 
---
-
+.pull-left-wide[
 &gt; Two events `\(A\)` and `\(B\)` are **independent** if and only if
 &gt; `$$P(A \cap B) = P(A) \cdot P(B)$$`
-
---
 
 - This implies the following:
   - `\(P(A | B) = P(A)\)` whenever `\(P(B) &gt; 0\)`
   - `\(P(B | A) = P(B)\)` whenever `\(P(A) &gt; 0\)`
 
---
-
 - Intuitively, `\(A\)` and `\(B\)` are independent if the fact that we observe that one of them realized does not give us any information about how likely the other is to realize
-
---
 
 - Two independent events are unrelated
 
---
-
 - However, two dependent events are not necessarily directly connected (remember the night light example?)
+]
+
+---
+# .red[Practice: Independence]
+
+.pull-left-wide[
+**You roll a fair dice twice.**
+
+Let `\(A\)` = "first roll is a 6" and `\(B\)` = "second roll is a 6"
+
+1. What is `\(P(A)\)` and `\(P(B)\)`?
+
+2. What is `\(P(A \cap B)\)` (both rolls are 6)?
+
+3. Check: does `\(P(A \cap B) = P(A) \cdot P(B)\)`?
+
+4. Are `\(A\)` and `\(B\)` independent? Does this match your intuition?
+]
+
+
 
 ---
 # Dependence and conditional independence
 
---
-
+.pull-left-wide[
 - If there is a third factor that can explain the apparent relationship between two events, then we can talk about conditional independence
-
---
 
 &gt; Two events `\(A\)` and `\(B\)` are **independent conditional on event `\(C\)`** (where `\(P(C) &gt; 0\)`) if and only if
 &gt; `$$P(A \cap B | C) = P(A | C) \cdot P(B | C)$$`
-
---
 
 - This implies the following:
   - `\(P(A | B, C) = P(A | C)\)` whenever `\(P(B) &gt; 0\)`
   - `\(P(B | A, C) = P(B | C)\)` whenever `\(P(A) &gt; 0\)`
 
---
-
 - In other words, if you already know that event `\(C\)` realized, the fact that we observe that one of `\(A\)` or `\(B\)` realized does not give us any information about how likely the other is to realize
+]
 
 ---
 # Direct, indirect and spurious correlation
 
---
-
+.pull-left-wide[
 - Many statistical studies look at the relationship between two quantities
 
---
-
 - You should always consider whether the study has taken into account the possibility that other entities (factors) may be the underlying cause of the relationship
-
---
 
 - There are three situations where we may find a relationship between `\(A\)` and `\(B\)`:
   - they depend directly on each other (*direct dependence*): either `\(A\)` determines `\(B\)` ( `\(A \rightarrow B\)` ) or vice-versa ( `\(B \rightarrow A\)` )
   - they depend indirectly on each other through a third factor `\(C\)` (*indirect dependence*): `\(A \rightarrow C \rightarrow B\)`, or `\(B \rightarrow C \rightarrow A\)`
   - they do not depend on each other, but both depend on a third factor `\(C\)` (*spurious correlation*): `\(C \rightarrow A\)` and `\(C \rightarrow B\)`
 
---
-
 - When we talk about causality, we have in mind the first situation
+]
 
 ---
 # Direct, indirect and spurious correlation
 
---
-
+.pull-left-wide[
 - You can (or should be able to) figure out if that is the case by checking if a third factor `\(C\)` exists such that `\(A\)` and `\(B\)` are conditionally independent
 
---
-
 - In our night light example: are child myopia and use of night lights directly related, indirectly related, or are they conditionally independent?
+]
+
+
+---
+# Next time
+.pull-left[
+- Random variables
+
+]
+
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
