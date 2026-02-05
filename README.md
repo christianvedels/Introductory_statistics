@@ -1,6 +1,6 @@
-# Introductory Statistics
+# Statistics
 
-> Here you can find an overview of what is covered during the semester. Keep an eye on ItsLearning for updates.
+> Here you can find an overview of what is covered during the semester. This will change during the semester. Keep an eye on ItsLearning for updates.
 
 ### A few reading tips
 You don't need to read statistics from A to Z. Start with a question and use the chapter to find the answer. First skim headings, figures, and examples so you know what the details are for, and pause at definitions. Can you explain them in your own words and give a small example?
@@ -13,22 +13,22 @@ When it gets difficult, pay extra attention. Your brain quickly finds "good reas
 
 ## Semester plan
 
-| Week    | Reading      | Lectures                                               | Slides | Notes    |
-| ------- | ------------ | ------------------------------------------------------ | ------ | -------- |
-| Week 6  | Ch. 3        | 2026-02-05 (12:00-14:00)<br>2026-02-06 (10:00-12:00)   | [01_Intro](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/01_Introduction/Slides.html)       |          |
-| Week 7  | Ch. 3        | 2026-02-10 (10:00-12:00)<br>2026-02-13 (10:00-12:00)   |        |          |
-| Week 8  | Ch. 4        | 2026-02-17 (10:00-12:00)<br>2026-02-20 (10:00-12:00)   |        |          |
-| Week 9  | Ch. 4        | 2026-02-24 (10:00-12:00)<br>2026-02-27 (10:00-12:00)   |        |          |
-| Week 10 | Ch. 5        | 2026-03-03 (10:00-12:00)<br>2026-03-06 (10:00-12:00)   |        |          |
-| Week 11 | Ch. 6        | 2026-03-10 (10:00-12:00)<br>2026-03-13 (10:00-12:00)   |        |          |
-| Week 12 | Ch. 6, 7     | 2026-03-17 (10:00-12:00)<br>2026-03-20 (10:00-12:00)   |        |          |
-| Week 13 | Ch. 7, 9     | 2026-03-24 (10:00-12:00)<br>2026-03-27 (10:00-12:00)*  |        |          |
-| Week 14 | *Easter*     |                                                        |        |          |
-| Week 16 | Ch. 9, 10    | 2026-04-07 (10:00-12:00)<br>2026-04-10 (10:00-12:00)*  |        |          |
-| Week 17 | Ch. 11       | 2026-04-14 (10:00-12:00)<br>2026-04-17 (10:00-12:00)   |        |          |
-| Week 18 | Ch. 12, 13   | 2026-04-21 (10:00-12:00)<br>2026-04-24 (10:00-12:00)   |        |          |
-| Week 19 | Ch. 13, 14   | 2026-04-28 (10:00-12:00)                               |        |          |
-| Week 20 | Ch. 14       | 2026-05-05 (10:00-12:00)<br>2026-05-08 (10:00-12:00)   |        |          |
-| Week 21 | Ch. 15, 16   | 2026-05-12 (10:00-12:00)<br>2026-05-15 (10:00-12:00)   |        |          |
-| Week 21 | Ch. 16, 17   | 2026-05-19 (10:00-12:00)<br>2026-05-22 (10:00-12:00)   |        |          |
-| Week 22 | Buffer / Q&A | 2026-05-26 (10:00-12:00)*<br>2026-05-29 (10:00-12:00)* |        | *Online* |
+| Week    | Topic                          | Reading      | Lectures                                               | Slides |
+| ------- | ------------------------------ | ------------ | ------------------------------------------------------ | ------ |
+| Week 6  | Intro + Uncertainty            | Ch. 3        | 2026-02-05 (12:00-14:00)<br>2026-02-06 (10:00-12:00)   |        |
+| Week 7  | Uncertainty                    | Ch. 3        | 2026-02-10 (10:00-12:00)<br>2026-02-13 (10:00-12:00)   |        |
+| Week 8  | Random Variables               | Ch. 4        | 2026-02-17 (10:00-12:00)<br>2026-02-20 (10:00-12:00)   |        |
+| Week 9  | Random Variables               | Ch. 4        | 2026-02-24 (10:00-12:00)<br>2026-02-27 (10:00-12:00)   |        |
+| Week 10 | Descriptive Measures           | Ch. 5        | 2026-03-03 (10:00-12:00)<br>2026-03-06 (10:00-12:00)   |        |
+| Week 11 | Distributions                  | Ch. 6        | 2026-03-10 (10:00-12:00)<br>2026-03-13 (10:00-12:00)   |        |
+| Week 12 | Distributions, Stochastics      | Ch. 6, 7     | 2026-03-17 (10:00-12:00)<br>2026-03-20 (10:00-12:00)   |        |
+| Week 13 | Stochastics, Sampling           | Ch. 7, 9     | 2026-03-24 (10:00-12:00)<br>2026-03-27 (10:00-12:00)*  |        |
+| Week 14 | *Easter*                       | *Easter*     |                                                        |        |
+| Week 16 | Sampling, Mean Estimation      | Ch. 9, 10    | 2026-04-07 (10:00-12:00)<br>2026-04-10 (10:00-12:00)*  |        |
+| Week 17 | Stratified/Cluster Sampling    | Ch. 11       | 2026-04-14 (10:00-12:00)<br>2026-04-17 (10:00-12:00)   |        |
+| Week 18 | Estimators, Confidence Int.    | Ch. 12, 13   | 2026-04-21 (10:00-12:00)<br>2026-04-24 (10:00-12:00)   |        |
+| Week 19 | Confidence Int., Hyp. Testing  | Ch. 13, 14   | 2026-04-28 (10:00-12:00)                               |        |
+| Week 20 | Hypothesis Testing             | Ch. 14       | 2026-05-05 (10:00-12:00)<br>2026-05-08 (10:00-12:00)   |        |
+| Week 21 | Testing Quant., Testing Qual.  | Ch. 15, 16   | 2026-05-12 (10:00-12:00)<br>2026-05-15 (10:00-12:00)   |        |
+| Week 21 | Testing Qual., Regression      | Ch. 16, 17   | 2026-05-19 (10:00-12:00)<br>2026-05-22 (10:00-12:00)   |        |
+| Week 22 | Buffer / Q&A (Online)          | Buffer / Q&A | 2026-05-26 (10:00-12:00)*<br>2026-05-29 (10:00-12:00)* |        |
