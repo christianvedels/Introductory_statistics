@@ -14,7 +14,7 @@ When it gets difficult, pay extra attention. Your brain quickly finds "good reas
 
 | Week    | Topic                          | Reading      | Lectures                                               | Slides |
 | ------- | ------------------------------ | ------------ | ------------------------------------------------------ | ------ |
-| Week 6  | Intro + Uncertainty            | Ch. 3        | 2026-02-05 (12:00-14:00); 2026-02-06 (10:00-12:00)     | [01_Slides]        |
+| Week 6  | Intro + Uncertainty            | Ch. 3        | 2026-02-05 (12:00-14:00); 2026-02-06 (10:00-12:00)     | [01_Slides](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/01_Introduction/Slides.html#1) |
 | Week 7  | Uncertainty                    | Ch. 3        | 2026-02-10 (10:00-12:00); 2026-02-13 (10:00-12:00)     |        |
 | Week 8  | Random Variables               | Ch. 4        | 2026-02-17 (10:00-12:00); 2026-02-20 (10:00-12:00)     |        |
 | Week 9  | Random Variables               | Ch. 4        | 2026-02-24 (10:00-12:00); 2026-02-27 (10:00-12:00)     |        |
