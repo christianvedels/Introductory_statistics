@@ -1,0 +1,177 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{comment}
+\usepackage{enumitem}
+
+\newcommand{\Prob}{\mathbb{P}}
+
+\title{\textbf{Statistics - Problem Set 2}}
+\date{} % keep blank
+
+\begin{document}
+\maketitle
+
+\section*{Question 1}
+An insurance company classifies car accidents into three categories: ``minor'', ``moderate'', and ``severe''. Based on historical data, the probability of a reported accident being minor is 0.6, and the probability of it being moderate is 0.25. The company collects data. We generate a new observation every time a customer files a claim. The experiment is: A customer files a claim. 
+
+\begin{enumerate}[label=\alph*)]
+\item Identify the sample space for this experiment.
+
+% Answer
+The experiment is observing the classification of a reported car accident. The sample space consists of all possible classifications:
+\[
+\Omega = \{\text{minor}, \text{moderate}, \text{severe}\}.
+\]
+
+\item What is the probability of a severe accident?
+
+% Answer
+The three categories are mutually exclusive and exhaustive (every accident belongs to exactly one category), so their probabilities must sum to 1:
+\[
+\Prob(\text{minor}) + \Prob(\text{moderate}) + \Prob(\text{severe}) = 1.
+\]
+Substituting:
+\[
+0.6 + 0.25 + \Prob(\text{severe}) = 1 \quad \Rightarrow \quad \Prob(\text{severe}) = 1 - 0.6 - 0.25 = 0.15.
+\]
+So the probability of a severe accident is 15\%.
+
+
+\item What is the probability that a reported accident is \emph{not} minor?
+
+% Answer
+The event ``not minor'' is the complement of the event ``minor''. Using the complement rule:
+\[
+\Prob(\text{not minor}) = 1 - \Prob(\text{minor}) = 1 - 0.6 = 0.4.
+\]
+Alternatively, we can note that ``not minor'' is the union of the disjoint events ``moderate'' and ``severe'':
+\[
+\Prob(\text{not minor}) = \Prob(\text{moderate}) + \Prob(\text{severe}) = 0.25 + 0.15 = 0.4.
+\]
+
+\item What is the probability that a reported accident is either minor or moderate?
+
+% Answer
+The events ``minor'' and ``moderate'' are mutually exclusive (an accident cannot be classified as both at the same time). Therefore:
+\[
+\Prob(\text{minor} \cup \text{moderate}) = \Prob(\text{minor}) + \Prob(\text{moderate}) = 0.6 + 0.25 = 0.85.
+\]
+
+\end{enumerate}
+
+
+\section*{Question 2}
+A university cafeteria surveys 200 students about their lunch preferences. The results show:
+\begin{itemize}
+\item 120 students like pizza (event $A$)
+\item 90 students like sushi (event $B$)
+\item 50 students like both pizza and sushi
+\end{itemize}
+
+\begin{enumerate}[label=\alph*)]
+\item What is the probability that a randomly selected student likes pizza or sushi (or both)?
+
+% Answer
+Using the addition rule:
+\[
+\Prob(A \cup B) = \Prob(A) + \Prob(B) - \Prob(A \cap B).
+\]
+Substituting the values:
+\[
+\Prob(A) = \frac{120}{200} = 0.6, \qquad \Prob(B) = \frac{90}{200} = 0.45, \qquad \Prob(A \cap B) = \frac{50}{200} = 0.25.
+\]
+\[
+\Prob(A \cup B) = 0.6 + 0.45 - 0.25 = 0.8.
+\]
+So there is an 80\% probability that a randomly selected student likes pizza or sushi (or both).
+
+
+\item What is the probability that a randomly selected student likes neither pizza nor sushi?
+
+% Answer
+The event ``likes neither pizza nor sushi'' is the complement of the event ``likes pizza or sushi (or both)'':
+\[
+\Prob(\text{neither}) = \Prob\big((A \cup B)^c\big) = 1 - \Prob(A \cup B) = 1 - 0.8 = 0.2.
+\]
+So there is a 20\% probability that a randomly selected student likes neither pizza nor sushi. In terms of the count: $200 \times 0.2 = 40$ students like neither.
+
+
+\item What is the probability that a randomly selected student likes pizza but not sushi?
+
+% Answer
+The event ``likes pizza but not sushi'' is the event $A \cap B^c$. Using the property $\Prob(A) = \Prob(A \cap B) + \Prob(A \cap B^c)$:
+\[
+\Prob(A \cap B^c) = \Prob(A) - \Prob(A \cap B) = 0.6 - 0.25 = 0.35.
+\]
+So there is a 35\% probability that a randomly selected student likes pizza but not sushi. In terms of the count: $120 - 50 = 70$ students like pizza but not sushi, and $70/200 = 0.35$.
+
+
+\item Are the events $A$ and $B$ mutually exclusive? Explain.
+
+% Answer
+Two events are mutually exclusive (disjoint) if they cannot occur at the same time, i.e., if $A \cap B = \varnothing$. In this case, $\Prob(A \cap B) = 0.25 \neq 0$, which means that 50 students like both pizza and sushi. Therefore, the events $A$ and $B$ are \textbf{not} mutually exclusive.
+
+\end{enumerate}
+
+
+\section*{Question 3}
+A medical test is used to screen for a rare disease. In a group of 1,000 patients:
+\begin{itemize}
+\item 50 patients have the disease (event $D$)
+\item 100 patients test positive (event $T$)
+\item 45 patients both have the disease and test positive
+\end{itemize}
+
+\begin{enumerate}[label=\alph*)]
+\item What is the probability that a patient with the disease tests positive?
+
+% Answer
+We want $\Prob(T \mid D)$, the probability of testing positive given that the patient has the disease:
+\[
+\Prob(T \mid D) = \frac{\Prob(T \cap D)}{\Prob(D)} = \frac{45/1000}{50/1000} = \frac{45}{50} = 0.9.
+\]
+So, given that a patient has the disease, there is a 90\% probability that the test correctly identifies them as positive.
+
+\item What is the probability that a patient who tests positive actually has the disease? Express this as a conditional probability and compute it.
+
+% Answer
+We want $\Prob(D \mid T)$, the probability of having the disease given a positive test result. Using the definition of conditional probability:
+\[
+\Prob(D \mid T) = \frac{\Prob(D \cap T)}{\Prob(T)} = \frac{45/1000}{100/1000} = \frac{45}{100} = 0.45.
+\]
+So, given a positive test result, there is only a 45\% probability that the patient actually has the disease. This shows that even a positive test does not guarantee the presence of the disease.
+
+
+
+
+
+\item Compare your answers to parts a) and b). Explain in words why $\Prob(D \mid T) \neq \Prob(T \mid D)$.
+
+% Answer
+The two conditional probabilities are not the same because they condition on different events:
+\begin{itemize}
+\item $\Prob(D \mid T) = 0.45$: among the 100 patients who test positive, 45 actually have the disease. The ``universe'' is the set of positive-testing patients.
+\item $\Prob(T \mid D) = 0.9$: among the 50 patients who have the disease, 45 test positive. The ``universe'' is the set of diseased patients.
+\end{itemize}
+In general, $\Prob(A \mid B) \neq \Prob(B \mid A)$ because the denominators differ. This distinction is crucial in medical testing: a test can be very good at detecting the disease when it is present ($\Prob(T \mid D) = 0.9$), yet a positive result may not be a reliable indicator of disease ($\Prob(D \mid T) = 0.45$), especially when the disease is rare.
+
+
+\item Are the events $D$ and $T$ independent? Show your reasoning.
+
+% Answer
+Two events are independent if and only if $\Prob(D \cap T) = \Prob(D) \cdot \Prob(T)$. Let us check:
+\[
+\Prob(D) \cdot \Prob(T) = \frac{50}{1000} \times \frac{100}{1000} = 0.05 \times 0.1 = 0.005.
+\]
+\[
+\Prob(D \cap T) = \frac{45}{1000} = 0.045.
+\]
+Since $0.045 \neq 0.005$, the events $D$ and $T$ are \textbf{not} independent.
+
+This makes sense intuitively: the test is designed to detect the disease, so having the disease makes it more likely that you test positive, and vice versa. Knowing the result of the test gives us information about the probability of having the disease.
+
+\end{enumerate}
+
+\end{document}
