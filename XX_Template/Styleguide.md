@@ -89,6 +89,10 @@ Keep divider content short (typically one section title).
 3. **Comparison slides**: use `.pull-left[]` + `.pull-right[]` (balanced columns).
 4. **Figure-only emphasis**: use `.center[]` around image where useful.
 5. **Footnotes / side notes**: use `.small123[]`, optionally inside `.footnote[]`.
+6. **When a slide overflows**, fix it in this priority order:
+	1. **Shorten** — reduce wordiness, combine related points (e.g. merge a verbal description with its formula into one bullet).
+	2. **Split** — break into two consecutive slides with the same or similar title.
+	3. **Side-by-side** — use `.pull-left[]` + `.pull-right[]` only when the content is naturally parallel (e.g. definition vs. example).
 
 ---
 
@@ -111,7 +115,7 @@ Keep divider content short (typically one section title).
 - Include practice slides throughout the lecture.
 - As a default rule, add at least one practice slide per major concept/section.
 - Existing pattern: red heading label, e.g. `# .red[Practice: ...]`.
-- Optional hidden teacher answer chunk:
+- Always include a hidden teacher answer chunk:
 	- `eval=FALSE, include=FALSE`
 
 ### Tone
