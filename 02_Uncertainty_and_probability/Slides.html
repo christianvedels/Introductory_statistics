@@ -112,7 +112,7 @@ class: center, inverse, middle
 
 ### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
-### Updated 2026-02-06
+### Updated 2026-02-13
 
 
 .footnote[
@@ -761,6 +761,29 @@ Let `\(A\)` = "first roll is a 6" and `\(B\)` = "second roll is a 6"
 - You can (or should be able to) figure out if that is the case by checking if a third factor `\(C\)` exists such that `\(A\)` and `\(B\)` are conditionally independent
 
 - In our night light example: are child myopia and use of night lights directly related, indirectly related, or are they conditionally independent?
+]
+
+---
+class: middle
+# Reichenbach's common cause principle
+*Extra material. We will cover this with different intuition later again.*
+
+.pull-left-wide[
+- If `\(A\)` and `\(B\)` are statistically dependent, then typically either 
+1. `\(A \rightarrow B\)`, 
+2. `\(B \rightarrow A\)`, or 
+3. there exists a *common cause* `\(C\)` with `\(C \rightarrow A\)` and `\(C \rightarrow B\)`.
+
+- In the common-cause case, `\(C\)` *screens off* the association:
+$$
+P(A \cap B \mid C)=P(A\mid C)\,P(B\mid C)
+\quad\Rightarrow\quad
+P(A\mid B,C)=P(A\mid C).
+$$
+
+&gt; Consequence: If A and B are only depends via C, then 'controlling' for C should make A and B independent. If not, then there is a direct relationship between A and B.
+
+- Empirical takeaway: The hard part is finding (and measuring) the right `\(C\)`; if `\(C\)` is hidden, statistics can be mislead.
 ]
 
 
