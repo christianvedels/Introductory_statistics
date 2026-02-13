@@ -781,6 +781,10 @@ class: inverse, middle, center
 - However, two dependent events are not necessarily directly connected (remember the night light example?)
 ]
 
+.footnote[
+**Note:** We often write $A \perp B$ to denote that $A$ and $B$ are independent.
+]
+
 ---
 # .red[Practice: Independence]
 

@@ -100,6 +100,14 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 ### Updated `r Sys.Date()`
 
+.footnote[
+.left[
+.small123[
+*Please beware. I work on these slides until the last minute before the lecture and push most changes along the way. Until the actual lecture, this is just a draft*
+]
+]
+]
+
 
 ---
 # This lecture
@@ -118,6 +126,22 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 ]
 
+---
+# From events to random variables
+
+.pull-left-wide[
+- Last time: outcomes $\omega \in \Omega$, events $A \subseteq \Omega$, and probabilities $P(A)$.
+
+- In applications we usually care about a *numerical* quantity (wage, price, number of children, etc.).
+
+- A **random variable** assigns a number to each outcome: $X:\Omega \to \mathbb{R}$.
+
+- Then we ask questions like:
+  - discrete: $P(X = x)$
+  - continuous: $P(a < X \le b)$
+]
+
+
 
 
 ---
@@ -127,20 +151,16 @@ class: inverse, middle, center
 ---
 # Random variable
 
---
-
 .pull-left-wide[
-> A **random variable** is a *function* that assigns a numerical value to any outcome of an experiment.
-]
+- Start with a probability model: outcomes $\omega \in \Omega$ and probabilities $P(\cdot)$.
 
---
+- A random variable simply *labels each outcome with a number*.
 
-.pull-left-wide[
+> A **random variable** is a function $X:\Omega\to\mathbb{R}$.
+
 - Examples:
-  - in the experiment of tossing a coin, we could have:
-$$X(\text{"heads"}) = 0, \quad X(\text{"tails"}) = 1$$
-  - in the experiment of rolling a dice, we could have:
-$$X(1) = 1, \; X(2) = 2, \; X(3) = 3, \; X(4) = 4, \; X(5) = 5, \; X(6) = 6$$
+  - coin toss ($\Omega=\{H,T\}$): $$X(H)=0,\quad X(T)=1$$
+  - dice roll ($\Omega=\{1,2,3,4,5,6\}$): $$X(k)=k \text{ for } k=1,\dots,6$$
 ]
 
 ---
@@ -205,6 +225,79 @@ $$X(1) = 1, \; X(2) = 2, \; X(3) = 3, \; X(4) = 4, \; X(5) = 5, \; X(6) = 6$$
 3. Give one alternative coding of the same experiment and explain why it is still a valid random variable.
 
 ]
+
+---
+class: middle
+# Why this can feel confusing
+
+.pull-left-wide[
+- We introduce *two* functions that both output numbers — so it’s easy to mix them up:
+
+  - **Probability measure:** $P:\mathcal{F}\to[0,1]$  
+    input = an **event** $A\subseteq\Omega$ (a set of outcomes)  
+    output = a **probability**
+
+  - **Random variable:** $X:\Omega\to\mathbb{R}$  
+    input = an **outcome** $\omega\in\Omega$  
+    output = a **numerical value** (wage, indicator, count, etc.)
+
+- The numbers from $X$ are *not* probabilities. They’re just recorded values.
+
+- We talk about probabilities again because we want probabilities of *statements about those values* (e.g. "$X\le x$").
+]
+
+---
+class: middle
+# Random variables on firm conceptual ground
+
+.pull-left-wide[
+**Think in two steps: measurement $\rightarrow$ uncertainty**
+
+1) **Measurement rule:** choose what you record from each outcome  
+   $X:\Omega\to\mathbb{R}$ maps $\omega \mapsto X(\omega)$.
+
+2) **Uncertainty about what you record:** probabilities come from $P$ on events.  
+   Any statement about $X$ defines an event in $\Omega$:
+   $$\{X\le x\}=\{\omega\in\Omega:\ X(\omega)\le x\}.$$
+
+   Then we *define* probabilities about $X$ using $P$:
+   $$P(X\le x)\equiv P(\{\omega:\ X(\omega)\le x\}).$$
+
+- Example (coin): $\Omega=\{H,T\}$, $X(H)=0$, $X(T)=1$  
+  Then $P(X=1)=P(\{T\})$.
+]
+
+
+---
+# Overview of concepts thusfar
+
+### Concept hierarchy (Lectures 02–03)
+
+.pull-left[
+1. **World / research question** $\rightarrow$ **uncertainty**
+
+2. **Population / super-population**
+  - we observe a **sample** via a **selection mechanism**
+  - (population + selection + sample) = **experiment**
+
+3. **Probability model** $(\Omega,\mathcal{F},P)$
+  - outcomes $\omega \in \Omega$
+  - events $A \subseteq \Omega$, with $A \in \mathcal{F}$
+  - probabilities $P(A)$
+]
+
+.pull-right[
+4. **Derived tools**
+  - conditional probability $P(A\mid B)$
+  - independence $A \perp B$
+  - conditional independence $A \perp B \mid C$
+
+5. **Random variables**: turn outcomes into numbers
+  - $X:\Omega\to\mathbb{R}$
+  - $P(X\le x)=P(\{\omega: X(\omega)\le x\})$
+  - discrete: $P(X=x)$, continuous: $P(a<X\le b)$
+]
+
 
 
 ---
