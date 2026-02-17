@@ -112,7 +112,7 @@ class: center, inverse, middle
 
 ### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
-### Updated 2026-02-13
+### Updated 2026-02-16
 
 .footnote[
 .left[
@@ -255,30 +255,8 @@ class: middle
     input = an **outcome** `\(\omega\in\Omega\)`  
     output = a **numerical value** (wage, indicator, count, etc.)
 
-- The numbers from `\(X\)` are *not* probabilities. They’re just recorded values.
+&gt; *Probability measures* are the functions that assign probabilities to *events*, while *random variables* is just a way of describing those events. **Which we will then assign probabilities to using the probability measure.**
 
-- We talk about probabilities again because we want probabilities of *statements about those values* (e.g. "$X\le x$").
-]
-
----
-class: middle
-# Random variables on firm conceptual ground
-
-.pull-left-wide[
-**Think in two steps: measurement `\(\rightarrow\)` uncertainty**
-
-1) **Measurement rule:** choose what you record from each outcome  
-   `\(X:\Omega\to\mathbb{R}\)` maps `\(\omega \mapsto X(\omega)\)`.
-
-2) **Uncertainty about what you record:** probabilities come from `\(P\)` on events.  
-   Any statement about `\(X\)` defines an event in `\(\Omega\)`:
-   `$$\{X\le x\}=\{\omega\in\Omega:\ X(\omega)\le x\}.$$`
-
-   Then we *define* probabilities about `\(X\)` using `\(P\)`:
-   `$$P(X\le x)\equiv P(\{\omega:\ X(\omega)\le x\}).$$`
-
-- Example (coin): `\(\Omega=\{H,T\}\)`, `\(X(H)=0\)`, `\(X(T)=1\)`  
-  Then `\(P(X=1)=P(\{T\})\)`.
 ]
 
 
@@ -288,28 +266,32 @@ class: middle
 ### Concept hierarchy (Lectures 02–03)
 
 .pull-left[
-1. **World / research question** `\(\rightarrow\)` **uncertainty**
+**World / research question** `\(\rightarrow\)` **uncertainty**
 
-2. **Population / super-population**
+**Population / super-population**
   - we observe a **sample** via a **selection mechanism**
   - (population + selection + sample) = **experiment**
 
-3. **Probability model** `\((\Omega,\mathcal{F},P)\)`
+**Probability model** `\((\Omega,\mathcal{F},P)\)`
   - outcomes `\(\omega \in \Omega\)`
   - events `\(A \subseteq \Omega\)`, with `\(A \in \mathcal{F}\)`
   - probabilities `\(P(A)\)`
 ]
 
 .pull-right[
-4. **Derived tools**
+**Derived tools**
   - conditional probability `\(P(A\mid B)\)`
   - independence `\(A \perp B\)`
   - conditional independence `\(A \perp B \mid C\)`
 
-5. **Random variables**: turn outcomes into numbers
+
+.red[
+**Random variables**: turn outcomes into numbers
   - `\(X:\Omega\to\mathbb{R}\)`
   - `\(P(X\le x)=P(\{\omega: X(\omega)\le x\})\)`
   - discrete: `\(P(X=x)\)`, continuous: `\(P(a&lt;X\le b)\)`
+]
+
 ]
 
 

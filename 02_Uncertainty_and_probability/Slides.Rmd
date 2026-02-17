@@ -668,6 +668,8 @@ class: inverse, middle, center
 - 12 students study statistics
 - 8 students study both economics and statistics
 
+.small123[**Hint**: This implies. There are students that study neither economics nor statistics.]
+
 Let $A$ = "studies economics" and $B$ = "studies statistics"
 
 1. What is $P(A)$, $P(B)$, and $P(A \cap B)$?
@@ -866,7 +868,7 @@ class: middle
 *Extra material. We will cover this with different intuition later again.*
 
 .pull-left-wide[
-- If $A$ and $B$ are statistically dependent, then typically either 
+- If $A$ and $B$ are statistically dependent, then either 
 1. $A \rightarrow B$, 
 2. $B \rightarrow A$, or 
 3. there exists a *common cause* $C$ with $C \rightarrow A$ and $C \rightarrow B$.
@@ -878,7 +880,7 @@ P(A \cap B \mid C)=P(A\mid C)\,P(B\mid C)
 P(A\mid B,C)=P(A\mid C).
 $$
 
-> Consequence: If A and B are only depends via C, then 'controlling' for C should make A and B independent. If not, then there is a direct relationship between A and B.
+> Consequence: If A and B are only depends via C, then condition on C - 'controlling for C' - should make A and B independent. If not, then there is a direct relationship between A and B.
 
 - Empirical takeaway: The hard part is finding (and measuring) the right $C$; if $C$ is hidden, statistics can be mislead.
 ]
