@@ -117,6 +117,64 @@ Keep divider content short (typically one section title).
 - Existing pattern: red heading label, e.g. `# .red[Practice: ...]`.
 - Always include a hidden teacher answer chunk:
 	- `eval=FALSE, include=FALSE`
+- Answers must **never** appear in the rendered slides — always hidden in code chunks.
+
+### Raise your hand slides
+
+Use `# .red[Raise your hand: ...]` slides for in-class multiple choice discussion. These differ from practice slides in that they are designed to provoke debate, not just compute.
+
+**Design principle — all wrong answers must be defensible:**
+- Every option (A, B, C) must have a plausible argument a student could make.
+- Wrong options should target specific, named misconceptions.
+- The correct answer must be unambiguous to someone who knows the statistics.
+- Teacher notes in the hidden chunk should explain *why* each wrong answer is tempting.
+
+**Layout:**
+
+```rmd
+---
+# .red[Raise your hand: <topic>]
+
+` `` `{r echo=FALSE}
+library(countdown)
+countdown(1, 0, top=TRUE)
+` `` `
+
+.pull-left-wide[
+**Q1.** <question text>
+
+- **A)** <option> — <brief label>
+- **B)** <option> — <brief label>
+- **C)** <option> — <brief label>
+
+**Q2.** <question text>
+
+- **A)** <option> — <brief label>
+- **B)** <option> — <brief label>
+- **C)** <option> — <brief label>
+]
+
+` `` `{r <chunk-name>, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# Q1: Answer X — <one-line summary>
+#   A: <why this option is tempting / what misconception it reflects>
+#   B: <why this option is tempting / what misconception it reflects>
+#   C: <why this option is tempting / what misconception it reflects>
+#
+# Q2: Answer X — <one-line summary>
+#   A: ...
+#   B: ...
+#   C: ...
+` `` `
+```
+
+**Rules:**
+- Include a `countdown(1, 0, top=TRUE)` timer (1 minute) at the top of every raise-your-hand slide.
+- Put 2–3 questions per slide inside `.pull-left-wide[]`.
+- Use `--` between questions only if you want to reveal Q2 after discussing Q1 in class; omit `--` if you want all questions visible at once.
+- Answers and teacher reasoning go **only** in the hidden chunk — never in the slide body.
+- Place raise-your-hand slides at natural concept checkpoints, typically right after a practice slide or at the end of a section.
 
 ### Tone
 
@@ -168,6 +226,7 @@ Before finalizing a deck, verify:
 6. No placeholder text remains.
 7. Slides knit successfully to HTML.
 8. Practice slides are included for each major section/concept.
+9. Raise-your-hand slides have a countdown timer and all answers are hidden in `eval=FALSE, include=FALSE` chunks.
 
 ---
 
@@ -183,6 +242,7 @@ When generating a new lecture deck, follow these rules in order:
 6. Put normal slide content in `.pull-left-wide[]` unless comparison layout is needed.
 7. Use `--` for incremental reveal when concepts are multi-step.
 8. Use blockquotes for definitions and theorem-like statements.
-9. Add mandatory practice slides for each major concept/section.
-10. Keep visual design minimal and consistent with this styleguide.
+9. Add mandatory practice slides for each major concept/section. Always include a hidden answer chunk (`eval=FALSE, include=FALSE`).
+10. Add raise-your-hand slides at concept checkpoints (typically after a practice slide or at section end). Each slide: countdown timer, 2–3 A/B/C questions in `.pull-left-wide[]`, all answers in a hidden chunk. Wrong options must target specific misconceptions — never use implausible distractors.
+11. Keep visual design minimal and consistent with this styleguide.
 

@@ -1,0 +1,162 @@
+---
+output:
+  xaringan::moon_reader:
+    seal: false
+    includes:
+      after_body: insert-logo.html
+    self_contained: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options:
+  chunk_output_type: console
+---
+class: center, inverse, middle
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra, echo = FALSE}
+xaringanExtra::use_progress_bar(color = "#808080", location = "top")
+```
+
+```{css echo=FALSE}
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+```
+
+
+
+# Statistics
+## Midterm Information
+
+### Christian Vedel,<br>Department of Economics<br>University of Southern Denmark
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Updated `r Sys.Date()`
+
+
+
+---
+class: middle
+# The Midterm Exam
+
+.pull-left-wide[
+**Key facts:**
+
+- **When:** 2026-03-19. Check exam plan for time/date
+- **Duration:** 1 hour
+- **Format:** A few questions — written, digital exam (Digital Exam platform)
+- **Location:** Exam room at the university *(like end-of-semester exam)*
+- **Weight:** 40% of your final grade
+- **Syllabus:** All material from lectures and exercises up to the midterm
+- **Re-exam:** August — note: the re-exam covers the *full* course syllabus
+- **Formulas:** Key formulas will be provided. 
+]
+
+.pull-right-narrow[
+.small123[
+**Grading**
+- 7-point grading scale
+- Minimum **02** required to pass
+]
+]
+
+---
+class: middle
+# Exam Rules & How to Prepare
+
+.pull-left-wide[
+**What you are allowed to use:**
+
+- Watermarked Word or Excel file *(provided via Digital Exam)*
+- Wordmat
+- Maple
+- Physical four-function calculator
+
+
+**Practicalities:**
+
+- Submit your watermarked file as a PDF through Digital Exam
+- Bring your **Student ID card** / exam number
+- I will not be present — invigilators are there if you need help
+
+**Preparation:**
+
+- Old exams are available on **ItsLearning** — use them!
+- Focus on understanding, not memorising formulas
+]
+
+.pull-right-narrow[
+.small123[
+**Questions?**
+
+Feel free to ask me — either after class or by email:
+
+[christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+]
+]

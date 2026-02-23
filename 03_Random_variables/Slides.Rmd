@@ -226,6 +226,21 @@ class: inverse, middle, center
 
 ]
 
+```{r practice-rv-types, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# 1. Many valid codings. Example: X = card rank, X: Omega -> {1,...,13}
+#    where Ace=1, Jack=11, Queen=12, King=13.
+#
+# 2. Discrete. X takes only a finite number of values (e.g. 13 ranks),
+#    which is countable.
+#
+# 3. Example alternatives:
+#    - X = 0 if black card, 1 if red card
+#    - X = suit number (1=clubs, 2=diamonds, 3=hearts, 4=spades)
+#    Both are valid RVs: they assign exactly one real number to every outcome.
+```
+
 ---
 class: middle
 # Why this can feel confusing
@@ -405,6 +420,22 @@ Suppose $X$ is the outcome of a fair six-sided die.
 4. Compute $P(2 \leq X \leq 5)$ and explain the difference from question 3.
 
 ]
+
+```{r practice-discrete-cdf, eval=FALSE, include=FALSE}
+# ANSWERS  (X = fair six-sided die, f(x) = 1/6 for x = 1,...,6)
+#
+# 1. f(3) = P(X = 3) = 1/6
+#
+# 2. F(4) = P(X <= 4) = f(1)+f(2)+f(3)+f(4) = 4/6 = 2/3
+#
+# 3. P(2 < X <= 5) = F(5) - F(2) = 5/6 - 2/6 = 3/6 = 1/2
+#    (includes X=3,4,5; excludes X=2)
+#
+# 4. P(2 <= X <= 5) = F(5) - F(2) + f(2) = 3/6 + 1/6 = 4/6 = 2/3
+#    Difference: the lower endpoint X=2 IS included here, adding f(2) = 1/6.
+#    For discrete RVs it matters whether endpoints are included;
+#    for continuous RVs it would make no difference (P(X=2) = 0).
+```
 
 ---
 # Probability functions and relative frequencies
@@ -733,9 +764,12 @@ A historical census lists a person named "Carla" but no gender. Assume $P(\text{
 #              = 0.10765
 # 3. P(Female|"Carla") = P("Carla"|Female)*P(Female) / P("Carla")
 #                       = (0.2148 * 0.5) / 0.10765
+#                       = 0.1074 / 0.10765
 #                       = 0.998  (~99.8% confidence)
 # 4. No. P("Chris"|Male) = 0.0850, P("Chris"|Female) = 0.0820 — almost
 #    equal, so Bayes gives ~50.9% male. The name is nearly uninformative.
+
+# 11:33
 ```
 
 ---
@@ -809,6 +843,22 @@ Using the table below,
 
 ]
 
+```{r practice-joint-marginal, eval=FALSE, include=FALSE}
+# ANSWERS
+# Table:           X=0   X=1
+#         Y=0      0.25  0.15
+#         Y=1      0.35  0.25
+#
+# 1. f_X(1) = f(0,1) + f(1,1) = 0.15 + 0.25 = 0.40   (column sum for X=1)
+#    f_Y(0) = f(0,0) + f(1,0) = 0.25 + 0.15 = 0.40   (row sum for Y=0)
+#    (marginals: f_X(0)=0.60, f_X(1)=0.40, f_Y(0)=0.40, f_Y(1)=0.60)
+#
+# 2. f_{X|Y}(1|0) = f(1,0) / f_Y(0) = 0.15 / 0.40 = 0.375
+#
+# 3. Test independence: need f(x,y) = f_X(x) * f_Y(y) for ALL (x,y).
+#    Check f(0,0): f_X(0)*f_Y(0) = 0.60 * 0.40 = 0.24 ≠ 0.25 = f(0,0)
+#    => X and Y are NOT independent.
+```
 
 ---
 class: inverse, middle, center
@@ -847,12 +897,6 @@ class: inverse, middle, center
 
 .pull-left-wide[
 - Since continuous random variables have an uncountable number of values, we cannot use the exact same concepts as in the case of discrete random variables
-]
-
---
-
-.pull-left-wide[
-- However, we only need to make minor changes to them in order to generalize them to this type of variables
 ]
 
 ---
@@ -896,11 +940,6 @@ because $P(X = x) = 0$
 > $$f(x) = \frac{dF(x)}{dx}$$
 ]
 
---
-
-.pull-left-wide[
-- This definition has several implications:
-]
 
 --
 
@@ -914,6 +953,17 @@ $$\int_{-\infty}^\infty f(x) \, dx = 1$$
 .pull-left-wide[
   - the cumulative distribution function is the integral of the probability density function:
 $$F(x) = \int_{-\infty}^x f(z) \, dz$$
+]
+
+---
+# Note: Summation vs. Integration:
+
+.pull-left[
+- In the case of discrete random variables, we had:
+$$P(X \leq x) = \sum_{x_i \leq x} f(x_i)$$
+- Here we have:
+$$P(X \leq x) = \int_{-\infty}^x f(z) \, dz$$
+*Essentially the same. As you know from calculus, integration is essentially continous summation. This is one of the reasons you needed to learn that.*
 ]
 
 ---
@@ -959,6 +1009,10 @@ $$f(x) = \begin{cases} 0, & \text{if } x < 10 \\ 0.1, & \text{if } 10 \leq x \le
 
 --
 
+.red[Note: *The output is not is a density, not a probability. The probability of any particular value is zero.*]
+
+--
+
 .pull-left-wide[
 - The cumulative distribution function is:
 $$F(x) = \begin{cases} 0, & \text{if } x < 10 \\ 0.1(x - 10), & \text{if } 10 \leq x \leq 20 \\ 1, & \text{if } x > 20 \end{cases}$$
@@ -1000,6 +1054,69 @@ Assume $X \sim U[10,20]$.
 
 ]
 
+```{r practice-continuous-rv, eval=FALSE, include=FALSE}
+# ANSWERS  (X ~ U[10,20])
+#
+# 1. f(x) = 1/(20-10) = 0.1  for x in [10,20], and 0 otherwise.
+#
+# 2. P(12 <= X <= 16) = integral from 12 to 16 of 0.1 dx = 0.1 * (16-12) = 0.4
+#
+# 3. F(18) = P(X <= 18) = 0.1 * (18 - 10) = 0.8
+#    (Or: F(x) = (x-10)/10 for x in [10,20], so F(18) = 8/10 = 0.8)
+#
+# 4. P(X = 15) = integral from 15 to 15 of f(x) dx = 0.
+#    A single point has "width" zero, so the area under the curve is zero.
+#    Continuous RVs spread probability over intervals, never at points.
+```
+
+---
+# .red[Raise your hand: The density function]
+
+```{r echo=FALSE}
+library(countdown)
+countdown(1, 0, top=TRUE)
+```
+
+--
+
+.pull-left-wide[
+**Q1.** $X \sim U[0, 0.5]$. What is the value of $f(x)$ for $x=0.05$?
+
+- **A)** 0.5 — the upper bound of the support
+- **B)** 1 — $f$ is probability-related, so it can't exceed 1
+- **C)** 2 — the PDF must integrate to 1 over an interval of length 0.5
+
+]
+
+--
+
+.pull-left-wide[
+
+**Q2.** $X$ is a continuous random variable. What is $P(X \leq 5) - P(X < 5)$?
+
+- **A)** $f(5)$ — read off the density at 5
+- **B)** $F(5)$ — the cumulative probability up to 5
+- **C)** 0 — single-point probability is always zero for continuous RVs
+
+]
+
+
+```{r raise-hand-density, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# Q1: Answer C — f(x) = 2
+#   A: Confuses the support boundary (0.5) with the density value.
+#   B: Confuses density with probability — f is a *density*, not a probability,
+#      so f(x) > 1 is perfectly valid.
+#   C: Correct. The area must equal 1: integral from 0 to 0.5 of f(x) dx = 1
+#      => f(x) * 0.5 = 1 => f(x) = 2.
+#
+# Q2: Answer C — 0
+#   A: Confuses f(x) (density at a point) with P(X = x).
+#   B: Confuses F(5) (full CDF value) with the difference P(X <= 5) - P(X < 5).
+#   C: Correct. P(X <= 5) - P(X < 5) = P(X = 5) = 0 for any continuous RV.
+#      No probability mass sits at a single point.
+```
 
 ---
 class: inverse, middle, center
@@ -1117,3 +1234,68 @@ and $f(x,y)=0$ otherwise.
 3. Are $X$ and $Y$ independent? Justify.
 
 ]
+
+```{r practice-continuous-relationships, eval=FALSE, include=FALSE}
+# ANSWERS  (f(x,y) = 2 for 0 < y < x < 1, 0 otherwise)
+#
+# 1. f_X(x) = integral from 0 to x of 2 dy = 2x,   for 0 < x < 1.
+#
+# 2. f_{Y|X}(y|x) = f(x,y) / f_X(x) = 2 / (2x) = 1/x,   for 0 < y < x.
+#    This is the Uniform(0, x) density: given X=x, Y is uniform on (0, x).
+#
+# 3. Not independent. To check, also find f_Y(y):
+#    f_Y(y) = integral from y to 1 of 2 dx = 2(1-y),   for 0 < y < 1.
+#    Then f_X(x) * f_Y(y) = 2x * 2(1-y) = 4x(1-y).
+#    But f(x,y) = 2 ≠ 4x(1-y) in general, so X and Y are NOT independent.
+#    (Intuition: knowing X=x tells you Y must lie in (0,x), so they are linked.)
+```
+
+---
+# .red[Raise your hand: Joint and marginal densities]
+
+```{r echo=FALSE}
+library(countdown)
+countdown(1, 0, top=TRUE)
+```
+
+--
+
+.pull-left-wide[
+**Q1.** You have the joint PDF $f(x, y)$. How do you find the marginal PDF $f_X(x)$?
+
+- **A)** Set $y = x$: $\quad f_X(x) = f(x,\, x)$
+- **B)** Integrate out $y$: $\quad f_X(x) = \displaystyle\int_{-\infty}^{\infty} f(x, y)\, dy$
+- **C)** Differentiate: $\quad f_X(x) = \partial f(x, y) / \partial y$
+]
+
+--
+
+.pull-left-wide[
+
+**Q2.** You verify that $f(x,y) = f_X(x) \cdot f_Y(y)$ for all $x$ and $y$. What follows?
+
+- **A)** $X$ and $Y$ have the same marginal distribution
+- **B)** $X$ and $Y$ are independent
+- **C)** The conditional density $f_{X|Y}(x|y)$ does not exist
+
+]
+
+```{r raise-hand-joint, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# Q1: Answer B — integrate out y
+#   A: Tempting ("plug in the variable you're keeping"), but f(x,x) is just
+#      the joint density evaluated on the diagonal — not a marginal.
+#   C: Confuses differentiation (how you get a PDF from a CDF) with
+#      integration (how you marginalise a joint density).
+#   B: Correct. f_X(x) = integral of f(x,y) dy — sum (integrate) over all y.
+#
+# Q2: Answer B — X and Y are independent
+#   A: Confuses *independence* with *identical distributions* — very different.
+#      Independent RVs can have completely different marginals.
+#   C: The conditional density always exists when f_Y(y) > 0, regardless of
+#      independence. In fact independence makes it simpler: f_{X|Y}(x|y) = f_X(x).
+#   B: Correct. f(x,y) = f_X(x)*f_Y(y) for all x,y is the definition of independence.
+```
+
+
