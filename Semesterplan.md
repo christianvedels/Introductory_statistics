@@ -13,7 +13,7 @@ When it gets difficult, pay extra attention. Your brain quickly finds "good reas
 - **Use ChatGPT (or similar) as a study buddy:** have it quiz you on a section or explain a definition.
 
 ## Semester plan
-Info about midterm: [See slides here](https://rawcdn.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Midterm_info/Slides.html#1)
+**Info about the midterm exam: [See slides here](https://rawcdn.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Midterm_info/Slides.html#1)**
 
 | Week    | Topic                          | Reading      | Lectures                                               | Slides |
 | ------- | ------------------------------ | ------------ | ------------------------------------------------------ | ------ |
