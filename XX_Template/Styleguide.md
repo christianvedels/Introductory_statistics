@@ -67,10 +67,43 @@ Title slide class should be:
 
 - `class: center, inverse, middle`
 
-### Agenda / roadmap slide (SHOULD)
+### Agenda / roadmap slide (MUST)
 
-- Prefer a "This lecture" slide near the beginning.
-- Usually use `.pull-left-wide[]` for agenda bullets.
+- Always include a "This lecture" slide immediately after the title slide.
+- Use `.pull-left-wide[]` for agenda bullets and `.pull-right-narrow[]` for the Trees image:
+
+```rmd
+---
+class: middle
+# Today's lecture
+.pull-left-wide[
+**[One-line framing sentence]**
+
+- **Section 1:** ...
+- **Section 2:** ...
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+```
+
+### Closing slide (MUST)
+
+- Always end the deck with a "Before next time" slide using the same Trees image:
+
+```rmd
+---
+# Before next time
+.pull-left[
+- Read the assigned reading
+- Next time: [Topic] $\rightarrow$ Chapter X
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]
+```
 
 ### Section divider slides (MUST)
 
@@ -108,20 +141,40 @@ Keep divider content short (typically one section title).
 
 - Use `--` to reveal points step by step.
 - This is the default method for pacing complex derivations or lists.
+- **CRITICAL LIMITATION**: `--` only works at the **top level** of a slide. It does **not** work inside CSS class containers such as `.pull-left-wide[]`, `.pull-left[]`, `.pull-right[]`, etc. — it will render as literal text `--` instead of triggering a reveal.
+- **Correct pattern** when you need both layout and incremental reveal: place `--` *outside* the div, with a separate div block for each step:
+
+```rmd
+--
+
+.pull-left-wide[
+First point
+]
+
+--
+
+.pull-left-wide[
+First point
+
+Second point
+]
+```
+
+- **Default rule**: if content is inside `.pull-left-wide[]` or any other div, omit `--` and show all content at once. Only use the separate-div pattern above when the reveal is pedagogically essential.
 
 ### Practice slides
 
 - Practice prompts are **mandatory**.
 - Include practice slides throughout the lecture.
 - As a default rule, add at least one practice slide per major concept/section.
-- Existing pattern: red heading label, e.g. `# .red[Practice: ...]`.
+- Existing pattern: red heading label with sequential number, e.g. `# .red[Practice 1: ...]`, `# .red[Practice 2: ...]`. Number practice slides consecutively within each deck.
 - Always include a hidden teacher answer chunk:
 	- `eval=FALSE, include=FALSE`
 - Answers must **never** appear in the rendered slides — always hidden in code chunks.
 
 ### Raise your hand slides
 
-Use `# .red[Raise your hand: ...]` slides for in-class multiple choice discussion. These differ from practice slides in that they are designed to provoke debate, not just compute.
+Use `# .red[Raise your hand N: ...]` slides for in-class multiple choice discussion (where N is a sequential number within the deck, e.g. `# .red[Raise your hand 1: ...]`). These differ from practice slides in that they are designed to provoke debate, not just compute.
 
 **Design principle — all wrong answers must be defensible:**
 - Every option (A, B, C) must have a plausible argument a student could make.
@@ -133,11 +186,11 @@ Use `# .red[Raise your hand: ...]` slides for in-class multiple choice discussio
 
 ```rmd
 ---
-# .red[Raise your hand: <topic>]
+# .red[Raise your hand N: <topic>]
 
 ` `` `{r echo=FALSE}
 library(countdown)
-countdown(1, 0, top=TRUE)
+countdown(0, 20, top=TRUE)
 ` `` `
 
 .pull-left-wide[
@@ -170,7 +223,7 @@ countdown(1, 0, top=TRUE)
 ```
 
 **Rules:**
-- Include a `countdown(1, 0, top=TRUE)` timer (1 minute) at the top of every raise-your-hand slide.
+- Include a `countdown(0, 20, top=TRUE)` timer (20 seconds) at the top of every raise-your-hand slide.
 - Put 2–3 questions per slide inside `.pull-left-wide[]`.
 - Use `--` between questions only if you want to reveal Q2 after discussing Q1 in class; omit `--` if you want all questions visible at once.
 - Answers and teacher reasoning go **only** in the hidden chunk — never in the slide body.
@@ -201,6 +254,12 @@ countdown(1, 0, top=TRUE)
 3. Prefer markdown image syntax for normal use.
 4. Use HTML `<img ...>` only when explicit size control is needed.
 5. Ensure each visual has a pedagogical purpose (not decorative only).
+6. When placing a caption directly below an image, add **two trailing spaces** after the image line to force a markdown line break. Without them the caption may render inline or misaligned:
+
+```rmd
+![Alt text](Figures/filename.png)
+.small123[*Caption text*]
+```
 
 ---
 
@@ -245,4 +304,61 @@ When generating a new lecture deck, follow these rules in order:
 9. Add mandatory practice slides for each major concept/section. Always include a hidden answer chunk (`eval=FALSE, include=FALSE`).
 10. Add raise-your-hand slides at concept checkpoints (typically after a practice slide or at section end). Each slide: countdown timer, 2–3 A/B/C questions in `.pull-left-wide[]`, all answers in a hidden chunk. Wrong options must target specific misconceptions — never use implausible distractors.
 11. Keep visual design minimal and consistent with this styleguide.
+
+---
+
+## 11) Course-specific conventions (Statistics)
+
+This section documents notation and conventions specific to the Statistics course. All slides must be consistent with the notation established in the earlier lecture decks.
+
+### Notation reference lectures
+
+- **Lecture 02** (`02_Uncertainty_and_probability/Slides.Rmd`): probability, events, sample space
+- **Lecture 03** (`03_Random_variables/Slides.Rmd`): random variables, probability functions, densities, CDFs
+
+### Random variables and realizations
+
+- **Random variables**: always uppercase — $X$, $Y$, $Z$
+- **Realizations** (observed values): always lowercase — $x$, $y$, $z$
+- A random variable is a function: $X : \Omega \to \mathbb{R}$
+
+### Probability function (discrete random variables)
+
+The probability function uses $f(\cdot)$, **not** $P(X = x)$ directly on its own:
+
+> $f(x) = P(X = x)$
+
+- Use $f(x)$ or $f_X(x)$ (subscript when multiple RVs are in play)
+- Properties: $0 \leq f(x) \leq 1$; $\sum_i f(x_i) = 1$
+- CDF: $F(x) = P(X \leq x) = \sum_{x_i \leq x} f(x_i)$
+- **Do not** write bare $P(X = x)$ in slide body — use $f(x)$ instead
+
+### Probability density function (continuous random variables)
+
+For continuous random variables (e.g. income, wages), $P(X = x) = 0$ always. Use $f(\cdot)$:
+
+> $f(x) = \dfrac{dF(x)}{dx}$
+
+- $f(x)$ is the **density**, not a probability — it can exceed 1
+- Probabilities are areas: $P(a < X \leq b) = \int_a^b f(x) \, dx$
+- Expected value (continuous): $E(X) = \int_{-\infty}^\infty x \, f(x) \, dx$
+- Expected value (discrete): $E(X) = \sum_i x_i \, f(x_i)$
+- **Never** write $P(X = x)$ for a continuous random variable — use $f(x)$ for the density value
+
+### Joint, marginal, and conditional distributions
+
+| Concept | Discrete | Continuous |
+|---------|----------|------------|
+| Joint | $f(x, y) = P(X=x, Y=y)$ | $f(x, y)$ (joint density) |
+| Marginal | $f_X(x) = \sum_j f(x, y_j)$ | $f_X(x) = \int_{-\infty}^\infty f(x,y)\,dy$ |
+| Conditional | $f_{X\|Y}(x\|y) = f(x,y)/f_Y(y)$ | same form |
+| Independence | $f(x,y) = f_X(x) \cdot f_Y(y)$ | same form |
+
+### Other notation
+
+- CDF always: $F(x) = P(X \leq x)$
+- Independence of events: $A \perp B$
+- Conditional probability of events: $P(A \mid B) = P(A \cap B) / P(B)$
+- Sample space: $\Omega$; impossible event: $\varnothing$
+- Distribution shorthand (where applicable): $X \sim U[a, b]$, $X \sim N(\mu, \sigma^2)$
 
