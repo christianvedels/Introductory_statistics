@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Slides.knit</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/panelset-0.3.0/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.3.0/panelset.js"></script>
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <link href="libs/countdown-0.4.0/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.4.0/countdown.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, inverse, middle
+
+
+
+
+
+<style>.xe__progress-bar__container {
+  top:0;
+  opacity: 1;
+  position:absolute;
+  right:0;
+  left: 0;
+}
+.xe__progress-bar {
+  height: 0.25em;
+  background-color: #808080;
+  width: calc(var(--slide-current) / var(--slide-total) * 100%);
+}
+.remark-visible .xe__progress-bar {
+  animation: xe__progress-bar__wipe 200ms forwards;
+  animation-timing-function: cubic-bezier(.86,0,.07,1);
+}
+@keyframes xe__progress-bar__wipe {
+  0% { width: calc(var(--slide-previous) / var(--slide-total) * 100%); }
+  100% { width: calc(var(--slide-current) / var(--slide-total) * 100%); }
+}</style>
+
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+&lt;/style&gt;
+
+
+
+# Statistics
+## Descriptive measures
+### (Chapter 5)
+
+### Christian Vedel,&lt;br&gt;Department of Economics&lt;br&gt;University of Southern Denmark
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Updated 2026-03-04
+
+
+
+---
+class: middle
+# This lecture
+.pull-left-wide[
+**Descriptive measures summarize the key features of a random variable's distribution.**
+
+- **Moments:** Expected value, variance, standard deviation, and higher moments
+- **Quantiles:** Median, quartiles, percentiles
+- **Choosing measures:** When to use the mean vs. median vs. mode
+- **Relationships:** Covariance and correlation between random variables
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Descriptive measures and random variables
+
+---
+# The nice problem: too much data
+
+--
+
+.pull-left-wide[
+- Sometimes as researchers we face a surprisingly nice problem: **we have too much data**
+
+.center[
+### Two routes
+]
+.pull-left[
+  - Pick a few observations and learn everything about them
+  - Shoe size
+  - Pet's name
+  - *everything*
+  - But only for a few
+]
+
+.pull-right[
+  - Compute summaries of the data
+  - Average shoe size
+  - Most common pet's name
+  - But for all
+]
+
+]
+
+--
+
+.pull-right-narrow[
+- As economists, we are often in the business of **drawing inference about hypotheses from summaries**
+- This is hard — because summarizing means **losing information**
+- The art is choosing summaries that lose as little *relevant* information as possible
+]
+
+--
+
+.pull-left-wide[
+*The rest of your statistics journey is somehow dedicated to fancy summaries of data.*
+]
+
+---
+# Copenhagen tax records, 1863–1904
+
+.pull-left[
+- We are digitizing **individual-level tax records** from Copenhagen covering 1863–1904
+
+- Currently **1,291,023 observations** — every taxable resident: name, income, address, occupation
+
+- This data basically does not exist in the same quality anywhere else going this far back
+
+- Enables research on income inequality, social mobility, long-run development, etc.
+
+- .small123[*Ongoing research - this is a peak into the the machinery of research in progress*]
+]
+
+.pull-right[
+![Tax book 1863](Figures/Book_1863.png)  
+.small123[*Original tax ledger, Copenhagen 1863*]
+]
+
+---
+# C.E. Frijs (1817–1896)
+
+.pull-left-wide[
+- Part of the landed nobility — Prime Minister (1865–1870)
+
+- **Income: 500,000 kr/year (1869–1872)**
+  - Equivalent to roughly 50 million kr today
+  - Highest recorded income in Copenhagen at the time
+
+- Occupation in the books: *Konseilspræsident* (1869), *Lensgreve* (1871)
+
+- Residence: Toldbodvej 26
+]
+
+.pull-right-narrow[
+![C.E. Frijs](Figures/K_V_Frijs.jpg)  
+.small123[*Source: Wikipedia*]
+]
+
+---
+# H.C. Andersen (1805–1875)
+
+.pull-left-wide[
+- Renowned Danish fairy-tale author
+
+- **Income: 3,600 kr (1865) → 4,000 kr (1869–1874)**
+  - Placed him in the **top 20%** of income earners in Copenhagen
+
+- Occupation in the books: *Professor* (1865), *Etatsraad* (1869)
+
+- Residence: Nyhavn 67 (1865) → Lille Kongensgade 1 (1869) → Høibroplads 21 (1870)
+]
+
+.pull-right-narrow[
+![H.C. Andersen](Figures/hca.jpg)  
+.small123[*Source: Wikipedia*]
+]
+
+---
+# C.F. Tietgen (1829–1901)
+
+.pull-left-wide[
+- Prominent banker and industrialist — born into modest circumstances in Odense
+
+- Moved to Copenhagen in 1855 (after 5 years in Manchester)
+
+- Director of *Privatbanken* (1857); played a central role in founding:
+  - Kjøbenhavns Sporvei-Selskab (1866)
+  - Det Store Nordiske Telegraf-Selskab (1869)
+  - Burmeister &amp; Wain (1871), Tuborgs Bryggerier (1873)
+
+- His life-cycle earnings are on the next slide →
+]
+
+.pull-right-narrow[
+![C.F. Tietgen](Figures/Tietgen.jpg)  
+.small123[*Source: Wikipedia*]
+]
+
+---
+# C.F. Tietgen — life-cycle earnings
+
+.pull-left-wide[
+![Tietgen earnings](Figures/Tietgen_plot.png)
+]
+
+
+---
+# What can we say about this distribution?
+
+
+
+.pull-left[
+- We are looking at a **subsection of 136,506 observations** from the records
+
+- It's kernel density estimate of the probability density function of income in Copenhagen in 1866, 1876, 1886, and 1896 (you'll learn more about those later)
+
+- Basically, you are looking at the *distribution* of income in Copenhagen at four points in time
+
+- **How do we summarize what we see?** `\(\Rightarrow\)` this is exactly what descriptive measures are for
+]
+
+.pull-right[
+![Income density by decade](Figures/Income_density_decade_by_decade.png)
+]
+
+--
+
+.pull-left-wide[
+
+- You already know these: mean, median, standard deviation, quantiles, etc.
+
+- **Now it's time to relearn them**
+]
+
+
+
+---
+# Summary statistics tell us something
+
+.pull-left-wide[
+| Year | n | Mean | SD | Median | Max |
+|------|----:|-----:|---:|-------:|----:|
+| 1866 | 17,793 | 26 | 59 | 12 | 3,000 |
+| 1876 | 29,063 | 25 | 77 | 12 | 5,000 |
+| 1886 | 38,606 | 25 | 61 | 12 | 3,000 |
+| 1896 | 50,105 | 25 | 64 | 10 | 2,500 |
+
+.small123[*Incomes in historical units. SD = standard deviation.*
+
+- The **mean is more than twice the median** — the distribution is strongly right-skewed (a few very rich pull the mean up)
+
+- The **standard deviation is larger than the mean** — enormous spread around the average
+
+- The **median is remarkably stable** — (speculation) as Denmark industrialized, more people got rich, but a similar amount entered the labour force, echoing the "Engel's pause" hypothesis of stagnant living standards for the working class during early industrialization
+]
+]
+
+---
+# Ongoing research: what else can we learn?
+
+.pull-left[
+**Income inequality over time**
+
+![Gini over time](Figures/gini_over_time.png)
+.small123[*Gini coefficient in Copenhagen, 1863–1904*]
+]
+
+.pull-right[
+**Which occupations earned what?** 
+![Income shares by occupation](Figures/occupational_structure_by_income_percentile_hisco_major.png)
+.small123[*Which occupations in which part of the income distribution?**]
+]
+
+.footnote[
+.small123[
+`\(^*\)`*The occupational classification is based on the HISCO system. HISCO coded using *OccCANINE* (Dahl, Johansen, Vedel, 2024)*
+]  
+
+]
+
+---
+# Descriptive measures
+
+.pull-left-wide[
+Two types:
+
+- **Moments** — based on weighted averages (mean income, average height)
+
+- **Quantiles** — based on splitting the distribution (richest 10%, median earner)
+]
+
+---
+# Moments: an example
+
+.pull-left-wide[
+- **Mean income in 1866 Copenhagen = 26 kr**
+
+`$$E(X) = \int_{-\infty}^\infty x \cdot f(x) \, dx$$`
+
+- But **median = 12 kr** — Frijs's 500,000 kr pulls the mean far above what most people earned
+]
+
+.pull-right-narrow[
+![Income density by decade](Figures/Income_density_decade_by_decade.png)
+]
+
+---
+# Quantiles: an example
+
+.pull-left-wide[
+- **Median income = 12 kr** splits the distribution in half: 50% earn less, 50% earn more
+
+- Other examples: `\(q_{0.9}\)` = income threshold for the top 10%; `\(q_{0.25}\)` = bottom quarter cutoff
+
+- **Key advantage**: quantiles are robust — Frijs's 500,000 kr does not move the median
+]
+
+---
+# Descriptive measures and random variables
+
+.pull-left-wide[
+- Let `\(X\)` = income of a randomly chosen Copenhagener in 1866
+
+- `\(f(12)\)` = probability density at 12 kr, reflecting how common that income level is in the population
+
+- Applying descriptive measures to `\(X\)` gives us information about the **underlying population**
+]
+
+---
+# .red[Raise your hand 1: Moments or quantiles?]
+
+<div class="countdown" id="timer_102601a6" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** "The average (mean) income in Denmark is 450,000 DKK per year." This is:
+
+- **A)** A moment — it is based on a weighted average of values
+- **B)** A quantile — it describes who earns above/below a threshold
+- **C)** Neither — it is just a descriptive number, not a formal measure
+
+**Q2.** "The bottom 25% of Danish earners earn less than 280,000 DKK per year." This is:
+
+- **A)** A moment — it uses averages over the whole distribution
+- **B)** A quantile — it identifies a split point of the distribution
+- **C)** A variance — it describes the spread of the income distribution
+]
+
+
+
+---
+# Distribution
+
+.pull-left-wide[
+&gt; **Distribution** = the list of probabilities associated with the values that a random variable can take (if discrete) or the probability density function (if continuous)
+
+- The distribution of the random variable is a representation of the distribution of the underlying population
+
+- Therefore, we call the distribution of the random variable the **population distribution**
+
+- Similarly, we call the descriptive measures for the random variable the **population measures**
+
+- This is in contrast with averages and other descriptive measures calculated in a sample, which are **sample measures**
+]
+
+---
+# Distribution — example
+
+.pull-left-wide[
+- Let `\(X\)` = income of a randomly chosen Copenhagener in 1866
+
+- The **population distribution** of `\(X\)` is the full probability density function over all possible incomes — the smooth curve you would get if you knew every single person's income
+
+- In practice we never observe the full population — we observe a **sample** of `\(n = 17{,}793\)` people
+
+- From this sample we compute **sample measures**: e.g., sample mean `\(\bar{x} = 26\)` kr, sample median `\(= 12\)` kr
+
+- These are estimates of the unknown **population measures** `\(E(X)\)` and `\(q_{0.5}\)`
+
+- The kernel density plot is our best approximation of the population distribution from the sample
+]
+
+.pull-right-narrow[
+![Income density by decade](Figures/Income_density_decade_by_decade.png)
+.small123[*Estimated population distribution of income, 1866*]
+]
+
+---
+# .red[Practice 1: Descriptive measures and distributions]
+
+.pull-left-wide[
+**Q1.** Classify each statement as a *moment*, a *quantile*, or neither:
+- "The average exam score is 62 out of 100"
+- "Half of students score below 58"
+- "The most common score is 70"
+
+**Q2.** A researcher models the wage `\(W\)` of a randomly chosen Danish worker as a continuous random variable. Is the distribution of `\(W\)` a population or a sample distribution?
+
+**Q3.** A handful of workers earn over 500,000 DKK/month while most earn 30,000–50,000 DKK. Would you expect `\(E(W)\)` or the median of `\(W\)` to be higher? Why?
+]
+
+
+
+---
+class: inverse, middle, center
+# Moments
+
+---
+# Expected value of discrete random variables
+
+.pull-left-wide[
+&gt; The **expected value (mean value)** of a discrete random variable `\(X\)` with probability function `\(f(x)\)` is given by:
+&gt; `$$E(X) = \sum_{i=1}^N x_i f(x_i) = x_1 f(x_1) + x_2 f(x_2) + \ldots + x_N f(x_N) = \mu$$`
+&gt; where `\(x_1, x_2, \ldots, x_N\)` are all the different values that `\(X\)` can take.
+
+- The expected value is also called "mean" and denoted by `\(\mu\)` (*mu*)
+
+- For example, the expected value of a dice roll is:
+`$$E(X) = 1 \cdot \frac{1}{6} + 2 \cdot \frac{1}{6} + \ldots + 6 \cdot \frac{1}{6} = 3.5$$`
+]
+
+---
+# Expected value of discrete random variables
+
+.pull-left-wide[
+- Note that 3.5 is *not* one of the possible values of `\(X\)` `\(\Rightarrow\)` how do we interpret this expected value?
+]
+
+--
+
+.pull-left-wide[
+
+- Imagine that you play a game where you win one krone for each dot on the face of the dice (so, if you roll a 4, you win 4 kroner)
+
+- The expected value of 3.5 tells you that, if you play this game 10 times, you should expect to win about 35 kroner (3.5 times 10)
+
+- In this case, the expected value is the "average win per play"
+]
+
+--
+
+.pull-left-wide[
+- Intuitively, the expected value is the average of all the values obtained if you were to repeat the experiment generating `\(X\)` an infinite number of times
+
+- Another interpretation of the average value is the "center of mass"
+]
+
+---
+# Properties of the expected value
+
+.pull-left-wide[
+- Let `\(h(\cdot)\)` be a function, `\(a\)` and `\(b\)` be **constants** (i.e., real numbers), and `\(X\)` a random variable (continuous or discrete). Then:
+
+1. The expected value of `\(h(X)\)` is given by:
+`$$E[h(X)] = \sum_{i=1}^N h(x_i) f(x_i) = h(x_1) f(x_1) + h(x_2) f(x_2) + \ldots + h(x_N) f(x_N)$$`
+
+2. `\(E(a) = a\)`
+
+3. `\(E(aX) = a E(X)\)`
+
+4. `\(E(a + X) = a + E(X)\)`
+
+5. `\(E(a + b X) = a + b E(X)\)`
+
+- Important: note that, in general, `\(E[h(X)] \not= h[E(X)]\)`
+]
+
+---
+# .red[Practice 2: Expected value]
+
+.pull-left-wide[
+A fair 4-sided die shows values 1, 2, 3, 4 with equal probability `\(\frac{1}{4}\)`.
+
+**Q1.** Calculate `\(E(X)\)`.
+
+**Q2.** You win `\(X^2\)` kroner per roll. Calculate your expected winnings `\(E(X^2)\)`.
+
+**Q3.** Is `\(E(X^2) = [E(X)]^2\)`? What does this tell you about applying functions to expected values?
+]
+
+
+
+---
+# .red[Raise your hand 2: Interpreting the expected value]
+
+<div class="countdown" id="timer_9dfc27a4" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** A fair die is rolled once. `\(E(X) = 3.5\)`. What does this mean?
+
+- **A)** 3.5 is the most likely outcome of a single roll
+- **B)** 3.5 is the long-run average if you roll very many times
+- **C)** 3.5 is always between the minimum (1) and maximum (6), so it is a "middle" value
+
+**Q2.** `\(E(X) = 5\)` and `\(E(Y) = 3\)`. What is `\(E(2X - Y + 4)\)`?
+
+- **A)** `\(2 \cdot 5 - 3 + 4 = 11\)`
+- **B)** `\(2 \cdot 5 - 3 = 7\)`
+- **C)** Cannot be determined without knowing if `\(X\)` and `\(Y\)` are independent
+]
+
+
+
+---
+# Expected value of continuous random variables
+
+.pull-left-wide[
+- Recall that we defined concepts related to continuous random variables in ways similar to discrete random variables, by making two changes:
+  - replace the probability function with the probability density function
+  - replace summations with integrals
+
+&gt; The **expected value (mean value)** of a continuous random variable `\(X\)` with probability density function `\(f(x)\)` is given by:
+&gt; `$$E(X) = \int_{-\infty}^\infty x f(x) \, dx = \mu$$`
+]
+
+---
+# A challenge: Expected value of discrete random variables
+
+.pull-left-wide[
+- Consider the following two games related to the toss of a coin:
+  - you win 1 krone if "heads," you lose 1 krone if "tails"
+  - you win 10 kroner if "heads," you lose 10 kroner if "tails"
+
+- Let `\(X\)` be the random variable representing the first game and `\(Y\)` the random variable representing the second game
+
+- The possible values of `\(X\)` are `\(-1\)` and `\(1\)`, each with probability 50%
+
+- The possible values of `\(Y\)` are `\(-10\)` and `\(10\)`, each with probability 50%
+
+- Their expected values are:
+`$$E(X) = 1 \cdot \frac{1}{2} + (-1) \cdot \frac{1}{2} = 0$$`
+`$$E(Y) = 10 \cdot \frac{1}{2} + (-10) \cdot \frac{1}{2} = 0$$`
+
+- But are they similarly "risky"? Can we get a better measure?
+]
+
+---
+# Variance
+
+.pull-left-wide[
+&gt; The **variance** of a random variable `\(X\)` is usually denoted by `\(\sigma^2\)` (*sigma squared*) and is defined as:
+&gt; `$$Var(X) = E \left( \left[ X - E(X) \right]^2 \right) = \sigma^2$$`
+&gt;
+&gt; If `\(X\)` is a discrete random variable with probability function `\(f(x)\)`, then:
+&gt; `$$Var(X) = \sum_{i=1}^N (x_i - \mu)^2 f(x_i)$$`
+&gt;
+&gt; If `\(X\)` is a continuous random variable with probability density function `\(f(x)\)`, then:
+&gt; `$$Var(X) = \int_{-\infty}^\infty (x - \mu)^2 f(x) \, dx$$`
+]
+
+---
+# Variance
+
+.pull-left-wide[
+- Intuitively, the variance is a measure of how "spread out" is the distribution of a random variable
+
+- In our example, we have:
+`$$Var(X) = (1 - 0)^2 \cdot \frac{1}{2} + (-1 - 0)^2 \cdot \frac{1}{2} = 1$$`
+`$$Var(Y) = (10 - 0)^2 \cdot \frac{1}{2} + (-10 - 0)^2 \cdot \frac{1}{2} = 100$$`
+
+- So we see that `\(Y\)` is more "spread out" than `\(X\)`
+]
+
+---
+# .red[Practice 3: Variance]
+
+.pull-left-wide[
+Using the same two coin-flip games: `\(X\)` wins ±1 and `\(Y\)` wins ±10, each with probability ½.
+
+**Q1.** Confirm that `\(E(X) = E(Y) = 0\)`. Does the expected value distinguish these two games?
+
+**Q2.** Calculate `\(Var(X)\)` and `\(Var(Y)\)`. Which game is riskier?
+
+**Q3.** A third game: `\(Z = 5X\)`. Without recalculating from scratch, what is `\(Var(Z)\)`?
+]
+
+
+
+---
+# Standard deviation
+
+.pull-left-wide[
+- One problem with the variance is that the unit of measurement is not the same as that of the random variable
+
+- In our example, `\(X\)` is measured in kroner, but `\(Var(X)\)` is measured in kroner squared
+
+- It would be useful to have a measure of the spread expressed in the same units of measurement as the random variable
+
+&gt; The **standard deviation** of a random variable `\(X\)` is defined as:
+&gt; `$$\sigma(X) = \sqrt{Var(X)} = \sqrt{\sigma^2}$$`
+]
+
+---
+# Properties of the variance and of the standard deviation
+
+--
+
+- The variance and standard deviation have the following properties:
+
+.pull-left[
+**Variance:**
+1. `\(Var(a) = 0\)`
+2. `\(Var(aX) = a^2 Var(X)\)`
+3. `\(Var(a + X) = Var(X)\)`
+4. `\(Var(a + b X) = b^2 Var(X)\)`
+]
+
+.pull-right[
+**Standard deviation:**
+- `\(\Rightarrow\)` `\(\sigma(a) = 0\)`
+- `\(\Rightarrow\)` `\(\sigma(aX) = |a| \sigma(X)\)`
+- `\(\Rightarrow\)` `\(\sigma(a + X) = \sigma(X)\)`
+- `\(\Rightarrow\)` `\(\sigma(a + b X) = |b| \sigma(X)\)`
+]
+
+---
+# Higher order moments
+
+.pull-left-wide[
+- Note that the variance is defined as the expected value of the square of the "demeaned" version of `\(X\)`
+
+- We can similarly define the expected value of the `\(k\)`-th power of `\(X\)` or of the "demeaned" version of `\(X\)`
+
+&gt; The **k-th moment** of a random variable `\(X\)` is defined as:
+&gt; `$$m_k(X) = E(X^k)$$`
+&gt;
+&gt; The **k-th central moment** of `\(X\)` is defined as:
+&gt; `$$m_k^*(X) = E\left( [X - E(X)]^k \right)$$`
+]
+
+---
+# Higher order moments
+
+.pull-left-wide[
+- Note that:
+  - the expected value is the first moment of `\(X\)`: 
+  `$$E(X) = m_1(X)$$`
+  - the variance is the second central moment of `\(X\)`: 
+  `$$Var(X) = m_2^*(X)$$`
+
+- Some other useful moments are:
+  - `\(m_3^*(X)\)` describes how skewed is the distribution of `\(X\)`
+  - `\(m_4^*(X)\)` shows how likely are the extreme values of `\(X\)`
+]
+
+---
+class: middle
+
+# Higher order moments
+&gt; Sometimes a moment does not exist. This can lead to trouble. 
+
+---
+# Higher order moments — the St. Petersburg paradox
+
+.pull-left-wide[
+**The St. Petersburg game:**
+
+- A fair coin is tossed until the first heads appears
+- If the first heads comes on toss `\(N\)`, the payoff is `\(X = 2^N\)` kr.
+- Since the coin is fair,
+
+`$$f(N=n)=2^{-n}, \qquad n=1,2,\ldots$$`
+]
+
+--
+
+.pull-left-wide[
+**The paradox:**
+
+- The initial stake is 2 kr., doubled every time heads appears
+- Your expected winnings are:
+
+$$
+`\begin{align}
+E(X) &amp;= 2 \cdot \tfrac{1}{2} + 4 \cdot \tfrac{1}{4} + 8 \cdot \tfrac{1}{8} + \ldots \\
+     &amp;= 1 + 1 + 1 + \ldots \\
+     &amp;= \infty
+\end{align}`
+$$
+
+- You should be willing to pay any finite amount to play this game. Right?
+]
+
+--
+
+.pull-right-narrow[
+![](Figures/stonks.jpeg)
+]
+
+---
+# Higher order moments — resolution
+
+.pull-left-wide[
+**What the paradox reveals:**
+
+- Expected value theory says you should pay *any* finite price to play — but nobody would pay, say, 1,000,000 kr.
+- The `\(\infty\)` is driven entirely by vanishingly rare, astronomically large payoffs
+- With probability `\(\frac{1}{2}\)` you win just 2 kr.; with probability `\(\frac{3}{4}\)` you win at most 4 kr.
+- The "average" is completely disconnected from what typically happens
+
+**The resolution:**
+
+- More about this in your *Strategy and Markets* course.
+]
+
+---
+# .red[Practice 4: Expected value and variance]
+
+.pull-left-wide[
+A random variable `\(X\)` represents the number of heads in two fair coin tosses. It takes values `\(0, 1, 2\)` with probabilities `\(\frac{1}{4}, \frac{1}{2}, \frac{1}{4}\)`.
+
+**Q1.** Calculate `\(E(X)\)`.
+
+**Q2.** Calculate `\(Var(X)\)`.
+
+**Q3.** Let `\(Y = 3X + 2\)`. What are `\(E(Y)\)` and `\(Var(Y)\)`?
+]
+
+
+
+---
+# .red[Raise your hand 3: Expected value and variance]
+
+<div class="countdown" id="timer_6b7c844e" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** In general, is `\(E[X^2] = [E(X)]^2\)`?
+
+- **A)** Yes, always — the expectation operator is linear
+- **B)** No, not in general — `\(E[X^2] \geq [E(X)]^2\)` by Jensen's inequality
+- **C)** Yes, if `\(X\)` is symmetric around zero
+
+**Q2.** `\(Var(X) = 4\)`. You define `\(Y = -2X + 5\)`. What is `\(Var(Y)\)`?
+
+- **A)** `\(Var(Y) = -16\)` — the negative sign flips the variance
+- **B)** `\(Var(Y) = 16\)` — variance uses `\((-2)^2 = 4\)`
+- **C)** `\(Var(Y) = 9\)` — adding 5 increases the variance
+]
+
+
+
+---
+class: inverse, middle, center
+# Quantiles
+
+---
+# Quantiles
+
+.pull-left-wide[
+- Quantiles represent another way of summarizing the distribution of `\(X\)`
+
+- The distribution of income tends to be highly asymmetric
+
+- As a result, the mean is not particularly informative
+
+- A measure more common in the study of skewed distributions such as the income distribution is the median
+
+- Intuitively, the **median** is the value of `\(X\)` that splits the distribution in half
+]
+
+---
+# Median
+
+.center[
+![Median](Figures/5. Median.png)
+]
+
+---
+# Quantiles
+
+.pull-left-wide[
+- In general, we can define a quantile for any split of the distribution of `\(X\)`
+
+- The intuition is that the 25-th quantile splits the distribution into 25% to the left, 75% to the right
+
+- However, the distribution of discrete random variables may not allow such a "nice" split (e.g., we cannot exactly split the distribution of the toss of a coin this way)
+
+- Hence, we need to define the quantile in a more convoluted way
+]
+
+---
+# Quantiles
+
+.pull-left-wide[
+&gt; The **p-quantile** of a random variable `\(X\)` with cumulative distribution function `\(F(x)\)` is the value `\(q_p\)` such that:
+&gt; - `\(P(X &lt; q_p) \leq p\)`
+&gt; - `\(P(X &gt; q_p) \leq 1 - p\)`
+&gt;
+&gt; If `\(X\)` is a continuous random variable, this simplifies to:
+&gt; `$$F(q_p) = p$$`
+
+- For a continuous random variable, the `\(p\)`-quantile is the value that splits the distribution into `\(p\)` to the left and `\(1 - p\)` to the right
+
+- For a discrete random variable, the `\(p\)`-quantile is the value where the cumulative distribution function "jumps" from a value lower than `\(p\)` to one higher than `\(p\)`
+]
+
+---
+# Quantiles for discrete random variables
+
+.center[
+![Quantiles discrete](Figures/5. Quantiles discrete.png)
+]
+
+---
+# Multiple quantiles
+
+.pull-left-wide[
+- Unlike moments, quantiles *always* exist
+
+- However, they do not have to be unique
+
+- For example, it can happen that the random variable `\(X\)` has a distribution with more than one median
+
+- In this case, the convention is to use the midpoint of the interval as the median
+]
+
+---
+# Multiple quantiles
+
+.center[
+![Multiple medians PDF](Figures/5. Multiple medians PDF.png)
+]
+
+---
+# Multiple quantiles
+
+.center[
+![Multiple medians CDF](Figures/5. Multiple medians CDF.png)
+]
+
+---
+# Special names for quantiles
+
+.pull-left-wide[
+- Some particular quantiles have special names:
+  - `\(q_{0.5}\)` is called the **median**
+  - `\(q_{0.25}\)` and `\(q_{0.75}\)` are called **quartiles**
+  - `\(q_{0.1}, q_{0.2}, \ldots, q_{0.9}\)` are called **deciles**
+  - `\(q_{0.01}, q_{0.02}, \ldots, q_{0.99}\)` are called **percentiles**
+]
+
+---
+# .red[Practice 5: Quantiles]
+
+.pull-left-wide[
+A discrete random variable `\(X\)` takes values `\(1, 2, 3, 4, 5\)` with equal probability `\(\frac{1}{5}\)`.
+
+**Q1.** What is the median of `\(X\)`?
+
+**Q2.** What is `\(q_{0.8}\)` (the 80th percentile) of `\(X\)`?
+
+**Q3.** A second variable `\(Y\)` takes the same values but with probabilities `\(0.1, 0.1, 0.6, 0.1, 0.1\)`. What is the median of `\(Y\)`? Do moments or quantiles better distinguish `\(X\)` from `\(Y\)`?
+]
+
+
+
+---
+# .red[Raise your hand 4: Mean vs. median]
+
+<div class="countdown" id="timer_6e8ae033" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** Income in a country is heavily right-skewed (a few very high earners). Which measure best describes the "typical" income?
+
+- **A)** The mean — it is a moment and uses all the data
+- **B)** The median — it is a quantile and is robust to extreme values
+- **C)** The variance — it captures how unequal incomes are
+
+**Q2.** A distribution has median 50 and mean 80. What can you conclude?
+
+- **A)** The distribution is left-skewed (long left tail pulls mean below median)
+- **B)** The distribution is right-skewed (long right tail pulls mean above median)
+- **C)** There must be measurement errors in the data
+]
+
+
+
+---
+class: inverse, middle, center
+# Choice of descriptive measures
+
+---
+# Choice of descriptive measures
+
+.pull-left-wide[
+- Imagine that you want to study the distribution of income in the Danish population
+
+- Let `\(X\)` be the income of a randomly chosen individual `\(\Rightarrow\)` the probability function of `\(X\)` should represent the distribution of income in Denmark
+
+- What can we tell from the fact that the *expected value* of `\(X\)` is high?
+  - the *average* person has a high income
+  - but this does not mean that *everyone* has a high income: we could have two groups of people, one really rich and one really poor
+
+- What can we tell if the *median* value of `\(X\)` is high?
+  - the person in the middle of the distribution of income has a high income
+  - but this again does not mean that *everyone* has a high income: we could still have two groups of people, one really rich and one really poor, with a single person in the middle
+]
+
+---
+# Choice of descriptive measures
+
+.center[
+![Bimodal](Figures/5. Bimodal.png)
+]
+
+---
+# Choice of descriptive measures
+
+.pull-left-wide[
+- What the expected value and the median have in common is that they both describe the *central tendency* of the distribution
+
+- They give the best description of the "typical" observation (expected value) or of the "middle" of the distribution (median)
+
+- If the distribution is symmetric, then the median and the expected value are equal
+
+- However, the median is generally more *robust* to measurement errors (e.g., if there are small errors in how incomes are inputted)
+]
+
+---
+# Mode
+
+.pull-left-wide[
+- Another commonly used descriptive measure is the mode
+
+&gt; The **mode (modal value)** of a random variable `\(X\)` is the value `\(x_m\)` where the probability (density) function attains its maximum. That is:
+&gt; `$$f(x_m) \geq f(x)$$`
+&gt; for all possible values of `\(x\)`.
+
+- Like the quantiles, the mode always exists but does not have to be unique
+
+- A distribution is *unimodal* if it has only one mode, or *bimodal* if it has two
+
+- We can identify the mode(s) as the "peak(s)" of the probability (density) function
+]
+
+---
+# .red[Practice 6: Choosing descriptive measures]
+
+.pull-left-wide[
+For each scenario, state which descriptive measure(s) you would use and why.
+
+**Scenario A:** You want to report the "typical" apartment price in Copenhagen, where a few luxury properties sell for 50M+ DKK.
+
+**Scenario B:** You analyse exam scores (0–100) and want to summarize both the average performance and the risk of scoring below 40.
+
+**Scenario C:** You study the most frequently occurring party affiliation in a large survey.
+]
+
+
+
+---
+# .red[Raise your hand 5: Choosing descriptive measures]
+
+<div class="countdown" id="timer_9b2c38c9" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** For a strictly symmetric distribution, which must be true?
+
+- **A)** Mean = Median = Mode always
+- **B)** Mean = Median, but mode may differ
+- **C)** All three are equal only if the distribution is normal
+
+**Q2.** A distribution is bimodal. This means:
+
+- **A)** The mean and median are both equal to one of the two modes
+- **B)** The probability (density) function has two local maxima
+- **C)** The variance is exactly twice as large as for a unimodal distribution
+]
+
+
+
+---
+class: inverse, middle, center
+# Descriptive measures for the relationship between random variables
+
+---
+# Descriptive measures for the relationship between random variables
+
+.pull-left-wide[
+- We sometimes need to know how two random variables are related
+
+- For example, suppose you invest in two different stocks on the stock market
+
+- The future price of each stock is a random variable
+
+- You would want to know if the prices of the two stocks are likely to move together because this exposes you to more risk:
+  - if both prices go up, you gain more
+  - but if both prices fall, then you lose more
+
+- "Don't put all your eggs in one basket:" you may want to invest in stocks whose prices are likely to move in opposite directions
+]
+
+---
+# Expected value of a sum of random variables
+
+.pull-left-wide[
+- Let us start again with simple descriptive measures of the joint distribution
+
+- We previously defined the joint probability (density) function of two random variables `\(X\)` and `\(Y\)` as `\(f(x, y)\)`
+
+- Now suppose that you buy `\(a\)` shares of the stock `\(X\)` and `\(b\)` shares of the stock `\(Y\)`
+
+- What should you expect as the value of your portfolio?
+
+- It should be the expected value of this combination of `\(X\)` and `\(Y\)`:
+`$$E(aX + bY)$$`
+]
+
+---
+# Expected value of a sum of random variables
+
+.pull-left-wide[
+&gt; The **expected value of a sum of random variables** `\(X\)` and `\(Y\)` is:
+&gt; `$$E(aX + bY) = aE(X) + bE(Y)$$`
+
+- This formula holds true whether `\(X\)` and `\(Y\)` are discrete or continuous
+
+- It also does not depend on whether `\(X\)` and `\(Y\)` move together or not
+]
+
+---
+# Covariance between two random variables
+
+.pull-left-wide[
+&gt; The **covariance** between two random variables `\(X\)` and `\(Y\)` is defined as:
+&gt; `$$Cov(X, Y) = E\left( [X - E(X)] [Y - E(Y)] \right) = E \left[ (X - \mu_X)(Y - \mu_Y) \right]$$`
+&gt; `$$= E(XY) - \mu_X \mu_Y$$`
+]
+
+---
+# Covariance between two random variables
+
+.pull-left-wide[
+- If `\(X\)` and `\(Y\)` are both discrete, this becomes:
+`$$Cov(X, Y) = \sum_{i=1}^{N_x} \sum_{j=1}^{N_y} [(x_i - \mu_X) (y_j - \mu_Y) f(x_i, y_j)]$$`
+`$$= \sum_{i=1}^{N_x} \sum_{j=1}^{N_y} [x_i y_j f(x_i, y_j)] - \mu_X \mu_Y$$`
+
+- If `\(X\)` and `\(Y\)` are both continuous, this becomes:
+`$$Cov(X, Y) = \int_{-\infty}^\infty \int_{-\infty}^\infty (x - \mu_X) (y - \mu_Y) f(x, y) \, dy \, dx$$`
+`$$= \int_{-\infty}^\infty \int_{-\infty}^\infty x y f(x, y) \, dy \, dx - \mu_X \mu_Y$$`
+]
+
+---
+# Properties of the covariance
+
+.pull-left-wide[
+- The covariance tells us how the two variables move together:
+  - `\(Cov(X, Y) &gt; 0\)` means that when `\(X\)` is above its mean, then it is likely that `\(Y\)` is also above its mean
+  - `\(Cov(X, Y) &lt; 0\)` means that when `\(X\)` is below its mean, then it is likely that `\(Y\)` is above its mean
+
+- The covariance between `\(X\)` and `\(Y\)` has a few useful properties:
+  1. `\(Cov(X, Y) = Cov(Y, X)\)`
+  2. `\(Cov(aX, bY) = a b \, Cov(X, Y)\)`
+  3. `\(Cov(a + X, b + Y) = Cov(X, Y)\)`
+  4. `\(Cov(X + Z, Y) = Cov(X, Y) + Cov(Z, Y)\)`
+]
+
+---
+# Variance of a sum of random variables
+
+.pull-left-wide[
+&gt; The **variance of a sum of random variables** `\(X\)` and `\(Y\)` is:
+&gt; `$$Var(aX + bY) = Var(aX) + Var(bY) + 2 Cov(aX, bY)$$`
+&gt; `$$= a^2 Var(X) + b^2 Var(Y) + 2 a b \, Cov(X, Y)$$`
+
+- If we think of the variance of your earnings as the risk, now you can see why buying two stocks whose prices move in opposite directions helps with the risk
+
+- If `\(Cov(X, Y) &lt; 0\)`, then:
+`$$Var(aX + bY) &lt; Var(aX) + Var(bY)$$`
+
+- If the prices of the two stocks move in the same direction, then `\(Cov(X, Y) &gt; 0\)` and:
+`$$Var(aX + bY) &gt; Var(aX) + Var(bY)$$`
+]
+
+---
+# Correlation coefficient between two random variables
+
+.pull-left-wide[
+- The covariance has two major disadvantages:
+  - its unit of measurement is the product of the units of measurement of `\(X\)` and `\(Y\)` (in our example, kroner squared)
+  - the value of the covariance is not very informative and is sensitive to changes in the units of measurement of `\(X\)` and `\(Y\)`
+
+&gt; The **correlation coefficient** between two random variables `\(X\)` and `\(Y\)` is defined as:
+&gt; `$$\rho(X, Y) = \frac{Cov(X, Y)}{\sqrt{Var(X) \cdot Var(Y)}} = \frac{Cov(X, Y)}{\sigma(X) \cdot \sigma(Y)}$$`
+]
+
+---
+# Correlation coefficient between two random variables
+
+.pull-left-wide[
+- The correlation coefficient is always between `\(-1\)` and 1
+
+- The sign and the value indicate the direction and the strength of the relationship between `\(X\)` and `\(Y\)`:
+  - `\(\rho(X, Y) = -1\)` means *perfect negative correlation*: every time `\(X\)` is above its mean, `\(Y\)` is below its mean
+  - `\(-1 &lt; \rho(X, Y) &lt; 0\)` indicates *negative correlation*: when `\(X\)` is above its mean, `\(Y\)` is generally below its mean
+  - `\(\rho(X, Y) = 0\)` means *no correlation*: when `\(X\)` is above its mean, `\(Y\)` is above its mean and below its mean with equal chance
+  - `\(0 &lt; \rho(X, Y) &lt; 1\)` indicates *positive correlation*: when `\(X\)` is above its mean, `\(Y\)` is generally above its mean
+  - `\(\rho(X, Y) = 1\)` means *perfect positive correlation*: every time `\(X\)` is above its mean, `\(Y\)` is also above its mean
+
+- Important: if `\(X\)` and `\(Y\)` are independent, then `\(Cov(X, Y) = \rho(X, Y) = 0\)`, but the reverse is **not** true!
+]
+
+---
+# .red[Practice 7: Covariance and correlation]
+
+.pull-left-wide[
+Two discrete random variables `\(X\)` and `\(Y\)` have the following joint distribution:
+
+| | `\(Y = 0\)` | `\(Y = 1\)` |
+|---|:---:|:---:|
+| `\(X = 0\)` | 0.3 | 0.2 |
+| `\(X = 1\)` | 0.2 | 0.3 |
+
+**Q1.** Calculate `\(E(X)\)`, `\(E(Y)\)`, `\(Var(X)\)`, `\(Var(Y)\)`.
+
+**Q2.** Calculate `\(Cov(X, Y)\)`.
+
+**Q3.** Calculate `\(\rho(X, Y)\)` and interpret the sign.
+]
+
+
+
+---
+# .red[Raise your hand 6: Correlation and independence]
+
+<div class="countdown" id="timer_355bddf1" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** `\(X\)` and `\(Y\)` are independent. What is `\(\rho(X, Y)\)`?
+
+- **A)** `\(\rho(X, Y) = 0\)` always — independence implies no linear association
+- **B)** `\(\rho(X, Y)\)` can be anything — independence and correlation are unrelated
+- **C)** `\(\rho(X, Y) = 1\)` — independent variables move together by definition
+
+**Q2.** You find `\(\rho(X, Y) = 0\)`. Can you conclude that `\(X\)` and `\(Y\)` are independent?
+
+- **A)** Yes — zero correlation means no relationship at all
+- **B)** No — zero correlation only rules out *linear* dependence
+- **C)** Yes, if `\(X\)` and `\(Y\)` are jointly normally distributed
+]
+
+
+
+---
+# Before next time
+.pull-left[
+- Read the assigned reading
+- Next time: Commonly used distributions `\(\rightarrow\)` Chapter 6
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(SDU_logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 125px;
+  height: 60px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // insert more to hide here
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
