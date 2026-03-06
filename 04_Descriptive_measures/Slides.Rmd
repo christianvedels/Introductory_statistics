@@ -388,7 +388,11 @@ countdown(0, 20, top=TRUE)
 - **A)** A moment — it is based on a weighted average of values
 - **B)** A quantile — it describes who earns above/below a threshold
 - **C)** Neither — it is just a descriptive number, not a formal measure
+]
 
+--
+
+.pull-left-wide[
 **Q2.** "The bottom 25% of Danish earners earn less than 280,000 DKK per year." This is:
 
 - **A)** A moment — it uses averages over the whole distribution
@@ -578,7 +582,11 @@ countdown(0, 20, top=TRUE)
 - **A)** 3.5 is the most likely outcome of a single roll
 - **B)** 3.5 is the long-run average if you roll very many times
 - **C)** 3.5 is always between the minimum (1) and maximum (6), so it is a "middle" value
+]
 
+--
+
+.pull-left-wide[
 **Q2.** $E(X) = 5$ and $E(Y) = 3$. What is $E(2X - Y + 4)$?
 
 - **A)** $2 \cdot 5 - 3 + 4 = 11$
@@ -854,7 +862,11 @@ countdown(0, 20, top=TRUE)
 - **A)** Yes, always — the expectation operator is linear
 - **B)** No, not in general — $E[X^2] \geq [E(X)]^2$ by Jensen's inequality
 - **C)** Yes, if $X$ is symmetric around zero
+]
 
+--
+
+.pull-left-wide[
 **Q2.** $Var(X) = 4$. You define $Y = -2X + 5$. What is $Var(Y)$?
 
 - **A)** $Var(Y) = -16$ — the negative sign flips the variance
@@ -1016,7 +1028,11 @@ countdown(0, 20, top=TRUE)
 - **A)** The mean — it is a moment and uses all the data
 - **B)** The median — it is a quantile and is robust to extreme values
 - **C)** The variance — it captures how unequal incomes are
+]
 
+--
+
+.pull-left-wide[
 **Q2.** A distribution has median 50 and mean 80. What can you conclude?
 
 - **A)** The distribution is left-skewed (long left tail pulls mean below median)
@@ -1137,7 +1153,11 @@ countdown(0, 20, top=TRUE)
 - **A)** Mean = Median = Mode always
 - **B)** Mean = Median, but mode may differ
 - **C)** All three are equal only if the distribution is normal
+]
 
+--
+
+.pull-left-wide[
 **Q2.** A distribution is bimodal. This means:
 
 - **A)** The mean and median are both equal to one of the two modes
@@ -1340,7 +1360,11 @@ countdown(0, 20, top=TRUE)
 - **A)** $\rho(X, Y) = 0$ always — independence implies no linear association
 - **B)** $\rho(X, Y)$ can be anything — independence and correlation are unrelated
 - **C)** $\rho(X, Y) = 1$ — independent variables move together by definition
+]
 
+--
+
+.pull-left-wide[
 **Q2.** You find $\rho(X, Y) = 0$. Can you conclude that $X$ and $Y$ are independent?
 
 - **A)** Yes — zero correlation means no relationship at all
