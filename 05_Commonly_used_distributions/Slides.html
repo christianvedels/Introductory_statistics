@@ -495,7 +495,7 @@ You roll a fair die 10 times. Let `\(Y\)` be the number of sixes.
 ---
 # .red[Raise your hand 1: Bernoulli vs. Binomial]
 
-<div class="countdown" id="timer_d55c3084" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_234ef0ff" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -759,9 +759,7 @@ class: inverse, middle, center
 
 - Ladislaus Bortkiewicz (1898) famously validated it with **deaths by horse kick** in the Prussian cavalry: 20 corps over 20 years — rare events predicted with striking accuracy
 
-- Today: **insurance claims per month**, **customers arriving at a bank**, **trading orders per second**, **workplace accidents per year**
-
-- In international economics: the **gravity equation of trade** — bilateral trade flows between countries — is now routinely estimated using **Poisson Pseudo Maximum Likelihood (PPML)**, following Santos Silva &amp; Tenreyro (2006), who showed that log-linearising the gravity equation creates severe bias
+- Today: **insurance claims per month**, **customers arriving at a bank**, **trading orders per second**, **workplace accidents per year** — and the **gravity equation of trade** (Santos Silva &amp; Tenreyro, 2006), where PPML is required to deal with zero trade flows.
 
 - Any process where events arrive randomly and rarely in continuous time tends to be Poisson
 ]
@@ -1119,7 +1117,7 @@ Let `\(Y \sim \mathcal{N}(5, 4)\)` (so `\(\mu=5\)`, `\(\sigma^2=4\)`, `\(\sigma=
 ---
 # .red[Raise your hand 2: Properties of the normal distribution]
 
-<div class="countdown" id="timer_e6ace28b" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_a2343f6a" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -1348,11 +1346,42 @@ You ask 10 people which transport mode they prefer: car (probability 0.5), bicyc
 ]
 
 ---
+# Honest study suggestion
+
+.pull-left-wide[
+Statistics introduces many distributions. It is easy to lose track of them.
+
+**A simple habit that works:** for every distribution you encounter — in lectures, exercises, or your own reading — write a short personal note containing:
+
+- **What it models:** one sentence on the real-world situation it describes
+- **Parameters:** what they control and what they mean
+- **$E(Y)$ and `\(Var(Y)\)`:** the formulas, not just the symbols
+- **Key relationships:** how it connects to distributions you already know
+- **One concrete example:** from economics, your field, or everyday life
+
+This is not about memorising — it is about building a mental map. The cheat sheet on the previous slide is the skeleton; your notes are the flesh.
+]
+
+---
+# Example note: the Normal distribution
+
+.pull-left-wide[
+**What it models:** any continuous quantity that arises as the sum of many small independent influences — heights, measurement errors, estimators, test statistics
+
+**Parameters:** `\(\mu\)` (mean, shifts the centre) and `\(\sigma^2\)` (variance, controls spread)
+
+**Key facts:**
+`$$Y \sim \mathcal{N}(\mu, \sigma^2) \implies E(Y) = \mu, \quad Var(Y) = \sigma^2$$`
+`$$Z = \frac{Y - \mu}{\sigma} \sim \mathcal{N}(0,1) \quad \text{(standardisation)}$$`
+`$$P(Y \leq a) = \Phi\!\left(\frac{a-\mu}{\sigma}\right), \qquad \Phi(-z) = 1 - \Phi(z)$$`
+
+**Relationships:** `\(Bin(n,p) \approx \mathcal{N}(np,\, np(1-p))\)` for large `\(n\)` (CLT); OLS estimators are exactly normal when errors are normal, approximately normal otherwise
+
+---
 # Before next time
 
 .pull-left[
-- Complete Exercise Set 5 (Descriptive Measures)
-- Next time: Estimators `\(\rightarrow\)` Chapter 7
+- Next time: Stochastic processes `\(\rightarrow\)` Chapter 7
 ]
 
 .pull-right[

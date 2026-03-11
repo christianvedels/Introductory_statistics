@@ -1385,11 +1385,42 @@ You ask 10 people which transport mode they prefer: car (probability 0.5), bicyc
 ]
 
 ---
+# Honest study suggestion
+
+.pull-left-wide[
+Statistics introduces many distributions. It is easy to lose track of them.
+
+**A simple habit that works:** for every distribution you encounter — in lectures, exercises, or your own reading — write a short personal note containing:
+
+- **What it models:** one sentence on the real-world situation it describes
+- **Parameters:** what they control and what they mean
+- **$E(Y)$ and $Var(Y)$:** the formulas, not just the symbols
+- **Key relationships:** how it connects to distributions you already know
+- **One concrete example:** from economics, your field, or everyday life
+
+This is not about memorising — it is about building a mental map. The cheat sheet on the previous slide is the skeleton; your notes are the flesh.
+]
+
+---
+# Example note: the Normal distribution
+
+.pull-left-wide[
+**What it models:** any continuous quantity that arises as the sum of many small independent influences — heights, measurement errors, estimators, test statistics
+
+**Parameters:** $\mu$ (mean, shifts the centre) and $\sigma^2$ (variance, controls spread)
+
+**Key facts:**
+$$Y \sim \mathcal{N}(\mu, \sigma^2) \implies E(Y) = \mu, \quad Var(Y) = \sigma^2$$
+$$Z = \frac{Y - \mu}{\sigma} \sim \mathcal{N}(0,1) \quad \text{(standardisation)}$$
+$$P(Y \leq a) = \Phi\!\left(\frac{a-\mu}{\sigma}\right), \qquad \Phi(-z) = 1 - \Phi(z)$$
+
+**Relationships:** $Bin(n,p) \approx \mathcal{N}(np,\, np(1-p))$ for large $n$ (CLT); OLS estimators are exactly normal when errors are normal, approximately normal otherwise
+
+---
 # Before next time
 
 .pull-left[
-- Complete Exercise Set 5 (Descriptive Measures)
-- Next time: Estimators $\rightarrow$ Chapter 7
+- Next time: Stochastic processes $\rightarrow$ Chapter 7
 ]
 
 .pull-right[
