@@ -357,6 +357,7 @@ For continuous random variables (e.g. income, wages), $P(X = x) = 0$ always. Use
 ### Other notation
 
 - CDF always: $F(x) = P(X \leq x)$
+- **Default**: use $F$ and $f$ notation rather than $P$ in slide bodies. Write $F(7)$ not $P(Y \leq 7)$; write $F(9) - F(3)$ not $P(3 \leq Y \leq 9)$. Reserve $P(\cdot)$ only when explicitly defining or deriving a relationship (e.g. $F(x) = P(X \leq x)$).
 - Independence of events: $A \perp B$
 - Conditional probability of events: $P(A \mid B) = P(A \cap B) / P(B)$
 - Sample space: $\Omega$; impossible event: $\varnothing$
