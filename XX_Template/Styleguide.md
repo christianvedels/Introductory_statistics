@@ -6,6 +6,71 @@ It is written for both humans and machines and is based on the existing slide de
 
 ---
 
+## Conformance checklist
+
+> **Claude Code instruction:** Whenever the user asks whether slides conform to the styleguide, or asks you to update slides to match the styleguide, load this checklist into a `TodoWrite` task list and work through every item. Mark each item done as you verify or fix it. Do not skip items.
+
+### A) Technical setup (§2)
+- [ ] Output format is `xaringan::moon_reader`
+- [ ] Ratio is `16:9`
+- [ ] `insert-logo.html` included via `after_body`
+- [ ] `self_contained: false` and `lib_dir: libs`
+- [ ] xaringanExtra chunks present: `use_panelset()`, `use_tile_view()`, `use_progress_bar(color = "#808080", location = "top")`
+- [ ] All CSS utility classes defined: `.pull-left/right`, `.pull-left/right-wide`, `.pull-left/right-narrow`, `.tiny123`, `.small123`, `.large123`, `.red`, `.orange`, `.green`
+
+### B) Title slide (§3)
+- [ ] Slide class is `class: center, inverse, middle`
+- [ ] Heading hierarchy: `# Statistics` / `## <topic>` / `### (Chapter X)`
+- [ ] Lecturer name is **Christian Vedel**, Department of Economics, University of Southern Denmark
+- [ ] Email is **christian-vs@sam.sdu.dk** as a clickable `mailto:` link
+- [ ] Date line: `` ### Updated `r Sys.Date()` ``
+- [ ] No placeholder or previous lecturer name/email remains
+
+### C) Deck structure (§3)
+- [ ] Agenda slide (`# Today's lecture`, `class: middle`) is the **first slide after** the title slide
+- [ ] Agenda uses `.pull-left-wide[]` for bullets and `.pull-right-narrow[]` for `Figures/Trees1.jpg`
+- [ ] Agenda has a one-line framing sentence in bold, followed by section bullets
+- [ ] Every major section transition has a divider slide (`class: inverse, middle, center`)
+- [ ] Deck ends with `# Before next time` slide using `.pull-left[]` + `.pull-right[]` (Trees image)
+- [ ] No placeholder text remains anywhere (e.g. `[Topic]`, `Chapter X`)
+
+### D) Slide layout (§4)
+- [ ] Default body layout uses `.pull-left-wide[]`
+- [ ] Visual support (image, key note) paired in `.pull-right-narrow[]`
+- [ ] Comparison slides use balanced `.pull-left[]` + `.pull-right[]`
+- [ ] `--` reveals are only at the **top level** — never inside CSS class divs (would render as literal `--`)
+- [ ] Overflowing slides are shortened or split — not left to overflow
+
+### E) Content and pedagogy (§5)
+- [ ] Terms bolded on first introduction
+- [ ] Formal definitions and key statements in blockquotes (`> ...`)
+- [ ] At least one `# .red[Practice N: ...]` slide per major section/concept
+- [ ] Practice slides numbered consecutively within the deck
+- [ ] Every practice slide has a hidden answer chunk (`eval=FALSE, include=FALSE`)
+- [ ] At least one `# .red[Raise your hand N: ...]` slide (typically after a practice slide or at section end)
+- [ ] Every raise-your-hand slide has `countdown(0, 20, top=TRUE)` at the top
+- [ ] Raise-your-hand questions (2–3 per slide) are inside `.pull-left-wide[]`
+- [ ] Every raise-your-hand wrong option targets a specific, named misconception
+- [ ] All raise-your-hand answers are in a hidden chunk only (`eval=FALSE, include=FALSE`) — never in the slide body
+
+### F) Math and notation (§6, §11)
+- [ ] LaTeX math used consistently (`$...$`, `$$...$$`)
+- [ ] Random variables uppercase (`X`, `Y`), realizations lowercase (`x`, `y`)
+- [ ] No bare `P(X = x)` in slide bodies — use `f(x)` instead
+- [ ] No bare `P(X ≤ x)` in slide bodies — use `F(x)` instead
+- [ ] `P(·)` appears only when explicitly defining or deriving a relationship
+- [ ] Important formulas on separate `$$...$$` lines
+
+### G) Figures and code (§7, §8)
+- [ ] All figure assets stored in the lecture's `Figures/` folder
+- [ ] Figure paths are relative (e.g. `Figures/filename.png`)
+- [ ] Image captions (if any) follow immediately after the image line
+- [ ] Setup/helper chunks use `echo=FALSE`
+- [ ] Chunk names are descriptive
+- [ ] No verbose R output visible on slides
+
+---
+
 ## 0) Basic info
 
 Here is the basic information of the course. Please reference this, when needed.
