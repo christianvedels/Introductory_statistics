@@ -823,7 +823,7 @@ class: inverse, middle, center
 ]
 
 ---
-# The Poisson distribution
+# The Poisson distribution - informal derivation
 
 .pull-left-wide[
 - But it is possible that the person went to the doctor more than once per month, in which case $Y$ would not be equal to the number of times the individual went to the doctor
@@ -840,7 +840,7 @@ class: inverse, middle, center
 --
 
 .pull-left-wide[
-- Therefore, we want to make the time interval as small as possible ($\Delta t \rightarrow 0$) $\Rightarrow$ $Y$ is the sum of an infinity of Bernoulli-distributed random variables
+- Therefore, we want to make the time interval as small as possible ($\Delta~t~\rightarrow~0$) $\Rightarrow$ $Y$ is the sum of an infinity of Bernoulli-distributed random variables
 
 - Which means that we cannot use the binomial distribution
 ]
@@ -914,14 +914,9 @@ $$Var(Y) = \lambda$$
 
 .pull-left-wide[
 - This is not a particularly attractive feature of the distribution: if the expected number of events is high, then the variance is also high (which may not necessarily be the case in reality)
+
+- Distributions such as the **negative binomial** generalise Poisson to allow $E(Y) \neq Var(Y)$
 ]
-
---
-
-.pull-left-wide[
-- There are distributions that generalize the Poisson distribution so that $E(Y) \not= Var(Y)$
-]
-
 
 ---
 # .red[Practice 4: Poisson distribution]
@@ -934,6 +929,8 @@ A call centre receives on average 8 calls per hour. Let $Y \sim Poisson(8)$.
 (b) Find $E(Y)$ and $Var(Y)$.
 
 (c) What is $f(0)$?
+
+(d) What is f(Y > 10)?
 ]
 
 ```{r practice-4, eval=FALSE, include=FALSE}
@@ -941,7 +938,99 @@ A call centre receives on average 8 calls per hour. Let $Y \sim Poisson(8)$.
 # (a) f(5) = 8^5 * e^{-8} / 5! ≈ 0.0916
 # (b) E(Y) = lambda = 8; Var(Y) = lambda = 8
 # (c) f(0) = e^{-8} ≈ 0.000335
+# (d) f(Y > 10) = 1 - f(Y <= 10)
+
+# (d) in code:
+1 - sum(dpois(0:10, lambda=8))
 ```
+
+---
+# The Poisson distribution — deriving $E(Y)$
+
+.pull-left-wide[
+- Start from the definition and drop the $k=0$ term (it contributes zero):
+$$E(Y) = \sum_{k=0}^{\infty} k \cdot \frac{\lambda^k e^{-\lambda}}{k!} = \sum_{k=1}^{\infty} \frac{\lambda^k e^{-\lambda}}{(k-1)!}$$
+]
+
+--
+
+.pull-left-wide[
+- Factor out $\lambda$ and substitute $j = k - 1$:
+$$= \lambda e^{-\lambda} \sum_{j=0}^{\infty} \frac{\lambda^j}{j!} = \lambda e^{-\lambda} \cdot e^{\lambda} = \boxed{\lambda}$$
+
+where we used the Taylor series $e^{\lambda} = \sum_{j=0}^{\infty} \lambda^j / j!$
+]
+
+
+---
+# The Poisson distribution — deriving $Var(Y)$
+
+.pull-left-wide[
+- Compute $E[Y(Y-1)]$ using the same shift trick (drop $k=0,1$, substitute $j = k-2$):
+$$E[Y(Y-1)] = \sum_{k=2}^{\infty} \frac{\lambda^k e^{-\lambda}}{(k-2)!} = \lambda^2 e^{-\lambda} \sum_{j=0}^{\infty} \frac{\lambda^j}{j!} = \lambda^2$$
+]
+
+--
+
+.pull-left-wide[
+- Then $E(Y^2) = E[Y(Y-1)] + E(Y) = \lambda^2 + \lambda$, so:
+$$Var(Y) = E(Y^2) - [E(Y)]^2 = \lambda^2 + \lambda - \lambda^2 = \boxed{\lambda}$$
+]
+
+--
+
+.pull-left-wide[
+- $E(Y) = Var(Y) = \lambda$ is not a particularly attractive feature: if the expected count is high, the variance is equally high — which may not hold in practice
+
+- Distributions such as the **negative binomial** generalise Poisson to allow $E(Y) \neq Var(Y)$
+]
+
+---
+# The Poisson distribution — limit of the Binomial (1/2)
+
+.pull-left-wide[
+- **Setup:** let $Y \sim Bin(n, p)$ with $\lambda = np$ fixed, so $p = \lambda/n$. The PMF is:
+$$f(k) = \binom{n}{k} \left(\frac{\lambda}{n}\right)^k \left(1 - \frac{\lambda}{n}\right)^{n-k}$$
+]
+
+--
+
+.pull-left-wide[
+- Expand the binomial coefficient and collect powers of $n$:
+$$f(k) = \frac{n(n-1)\cdots(n-k+1)}{k!} \cdot \frac{\lambda^k}{n^k} \cdot \left(1-\frac{\lambda}{n}\right)^n \cdot \left(1-\frac{\lambda}{n}\right)^{-k}$$
+]
+
+--
+
+.pull-left-wide[
+- As $n \to \infty$ with $\lambda$ fixed, three limits apply:
+$$\frac{n(n-1)\cdots(n-k+1)}{n^k} \;\longrightarrow\; 1 \qquad \left(1-\frac{\lambda}{n}\right)^{-k} \;\longrightarrow\; 1$$
+]
+
+---
+# The Poisson distribution — limit of the Binomial (2/2)
+
+.pull-left-wide[
+- The key limit uses the definition of $e$:
+$$\left(1 - \frac{\lambda}{n}\right)^n \;\longrightarrow\; e^{-\lambda}$$
+]
+
+--
+
+.pull-left-wide[
+- Combining all three limits:
+$$f(k) \;\longrightarrow\; \frac{\lambda^k\, e^{-\lambda}}{k!}$$
+which is the **Poisson** PMF with parameter $\lambda$ $\blacksquare$
+]
+
+
+--
+
+.pull-left-wide[
+- **Interpretation:** the Poisson distribution is the limiting case of the Binomial as the number of trials becomes infinite and the probability of success in each trial becomes infinitesimally small, while the expected number of successes $\lambda = np$ remains fixed
+
+- This is why the Poisson is used for counts of rare events over continuous time
+]
 
 ---
 class: inverse, middle, center
@@ -979,13 +1068,13 @@ class: inverse, middle, center
 
 - One of the most popular *continuous distributions* (i.e., a distribution described by a continuous random variable) is the **normal distribution**
 
-- It is called "normal" because it captures the "natural" distribution of many natural occurrences (e.g., the maximum temperature in a given day of the year, return on a stock, etc.)
+- .red[Arises as the limiting distribution of the sum of many independent random variables (Central Limit Theorem)]
 ]
 
 --
 
-.pull-left-wide[
-- It is most known for the "bell curve"
+.pull-right-narrow[
+- It is most known as a "bell curve"
 
 - It is a very useful distribution because many of the measures we will see later on follow a normal distribution
 ]
@@ -1010,9 +1099,16 @@ class: inverse, middle, center
 > $$f(y) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(y - \mu)^2}{2 \sigma^2}}$$
 ]
 
+
+--
+.pull-right-narrow[
+The cumulative distribution function of a normal distribution is defined as:
+$$F(y) = \int_{-\infty}^y f(t) dt$$
+]
+
 --
 
-.pull-left-wide[
+.pull-right-narrow[
 - Unfortunately, there is no analytic form for the cumulative distribution function $F(y)$
 ]
 
@@ -1123,19 +1219,24 @@ Let $Y \sim \mathcal{N}(5, 4)$ (so $\mu=5$, $\sigma^2=4$, $\sigma=2$).
 
 (a) Standardise $Y$ to get $Z$.
 
-(b) Find $P(Y \leq 7)$.
+(b) Find $F(7)$.
 
-(c) Find $P(3 \leq Y \leq 9)$.
+(c) Find $F(9) - F(3)$. What does this represent?
+
+(d) Find the probability that  $Y > 7$.
 ]
 
 ```{r practice-5, eval=FALSE, include=FALSE}
 # ANSWER:
 # (a) Z = (Y - 5) / 2, so Z ~ N(0,1)
-# (b) P(Y <= 7) = Phi((7-5)/2) = Phi(1) ≈ 0.841
-# (c) P(3 <= Y <= 9) = Phi((9-5)/2) - Phi((3-5)/2)
-#                    = Phi(2) - Phi(-1)
-#                    = Phi(2) - (1 - Phi(1))
-#                    ≈ 0.977 - 0.159 = 0.818
+# (b) F(7) = Phi((7-5)/2) = Phi(1) ≈ 0.841
+# (c) F(9) - F(3) = Phi((9-5)/2) - Phi((3-5)/2)
+#                 = Phi(2) - Phi(-1)
+#                 = Phi(2) - (1 - Phi(1))
+#                 ≈ 0.977 - 0.159 = 0.818
+# (d) F(inf) - F(7) = 1 - F(7) = 1 - Phi(1) ≈ 1 - 0.841 = 0.159
+#     F(inf) = 1 because the normal distribution has all its mass on (-inf, inf)
+#     This is the probability that Y > 7
 ```
 
 ---
@@ -1147,7 +1248,7 @@ countdown(0, 20, top=TRUE)
 ```
 
 .pull-left-wide[
-**Q1.** $Y \sim \mathcal{N}(3, 9)$. What is $P(Y = 3)$?
+**Q1.** $Y \sim \mathcal{N}(3, 9)$. A student writes $P(Y = 3)$. What does this equal?
 
 - **A)** 0.5 — the median equals the mean for a symmetric distribution
 - **B)** 0 — continuous RVs have zero probability at any single point
@@ -1175,6 +1276,51 @@ countdown(0, 20, top=TRUE)
 #   A: Symmetry of the standard normal allows us to determine this directly
 #   C: 0.933 = P(Z < 1.5), not P(Z < -1.5); confusing Phi(a) with Phi(-a)
 ```
+
+---
+# The normal distribution — deriving $E(Y) = \mu$
+
+.pull-left-wide[
+- Substitute $z = (y - \mu)/\sigma$ (so $y = \mu + \sigma z$, $dy = \sigma\, dz$) into the definition of $E(Y)$:
+
+$$E(Y) = \int_{-\infty}^{\infty} (\mu + \sigma z) \cdot \underbrace{\frac{1}{\sqrt{2\pi}} e^{-z^2/2}}_{\phi(z)}\, dz$$
+]
+
+--
+
+.pull-left-wide[
+- Split into two integrals:
+
+$$= \mu \underbrace{\int_{-\infty}^{\infty} \phi(z)\, dz}_{=\,1} \;+\; \sigma \underbrace{\int_{-\infty}^{\infty} z\,\phi(z)\, dz}_{=\,0}= \boxed{\mu}$$
+
+- The second integral is zero because $z\,\phi(z)$ is an **odd function** — it is symmetric about zero with opposite signs, so the positive and negative halves cancel exactly
+]
+
+---
+# The normal distribution — deriving $Var(Y) = \sigma^2$
+
+.pull-left-wide[
+- Using the same substitution $z = (y-\mu)/\sigma$:
+
+$$Var(Y) = E[(Y-\mu)^2] = \sigma^2 \int_{-\infty}^{\infty} z^2\, \phi(z)\, dz$$
+]
+
+--
+
+.pull-left-wide[
+- Integrate by parts with $u = z$ and $dv = z\,e^{-z^2/2}\,dz$ (so $v = -e^{-z^2/2}$):
+
+$$\int_{-\infty}^{\infty} z^2\, e^{-z^2/2}\,dz = \Big[-z\,e^{-z^2/2}\Big]_{-\infty}^{\infty} + \int_{-\infty}^{\infty} e^{-z^2/2}\,dz = 0 + \sqrt{2\pi}$$
+]
+
+--
+
+.pull-left-wide[
+- Dividing by $\sqrt{2\pi}$: $\displaystyle\int_{-\infty}^{\infty} z^2\,\phi(z)\,dz = 1$, and therefore:
+
+$$Var(Y) = \sigma^2 \cdot 1 = \boxed{\sigma^2}$$
+]
+
 
 ---
 class: inverse, middle, center
@@ -1400,21 +1546,6 @@ Statistics introduces many distributions. It is easy to lose track of them.
 
 This is not about memorising — it is about building a mental map. The cheat sheet on the previous slide is the skeleton; your notes are the flesh.
 ]
-
----
-# Example note: the Normal distribution
-
-.pull-left-wide[
-**What it models:** any continuous quantity that arises as the sum of many small independent influences — heights, measurement errors, estimators, test statistics
-
-**Parameters:** $\mu$ (mean, shifts the centre) and $\sigma^2$ (variance, controls spread)
-
-**Key facts:**
-$$Y \sim \mathcal{N}(\mu, \sigma^2) \implies E(Y) = \mu, \quad Var(Y) = \sigma^2$$
-$$Z = \frac{Y - \mu}{\sigma} \sim \mathcal{N}(0,1) \quad \text{(standardisation)}$$
-$$P(Y \leq a) = \Phi\!\left(\frac{a-\mu}{\sigma}\right), \qquad \Phi(-z) = 1 - \Phi(z)$$
-
-**Relationships:** $Bin(n,p) \approx \mathcal{N}(np,\, np(1-p))$ for large $n$ (CLT); OLS estimators are exactly normal when errors are normal, approximately normal otherwise
 
 ---
 # Before next time
