@@ -930,7 +930,7 @@ A call centre receives on average 8 calls per hour. Let $Y \sim Poisson(8)$.
 
 (c) What is $f(0)$?
 
-(d) What is f(Y > 10)?
+(d) What is F(Y > 10)?
 ]
 
 ```{r practice-4, eval=FALSE, include=FALSE}
@@ -938,7 +938,7 @@ A call centre receives on average 8 calls per hour. Let $Y \sim Poisson(8)$.
 # (a) f(5) = 8^5 * e^{-8} / 5! ≈ 0.0916
 # (b) E(Y) = lambda = 8; Var(Y) = lambda = 8
 # (c) f(0) = e^{-8} ≈ 0.000335
-# (d) f(Y > 10) = 1 - f(Y <= 10)
+# (d) F(Y > 10) = 1 - F(Y <= 10)
 
 # (d) in code:
 1 - sum(dpois(0:10, lambda=8))
