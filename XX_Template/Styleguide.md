@@ -38,7 +38,9 @@ It is written for both humans and machines and is based on the existing slide de
 - [ ] Default body layout uses `.pull-left-wide[]`
 - [ ] Visual support (image, key note) paired in `.pull-right-narrow[]`
 - [ ] Comparison slides use balanced `.pull-left[]` + `.pull-right[]`
-- [ ] `--` reveals are only at the **top level** — never inside CSS class divs (would render as literal `--`)
+- [ ] All body content is inside `.pull-left-wide[]` blocks (not bare top-level bullets)
+- [ ] `--` reveals are only at the **top level** between `.pull-left-wide[]` blocks — never inside a div
+- [ ] Each `.pull-left-wide[]` block contains only the *new* content for that step (xaringan accumulates previous blocks automatically)
 - [ ] Overflowing slides are shortened or split — not left to overflow
 
 ### E) Content and pedagogy (§5)
@@ -204,28 +206,31 @@ Keep divider content short (typically one section title).
 
 ### Progressive reveal
 
-- Use `--` to reveal points step by step.
-- This is the default method for pacing complex derivations or lists.
+- Use `--` to reveal content step by step.
 - **CRITICAL LIMITATION**: `--` only works at the **top level** of a slide. It does **not** work inside CSS class containers such as `.pull-left-wide[]`, `.pull-left[]`, `.pull-right[]`, etc. — it will render as literal text `--` instead of triggering a reveal.
-- **Correct pattern** when you need both layout and incremental reveal: place `--` *outside* the div, with a separate div block for each step:
+- **Correct pattern**: place each chunk of content in its own `.pull-left-wide[]` block, with `--` between blocks at the top level. xaringan accumulates previous blocks, so each new block only needs to contain the *new* content for that step:
 
 ```rmd
---
-
 .pull-left-wide[
-First point
+- First point
 ]
 
 --
 
 .pull-left-wide[
-First point
+- Second point (first block remains visible above)
+]
 
-Second point
+--
+
+.pull-left-wide[
+- Third point
 ]
 ```
 
-- **Default rule**: if content is inside `.pull-left-wide[]` or any other div, omit `--` and show all content at once. Only use the separate-div pattern above when the reveal is pedagogically essential.
+- Group closely related content (e.g. an introductory sentence + its formula) into a single block rather than splitting every line into its own reveal step.
+- Definition slides: show the full blockquote in the first block (no leading `--`), then reveal explanatory bullets with subsequent `--` blocks.
+- Figure slides: use `.center[]` with no reveal — show the figure immediately.
 
 ### Practice slides
 
