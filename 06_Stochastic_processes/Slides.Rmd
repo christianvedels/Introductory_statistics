@@ -226,26 +226,25 @@ class: inverse, middle, center
 --
 
 .pull-left-wide[
-- Let us consider a simple example: every morning, a couple has to decide who will take out the trash
-- To make this fair, they toss a coin every morning
+- Let us consider a simple example: every morning, we toss a fair coin
 ]
 
 ---
 
-# Who takes out the trash?
+# Tossing a coin
 
 .pull-left-wide[
-- Let $Z_t$ be the random variable indicating who took the trash out on the $t$-th morning:
-$$Z_t = \begin{cases} 0, & \text{if husband takes the trash out on morning } t \\ 1, & \text{if wife takes the trash out on morning } t \end{cases}$$
+- Let $Z_t$ be the random variable indicating the outcome of the $t$-th coin toss:
+$$Z_t = \begin{cases} 0, & \text{tails on toss } t \\ 1, & \text{heads on toss } t \end{cases}$$
 ]
 
 --
 
 .pull-left-wide[
 - We may be interested in several aspects of this:
-  - how many times did the wife take the trash out in a year, on average?
-  - what is the probability that either of them takes the trash out for a whole week in a row?
-  - how many days of "break" can they expect to have between days when they take out the trash?
+  - how many times did heads appear in a year, on average?
+  - what is the probability of getting heads (or tails) for a whole week in a row?
+  - how many tosses can we expect between two heads?
 ]
 
 ---
@@ -335,7 +334,7 @@ class: inverse, middle, center
 --
 
 .pull-left-wide[
-- For example, suppose you want to see how many times the wife took out the trash until a certain date
+- For example, suppose you want to count how many times heads appeared until a certain toss
 - We can define the random variable $X_t$ as:
 $$X_t = Z_1 + Z_2 + \ldots + Z_t = \sum_{s=1}^t Z_s$$
 ]
@@ -480,7 +479,7 @@ $$f(2) = P(Z_1 = 1, Z_2 = 1) = 0.25$$
 --
 
 .pull-left-wide[
-- This also shows the usefulness of stochastic processes: instead of directly specifying the distribution of the number of times the wife took out the trash, we can use a stochastic process
+- This also shows the usefulness of stochastic processes: instead of directly specifying the distribution of the number of times heads appeared, we can use a stochastic process
 - This approach is more intuitive and often easier
 ]
 
@@ -494,14 +493,14 @@ $$f(2) = P(Z_1 = 1, Z_2 = 1) = 0.25$$
 --
 
 .pull-left-wide[
-- For example, we may want to know how long it takes until the wife takes the trash out twice
+- For example, we may want to know how long it takes until heads appears twice
 - Since the stochastic process consists of random variables, the time until one particular state is realized is also random
 ]
 
 --
 
 .pull-left-wide[
-- Let $Y_2$ be the random variable indicating how long it takes until the wife takes the trash out twice
+- Let $Y_2$ be the random variable indicating how long it takes until heads appears twice
 ]
 
 ---
