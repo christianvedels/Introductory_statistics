@@ -400,36 +400,9 @@ Consider the realization `\(z = \{2, 5, 3, 8, 6\}\)` for `\(t = 1, 2, 3, 4, 5\)`
 
 
 ---
-# Example: Election day 2026
-
-.pull-left-wide[
-- Poll (March 21): Red bloc 47.5%, Blue bloc 45.8%, Middle 6.6%
-- For each bloc, define an indicator: `\(R_i = \mathbf{1}[\text{voter } i \text{ votes red}]\)`, and similarly `\(B_i\)`, `\(M_i\)`
-- The **vote totals** after `\(n = 1{,}000\)` voters are partial sum transformations:
-`$$N_R = \sum_{i=1}^{n} R_i \qquad N_B = \sum_{i=1}^{n} B_i \qquad N_M = \sum_{i=1}^{n} M_i$$`
-]
-
-
----
-# Example: Election day 2026 (cont.)
-
-.pull-left-wide[
-- Each `\(R_i \sim \text{Bernoulli}(p)\)`, so `\(E(R_i) = p\)` and `\(\text{Var}(R_i) = p(1-p)\)`
-- For `\(n\)` independent voters the expected totals and variances are:
-
-| Bloc   | `\(p\)`   | `\(E(N)\)`  | `\(\text{Var}(N)\)` | `\(\text{SD}(N)\)` | `\(E(N) \pm 2\,\text{SD}\)` |
-|--------|-------|---------|-----------------|----------------|--------------------------|
-| Red    | 0.475 | **475** | 249.4           | **15.8**       | [443, 507]               |
-| Blue   | 0.458 | **458** | 248.2           | **15.8**       | [426, 490]               |
-| Middle | 0.066 | **66**  | 61.6            | **7.8**        | [50, 82]                 |
-
-]
-
-
----
 # .red[Raise your hand 1: Transformations]
 
-<div class="countdown" id="timer_068e1104" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_7880831b" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -690,6 +663,31 @@ class: inverse, middle, center
 ]
 
 ---
+# Example: Election day 2026
+
+.pull-left-wide[
+- Poll (March 21): Red bloc 47.5%, Blue bloc 45.8%, Middle 6.6%
+- For each bloc, define an indicator: `\(R_i = \mathbf{1}[\text{voter } i \text{ votes red}]\)`, and similarly `\(B_i\)`, `\(M_i\)`
+- The **vote totals** after `\(n = 1{,}000\)` voters are partial sum transformations:
+`$$N_R = \sum_{i=1}^{n} R_i \qquad N_B = \sum_{i=1}^{n} B_i \qquad N_M = \sum_{i=1}^{n} M_i$$`
+]
+
+---
+# Example: Election day 2026 (cont.)
+
+.pull-left-wide[
+- Each `\(R_i \sim \text{Bernoulli}(p)\)`, so `\(E(R_i) = p\)` and `\(\text{Var}(R_i) = p(1-p)\)`
+- For `\(n\)` independent voters the expected totals and variances are:
+
+| Bloc   | `\(p\)`   | `\(E(N)\)`  | `\(\text{Var}(N)\)` | `\(\text{SD}(N)\)` | `\(E(N) \pm 2\,\text{SD}\)` |
+|--------|-------|---------|-----------------|----------------|--------------------------|
+| Red    | 0.475 | **475** | 249.4           | **15.8**       | [443, 507]               |
+| Blue   | 0.458 | **458** | 248.2           | **15.8**       | [426, 490]               |
+| Middle | 0.066 | **66**  | 61.6            | **7.8**        | [50, 82]                 |
+
+]
+
+---
 # Waiting-time distribution of a binomial process
 
 .pull-left-wide[
@@ -755,7 +753,7 @@ A website receives visits according to a Bernoulli process with `\(p = 0.4\)` pe
 ---
 # .red[Raise your hand 2: Bernoulli and binomial processes]
 
-<div class="countdown" id="timer_690eb198" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_fc3846cc" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -917,7 +915,7 @@ Customers arrive at a shop according to a Poisson process with rate `\(\lambda =
 ---
 # .red[Raise your hand 3: Poisson process]
 
-<div class="countdown" id="timer_a34081b1" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_ab22587d" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -1118,7 +1116,7 @@ A stock price follows a Gaussian random walk with `\(\mu = 0.1\)` and `\(\sigma^
 ---
 # .red[Raise your hand 4: Poisson and Gaussian]
 
-<div class="countdown" id="timer_13631ff0" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_9bc08f53" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>

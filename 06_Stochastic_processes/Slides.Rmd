@@ -402,33 +402,6 @@ Consider the realization $z = \{2, 5, 3, 8, 6\}$ for $t = 1, 2, 3, 4, 5$.
 ```
 
 ---
-# Example: Election day 2026
-
-.pull-left-wide[
-- Poll (March 21): Red bloc 47.5%, Blue bloc 45.8%, Middle 6.6%
-- For each bloc, define an indicator: $R_i = \mathbf{1}[\text{voter } i \text{ votes red}]$, and similarly $B_i$, $M_i$
-- The **vote totals** after $n = 1{,}000$ voters are partial sum transformations:
-$$N_R = \sum_{i=1}^{n} R_i \qquad N_B = \sum_{i=1}^{n} B_i \qquad N_M = \sum_{i=1}^{n} M_i$$
-]
-
-
----
-# Example: Election day 2026 (cont.)
-
-.pull-left-wide[
-- Each $R_i \sim \text{Bernoulli}(p)$, so $E(R_i) = p$ and $\text{Var}(R_i) = p(1-p)$
-- For $n$ independent voters the expected totals and variances are:
-
-| Bloc   | $p$   | $E(N)$  | $\text{Var}(N)$ | $\text{SD}(N)$ | $E(N) \pm 2\,\text{SD}$ |
-|--------|-------|---------|-----------------|----------------|--------------------------|
-| Red    | 0.475 | **475** | 249.4           | **15.8**       | [443, 507]               |
-| Blue   | 0.458 | **458** | 248.2           | **15.8**       | [426, 490]               |
-| Middle | 0.066 | **66**  | 61.6            | **7.8**        | [50, 82]                 |
-
-]
-
-
----
 # .red[Raise your hand 1: Transformations]
 
 ```{r raiseyourhand1-timer, echo=FALSE}
@@ -717,6 +690,31 @@ $$f(x) = {t \choose x} \cdot p^x \cdot (1 - p)^{t-x}$$
 .pull-left-wide[
 - The expected value and variance of $X_t$ also come from the binomial distribution:
 $$E(X_t) = t \cdot p \qquad Var(X_t) = t \cdot p \cdot (1 - p)$$
+]
+
+---
+# Example: Election day 2026
+
+.pull-left-wide[
+- Poll (March 21): Red bloc 47.5%, Blue bloc 45.8%, Middle 6.6%
+- For each bloc, define an indicator: $R_i = \mathbf{1}[\text{voter } i \text{ votes red}]$, and similarly $B_i$, $M_i$
+- The **vote totals** after $n = 1{,}000$ voters are partial sum transformations:
+$$N_R = \sum_{i=1}^{n} R_i \qquad N_B = \sum_{i=1}^{n} B_i \qquad N_M = \sum_{i=1}^{n} M_i$$
+]
+
+---
+# Example: Election day 2026 (cont.)
+
+.pull-left-wide[
+- Each $R_i \sim \text{Bernoulli}(p)$, so $E(R_i) = p$ and $\text{Var}(R_i) = p(1-p)$
+- For $n$ independent voters the expected totals and variances are:
+
+| Bloc   | $p$   | $E(N)$  | $\text{Var}(N)$ | $\text{SD}(N)$ | $E(N) \pm 2\,\text{SD}$ |
+|--------|-------|---------|-----------------|----------------|--------------------------|
+| Red    | 0.475 | **475** | 249.4           | **15.8**       | [443, 507]               |
+| Blue   | 0.458 | **458** | 248.2           | **15.8**       | [426, 490]               |
+| Middle | 0.066 | **66**  | 61.6            | **7.8**        | [50, 82]                 |
+
 ]
 
 ---
