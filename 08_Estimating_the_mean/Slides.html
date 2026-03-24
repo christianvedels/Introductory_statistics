@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Slides.knit</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/panelset-0.3.0/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.3.0/panelset.js"></script>
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, inverse, middle
+
+
+
+
+
+<style>.xe__progress-bar__container {
+  top:0;
+  opacity: 1;
+  position:absolute;
+  right:0;
+  left: 0;
+}
+.xe__progress-bar {
+  height: 0.25em;
+  background-color: #808080;
+  width: calc(var(--slide-current) / var(--slide-total) * 100%);
+}
+.remark-visible .xe__progress-bar {
+  animation: xe__progress-bar__wipe 200ms forwards;
+  animation-timing-function: cubic-bezier(.86,0,.07,1);
+}
+@keyframes xe__progress-bar__wipe {
+  0% { width: calc(var(--slide-previous) / var(--slide-total) * 100%); }
+  100% { width: calc(var(--slide-current) / var(--slide-total) * 100%); }
+}</style>
+
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+&lt;/style&gt;
+
+
+
+# Statistics
+## Estimating the mean using a simple random sample
+### (Chapter 10)
+
+### Seetha Menon,&lt;br&gt;Department of Economics&lt;br&gt;University of Southern Denmark
+
+### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
+
+### Updated 2026-03-20
+
+
+
+---
+class: inverse, middle, center
+# Simple random sampling
+
+---
+# Descriptive measures in a sample
+
+--
+
+- Often, we want to derive information from a sample about the unknown distribution in the population
+
+--
+
+- There are various ways to characterize the population distribution, but it is common to use a descriptive measure
+
+--
+
+- The question is: how can we use the information in the sample to infer something about the value of descriptive measure in the population?
+
+---
+# Simple random sample
+
+--
+
+&gt; A **simple random sample** is a sample `\((X_1, X_2, \ldots, X_n)\)` such that:
+&gt;
+&gt; 1. `\(X_1\)`, `\(X_2\)`, `\(\ldots\)`, `\(X_n\)` are statistically independent
+&gt; 2. `\(X_1\)`, `\(X_2\)`, `\(\ldots\)`, `\(X_n\)` have the same marginal distribution `\(f_X(x)\)`
+
+--
+
+- The marginal distribution `\(f_X(x)\)` is the distribution of interest (in the population)
+
+--
+
+- Note that the second condition assures that the simple random sample is a representative sample for `\(X\)`
+
+---
+# Distribution of a simple random sample
+
+--
+
+- It is easy to determine the distribution of the random sample by using the two conditions in the definition of the sample:
+$$
+f(x_1, \ldots, x_n) = f_X(x_1) \cdot \ldots \cdot f_X(x_n)
+$$
+
+--
+
+- So, if we knew the distribution of `\(X\)` in the population, we would be able to determine the distribution of the simple random sample
+
+---
+# Distribution of a simple random sample
+
+--
+
+- For example, suppose `\(X\)` follows a Bernoulli distribution with `\(p = 0.7\)`, and that `\(n = 3\)`
+
+--
+
+- Then we can calculate the probability of any realized sample:
+
+--
+
+$$
+P(X_1 = 0, X_2 = 0, X_3 = 0) = P(X_1 = 0) \cdot P(X_2 = 0) \cdot P(X_3 = 0) = 0.3^3 = 0.027
+$$
+
+--
+
+$$
+P(X_1 = 0, X_2 = 0, X_3 = 1) = P(X_1 = 0) \cdot P(X_2 = 0) \cdot P(X_3 = 1) = 0.3^2 \cdot 0.7 = 0.063
+$$
+
+--
+
+$$
+\vdots
+$$
+
+--
+
+$$
+P(X_1 = 1, X_2 = 1, X_3 = 1) = P(X_1 = 1) \cdot P(X_2 = 1) \cdot P(X_3 = 1) = 0.7^3 = 0.343
+$$
+
+--
+
+- But: we do not know the distribution of `\(X\)` in the population...
+
+---
+class: inverse, middle, center
+# Constructing an estimator of the mean value
+
+---
+# Estimating the mean value
+
+--
+
+- Recall that each element of the sample is a random variable following the same distribution
+
+--
+
+- In other words, each element of the sample (random variable) has the same mean value
+
+--
+
+- We could then use each realized value as an estimate (approximation) of the mean
+
+--
+
+- This gives us `\(n\)` different estimates of one value `\(\Rightarrow\)` we could use this information better and combine it into one single value
+
+---
+# The analogy principle
+
+--
+
+- The **analogy principle** of estimation says that we should use the formulas we would use if we knew the distribution in the population, but replace all the unknown population quantities with the corresponding sample quantities
+
+--
+
+- If we knew the distribution of the random variable `\(X\)`, that can take the values `\(x_1, x_2, \ldots, x_n\)` with probabilities `\(f(x_1)\)`, `\(f(x_2)\)`, `\(\ldots\)`, `\(f(x_N)\)`, then its mean value is:
+$$
+\mu = \sum_{i=1}^N x_i f(x_i) = x_1 f(x_1) + x_2 f(x_2) + \ldots + x_N f(x_N)
+$$
+
+---
+# The sample average
+
+--
+
+- In practice, we have a sample of `\(n\)` values `\(x_1\)`, `\(x_2\)`, `\(\ldots\)`, `\(x_n\)`, each one occurring with probability `\(1/n\)`
+
+--
+
+- The analogy principle says that we should use these values in the formula above:
+$$
+\bar{x} = \sum_{i=1}^n x_i \cdot \frac{1}{n} = \frac{1}{n} \cdot \sum_{i=1}^n x_i
+$$
+
+--
+
+- Since we can calculate this for any realized sample, we define the **sample average** as:
+$$
+\bar{X} = \sum_{i=1}^n X_i \cdot \frac{1}{n} = \frac{1}{n} \cdot \sum_{i=1}^n X_i
+$$
+
+---
+# Estimate vs estimator
+
+--
+
+- Note that `\(\bar{X}\)` is a *random variable*, while `\(\bar{x}\)` is a value (and same for `\(\mu\)`)
+
+--
+
+- Actually, `\(\bar{x}\)` is a realized value of `\(\bar{X}\)`
+
+--
+
+- `\(\bar{X}\)` is an **estimator**, i.e., a random variable that is a function of the sample (random variables) and that aims to replicate a particular parameter in the population
+
+--
+
+- In contrast, `\(\bar{x}\)` is an **estimate** (or **estimated value**), i.e., a realized value of the estimator, based on a particular realized sample
+
+--
+
+- The estimate is our guess of the true value of the parameter
+
+---
+class: inverse, middle, center
+# Properties of estimators
+
+---
+# Properties of estimators
+
+--
+
+- We can construct an infinity of estimators, but we would want to have a *good* estimator
+
+--
+
+- We need to define what makes an estimator *good*, given that we do not know the true value of the parameter
+
+--
+
+- We are generally interested in three properties of estimators:
+
+--
+
+  - unbiasedness
+
+--
+
+  - efficiency
+
+--
+
+  - consistency
+
+---
+# Unbiasedness
+
+--
+
+- Recall that an estimator aims to approximate a particular parameter in the population
+
+--
+
+- Suppose we could sample many times and calculate the realized value of the estimator (the estimated value) in each sample
+
+--
+
+- We would want these values to be "around" the true value of the parameter
+
+--
+
+- In other words, we would want our estimator to be, "on average," equal to the true value of the parameter
+
+--
+
+- We say that an estimator is **unbiased** if its expected value is equal to the parameter that it aims to approximate
+
+---
+# Unbiasedness of sample average
+
+--
+
+- We can easily check if the sample average is unbiased:
+
+--
+
+$$
+E(\bar{X}) = E \left[ \frac{1}{n} \sum_{i=1}^n X_i \right] = \frac{1}{n} \cdot E \left[ \sum_{i=1}^n X_i \right]
+$$
+
+--
+
+$$
+= \frac{1}{n} \cdot \sum_{i=1}^n E(X_i) = \frac{1}{n} \cdot n \cdot \mu
+$$
+
+--
+
+$$
+= \mu
+$$
+
+--
+
+- Hence, the sample average is an unbiased estimator of the expected value of `\(X\)`
+
+---
+# Efficiency
+
+--
+
+- In practice, we cannot resample many times (we usually only have one realization of the sample)
+
+--
+
+- Since the estimator is a random variable, its realized value can be very far from the parameter of interest even if it is unbiased (i.e., its average value is equal to the parameter of interest)
+
+--
+
+- Therefore, we would like our estimator to take values "very close" to the true value of the parameter with high probability
+
+--
+
+- In other words, we would want the variance of the estimator to be as small as possible (the estimator would then be *precise*)
+
+--
+
+- An estimator is more **efficient** than another if its variance is smaller
+
+---
+# Variance of sample average
+
+--
+
+- We can also calculate relatively easily the variance of the sample average, because the sample elements are all independent of each other:
+
+--
+
+$$
+Var(\bar{X}) = Var \left[ \frac{1}{n} \sum_{i=1}^n X_i \right] = \frac{1}{n^2} \cdot Var \left[ \sum_{i=1}^n X_i \right]
+$$
+
+--
+
+$$
+= \frac{1}{n^2} \cdot \sum_{i=1}^n Var(X_i) = \frac{1}{n^2} \cdot n \cdot \sigma^2
+$$
+
+--
+
+$$
+= \frac{\sigma^2}{n}
+$$
+
+--
+
+- Note that the variance of the sample average depends on the sample size: the larger the sample, the smaller the variance (i.e., the estimator is more precise)
+
+---
+# Consistency
+
+--
+
+- Several estimators have the property that their variance is inversely proportional to sample size
+
+--
+
+- As sample size grows toward infinity, the variance of the estimator goes toward zero
+
+--
+
+- This means that in an infinite sample, the distribution of the estimator collapses on a single value
+
+--
+
+- If that single value is the true value of the parameter of interest (i.e., if the estimator is unbiased), then the estimator is **consistent**
+
+--
+
+- This implies that, if the sample is "sufficiently large," a consistent estimator will have realized values "very close" to the true value of the parameter
+
+--
+
+- In this case, even one realized sample may be enough to have a "good approximation" of the true value of the parameter
+
+---
+# Consistency of sample average
+
+--
+
+- Recall that the sample average is unbiased:
+$$
+E(\bar{X}) = \mu
+$$
+
+--
+
+- Recall also that the variance of the sample average goes to zero as the sample size grows to infinity:
+$$
+\lim_{n \rightarrow \infty} Var(\bar{X}) = \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} = 0
+$$
+
+--
+
+- Therefore, the sample average is a consistent estimator of `\(\mu\)`
+
+---
+class: inverse, middle, center
+# The distribution of the estimator `\(\bar{X}\)`
+
+---
+# The distribution of `\(\bar{X}\)`
+
+--
+
+- We calculated the expected value and variance of `\(\bar{X}\)`
+
+--
+
+- However, in certain situations we may want to calculate the probability that the observed value of this estimator lies in a certain interval
+
+--
+
+- For this we would need to know the entire distribution of this estimator, not just the values of these two moments
+
+--
+
+- If the shape of the distribution of `\(X\)` in the population is known (i.e., the type of distribution, but not necessarily its parameters), then we may be able to determine the distribution of `\(\bar{X}\)`
+
+---
+# The distribution of `\(\bar{X}\)` if sample is normal
+
+--
+
+- Suppose that the distribution of `\(X\)` in the population is normal, with mean `\(\mu\)` and variance `\(\sigma^2\)`
+
+--
+
+- Then each individual element of the sample also follows the same distribution: `\(X_i \sim \mathcal{N}(\mu, \sigma^2)\)`
+
+--
+
+- In this case, we will have: `\(\dfrac{X_i}{n} \sim \mathcal{N}\left(\dfrac{\mu}{n}, \dfrac{\sigma^2}{n^2} \right)\)`
+
+--
+
+- The sample average is:
+$$
+\bar{X} = \frac{X_1}{n} + \frac{X_2}{n} + \ldots + \frac{X_n}{n}
+$$
+
+--
+
+- As a sum of normally-distributed random variables, `\(\bar{X}\)` also follows normal distribution:
+$$
+\bar{X} \sim \mathcal{N}\left(\mu, \dfrac{\sigma^2}{n} \right)
+$$
+
+---
+# The approximate distribution of `\(\bar{X}\)`
+
+--
+
+- In practice, we will not know the distribution of `\(X\)` in the population
+
+--
+
+- Even if we do, we may not be able to determine the distribution of `\(\bar{X}\)` so easily
+
+--
+
+- Luckily, we have the following very important result
+
+--
+
+&gt; **Central limit theorem**
+&gt;
+&gt; Suppose we have a simple random sample of `\(n\)` elements `\(X_1\)`, `\(X_2\)`, `\(\ldots\)`, `\(X_n\)`, where `\(E(X_i) = \mu\)` and `\(Var(X_i) = \sigma^2\)` for all `\(i\)`. If `\(n = \infty\)`, then the sample mean follows normal distribution: `\(\bar{X} \sim \mathcal{N}\left(\mu, \dfrac{\sigma^2}{n} \right)\)`
+
+--
+
+- This means that if the sample is "large enough," the distribution of `\(\bar{X}\)` is *approximately normal*:
+$$
+\bar{X} \overset{a}{\sim} \mathcal{N}\left(\mu, \dfrac{\sigma^2}{n} \right)
+$$
+
+---
+# Key Takeaways
+
+--
+
+- Estimating the mean in a simple random sample
+
+--
+
+- Estimate v. Estimator
+
+--
+
+- Properties of Estimators: Unbiased, Efficiency and Consistency
+
+--
+
+- Central limit theorem
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(SDU_logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 125px;
+  height: 60px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // insert more to hide here
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
