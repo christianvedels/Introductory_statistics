@@ -698,7 +698,12 @@ $$E(X_t) = t \cdot p \qquad Var(X_t) = t \cdot p \cdot (1 - p)$$
 .pull-left-wide[
 - Poll (March 21): Red bloc 47.5%, Blue bloc 45.8%, Middle 6.6%
 - For each bloc, define an indicator: $R_i = \mathbf{1}[\text{voter } i \text{ votes red}]$, and similarly $B_i$, $M_i$
-- The **vote totals** after $n = 1{,}000$ voters are partial sum transformations:
+]
+
+--
+
+.pull-left-wide[
+- We poll 1000 voters: The **vote totals** after $n = 1{,}000$ voters are partial sum transformations:
 $$N_R = \sum_{i=1}^{n} R_i \qquad N_B = \sum_{i=1}^{n} B_i \qquad N_M = \sum_{i=1}^{n} M_i$$
 ]
 
