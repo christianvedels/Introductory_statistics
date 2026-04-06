@@ -52,7 +52,8 @@ It is written for both humans and machines and is based on the existing slide de
 - [ ] At least one `# .red[Raise your hand N: ...]` slide (typically after a practice slide or at section end)
 - [ ] Every raise-your-hand slide has `countdown(0, 20, top=TRUE)` at the top
 - [ ] Raise-your-hand questions (2–3 per slide) are inside `.pull-left-wide[]`
-- [ ] Every raise-your-hand wrong option targets a specific, named misconception
+- [ ] Every raise-your-hand wrong option is genuinely plausible (targets a specific, named misconception with a coherent student argument)
+- [ ] Each question is in its own `.pull-left-wide[]` block with `--` between questions at the top level
 - [ ] All raise-your-hand answers are in a hidden chunk only (`eval=FALSE, include=FALSE`) — never in the slide body
 
 ### F) Math and notation (§6, §11)
@@ -246,11 +247,15 @@ Keep divider content short (typically one section title).
 
 Use `# .red[Raise your hand N: ...]` slides for in-class multiple choice discussion (where N is a sequential number within the deck, e.g. `# .red[Raise your hand 1: ...]`). These differ from practice slides in that they are designed to provoke debate, not just compute.
 
-**Design principle — all wrong answers must be defensible:**
-- Every option (A, B, C) must have a plausible argument a student could make.
-- Wrong options should target specific, named misconceptions.
+**Design principle — all wrong answers must be genuinely plausible:**
+- Every option (A, B, C) must reflect a coherent line of reasoning a student could actually follow — not a straw man.
+- Wrong options should target specific, named misconceptions and include a brief label that makes them sound equally credible at first read.
 - The correct answer must be unambiguous to someone who knows the statistics.
-- Teacher notes in the hidden chunk should explain *why* each wrong answer is tempting.
+- Teacher notes in the hidden chunk must explain *why* each wrong answer is tempting and, for questions where multiple options are partially true, why the correct answer is the *most* complete explanation.
+
+**Sequential reveal — always use `--` between questions:**
+- Questions are revealed one at a time so the class can discuss Q1 before Q2 appears.
+- Because `--` does not work inside CSS containers, each question must be in its own `.pull-left-wide[]` block at the top level, with `--` between blocks.
 
 **Layout:**
 
@@ -269,7 +274,11 @@ countdown(0, 20, top=TRUE)
 - **A)** <option> — <brief label>
 - **B)** <option> — <brief label>
 - **C)** <option> — <brief label>
+]
 
+--
+
+.pull-left-wide[
 **Q2.** <question text>
 
 - **A)** <option> — <brief label>
@@ -294,8 +303,7 @@ countdown(0, 20, top=TRUE)
 
 **Rules:**
 - Include a `countdown(0, 20, top=TRUE)` timer (20 seconds) at the top of every raise-your-hand slide.
-- Put 2–3 questions per slide inside `.pull-left-wide[]`.
-- Use `--` between questions only if you want to reveal Q2 after discussing Q1 in class; omit `--` if you want all questions visible at once.
+- Always place each question in its own `.pull-left-wide[]` block with `--` between blocks — never put two questions inside the same container.
 - Answers and teacher reasoning go **only** in the hidden chunk — never in the slide body.
 - Place raise-your-hand slides at natural concept checkpoints, typically right after a practice slide or at the end of a section.
 

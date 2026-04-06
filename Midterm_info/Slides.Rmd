@@ -142,6 +142,7 @@ class: middle
 **Practicalities:**
 
 - Submit your watermarked file as a PDF through Digital Exam
+- I will only read your PDF file — don't expect me to open Word or Excel files
 - Bring your **Student ID card** / exam number
 - I will not be present — invigilators are there if you need help
 

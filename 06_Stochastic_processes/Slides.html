@@ -114,7 +114,7 @@ class: center, inverse, middle
 
 ### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
-### Updated 2026-03-24
+### Updated 2026-04-06
 
 
 
@@ -402,7 +402,7 @@ Consider the realization `\(z = \{2, 5, 3, 8, 6\}\)` for `\(t = 1, 2, 3, 4, 5\)`
 ---
 # .red[Raise your hand 1: Transformations]
 
-<div class="countdown" id="timer_f5696210" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_44257925" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -572,8 +572,7 @@ class: inverse, middle, center
 --
 
 .pull-left-wide[
-- According to the fourth assumption, each draw is independent
-- Our previous example (taking the trash out) is a Bernoulli process with `\(p = 0.5\)`
+- Our previous example (coin toss) is a Bernoulli process with `\(p = 0.5\)`
 ]
 
 ---
@@ -662,35 +661,10 @@ class: inverse, middle, center
 `$$E(X_t) = t \cdot p \qquad Var(X_t) = t \cdot p \cdot (1 - p)$$`
 ]
 
----
-# Example: Election day 2026
-
-.pull-left-wide[
-- Poll (March 21): Red bloc 47.5%, Blue bloc 45.8%, Middle 6.6%
-- For each bloc, define an indicator: `\(R_i = \mathbf{1}[\text{voter } i \text{ votes red}]\)`, and similarly `\(B_i\)`, `\(M_i\)`
+.pull-right-narrow[
+*Coin toss:* The number of heads after `\(t\)` fair coin tosses follows `\(Bin(t,\; 0.5)\)`.
 ]
 
---
-
-.pull-left-wide[
-- We poll 1000 voters: The **vote totals** after `\(n = 1{,}000\)` voters are partial sum transformations:
-`$$N_R = \sum_{i=1}^{n} R_i \qquad N_B = \sum_{i=1}^{n} B_i \qquad N_M = \sum_{i=1}^{n} M_i$$`
-]
-
----
-# Example: Election day 2026 (cont.)
-
-.pull-left-wide[
-- Each `\(R_i \sim \text{Bernoulli}(p)\)`, so `\(E(R_i) = p\)` and `\(\text{Var}(R_i) = p(1-p)\)`
-- For `\(n\)` independent voters the expected totals and variances are:
-
-| Bloc   | `\(p\)`   | `\(E(N)\)`  | `\(\text{Var}(N)\)` | `\(\text{SD}(N)\)` | `\(E(N) \pm 2\,\text{SD}\)` |
-|--------|-------|---------|-----------------|----------------|--------------------------|
-| Red    | 0.475 | **475** | 249.4           | **15.8**       | [443, 507]               |
-| Blue   | 0.458 | **458** | 248.2           | **15.8**       | [426, 490]               |
-| Middle | 0.066 | **66**  | 61.6            | **7.8**        | [50, 82]                 |
-
-]
 
 ---
 # Waiting-time distribution of a binomial process
@@ -713,6 +687,10 @@ class: inverse, middle, center
 .pull-left-wide[
 - The expected value and variance of `\(Y_{x_0}\)` are:
 `$$E(Y_{x_0}) = \frac{x_0}{p} \qquad Var(Y_{x_0}) = x_0 \cdot \frac{1 - p}{p^2}$$`
+]
+
+.pull-right-narrow[
+*Coin toss:* The number of tosses needed to get `\(x_0\)` heads follows `\(Negbin(x_0,\; 0.5)\)`.
 ]
 
 ---
@@ -738,6 +716,10 @@ class: inverse, middle, center
 - This distribution also represents the distribution of the waiting time until the next event occurs
 ]
 
+.pull-right-narrow[
+*Coin toss:* The number of fair coin tosses until the first head follows `\(Geo(0.5)\)`.
+]
+
 ---
 # .red[Practice 4: Bernoulli and binomial processes]
 
@@ -758,7 +740,7 @@ A website receives visits according to a Bernoulli process with `\(p = 0.4\)` pe
 ---
 # .red[Raise your hand 2: Bernoulli and binomial processes]
 
-<div class="countdown" id="timer_ab60a8b6" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_db820a0c" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -776,9 +758,9 @@ A website receives visits according to a Bernoulli process with `\(p = 0.4\)` pe
 .pull-left-wide[
 **Q2.** The waiting time until the *first* event in a Bernoulli process follows which distribution?
 
-- **A)** Binomial — because it counts events over time
+- **A)** Binomial — counts the total number of events in a fixed number of trials
 - **B)** Geometric — special case of negative binomial with `\(x_0 = 1\)`
-- **C)** Poisson — because arrivals are random
+- **C)** Negative binomial — the general distribution for waiting times in a binomial process
 ]
 
 
@@ -878,6 +860,10 @@ class: inverse, middle, center
 `$$E(Y_{x_0}) = \frac{x_0}{\lambda} \qquad Var(Y_{x_0}) = \frac{x_0}{\lambda^2}$$`
 ]
 
+.footnote[
+  .small123[After Danish statistician Agner Krarup Erlang: https://en.wikipedia.org/wiki/Agner_Krarup_Erlang]
+]
+
 ---
 # Waiting-time distribution of a Poisson process
 
@@ -920,7 +906,7 @@ Customers arrive at a shop according to a Poisson process with rate `\(\lambda =
 ---
 # .red[Raise your hand 3: Poisson process]
 
-<div class="countdown" id="timer_3b1d302a" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_c18fd52d" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -940,7 +926,7 @@ Customers arrive at a shop according to a Poisson process with rate `\(\lambda =
 
 - **A)** Poisson(3) — non-overlapping intervals are independent
 - **B)** Poisson(13) — adding the 10 existing arrivals to `\(\lambda\)`
-- **C)** Binomial(10, 0.5) — because each of the 10 customers may return
+- **C)** Poisson(5) — because 10 customers arrived in 2 hours, suggesting a rate of 5 per hour
 ]
 
 
@@ -1121,7 +1107,7 @@ A stock price follows a Gaussian random walk with `\(\mu = 0.1\)` and `\(\sigma^
 ---
 # .red[Raise your hand 4: Poisson and Gaussian]
 
-<div class="countdown" id="timer_a3c553ab" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_f83bcad9" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -1150,7 +1136,7 @@ A stock price follows a Gaussian random walk with `\(\mu = 0.1\)` and `\(\sigma^
 # Before next time
 .pull-left[
 - Read the assigned reading
-- Next time: Estimating the mean `\(\rightarrow\)` Chapter 8
+- Next time: The sampling process
 
 .red[We will do things with numbers from the real world!!]
 

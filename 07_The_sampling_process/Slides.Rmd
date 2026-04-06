@@ -108,7 +108,7 @@ class: middle
 .pull-left-wide[
 **How samples are drawn from populations — and what can go wrong**
 
-- **Section 1:** Deductive vs. inductive reasoning
+- **Section 1:** Deductive vs. inductive reasoning — and why sampling is the foundation of all inference
 - **Section 2:** Designing the sampling process
 - **Section 3:** Formal model for the sample
 - **Section 4:** Representative samples
@@ -117,6 +117,40 @@ class: middle
 
 .pull-right-narrow[
 ![Trees](Figures/Trees1.jpg)
+]
+
+---
+# What this lecture unlocks
+
+.pull-left-wide[
+Everything from Chapter 10 onwards rests on one question: **how was the sample drawn?**
+
+- **Ch. 10 — Estimating the mean:** The sample average $\bar{X}$ is an unbiased estimator of $\mu$ and has variance $\sigma^2/n$ *only if* the sample is a representative draw where $X_1, \ldots, X_n$ are i.i.d.
+- **Ch. 11 — Stratified estimation:** Uses the selection mechanism $f_{Z_i}(z)$ explicitly to correct for known non-representativeness.
+- **Ch. 13 — Confidence intervals:** The stated coverage (e.g. 95%) is only correct when the sampling assumptions hold.
+- **Ch. 14 — Hypothesis tests:** A test at size $\alpha$ is only valid for the population actually sampled — not for the target population if the two differ.
+]
+
+.pull-right-narrow[
+> A non-representative sample means your formulas are correct but your answers are wrong — silently.
+]
+
+---
+# The minimal requirement for all inference
+
+.pull-left-wide[
+**Representative sample:** $f_{X_i}(x) = f_X(x)$ for all $i$
+
+This single condition is what makes the sample average point at the right population mean:
+$$E(\bar{X}) = \frac{1}{n}\sum_{i=1}^n E(X_i) = \frac{1}{n} \cdot n \cdot \mu = \mu$$
+]
+
+--
+
+.pull-left-wide[
+If the sample is **non-representative**, $E(X_i) \neq \mu$ for some $i$, and $E(\bar{X}) \neq \mu$ — the estimator is biased towards the wrong population.
+
+Today we build the formal tools to understand *when* and *why* this can happen — and what to do about it.
 ]
 
 ---
@@ -430,30 +464,36 @@ countdown(0, 20, top = TRUE)
 .pull-left-wide[
 **Q1.** A researcher surveys students who happen to be in the university cafeteria at noon. Which method is this?
 
-- **A)** Probability sampling — the cafeteria is a defined location
+- **A)** Probability sampling — the cafeteria is a defined location with a countable population
 - **B)** Convenience sampling — selection probability is unknown
-- **C)** Quota sampling — students form a defined group
+- **C)** Quota sampling — students are a well-defined demographic group
+]
 
+--
+
+.pull-left-wide[
 **Q2.** Snowball sampling is most likely to produce a non-representative sample because:
 
-- **A)** It only contacts people with internet access
+- **A)** Any bias in the initial seed group propagates through every subsequent referral
 - **B)** It relies on social networks, so the sample clusters around connected subgroups
-- **C)** It assigns unequal known probabilities to different units
+- **C)** Isolated individuals — with no ties to the seed group — have zero probability of selection
 ]
 
 ```{r raiseyourhand-1-answers, eval=FALSE, include=FALSE}
 # Q1: Answer B — Convenience sampling
-#   A: Tempting because the cafeteria is a fixed location, but "defined location"
-#      does not make selection probabilities known or equal.
-#   B: Correct. The probability of any individual student being in the cafeteria
-#      at noon is unknown and varies by habit, schedule, etc.
-#   C: Students are indeed a group, but there is no quota being enforced here.
+#   A: Tempting because a fixed location with a countable population sounds like
+#      a sampling frame, but presence probabilities are still unknown and unequal.
+#   B: Correct. The probability that any specific student is in the cafeteria at
+#      noon is unknown and varies by schedule, habit, etc.
+#   C: Students are a defined group, but there is no pre-set quota being filled here.
 
 # Q2: Answer B — Social network clustering
-#   A: Internet access is a concern for online surveys, not snowball sampling.
-#   B: Correct. Each new contact is found through existing contacts, so the
-#      sample clusters around social networks within the target group.
-#   C: Snowball sampling has unknown probabilities, not unequal known ones.
+#   A: True and worth discussing — seed bias does propagate — but the deeper
+#      structural reason is that referrals follow social connections, not A alone.
+#   B: Correct. Each new contact comes from existing contacts, so the sample
+#      systematically clusters around socially connected subgroups.
+#   C: Also true: truly isolated people can never be reached. Both A and C are
+#      real concerns, but B names the mechanism that generates both of them.
 ```
 
 ---
@@ -688,6 +728,33 @@ $$
 ]
 
 ---
+# .red[Practice 2: Formal model for the sample]
+
+.pull-left-wide[
+A survey of $n = 3$ individuals is drawn by probability sampling. Let $X_i$ denote annual income (in 1,000 kr) for person $i$, and let $Z_i$ be the CPR number used to identify them.
+
+**a)** Write down the formal representation of the sample as random variables. What is the difference between the sample $(X_1, X_2, X_3)$ and a realized sample $(x_1, x_2, x_3)$?
+
+**b)** Suppose every CPR number in Denmark's population of $N$ people has an equal probability of selection. Write an expression for $f_{Z_i}(z)$.
+
+**c)** If $X$ and $Z$ are independent, what does this imply about the representativeness of the sample?
+]
+
+```{r practice-2-answer, eval=FALSE, include=FALSE}
+# a) The sample is (X_1, X_2, X_3): three random variables representing
+#    income of person i before selection is known.
+#    A realized sample (x_1, x_2, x_3) is the actual observed values
+#    once selection has been performed.
+
+# b) Equal-probability sampling from N people:
+#    f_{Z_i}(z) = 1/N  for each valid CPR number z.
+
+# c) If X and Z are independent, then f_{X_i|Z_i}(x|z) = f_X(x), which
+#    means the selection mechanism does not depend on income.
+#    Therefore f_{X_i}(x) = f_X(x) for all i — the sample is representative.
+```
+
+---
 class: inverse, middle, center
 # Representative sample
 
@@ -732,7 +799,7 @@ $$f_{X_i}(x) = \sum_z \left[ f_{X_i \mid Z_i}(x \mid z) \cdot f_{Z_i}(z) \right]
 ]
 
 ---
-# .red[Practice 2: Representativeness]
+# .red[Practice 3: Representativeness]
 
 .pull-left-wide[
 A researcher wants to estimate the average income in Denmark. She surveys 1,000 visitors to a luxury car dealership.
@@ -744,7 +811,7 @@ A researcher wants to estimate the average income in Denmark. She surveys 1,000 
 **c)** Is the resulting sample likely to be representative? What direction of bias do you expect in the estimated mean income?
 ]
 
-```{r practice-2-answer, eval=FALSE, include=FALSE}
+```{r practice-3-answer, eval=FALSE, include=FALSE}
 # a) Z = visiting the luxury car dealership (e.g., Z=1 if visited, Z=0 otherwise)
 #    X = individual income in DKK
 
@@ -892,33 +959,39 @@ countdown(0, 20, top = TRUE)
 .pull-left-wide[
 **Q1.** An online survey about social media use is shared only on Facebook. Which error type is *most* relevant?
 
-- **A)** Self-selection — only people who feel strongly about social media respond
-- **B)** Sampling frame error — people without Facebook are excluded from the outset
-- **C)** Non-response — some Facebook users ignore the survey
+- **A)** Self-selection — only people who feel strongly about social media will bother to respond
+- **B)** Sampling frame error — people without a Facebook account are excluded from the outset
+- **C)** Non-response — a large share of Facebook users will see the survey but not complete it
+]
 
+--
+
+.pull-left-wide[
 **Q2.** A wage survey finds a mean wage that is too high. The most likely cause is:
 
-- **A)** Observation error — wages are measured incorrectly
+- **A)** Observation error — respondents round wages up when self-reporting
 - **B)** Self-selection — low-wage workers are less likely to be employed and thus not sampled
-- **C)** Quota sampling — the sample over-represents high earners by design
+- **C)** Non-response — low-wage workers are less likely to respond, leaving high earners over-represented
 ]
 
 ```{r raiseyourhand-2-answers, eval=FALSE, include=FALSE}
 # Q1: Answer B — Sampling frame error
-#   A: Tempting because motivated users are more likely to respond, but that
-#      is a secondary concern — the primary issue is that non-Facebook users
-#      cannot be reached at all.
-#   B: Correct. The sampling frame (Facebook users) excludes everyone without
-#      an account, so parts of the population have zero selection probability.
-#   C: Also present, but non-response is a secondary issue here.
+#   A: True and important — motivated users do self-select — but this is a
+#      secondary issue; the primary problem is that non-Facebook users cannot
+#      be reached at all, giving them zero selection probability.
+#   B: Correct. The sampling frame excludes everyone without a Facebook account,
+#      so whole segments of the population have zero probability of selection.
+#   C: Non-response is also present, but it only affects Facebook users who
+#      see the survey; the frame error is structurally more severe.
 
-# Q2: Answer B — Self-selection
-#   A: Tempting because wages are tricky to measure, but the question is about
-#      who is sampled, not how accurately their wage is recorded.
-#   B: Correct. People with very low market wages may choose not to work,
-#      so they are never in the sampling frame; this biases the mean upward.
-#   C: Quota sampling would be a deliberate design choice, not a source of
-#      unintentional error.
+# Q2: Answer B — Self-selection (employment status)
+#   A: Plausible — upward rounding of wages does occur — but observation error
+#      alone rarely produces the systematic upward bias seen in wage surveys.
+#   B: Correct. People with very low market wages may choose not to work, so
+#      they are absent from any employed-population sample; this biases the mean up.
+#   C: Also plausible and partially true — non-response among low earners does
+#      bias wages upward — but it is a weaker version of the self-selection
+#      argument: B captures the deeper structural exclusion.
 ```
 
 ---
@@ -984,6 +1057,80 @@ $$E(X) = E(X^* + \epsilon) = E(X^*) + E(\epsilon) = E(X^*)$$
 $$\text{Var}(X) = \text{Var}(X^* + \epsilon) = \text{Var}(X^*) + \text{Var}(\epsilon) \geq \text{Var}(X^*)$$
 - In other words, observation errors add noise to the observed characteristic
 ]
+
+---
+# .red[Practice 4: Observation errors]
+
+.pull-left-wide[
+A study measures self-reported income $X = X^* + \epsilon$, where $X^*$ is true income and $\epsilon$ is the observation error.
+
+**a)** Suppose richer respondents systematically under-report: $E(\epsilon \mid X^* > 500) < 0$ while $E(\epsilon \mid X^* \leq 500) = 0$. Is $E(\epsilon) = 0$ for the full population? What does this imply for the estimated mean income?
+
+**b)** Even when $E(\epsilon) = 0$, why do observation errors still distort the analysis? Write the formula for $\text{Var}(X)$ (assuming $\text{Cov}(X^*, \epsilon) = 0$) and interpret it.
+
+**c)** A scale is incorrectly calibrated and reads 2 kg too high for every person. What is $E(\epsilon)$? What is the effect on $E(X)$ relative to $E(X^*)$?
+]
+
+```{r practice-4-answer, eval=FALSE, include=FALSE}
+# a) E(epsilon) != 0 for the full population since high-income individuals
+#    under-report. Therefore E(X) = E(X*) + E(epsilon) < E(X*):
+#    the estimated mean income is biased downward.
+
+# b) Even with E(epsilon) = 0:
+#    Var(X) = Var(X* + epsilon) = Var(X*) + Var(epsilon) >= Var(X*)
+#    Observation errors add noise — the observed variance overstates
+#    the true variance of the characteristic of interest.
+
+# c) E(epsilon) = 2 (constant bias). Therefore:
+#    E(X) = E(X*) + 2
+#    The estimated mean weight is biased upward by 2 kg.
+```
+
+---
+# .red[Raise your hand 3: Observation errors]
+
+```{r raiseyourhand-3-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top = TRUE)
+```
+
+.pull-left-wide[
+**Q1.** A study finds $\text{Var}(X) > \text{Var}(X^*)$ even though $E(\epsilon) = 0$. The best explanation is:
+
+- **A)** The sample is non-representative — units with extreme values of $X$ are over-sampled, stretching the distribution
+- **B)** Observation errors add noise to $X$, increasing its variance even when they are mean-zero
+- **C)** The variance formula is $\text{Var}(X) = \text{Var}(X^*) \cdot \text{Var}(\epsilon)$, so any error variance multiplies the true variance
+]
+
+--
+
+.pull-left-wide[
+**Q2.** Income is under-reported by high earners. The effect on the estimated population mean is:
+
+- **A)** No effect — even systematic errors cancel out once you average over enough observations
+- **B)** Downward bias — the mean of $X$ is lower than the mean of $X^*$
+- **C)** Upward bias — since only high earners under-report, their observed incomes are still the highest in the sample and dominate the mean
+]
+
+```{r raiseyourhand-3-answers, eval=FALSE, include=FALSE}
+# Q1: Answer B — Observation errors add to variance
+#   A: Plausible — non-representativeness can also inflate variance — but the
+#      question specifies E(epsilon)=0 and gives no information about sampling
+#      bias; the direct explanation is the additive variance formula.
+#   B: Correct. Var(X) = Var(X*) + Var(epsilon) >= Var(X*) even when E(epsilon)=0.
+#   C: Plausible for students who misremember the formula as multiplicative rather
+#      than additive: Var(X) = Var(X*) + Var(epsilon), not Var(X*) * Var(epsilon).
+
+# Q2: Answer B — Downward bias
+#   A: Plausible — the law of large numbers does make random errors cancel, but
+#      only when E(epsilon) = 0; systematic under-reporting by high earners
+#      means E(epsilon) < 0, so the mean does not cancel out.
+#   B: Correct. E(X) = E(X*) + E(epsilon) < E(X*) when E(epsilon) < 0.
+#   C: Plausible — high earners' observed incomes are still the highest values
+#      in the sample, so a student might reason that they still pull the mean up.
+#      But under-reporting lowers their contribution, so the net effect is
+#      E(X) < E(X*).
+```
 
 ---
 # Before next time

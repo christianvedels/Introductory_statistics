@@ -602,8 +602,7 @@ class: inverse, middle, center
 --
 
 .pull-left-wide[
-- According to the fourth assumption, each draw is independent
-- Our previous example (taking the trash out) is a Bernoulli process with $p = 0.5$
+- Our previous example (coin toss) is a Bernoulli process with $p = 0.5$
 ]
 
 ---
@@ -692,35 +691,10 @@ $$f(x) = {t \choose x} \cdot p^x \cdot (1 - p)^{t-x}$$
 $$E(X_t) = t \cdot p \qquad Var(X_t) = t \cdot p \cdot (1 - p)$$
 ]
 
----
-# Example: Election day 2026
-
-.pull-left-wide[
-- Poll (March 21): Red bloc 47.5%, Blue bloc 45.8%, Middle 6.6%
-- For each bloc, define an indicator: $R_i = \mathbf{1}[\text{voter } i \text{ votes red}]$, and similarly $B_i$, $M_i$
+.pull-right-narrow[
+*Coin toss:* The number of heads after $t$ fair coin tosses follows $Bin(t,\; 0.5)$.
 ]
 
---
-
-.pull-left-wide[
-- We poll 1000 voters: The **vote totals** after $n = 1{,}000$ voters are partial sum transformations:
-$$N_R = \sum_{i=1}^{n} R_i \qquad N_B = \sum_{i=1}^{n} B_i \qquad N_M = \sum_{i=1}^{n} M_i$$
-]
-
----
-# Example: Election day 2026 (cont.)
-
-.pull-left-wide[
-- Each $R_i \sim \text{Bernoulli}(p)$, so $E(R_i) = p$ and $\text{Var}(R_i) = p(1-p)$
-- For $n$ independent voters the expected totals and variances are:
-
-| Bloc   | $p$   | $E(N)$  | $\text{Var}(N)$ | $\text{SD}(N)$ | $E(N) \pm 2\,\text{SD}$ |
-|--------|-------|---------|-----------------|----------------|--------------------------|
-| Red    | 0.475 | **475** | 249.4           | **15.8**       | [443, 507]               |
-| Blue   | 0.458 | **458** | 248.2           | **15.8**       | [426, 490]               |
-| Middle | 0.066 | **66**  | 61.6            | **7.8**        | [50, 82]                 |
-
-]
 
 ---
 # Waiting-time distribution of a binomial process
@@ -745,6 +719,10 @@ $$f(y) = {{y - 1} \choose {x_0 - 1}} \cdot p^{x_0} \cdot (1 - p)^{y - x_0}$$
 $$E(Y_{x_0}) = \frac{x_0}{p} \qquad Var(Y_{x_0}) = x_0 \cdot \frac{1 - p}{p^2}$$
 ]
 
+.pull-right-narrow[
+*Coin toss:* The number of tosses needed to get $x_0$ heads follows $Negbin(x_0,\; 0.5)$.
+]
+
 ---
 # Waiting-time distribution of a binomial process
 
@@ -766,6 +744,10 @@ $$Y_{1} \sim Negbin(1, p) = Geo(p)$$
 - The probability function for the geometric distribution is:
 $$f(y) = p \cdot (1 - p)^{y - 1}$$
 - This distribution also represents the distribution of the waiting time until the next event occurs
+]
+
+.pull-right-narrow[
+*Coin toss:* The number of fair coin tosses until the first head follows $Geo(0.5)$.
 ]
 
 ---
@@ -820,9 +802,9 @@ countdown(0, 20, top=TRUE)
 .pull-left-wide[
 **Q2.** The waiting time until the *first* event in a Bernoulli process follows which distribution?
 
-- **A)** Binomial — because it counts events over time
+- **A)** Binomial — counts the total number of events in a fixed number of trials
 - **B)** Geometric — special case of negative binomial with $x_0 = 1$
-- **C)** Poisson — because arrivals are random
+- **C)** Negative binomial — the general distribution for waiting times in a binomial process
 ]
 
 ```{r raiseyourhand2-answers, eval=FALSE, include=FALSE}
@@ -834,9 +816,10 @@ countdown(0, 20, top=TRUE)
 #   C: Confuses expected successes with expected failures (10 * 0.7 = 7)
 #
 # Q2: Answer B — Geometric distribution
-#   A: Binomial counts events over fixed time — confuses counting distribution with waiting distribution
-#   B: Correct — Geo(p) = Negbin(1, p)
-#   C: Poisson applies to continuous-time processes — confusing discrete vs continuous setting
+#   A: Binomial counts events over a fixed number of trials — confuses counting distribution with waiting distribution
+#   B: Correct — Geo(p) = Negbin(1, p), the special case for the first event
+#   C: Negative binomial is the general waiting-time family — Geo IS the right member of that family,
+#      but Negbin(x_0, p) with x_0 > 1 gives the wait for the x_0-th event, not the first
 ```
 
 ---
@@ -934,6 +917,10 @@ $$f(y) = \frac{\lambda^{x_0} \cdot y^{x_0 - 1}}{(x_0 - 1)!} \cdot e^{-\lambda \c
 $$E(Y_{x_0}) = \frac{x_0}{\lambda} \qquad Var(Y_{x_0}) = \frac{x_0}{\lambda^2}$$
 ]
 
+.footnote[
+  .small123[After Danish statistician Agner Krarup Erlang: https://en.wikipedia.org/wiki/Agner_Krarup_Erlang]
+]
+
 ---
 # Waiting-time distribution of a Poisson process
 
@@ -1010,7 +997,7 @@ countdown(0, 20, top=TRUE)
 
 - **A)** Poisson(3) — non-overlapping intervals are independent
 - **B)** Poisson(13) — adding the 10 existing arrivals to $\lambda$
-- **C)** Binomial(10, 0.5) — because each of the 10 customers may return
+- **C)** Poisson(5) — because 10 customers arrived in 2 hours, suggesting a rate of 5 per hour
 ]
 
 ```{r raiseyourhand3-answers, eval=FALSE, include=FALSE}
@@ -1024,8 +1011,9 @@ countdown(0, 20, top=TRUE)
 # Q2: Answer A — by the independence of non-overlapping increments,
 #     arrivals in (2, 3] ~ Poisson(lambda * 1) = Poisson(3) regardless of past
 #   A: Correct — the memoryless property / independence of increments
-#   B: Adds past count to the rate — confuses cumulative state with the rate parameter
-#   C: Imports binomial logic into a continuous-time process
+#   B: Adds the observed count to lambda — confuses the cumulative state with the rate parameter
+#   C: Uses the observed sample rate (10/2 = 5) instead of the given lambda — confuses
+#      empirical estimation with the known true parameter
 ```
 
 ---
@@ -1260,7 +1248,7 @@ countdown(0, 20, top=TRUE)
 # Before next time
 .pull-left[
 - Read the assigned reading
-- Next time: Estimating the mean $\rightarrow$ Chapter 8
+- Next time: The sampling process
 
 .red[We will do things with numbers from the real world!!]
 
