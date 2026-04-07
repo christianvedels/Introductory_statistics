@@ -114,7 +114,7 @@ class: center, inverse, middle
 
 ### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
-### Updated 2026-04-06
+### Updated 2026-04-07
 
 
 
@@ -124,7 +124,7 @@ class: middle
 .pull-left-wide[
 **How samples are drawn from populations — and what can go wrong**
 
-- **Section 1:** Deductive vs. inductive reasoning
+- **Section 1:** Deductive vs. inductive reasoning — and why sampling is the foundation of all inference
 - **Section 2:** Designing the sampling process
 - **Section 3:** Formal model for the sample
 - **Section 4:** Representative samples
@@ -133,6 +133,40 @@ class: middle
 
 .pull-right-narrow[
 ![Trees](Figures/Trees1.jpg)
+]
+
+---
+# What this lecture unlocks
+
+.pull-left-wide[
+Everything from Chapter 10 onwards rests on one question: **how was the sample drawn?**
+
+- **Ch. 10 — Estimating the mean:** The sample average `\(\bar{X}\)` is an unbiased estimator of `\(\mu\)` and has variance `\(\sigma^2/n\)` *only if* the sample is a representative draw where `\(X_1, \ldots, X_n\)` are i.i.d.
+- **Ch. 11 — Stratified estimation:** Uses the selection mechanism `\(f_{Z_i}(z)\)` explicitly to correct for known non-representativeness.
+- **Ch. 13 — Confidence intervals:** The stated coverage (e.g. 95%) is only correct when the sampling assumptions hold.
+- **Ch. 14 — Hypothesis tests:** A test at size `\(\alpha\)` is only valid for the population actually sampled — not for the target population if the two differ.
+]
+
+.pull-right-narrow[
+&gt; A non-representative sample means your formulas are correct but your answers are wrong — silently.
+]
+
+---
+# The minimal requirement for all inference
+
+.pull-left-wide[
+**Representative sample:** `\(f_{X_i}(x) = f_X(x)\)` for all `\(i\)`
+
+This single condition is what makes the sample average point at the right population mean:
+`$$E(\bar{X}) = \frac{1}{n}\sum_{i=1}^n E(X_i) = \frac{1}{n} \cdot n \cdot \mu = \mu$$`
+]
+
+--
+
+.pull-left-wide[
+If the sample is **non-representative**, `\(E(X_i) \neq \mu\)` for some `\(i\)`, and `\(E(\bar{X}) \neq \mu\)` — the estimator is biased towards the wrong population.
+
+Today we build the formal tools to understand *when* and *why* this can happen — and what to do about it.
 ]
 
 ---
@@ -426,7 +460,7 @@ For each scenario, identify the sampling method used and state one key limitatio
 ---
 # .red[Raise your hand 1: Sampling methods]
 
-<div class="countdown" id="timer_e2edf8f4" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_485785e6" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -883,7 +917,7 @@ $$
 ---
 # .red[Raise your hand 2: Sources of error]
 
-<div class="countdown" id="timer_930c9e57" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_c5448602" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -990,7 +1024,7 @@ A study measures self-reported income `\(X = X^* + \epsilon\)`, where `\(X^*\)` 
 ---
 # .red[Raise your hand 3: Observation errors]
 
-<div class="countdown" id="timer_826fc80f" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_f4126c4f" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
