@@ -114,7 +114,7 @@ class: center, inverse, middle
 
 ### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
-### Updated 2026-04-07
+### Updated 2026-04-09
 
 
 
@@ -135,6 +135,9 @@ class: middle
 ![Trees](Figures/Trees1.jpg)
 ]
 
+???
+10:16
+
 ---
 # What this lecture unlocks
 
@@ -142,7 +145,7 @@ class: middle
 Everything from Chapter 10 onwards rests on one question: **how was the sample drawn?**
 
 - **Ch. 10 — Estimating the mean:** The sample average `\(\bar{X}\)` is an unbiased estimator of `\(\mu\)` and has variance `\(\sigma^2/n\)` *only if* the sample is a representative draw where `\(X_1, \ldots, X_n\)` are i.i.d.
-- **Ch. 11 — Stratified estimation:** Uses the selection mechanism `\(f_{Z_i}(z)\)` explicitly to correct for known non-representativeness.
+- **Ch. 11 — Stratified estimation:** Uses the selection mechanism `\(f_{Z_i}(z)\)` explicitly to correct for known non-representativeness. *Also the basis for IPW estimation in Causal Inference.*
 - **Ch. 13 — Confidence intervals:** The stated coverage (e.g. 95%) is only correct when the sampling assumptions hold.
 - **Ch. 14 — Hypothesis tests:** A test at size `\(\alpha\)` is only valid for the population actually sampled — not for the target population if the two differ.
 ]
@@ -151,27 +154,68 @@ Everything from Chapter 10 onwards rests on one question: **how was the sample d
 &gt; A non-representative sample means your formulas are correct but your answers are wrong — silently.
 ]
 
+???
+10:18
+
 ---
 # The minimal requirement for all inference
 
 .pull-left-wide[
-**Representative sample:** `\(f_{X_i}(x) = f_X(x)\)` for all `\(i\)`
-
-This single condition is what makes the sample average point at the right population mean:
-`$$E(\bar{X}) = \frac{1}{n}\sum_{i=1}^n E(X_i) = \frac{1}{n} \cdot n \cdot \mu = \mu$$`
+- Say we want to estimate the population mean `\(\mu\)`
+- The natural estimator is the sample average: `\(\bar{X} = \frac{1}{n}\sum_{i=1}^n X_i\)`
+- But when does `\(\bar{X}\)` give us a good estimate of `\(\mu\)`?
 ]
 
 --
 
 .pull-left-wide[
-If the sample is **non-representative**, `\(E(X_i) \neq \mu\)` for some `\(i\)`, and `\(E(\bar{X}) \neq \mu\)` — the estimator is biased towards the wrong population.
-
-Today we build the formal tools to understand *when* and *why* this can happen — and what to do about it.
+- We would want `\(\bar{X}\)` to be **unbiased**: `\(E(\bar{X}) = \mu\)`
+- One solution: Assume `\(E(X_i) = \mu\)` for every unit `\(i\)`
 ]
+
+--
+
+.pull-left-wide[
+- That holds if and only if `\(X_i\)` has the same distribution as `\(X\)` in the population:
+`$$f_{X_i}(x) = f_X(x) \quad \text{for all } i \quad \Leftarrow \textbf{ representative sample}$$`
+- Then:
+`$$E(\bar{X}) = \frac{1}{n}\sum_{i=1}^n E(X_i) = \frac{1}{n} \cdot n \cdot \mu = \mu \checkmark$$`
+]
+
+???
+10:22
 
 ---
 class: inverse, middle, center
 # Deductive and inductive reasoning
+
+---
+# Deductive vs. inductive reasoning
+
+.pull-left[
+### Deductive reasoning
+- Start from a **known population**
+- Derive what samples look like
+
+`$$\text{Population} \rightarrow \text{Sample}$$`
+
+.red[*This is the theory we have now learned.*]
+]
+
+--
+
+.pull-right[
+### Inductive reasoning
+- Start from an **observed sample**
+- Learn about the population
+
+`$$\text{Sample} \rightarrow \text{Population}$$`
+
+.red[*This is the task we are faced with in practice.*]
+]
+
+???
+10:24
 
 ---
 # Deductive reasoning
@@ -187,6 +231,9 @@ class: inverse, middle, center
 .pull-left-wide[
 - This type of analysis — moving from general (population) to specific (sample) — is called **deductive reasoning**
 ]
+
+???
+10:25
 
 ---
 # Inductive reasoning
@@ -204,6 +251,9 @@ class: inverse, middle, center
 - Note that predictions themselves are based on deductive reasoning
 ]
 
+???
+10:26
+
 ---
 # Statistical inference
 
@@ -214,9 +264,44 @@ class: inverse, middle, center
 --
 
 .pull-left-wide[
-- In general, it is not possible to obtain information on the entire population, so we need to rely on a sample
-- The quality of the sample is extremely important: you get what you put in ("rubbish in, rubbish out")
+- We can never observe the full population — we have **limited information**
+- Less data `\(\Rightarrow\)` less information `\(\Rightarrow\)` more uncertainty
+- Goal: use available information **efficiently** (low variance) and **accurately** (low bias)
+- A bad sample wastes or corrupts the information we do have
 ]
+
+???
+10:28
+
+---
+# .red[Raise your hand 1: Reasoning and inference]
+
+<div class="countdown" id="timer_6c354e3b" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** You know that Danish mean income is 450,000 kr. You pick one Dane at random and expect their income to be around 450,000 kr. This is:
+
+- **A)** Deductive — applying a known population fact to an individual case
+- **B)** Inductive — any claim about an unknown individual generalises from data
+- **C)** Neither — "expecting" something is not reasoning, it's just a guess
+]
+
+--
+
+.pull-left-wide[
+**Q2.** We want to estimate mean income in Denmark. We select *one* person completely at random. Is this a good estimate of the mean?
+
+- **A)** Yes
+- **B)** No
+]
+
+
+
+???
+10:32
 
 ---
 class: inverse, middle, center
@@ -226,73 +311,88 @@ class: inverse, middle, center
 # Designing the sampling process
 
 .pull-left-wide[
-- There are four important aspects to consider when designing a sampling process:
+- There are four considerations when designing a sampling process — we will go through each in turn:
 
-  1. The choice of a **population** and of characteristics of interest
-  2. The specification of **sampling units** and of the **sampling frame**
-  3. The specification of the **sampling method**
-  4. **Measurement** of the characteristics of interest
+  #### Consideration 1: 
+  `\(\rightarrow\)` Choice of **population** and characteristics of interest  
+  #### Consideration 2: 
+  `\(\rightarrow\)` Specification of **sampling units** and **sampling frame**  
+  #### Consideration 3: 
+  `\(\rightarrow\)` Specification of the **sampling method**  
+  #### Consideration 4: 
+  `\(\rightarrow\)` **Measurement** of characteristics of interest
 ]
+
+???
+10:33
 
 ---
 class: inverse, middle, center
-# Population and characteristics of interest
+# Consideration 1: Population and characteristics of interest
 
 ---
 # Choice of population
 
 .pull-left-wide[
-- Normally, the choice of the population and of the characteristics of interest is determined by the object of the study
-- In practice, this may be more difficult than it sounds
+- What you want to know determines the population — but this is harder in practice
 ]
 
 --
 
 .pull-left-wide[
-- Suppose you want to study the harmful effects of a substance on humans `\(\Rightarrow\)` for ethical reasons, you cannot study this on a sample of humans (you may have to use substitutes in a lab)
-- Suppose it is too expensive to sample from the entire population of interest `\(\Rightarrow\)` you may select a sample from a subpopulation (e.g., one city) and then generalise your findings
+- **Ethics:** harmful substances can't be tested on humans `\(\Rightarrow\)` use lab substitutes
+- **Cost:** can't sample everyone `\(\Rightarrow\)` use a subpopulation and generalise
 ]
+
+???
+10:35
 
 ---
 # Population vs target population
 
 .pull-left-wide[
-- The population of interest is called the **target population**
-- As a general rule, the term *population* refers to the population involved in the statistical experiment, which may differ from the target population
+- **Target population:** the population you care about
+- **Study population:** what you actually sample from — may differ
 ]
 
 --
 
 .pull-left-wide[
-- When the two differ, the key question is: how well does the population studied mimic the target population?
-  - Are lab cells similar to human cells?
-  - Is the city selected similar to the rest of the country?
+- Key question: how well does the study population mimic the target?
+  - Lab cells `\(\approx\)` human cells?
+  - One city `\(\approx\)` the whole country?
 ]
+
+???
+10:37
 
 ---
 # Characteristics of interest
 
 .pull-left-wide[
-- The specification of characteristics of interest can be difficult
-- Imagine we want to study the quality of schools: we would measure this through test scores
+- Measuring the right thing is non-trivial
+- School quality `\(\rightarrow\)` test scores 
+— But scores reflect prior skills too
 ]
 
 --
 
 .pull-left-wide[
-- But different schools may have students with different skills — ideally we would have a measure of these skills *before* enrolment
-- What are "skills"? IQ? Ability to take tests? Capacity to concentrate?
+- What even are "skills"? IQ? Test-taking ability? Concentration?
 ]
 
 --
 
 .pull-left-wide[
-- Statistical theory cannot help here — the researchers must use domain knowledge to justify the choice of characteristics
+- Statistics can't answer this — requires **domain knowledge**
 ]
+
+???
+10:39
 
 ---
 class: inverse, middle, center
-# Sampling units and sampling frame
+# Consideration 2: Sampling units and sampling frame
 
 ---
 # Sampling units
@@ -304,38 +404,69 @@ class: inverse, middle, center
 --
 
 .pull-left-wide[
-- Usually, sampling units are just individual elements of the population (e.g., individuals)
-- But not always — e.g., households may be the sampling units, while we are interested in the individual members of the household
-- It is often cheaper to select several sampling units together (e.g., a school, a household)
+- Usually individual people — but not always
+- E.g., studying student performance: the sampling unit is a **school**, but the characteristic of interest is measured at the **student** level
+- Grouping units (schools, households) is often cheaper
 ]
+
+???
+10:41
 
 ---
 # Sampling frame
 
 .pull-left-wide[
-- A **sampling frame** is a way of listing all the possible sampling units and how each of them can be reached (e.g., postal addresses, telephone numbers, CPR numbers)
+- A **sampling frame** lists all sampling units and how to reach them
+- Can be precise or vague
 ]
 
 --
 
 .pull-left-wide[
-- Depending on how the sample is chosen, the sampling frame may be more or less specific:
-  - If by phone/address: the frame is precise about how to contact each unit
-  - If by interviewing people at a particular time and place: the frame is less precise
+- Precise: the Danish CPR register — every resident has a unique number, so each unit can be contacted directly
+- Vague: intercepting people at a shopping mall — the "frame" is just whoever happens to be present
 ]
+
+???
+10:43
 
 ---
 # Sampling characteristic
 
 .pull-left-wide[
-- Often, the way to contact a sampling unit is a characteristic of the unit (e.g., address, CPR number, phone number)
-- These characteristics can also be less precise (e.g., presence at a particular time in a particular place)
-- This type of characteristic is called a **sampling characteristic**
+- The contact detail used to reach a unit is its **sampling characteristic** (e.g., CPR number, address, presence at a time/place)
 ]
+
+???
+10:44
+
+---
+# Putting it together: an example dataset
+
+.pull-left-wide[
+| .orange[CPR] | .green[Income (kr)] | .red[Age] | .red[Gender] |
+|---|---|---|---|
+| .orange[010190-1234] | .green[320,000] | .red[34] | .red[F] |
+| .orange[150385-5679] | .green[510,000] | .red[40] | .red[M] |
+| .orange[220772-9012] | .green[280,000] | .red[52] | .red[F] |
+| .orange[030601-3457] | .green[450,000] | .red[23] | .red[M] |
+| .orange[091268-7890] | .green[390,000] | .red[56] | .red[F] |
+]
+
+--
+
+.pull-left-wide[
+- .orange[**Sampling characteristic**] — how we find and contact the unit
+- .green[**Characteristic of interest**] — what we actually want to measure
+- .red[**Background characteristics**] — known attributes that may inform the sampling design (e.g., for stratification)
+]
+
+???
+10:46
 
 ---
 class: inverse, middle, center
-# Sampling method
+# Consideration 3: Sampling method
 
 ---
 # Sampling method
@@ -353,6 +484,9 @@ class: inverse, middle, center
   - **Non-probability sampling**
 ]
 
+???
+10:47
+
 ---
 # Probability sampling
 
@@ -369,6 +503,9 @@ class: inverse, middle, center
   - It makes it possible to **assess the quality** of the study
   - It allows researchers to obtain a picture of the **true population**
 ]
+
+???
+10:49
 
 ---
 # Non-probability sampling
@@ -390,6 +527,9 @@ class: inverse, middle, center
   4. Snowball sampling
 ]
 
+???
+10:51
+
 ---
 # Convenience sampling
 
@@ -402,10 +542,12 @@ class: inverse, middle, center
 --
 
 .pull-left-wide[
-- Example: you want to know what is the attitude of people toward shopping in a mall, so you survey people at a mall
-- But people already at a mall have different shopping attitudes than those who are not — yet they are much more likely to be interviewed
-- `\(\Rightarrow\)` the picture obtained from the sample does not represent the entire population
+- Mall survey: people *at* the mall have atypical shopping attitudes
+- `\(\Rightarrow\)` sample does not represent the population
 ]
+
+???
+10:53
 
 ---
 # Purposive sampling
@@ -415,6 +557,9 @@ class: inverse, middle, center
 - Advantage: need fewer units, so cheaper
 - Disadvantage: we do not obtain a true picture of the entire population (not everyone is an expert!)
 ]
+
+???
+10:54
 
 ---
 # Quota sampling
@@ -432,6 +577,9 @@ class: inverse, middle, center
 - This is the main idea behind *stratification*
 ]
 
+???
+10:56
+
 ---
 # Snowball sampling
 
@@ -440,27 +588,13 @@ class: inverse, middle, center
 - Used when it is difficult to find people with certain characteristics (e.g., illegal gamblers, illegal drug users)
 ]
 
----
-# .red[Practice 1: Identify the sampling method]
-
-.pull-left-wide[
-For each scenario, identify the sampling method used and state one key limitation:
-
-**A)** A researcher stands outside a supermarket and asks every 10th person who exits to complete a survey about food spending habits.
-
-**B)** A public health study randomly selects 2,000 CPR numbers from the Danish national register and contacts those individuals.
-
-**C)** A journalist interviews known members of a far-right extremist group and asks them to suggest other members to interview.
-
-**D)** A political poll guarantees that 50% of respondents are women and 10% are immigrants, selecting within those quotas by convenience.
-]
-
-
+???
+10:57
 
 ---
-# .red[Raise your hand 1: Sampling methods]
+# .red[Raise your hand 2: Sampling methods]
 
-<div class="countdown" id="timer_485785e6" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_d0f4bd26" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -485,9 +619,12 @@ For each scenario, identify the sampling method used and state one key limitatio
 
 
 
+???
+11:00
+
 ---
 class: inverse, middle, center
-# Measurement of characteristics
+# Consideration 4: Measurement of characteristics
 
 ---
 # Measurement of characteristics
@@ -498,6 +635,9 @@ class: inverse, middle, center
   - **Measurement by observation**
   - **Self-reporting**
 ]
+
+???
+11:16
 
 ---
 # Measurement by observation
@@ -512,7 +652,12 @@ class: inverse, middle, center
 .pull-left-wide[
 - Individuals may try to eat healthier to impress the researcher
 - Some objects may be destroyed in the process of measuring their characteristics (e.g., resistance testing of drugs)
+- You might misinterpret the observed characteristics (e.g., is a smile genuine or fake?)
+- What does "boy" mean in old census data? (Sometimes farm servant)
 ]
+
+???
+11:18
 
 ---
 # Self-reporting
@@ -532,6 +677,9 @@ class: inverse, middle, center
   - Characteristics based on planned future behaviour (*stated preference*)
 ]
 
+???
+11:20
+
 ---
 # Self-reporting: questions
 
@@ -541,6 +689,9 @@ class: inverse, middle, center
   - *How* we ask (phone, email, printed survey) — affects information quality and accuracy
   - How the *question itself* is presented — the order of questions can strongly influence answers
 ]
+
+???
+11:22
 
 ---
 # Reliability and validity
@@ -555,6 +706,9 @@ class: inverse, middle, center
 - **Reliability** = ability to repeat the sample selection and measurement and obtain similar results
 - **Validity** = the results of the study represent the stated object of the study (i.e., we measure what we intend to measure)
 ]
+
+???
+11:24
 
 ---
 # Key takeaways: designing the sampling process
@@ -574,6 +728,9 @@ class: inverse, middle, center
 - **Measurement** — observation vs. self-reports
 - **Reliability and validity**
 ]
+
+???
+11:26
 
 ---
 class: inverse, middle, center
@@ -597,6 +754,9 @@ $$
 $$
 ]
 
+???
+11:28
+
 ---
 # Realized sample
 
@@ -614,6 +774,9 @@ $$
 $$
 ]
 
+???
+11:30
+
 ---
 # Sample distribution
 
@@ -629,6 +792,9 @@ $$
   - the probability function, if `\(X_1, \ldots, X_n\)` are discrete
   - the probability density function, if `\(X_1, \ldots, X_n\)` are continuous
 ]
+
+???
+11:32
 
 ---
 class: inverse, middle, center
@@ -652,53 +818,67 @@ class: inverse, middle, center
   - If you only want a sample of women: `\(f_{Z_i}(z) = 0\)` for all men's CPR numbers
 ]
 
+???
+11:35
+
 ---
 # Identified and non-identified elements
 
 .pull-left-wide[
-- An element is **identified** if no other element in the population has the same value of the selection characteristic (otherwise it is *non-identified*)
+- When we select a unit via `\(Z\)`, we need to know: **does `\(Z\)` pin down a unique individual?**
+- An element is **identified** if no other element shares the same value of `\(Z\)` — otherwise *non-identified*
 ]
 
 --
 
 .pull-left-wide[
-- In the CPR number example, all elements are identified — CPR numbers are unique
-- This would not be the case with addresses, since more than one person can live at the same address
+- CPR number `\(\Rightarrow\)` **identified**: each number belongs to exactly one person
+- Address `\(\Rightarrow\)` **non-identified**: selecting "Nyborgvej 55" could yield any of the people living there
+- This distinction determines how well we know *who* we are actually sampling
 ]
+
+???
+11:38
 
 ---
 # Selection characteristic and characteristic of interest
 
 .pull-left-wide[
-- The relationship between the selection characteristic `\(Z\)` and the characteristic of interest `\(X\)` is described by the conditional distribution:
+- Once we select a unit via `\(Z\)`, we observe its characteristic of interest `\(X\)`
+- If the unit is non-identified, we don't know in advance *which* `\(X\)` value we will get
+- The link between `\(Z\)` and `\(X\)` is the conditional distribution:
 `$$f_{X_i \mid Z_i}(x \mid z)$$`
-- This gives the probability of selecting a unit with characteristic value `\(x\)`, given that the selection characteristic equals `\(z\)`
 ]
 
 --
 
 .pull-left-wide[
-- Example: what is the probability of selecting a person with income of 200,000 kr per year given that they live at a particular address?
+- Example: we select address "Nyborgvej 55" — what is the probability the person there earns 200,000 kr?
+- If three people live there with different incomes, this probability is less than 1
 ]
+
+???
+11:41
 
 ---
 # Identified vs. non-identified: formal result
 
 .pull-left-wide[
-- Consider an **identified** element with `\(Z = z_0\)` and `\(X = x_0\)`
-- Since it is the *only* element with `\(Z = z_0\)`:
+- **Identified** (`\(Z = z_0\)` maps to exactly one person with `\(X = x_0\)`):
 `$$f_{X_i \mid Z_i}(x_0 \mid z_0) = 1$$`
+Selecting `\(z_0\)` guarantees we observe `\(x_0\)`
 ]
 
 --
 
 .pull-left-wide[
-- Now consider a **non-identified** element with `\(Z = z^*\)` and `\(X = x^*\)`
-- If all other elements with `\(Z = z^*\)` also have `\(X = x^*\)`:
-`$$f_{X_i \mid Z_i}(x^* \mid z^*) = 1$$`
-- Otherwise:
+- **Non-identified** (`\(Z = z^*\)` shared by multiple people with different `\(X\)`):
 `$$f_{X_i \mid Z_i}(x^* \mid z^*) &lt; 1$$`
+Selecting `\(z^*\)` gives an uncertain draw — we don't know whose income we will observe
 ]
+
+???
+11:43
 
 ---
 # Distribution of the characteristic of interest
@@ -711,25 +891,52 @@ class: inverse, middle, center
 
 .pull-left-wide[
 - From the definition of conditional and joint probability, the **marginal distribution** of the characteristic of interest is:
-$$
-f_{X_i}(x) = \sum_z f_{X_i, Z_i}(x, z) = \sum_z \left[ f_{X_i \mid Z_i}(x \mid z) \cdot f_{Z_i}(z) \right]
-$$
+
+`$$f_{X_i}(x) = \sum_z f_{X_i, Z_i}(x, z) = \sum_z \left[ f_{X_i \mid Z_i}(x \mid z) \cdot f_{Z_i}(z) \right]$$`
 ]
 
----
-# .red[Practice 2: Formal model for the sample]
+--
 
 .pull-left-wide[
-A survey of `\(n = 3\)` individuals is drawn by probability sampling. Let `\(X_i\)` denote annual income (in 1,000 kr) for person `\(i\)`, and let `\(Z_i\)` be the CPR number used to identify them.
+- **Why do we want this?** — `\(f_{X_i}(x)\)` tells us the distribution of `\(X\)` *as seen through our sampling mechanism*
+- If `\(f_{X_i}(x) = f_X(x)\)`: the sample is **representative** — we recover the true population distribution
+- If `\(f_{X_i}(x) \neq f_X(x)\)`: the sampling mechanism has distorted what we observe
+- The formula shows exactly how: both *who we contact* (`\(f_{Z_i}\)`) and *who responds* (`\(f_{X_i \mid Z_i}\)`) shape the final distribution
+]
 
-**a)** Write down the formal representation of the sample as random variables. What is the difference between the sample `\((X_1, X_2, X_3)\)` and a realized sample `\((x_1, x_2, x_3)\)`?
+???
+11:45
 
-**b)** Suppose every CPR number in Denmark's population of `\(N\)` people has an equal probability of selection. Write an expression for `\(f_{Z_i}(z)\)`.
+---
+# .red[Raise your hand 3: Formal model]
 
-**c)** If `\(X\)` and `\(Z\)` are independent, what does this imply about the representativeness of the sample?
+<div class="countdown" id="timer_3d9b4aa4" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** We draw a sample of `\(n = 1{,}000\)` CPR numbers from the Danish population of `\(N\)` people, each with equal probability. The selection mechanism `\(f_{Z_i}(z)\)` is:
+
+- **A)** `\(f_{Z_i}(z) = \frac{1}{N}\)` for each valid CPR number `\(z\)`
+- **B)** `\(f_{Z_i}(z) = \frac{1}{1{,}000}\)` for each valid CPR number `\(z\)`
+- **C)** `\(f_{Z_i}(z) = \frac{1{,}000}{N}\)` for each valid CPR number `\(z\)`
+]
+
+--
+
+.pull-left-wide[
+**Q2.** Income `\(X\)` and CPR number `\(Z\)` are independent. This means:
+
+- **A)** The sample is representative — `\(f_{X_i}(x) = f_X(x)\)` regardless of how `\(Z\)` is distributed
+- **B)** The sample is non-representative — independence means the selection ignores income entirely
+- **C)** Nothing about representativeness — independence is a property of the variables, not the sample
 ]
 
 
+
+???
+11:48
 
 ---
 class: inverse, middle, center
@@ -751,6 +958,11 @@ class: inverse, middle, center
 
 - A sample that does not satisfy this condition is a **non-representative sample**
 ]
+
+
+
+???
+11:50
 
 ---
 # Conditions for a representative sample
@@ -775,20 +987,8 @@ class: inverse, middle, center
 - Exception: if `\(X\)` and `\(Z\)` are **independent**, the sample is representative even if `\(f_{Z_i}(z) \neq f_Z(z)\)`
 ]
 
----
-# .red[Practice 3: Representativeness]
-
-.pull-left-wide[
-A researcher wants to estimate the average income in Denmark. She surveys 1,000 visitors to a luxury car dealership.
-
-**a)** Define the selection characteristic `\(Z\)` and the characteristic of interest `\(X\)` in this study.
-
-**b)** Is it reasonable to assume that `\(X\)` and `\(Z\)` are independent? Explain why or why not.
-
-**c)** Is the resulting sample likely to be representative? What direction of bias do you expect in the estimated mean income?
-]
-
-
+???
+11:53
 
 ---
 class: inverse, middle, center
@@ -817,6 +1017,34 @@ class: inverse, middle, center
 - In that case, a representative sample is not strictly needed — but we must know *in which way* the sample is non-representative
 ]
 
+.pull-right-narrow[
+.orange[*Emerging method: **Debiasing**: Deals with this in very large datasets. All the hype in ML/Econometrics now.*]
+]
+
+???
+11:59
+
+---
+# .red[Practice: Non-representative Bernoulli sample]
+
+*You will derive a proof that oversampling one group biases the sample mean — even when sampling within the frame is done correctly.*
+
+.pull-left-wide[
+.small123[
+We want to estimate `\(p\)` = fraction of Danes who exercise regularly. We recruit by standing outside a gym. Let `\(X_i = 1\)` (exercises regularly), `\(X_i = 0\)` (does not). Among gym visitors, a fraction `\(\alpha &gt; p\)` exercise regularly — gym-goers are not a random cross-section of the population.
+
+**a)** Write `\(f_X(x)\)` for `\(x \in \{0,1\}\)` and show `\(E(X) = p\)`.
+
+**b)** Our sample is drawn uniformly from gym visitors. Write `\(f_{X_i \mid Z_i}(1 \mid z)\)` for any gym visitor `\(z\)`. Are non-exercisers excluded from the sample?
+
+**c)** Use the marginal distribution formula:
+`$$f_{X_i}(x) = \sum_z f_{X_i \mid Z_i}(x \mid z) \cdot f_{Z_i}(z)$$`
+to show `\(f_{X_i}(1) = \alpha\)`. Compute `\(E(X_i)\)`, state the direction of bias, and state the condition on `\(\alpha\)` under which the sample is representative.
+]
+]
+
+
+
 ---
 class: inverse, middle, center
 # Sources of error in the sampling process
@@ -842,11 +1070,9 @@ class: inverse, middle, center
 --
 
 .pull-left-wide[
-- Example: you want to find out what fraction of the population is interested in a hybrid car
-  - You survey visitors to a car show, assuming they represent car-interested people
-  - But visitors to a car show are likely more interested in "show cars" than hybrids
-  - The probability of preferring a hybrid and the probability of visiting the show are not independent
-  - `\(\Rightarrow\)` the sample will likely *under-represent* interest in hybrid cars
+- Car show survey: visitors are more interested in "show cars" than hybrids
+- `\(X\)` (hybrid preference) and `\(Z\)` (attending the show) are not independent
+- `\(\Rightarrow\)` hybrid interest is *under-represented*
 ]
 
 ---
@@ -901,10 +1127,9 @@ $$
 --
 
 .pull-left-wide[
-- Example: studying the distribution of wages in the population
-  - By definition, you can only sample from people who are working
-  - But many people who are not working chose not to work because the wages available to them would be too low
-  - Their behaviour determines their probability of being selected (which is zero)
+- Wage study: only employed people can be sampled
+- Low-wage workers may have chosen *not* to work `\(\Rightarrow\)` selection probability = 0
+- The observed wage distribution is truncated from below
 ]
 
 --
@@ -915,9 +1140,9 @@ $$
 ]
 
 ---
-# .red[Raise your hand 2: Sources of error]
+# .red[Raise your hand 5: Sources of error]
 
-<div class="countdown" id="timer_c5448602" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_e51b7ff5" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -933,11 +1158,11 @@ $$
 --
 
 .pull-left-wide[
-**Q2.** A wage survey finds a mean wage that is too high. The most likely cause is:
+**Q2.** We ask random employees about their wages. Our estimate of the mean wage is too high. What might be the cause?:
 
 - **A)** Observation error — respondents round wages up when self-reporting
 - **B)** Self-selection — low-wage workers are less likely to be employed and thus not sampled
-- **C)** Non-response — low-wage workers are less likely to respond, leaving high earners over-represented
+- **C)** Non-response — low-wage workers are less likely to respond
 ]
 
 
@@ -1007,24 +1232,9 @@ class: inverse, middle, center
 ]
 
 ---
-# .red[Practice 4: Observation errors]
+# .red[Raise your hand 6: Observation errors]
 
-.pull-left-wide[
-A study measures self-reported income `\(X = X^* + \epsilon\)`, where `\(X^*\)` is true income and `\(\epsilon\)` is the observation error.
-
-**a)** Suppose richer respondents systematically under-report: `\(E(\epsilon \mid X^* &gt; 500) &lt; 0\)` while `\(E(\epsilon \mid X^* \leq 500) = 0\)`. Is `\(E(\epsilon) = 0\)` for the full population? What does this imply for the estimated mean income?
-
-**b)** Even when `\(E(\epsilon) = 0\)`, why do observation errors still distort the analysis? Write the formula for `\(\text{Var}(X)\)` (assuming `\(\text{Cov}(X^*, \epsilon) = 0\)`) and interpret it.
-
-**c)** A scale is incorrectly calibrated and reads 2 kg too high for every person. What is `\(E(\epsilon)\)`? What is the effect on `\(E(X)\)` relative to `\(E(X^*)\)`?
-]
-
-
-
----
-# .red[Raise your hand 3: Observation errors]
-
-<div class="countdown" id="timer_f4126c4f" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_4a896132" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -1050,11 +1260,10 @@ A study measures self-reported income `\(X = X^* + \epsilon\)`, where `\(X^*\)` 
 
 
 ---
-# Before next time
+# Next time
 .pull-left[
-- Review the four sampling designs and their key limitations
-- Think about how sampling errors affect empirical studies you have encountered
-- Next time: **Point estimation** `\(\rightarrow\)` Chapter 10
+
+- Next time: **Estimating the mean**
 ]
 
 .pull-right[
