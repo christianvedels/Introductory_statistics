@@ -120,6 +120,31 @@ class: middle
 ]
 
 ---
+# What are we building towards?
+
+.pull-left-wide[
+- Suppose you compute the sample average wage from 800 workers: $\bar{x} = 47{,}200$ DKK
+- That is just a number. The real question is: **what does it tell us about the world?**
+]
+
+--
+
+.pull-left-wide[
+- Is the true average wage above 45,000 DKK? Could the gap between men and women be zero and we just got unlucky with our sample?
+- To answer these questions we need to know **how much to trust our estimate** — i.e. how the estimator $\bar{X}$ behaves across all possible samples
+]
+
+--
+
+.pull-left-wide[
+- This lecture builds the foundation. Once we know the distribution of $\bar{X}$, we can:
+  - Build a **confidence interval**: a range of plausible values for the true mean
+  - Run a **hypothesis test**: decide whether an effect is real or just noise
+  - Do **inference**: draw conclusions about populations from samples
+- Without this, a sample mean is just a number. With it, it becomes evidence.
+]
+
+---
 class: inverse, middle, center
 # Simple random sampling
 
