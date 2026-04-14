@@ -11,6 +11,8 @@
     <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
     <script src="libs/tile-view-0.2.6/tile-view.js"></script>
     <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <link href="libs/countdown-0.4.0/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.4.0/countdown.js"></script>
   </head>
   <body>
     <textarea id="source">
@@ -108,13 +110,30 @@ class: center, inverse, middle
 ## Estimating the mean using a simple random sample
 ### (Chapter 10)
 
-### Seetha Menon,&lt;br&gt;Department of Economics&lt;br&gt;University of Southern Denmark
+### Christian Vedel,&lt;br&gt;Department of Economics&lt;br&gt;University of Southern Denmark
 
-### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
-### Updated 2026-03-20
+### Updated 2026-04-13
 
 
+
+---
+class: middle
+# Today's lecture
+
+.pull-left-wide[
+**Estimating the population mean from a sample, and understanding the properties that make an estimator reliable.**
+
+- **Section 1:** Simple random sampling
+- **Section 2:** Constructing an estimator of the mean value
+- **Section 3:** Properties of estimators
+- **Section 4:** The distribution of the estimator `\(\bar{X}\)`
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
 
 ---
 class: inverse, middle, center
@@ -123,88 +142,101 @@ class: inverse, middle, center
 ---
 # Descriptive measures in a sample
 
---
-
+.pull-left-wide[
 - Often, we want to derive information from a sample about the unknown distribution in the population
+]
 
 --
 
-- There are various ways to characterize the population distribution, but it is common to use a descriptive measure
+.pull-left-wide[
+- There are various ways to characterize the population distribution, but it is common to use a **descriptive measure**
+]
 
 --
 
-- The question is: how can we use the information in the sample to infer something about the value of descriptive measure in the population?
+.pull-left-wide[
+- The question is: how can we use the information in the sample to infer something about the value of a descriptive measure in the population?
+]
 
 ---
 # Simple random sample
 
---
-
+.pull-left-wide[
 &gt; A **simple random sample** is a sample `\((X_1, X_2, \ldots, X_n)\)` such that:
 &gt;
 &gt; 1. `\(X_1\)`, `\(X_2\)`, `\(\ldots\)`, `\(X_n\)` are statistically independent
 &gt; 2. `\(X_1\)`, `\(X_2\)`, `\(\ldots\)`, `\(X_n\)` have the same marginal distribution `\(f_X(x)\)`
+]
 
 --
 
+.pull-left-wide[
 - The marginal distribution `\(f_X(x)\)` is the distribution of interest (in the population)
+]
 
 --
 
-- Note that the second condition assures that the simple random sample is a representative sample for `\(X\)`
+.pull-left-wide[
+- The second condition assures that the simple random sample is a representative sample for `\(X\)`
+]
+
+--
+
+&gt; If data is generated according to the rules of being above, we say that it is **i.i.d.** (independent and identically distributed)
 
 ---
 # Distribution of a simple random sample
 
---
-
-- It is easy to determine the distribution of the random sample by using the two conditions in the definition of the sample:
-$$
-f(x_1, \ldots, x_n) = f_X(x_1) \cdot \ldots \cdot f_X(x_n)
-$$
+.pull-left-wide[
+- It is easy to determine the joint distribution of the sample using the two conditions in the definition:
+`$$f(x_1, \ldots, x_n) = f_X(x_1) \cdot f_X(x_2) \cdot \ldots \cdot f_X(x_n)$$`
+]
 
 --
 
+.pull-left-wide[
 - So, if we knew the distribution of `\(X\)` in the population, we would be able to determine the distribution of the simple random sample
+]
 
 ---
 # Distribution of a simple random sample
 
---
-
-- For example, suppose `\(X\)` follows a Bernoulli distribution with `\(p = 0.7\)`, and that `\(n = 3\)`
-
---
-
-- Then we can calculate the probability of any realized sample:
+.pull-left-wide[
+- For example, suppose `\(X\)` follows a Bernoulli distribution with `\(p = 0.7\)`, so `\(f_X(0) = 0.3\)` and `\(f_X(1) = 0.7\)`, and `\(n = 3\)`
+]
 
 --
 
-$$
-P(X_1 = 0, X_2 = 0, X_3 = 0) = P(X_1 = 0) \cdot P(X_2 = 0) \cdot P(X_3 = 0) = 0.3^3 = 0.027
-$$
+.pull-left-wide[
+- Then we can calculate `\(f(x_1, x_2, x_3)\)` for any realized sample:
+
+`$$f(0, 0, 0) = f_X(0) \cdot f_X(0) \cdot f_X(0) = 0.3^3 = 0.027$$`
+
+`$$f(0, 0, 1) = f_X(0) \cdot f_X(0) \cdot f_X(1) = 0.3^2 \cdot 0.7 = 0.063$$`
+
+`$$\vdots$$`
+
+`$$f(1, 1, 1) = f_X(1) \cdot f_X(1) \cdot f_X(1) = 0.7^3 = 0.343$$`
+]
 
 --
 
-$$
-P(X_1 = 0, X_2 = 0, X_3 = 1) = P(X_1 = 0) \cdot P(X_2 = 0) \cdot P(X_3 = 1) = 0.3^2 \cdot 0.7 = 0.063
-$$
+.pull-right-narrow[
+.red[**Remember:** In practice, we do not know the distribution of `\(X\)` in the population]
+]
 
---
+---
+# .red[Practice 1: Simple random samples]
 
-$$
-\vdots
-$$
+.pull-left-wide[
+Suppose `\(X\)` follows a Bernoulli distribution with `\(p = 0.4\)` and we draw a simple random sample of size `\(n = 2\)`.
 
---
+1. Write out `\(f(x_1, x_2)\)` for all four possible sample realizations
+2. Calculate the probability of observing the sample `\((0, 1)\)`
+3. What is the probability that the sample contains at least one success?
+]
 
-$$
-P(X_1 = 1, X_2 = 1, X_3 = 1) = P(X_1 = 1) \cdot P(X_2 = 1) \cdot P(X_3 = 1) = 0.7^3 = 0.343
-$$
 
---
-
-- But: we do not know the distribution of `\(X\)` in the population...
 
 ---
 class: inverse, middle, center
@@ -213,79 +245,93 @@ class: inverse, middle, center
 ---
 # Estimating the mean value
 
---
-
+.pull-left-wide[
 - Recall that each element of the sample is a random variable following the same distribution
+- In other words, each element of the sample has the same mean value
+]
 
 --
 
-- In other words, each element of the sample (random variable) has the same mean value
+.pull-left-wide[
+- We could use each realized value as an estimate (approximation) of the mean
+]
 
 --
 
-- We could then use each realized value as an estimate (approximation) of the mean
-
---
-
-- This gives us `\(n\)` different estimates of one value `\(\Rightarrow\)` we could use this information better and combine it into one single value
+.pull-left-wide[
+- This gives us `\(n\)` different estimates of one value `\(\Rightarrow\)` we should combine them into one single value
+]
 
 ---
 # The analogy principle
 
---
-
-- The **analogy principle** of estimation says that we should use the formulas we would use if we knew the distribution in the population, but replace all the unknown population quantities with the corresponding sample quantities
+.red[*This is the central principle of estimation. You meet it everywhere.*]
 
 --
 
-- If we knew the distribution of the random variable `\(X\)`, that can take the values `\(x_1, x_2, \ldots, x_n\)` with probabilities `\(f(x_1)\)`, `\(f(x_2)\)`, `\(\ldots\)`, `\(f(x_N)\)`, then its mean value is:
-$$
-\mu = \sum_{i=1}^N x_i f(x_i) = x_1 f(x_1) + x_2 f(x_2) + \ldots + x_N f(x_N)
-$$
+.pull-left-wide[
+- The **analogy principle** of estimation says: use the formulas we would use if we knew the population distribution, but replace all unknown population quantities with the corresponding sample quantities
+]
+
+--
+
+.pull-left-wide[
+- If we knew the distribution of `\(X\)`, taking values `\(x_1, \ldots, x_N\)` with probabilities `\(f(x_1), \ldots, f(x_N)\)`, its mean value is:
+`$$\mu = \sum_{i=1}^N x_i f(x_i) = x_1 f(x_1) + x_2 f(x_2) + \ldots + x_N f(x_N)$$`
+]
 
 ---
 # The sample average
 
---
-
-- In practice, we have a sample of `\(n\)` values `\(x_1\)`, `\(x_2\)`, `\(\ldots\)`, `\(x_n\)`, each one occurring with probability `\(1/n\)`
-
---
-
-- The analogy principle says that we should use these values in the formula above:
-$$
-\bar{x} = \sum_{i=1}^n x_i \cdot \frac{1}{n} = \frac{1}{n} \cdot \sum_{i=1}^n x_i
-$$
+.pull-left-wide[
+- In practice, we have a sample of `\(n\)` values `\(x_1, x_2, \ldots, x_n\)`, each occurring with probability `\(1/n\)`
+]
 
 --
 
-- Since we can calculate this for any realized sample, we define the **sample average** as:
-$$
-\bar{X} = \sum_{i=1}^n X_i \cdot \frac{1}{n} = \frac{1}{n} \cdot \sum_{i=1}^n X_i
-$$
+.pull-left-wide[
+- The analogy principle gives us the **sample average** (realized value):
+`$$\bar{x} = \sum_{i=1}^n x_i \cdot \frac{1}{n} = \frac{1}{n} \cdot \sum_{i=1}^n x_i$$`
+]
+
+--
+
+.pull-left-wide[
+- Since this can be calculated for any realized sample, we define the **sample average estimator** as:
+`$$\bar{X} = \frac{1}{n} \cdot \sum_{i=1}^n X_i$$`
+]
 
 ---
 # Estimate vs estimator
 
---
-
-- Note that `\(\bar{X}\)` is a *random variable*, while `\(\bar{x}\)` is a value (and same for `\(\mu\)`)
-
---
-
-- Actually, `\(\bar{x}\)` is a realized value of `\(\bar{X}\)`
+.pull-left-wide[
+- `\(\bar{X}\)` is a *random variable*, while `\(\bar{x}\)` is a realized value of `\(\bar{X}\)`
+]
 
 --
 
-- `\(\bar{X}\)` is an **estimator**, i.e., a random variable that is a function of the sample (random variables) and that aims to replicate a particular parameter in the population
+.pull-left-wide[
+- `\(\bar{X}\)` is an **estimator**: a random variable that is a function of the sample and aims to replicate a population parameter
+]
 
 --
 
-- In contrast, `\(\bar{x}\)` is an **estimate** (or **estimated value**), i.e., a realized value of the estimator, based on a particular realized sample
-
---
-
+.pull-left-wide[
+- `\(\bar{x}\)` is an **estimate** (or **estimated value**): a realized value of the estimator, based on a particular sample
 - The estimate is our guess of the true value of the parameter
+]
+
+---
+# .red[Practice 2: The sample average]
+
+.pull-left-wide[
+Suppose we observe the sample: `\(x_1 = 3,\ x_2 = 7,\ x_3 = 2,\ x_4 = 8,\ x_5 = 5\)`.
+
+1. Calculate the sample average `\(\bar{x}\)`
+2. We now draw a new sample of size `\(n = 100\)` from a population with `\(\mu = 5\)` and `\(\sigma^2 = 4\)`. What are `\(E(\bar{X})\)` and `\(Var(\bar{X})\)`?
+]
+
+
 
 ---
 class: inverse, middle, center
@@ -294,280 +340,335 @@ class: inverse, middle, center
 ---
 # Properties of estimators
 
---
-
-- We can construct an infinity of estimators, but we would want to have a *good* estimator
-
---
-
+.pull-left-wide[
+- We can construct infinitely many estimators, but we want a *good* one
 - We need to define what makes an estimator *good*, given that we do not know the true value of the parameter
+]
 
 --
 
-- We are generally interested in three properties of estimators:
-
---
-
-  - unbiasedness
-
---
-
-  - efficiency
-
---
-
-  - consistency
+.pull-left-wide[
+- We are generally interested in three properties:
+  - **Unbiasedness**
+  - **Efficiency**
+  - **Consistency**
+]
 
 ---
 # Unbiasedness
 
---
-
-- Recall that an estimator aims to approximate a particular parameter in the population
-
---
-
-- Suppose we could sample many times and calculate the realized value of the estimator (the estimated value) in each sample
+.pull-left-wide[
+&gt; An estimator is **unbiased** if its expected value equals the parameter it aims to approximate
+]
 
 --
 
-- We would want these values to be "around" the true value of the parameter
-
---
-
-- In other words, we would want our estimator to be, "on average," equal to the true value of the parameter
-
---
-
-- We say that an estimator is **unbiased** if its expected value is equal to the parameter that it aims to approximate
+.pull-left-wide[
+- Suppose we could sample many times and calculate the estimator in each sample
+- We would want these values to be "around" the true parameter — on average equal to it
+]
 
 ---
 # Unbiasedness of sample average
 
---
+.pull-left-wide[
+- We can check that the sample average is unbiased:
 
-- We can easily check if the sample average is unbiased:
-
---
-
-$$
-E(\bar{X}) = E \left[ \frac{1}{n} \sum_{i=1}^n X_i \right] = \frac{1}{n} \cdot E \left[ \sum_{i=1}^n X_i \right]
-$$
+`$$E(\bar{X}) = E \left[ \frac{1}{n} \sum_{i=1}^n X_i \right] = \frac{1}{n} \cdot E \left[ \sum_{i=1}^n X_i \right]$$`
+]
 
 --
 
-$$
-= \frac{1}{n} \cdot \sum_{i=1}^n E(X_i) = \frac{1}{n} \cdot n \cdot \mu
-$$
+.pull-left-wide[
+`$$= \frac{1}{n} \cdot \sum_{i=1}^n E(X_i) = \frac{1}{n} \cdot n \cdot \mu = \mu$$`
 
---
-
-$$
-= \mu
-$$
-
---
-
-- Hence, the sample average is an unbiased estimator of the expected value of `\(X\)`
+- Hence, the sample average is an unbiased estimator of `\(\mu\)`
+]
 
 ---
 # Efficiency
 
---
-
-- In practice, we cannot resample many times (we usually only have one realization of the sample)
-
---
-
-- Since the estimator is a random variable, its realized value can be very far from the parameter of interest even if it is unbiased (i.e., its average value is equal to the parameter of interest)
+.pull-left-wide[
+- In practice, we cannot resample many times — we usually only have one realized sample
+]
 
 --
 
-- Therefore, we would like our estimator to take values "very close" to the true value of the parameter with high probability
+.pull-left-wide[
+&gt; An estimator is more **efficient** than another if its variance is smaller
+]
 
 --
 
-- In other words, we would want the variance of the estimator to be as small as possible (the estimator would then be *precise*)
-
---
-
-- An estimator is more **efficient** than another if its variance is smaller
+.pull-left-wide[
+- Since the estimator is a random variable, its realized value can be far from the parameter even if unbiased
+- We want its variance to be as small as possible (a *precise* estimator)
+]
 
 ---
 # Variance of sample average
 
---
+.pull-left-wide[
+- Because sample elements are independent, we can calculate the variance directly:
 
-- We can also calculate relatively easily the variance of the sample average, because the sample elements are all independent of each other:
-
---
-
-$$
-Var(\bar{X}) = Var \left[ \frac{1}{n} \sum_{i=1}^n X_i \right] = \frac{1}{n^2} \cdot Var \left[ \sum_{i=1}^n X_i \right]
-$$
+`$$Var(\bar{X}) = Var \left[ \frac{1}{n} \sum_{i=1}^n X_i \right] = \frac{1}{n^2} \cdot \sum_{i=1}^n Var(X_i)$$`
+]
 
 --
 
-$$
-= \frac{1}{n^2} \cdot \sum_{i=1}^n Var(X_i) = \frac{1}{n^2} \cdot n \cdot \sigma^2
-$$
+.pull-left-wide[
+`$$= \frac{1}{n^2} \cdot n \cdot \sigma^2 = \frac{\sigma^2}{n}$$`
+
+- The variance of `\(\bar{X}\)` decreases with sample size: the larger the sample, the more precise the estimator
+]
 
 --
 
-$$
-= \frac{\sigma^2}{n}
-$$
-
---
-
-- Note that the variance of the sample average depends on the sample size: the larger the sample, the smaller the variance (i.e., the estimator is more precise)
+.pull-left-wide[
+- *Next semester you will learn that this is a special case of the 'Best Linear Unbiased Estimator'-type estimator.*
+]
 
 ---
 # Consistency
 
---
-
-- Several estimators have the property that their variance is inversely proportional to sample size
-
---
-
-- As sample size grows toward infinity, the variance of the estimator goes toward zero
+.pull-left-wide[
+&gt; An estimator is **consistent** if it is unbiased and its variance goes to zero as `\(n \to \infty\)`
+]
 
 --
 
-- This means that in an infinite sample, the distribution of the estimator collapses on a single value
+.pull-left-wide[
+- As sample size grows toward infinity, the distribution of the estimator collapses on a single value
+- If that value equals the true parameter, the estimator is consistent
+]
 
 --
 
-- If that single value is the true value of the parameter of interest (i.e., if the estimator is unbiased), then the estimator is **consistent**
-
---
-
-- This implies that, if the sample is "sufficiently large," a consistent estimator will have realized values "very close" to the true value of the parameter
-
---
-
-- In this case, even one realized sample may be enough to have a "good approximation" of the true value of the parameter
+.pull-left-wide[
+- This implies that a consistent estimator will have realized values very close to the true parameter in a "sufficiently large" sample
+]
 
 ---
 # Consistency of sample average
 
---
-
-- Recall that the sample average is unbiased:
-$$
-E(\bar{X}) = \mu
-$$
+.pull-left-wide[
+- Recall that the sample average is unbiased: `\(E(\bar{X}) = \mu\)`
+]
 
 --
 
-- Recall also that the variance of the sample average goes to zero as the sample size grows to infinity:
-$$
-\lim_{n \rightarrow \infty} Var(\bar{X}) = \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} = 0
-$$
+.pull-left-wide[
+- Its variance goes to zero as sample size grows:
+`$$\lim_{n \rightarrow \infty} Var(\bar{X}) = \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} = 0$$`
+]
 
 --
 
-- Therefore, the sample average is a consistent estimator of `\(\mu\)`
+.pull-left-wide[
+- Therefore, the sample average is a **consistent** estimator of `\(\mu\)`
+]
+
+---
+# .red[Practice 3: Properties of estimators]
+
+.pull-left-wide[
+Consider `\(\tilde{X} = X_1\)` (just the first observation) as an estimator of `\(\mu\)`.
+
+1. Is `\(\tilde{X}\)` unbiased? Show your work.
+2. Compare `\(Var(\tilde{X})\)` to `\(Var(\bar{X})\)` for `\(n &gt; 1\)`. Which is more efficient?
+3. Is `\(\tilde{X}\)` consistent? Why or why not?
+]
+
+
+
+---
+# .red[Raise your hand 1: Estimator properties]
+
+<div class="countdown" id="timer_809f0129" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** The sample average `\(\bar{X}\)` is unbiased for `\(\mu\)`. Define `\(\tilde{X} = 2\bar{X}\)`. Is `\(\tilde{X}\)` unbiased for `\(\mu\)`?
+
+- **A)** No — `\(E(\tilde{X}) = 2\mu \neq \mu\)`, so it is biased
+- **B)** It depends on whether `\(\mu &gt; 0\)`
+- **C)** Yes — it is a function of the sample, so it inherits unbiasedness
+]
+
+--
+
+.pull-left-wide[
+**Q2.** Which statement about consistency is correct?
+
+- **A)** Any unbiased estimator is automatically consistent
+- **B)** Consistency only requires that the estimator's bias goes to zero
+- **C)** An estimator can be consistent without being unbiased in finite samples
+]
+
+
 
 ---
 class: inverse, middle, center
 # The distribution of the estimator `\(\bar{X}\)`
 
 ---
-# The distribution of `\(\bar{X}\)`
+# Why does the shape of `\(\bar{X}\)` matter?
+
+.pull-left-wide[
+- We know `\(E(\bar{X}) = \mu\)` and `\(Var(\bar{X}) = \sigma^2/n\)` — but that only tells us the *centre* and *spread*
+]
 
 --
 
-- We calculated the expected value and variance of `\(\bar{X}\)`
+.pull-left-wide[
+- In practice, we want to answer questions like:
+  - *"A central bank surveys 500 firms. What is the probability that the true average inflation expectation across all firms exceeds 2% — enough to justify raising interest rates?"*
+  - *"From 800 sampled workers, what can we say about the gender wage gap across all 3 million workers in the country?"*
+- These require knowing the **shape** of the distribution of `\(\bar{X}\)`
+]
 
 --
 
-- However, in certain situations we may want to calculate the probability that the observed value of this estimator lies in a certain interval
+.pull-left-wide[
+- Coming up: a result so powerful it works **regardless of what the distribution of `\(X\)` looks like**
+]
 
 --
 
-- For this we would need to know the entire distribution of this estimator, not just the values of these two moments
+.pull-right-narrow[
+.red[**Key idea**]
 
---
+*Chaos averages into order*
 
-- If the shape of the distribution of `\(X\)` in the population is known (i.e., the type of distribution, but not necessarily its parameters), then we may be able to determine the distribution of `\(\bar{X}\)`
+No matter how strange the individual outcomes are, their averages always converge to the same universal shape
+]
+
 
 ---
 # The distribution of `\(\bar{X}\)` if sample is normal
 
---
-
-- Suppose that the distribution of `\(X\)` in the population is normal, with mean `\(\mu\)` and variance `\(\sigma^2\)`
+.red[*First a simpler result*]
 
 --
 
-- Then each individual element of the sample also follows the same distribution: `\(X_i \sim \mathcal{N}(\mu, \sigma^2)\)`
+.pull-left-wide[
+- Suppose `\(X \sim \mathcal{N}(\mu, \sigma^2)\)`. Then each `\(X_i \sim \mathcal{N}(\mu, \sigma^2)\)`, so:
+`$$\frac{X_i}{n} \sim \mathcal{N}\left(\frac{\mu}{n}, \frac{\sigma^2}{n^2} \right)$$`
+]
 
 --
 
-- In this case, we will have: `\(\dfrac{X_i}{n} \sim \mathcal{N}\left(\dfrac{\mu}{n}, \dfrac{\sigma^2}{n^2} \right)\)`
+.pull-left-wide[
+- As a sum of normally-distributed random variables:
+`$$\bar{X} = \frac{X_1}{n} + \frac{X_2}{n} + \ldots + \frac{X_n}{n} \sim \mathcal{N}\left(\mu, \frac{\sigma^2}{n} \right)$$`
+]
 
 --
 
-- The sample average is:
-$$
-\bar{X} = \frac{X_1}{n} + \frac{X_2}{n} + \ldots + \frac{X_n}{n}
-$$
+.pull-left-wide[
+&gt; ***Interpretation:*** *If the sample is drawn from a normal distribution, the sample average is also normally distributed.*
+]
 
---
+---
+# The CLT in action
 
-- As a sum of normally-distributed random variables, `\(\bar{X}\)` also follows normal distribution:
-$$
-\bar{X} \sim \mathcal{N}\left(\mu, \dfrac{\sigma^2}{n} \right)
-$$
+
+
+
+.pull-left-narrow[
+- We draw samples of size `\(n = 1\)`, `\(n = 2\)`, `\(n = 5\)`, `\(n = 10\)`, `\(n = 30\)`, `\(n = 100\)`, and `\(n = 200\)` from a weird distribution
+- We take the average
+- What is the distribution of this average across many samples?
+]
+
+.pull-right-wide[
+.panelset[
+.panel[.panel-name[n = 1]
+.center[
+![Individual draws — the raw population](Figures/clt_n1.png)
+]
+]
+.panel[.panel-name[n = 2]
+.center[
+![Sample mean of 2 draws](Figures/clt_n2.png)
+]
+]
+.panel[.panel-name[n = 5]
+.center[
+![Sample mean of 5 draws](Figures/clt_n5.png)
+]
+]
+.panel[.panel-name[n = 10]
+.center[
+![Sample mean of 10 draws](Figures/clt_n10.png)
+]
+]
+.panel[.panel-name[n = 30]
+.center[
+![Sample mean of 30 draws](Figures/clt_n30.png)
+]
+]
+.panel[.panel-name[n = 100]
+  .center[
+  ![Sample mean of 100 draws](Figures/clt_n100.png)
+  ]
+]
+.panel[.panel-name[n = 200]
+.center[
+![Sample mean of 200 draws](Figures/clt_n200.png)
+]
+]
+]
+]
 
 ---
 # The approximate distribution of `\(\bar{X}\)`
 
---
-
-- In practice, we will not know the distribution of `\(X\)` in the population
-
---
-
-- Even if we do, we may not be able to determine the distribution of `\(\bar{X}\)` so easily
+.pull-left-wide[
+- In practice, we will not know the distribution of `\(X\)` — but we have a very powerful result
+]
 
 --
 
-- Luckily, we have the following very important result
-
---
-
+.pull-left-wide[
 &gt; **Central limit theorem**
 &gt;
-&gt; Suppose we have a simple random sample of `\(n\)` elements `\(X_1\)`, `\(X_2\)`, `\(\ldots\)`, `\(X_n\)`, where `\(E(X_i) = \mu\)` and `\(Var(X_i) = \sigma^2\)` for all `\(i\)`. If `\(n = \infty\)`, then the sample mean follows normal distribution: `\(\bar{X} \sim \mathcal{N}\left(\mu, \dfrac{\sigma^2}{n} \right)\)`
+&gt; Suppose we have a simple random sample `\(X_1, X_2, \ldots, X_n\)` with `\(E(X_i) = \mu\)` and `\(Var(X_i) = \sigma^2\)` for all `\(i\)`. As `\(n \to \infty\)`, the sample mean converges to a normal distribution:
+&gt;
+&gt; `$$\bar{X} \overset{a}{\sim} \mathcal{N}\left(\mu, \frac{\sigma^2}{n} \right)$$`
+]
 
 --
 
-- This means that if the sample is "large enough," the distribution of `\(\bar{X}\)` is *approximately normal*:
-$$
-\bar{X} \overset{a}{\sim} \mathcal{N}\left(\mu, \dfrac{\sigma^2}{n} \right)
-$$
+.pull-left-wide[
+- This holds *regardless* of the distribution of `\(X\)` — it is one of the most important results in statistics
+]
 
 ---
-# Key Takeaways
+# .red[Practice 4: The central limit theorem]
 
---
+.pull-left-wide[
+Household incomes have mean `\(\mu = 450{,}000\)` DKK and standard deviation `\(\sigma = 120{,}000\)` DKK. We draw a simple random sample of `\(n = 144\)` households.
 
-- Estimating the mean in a simple random sample
+1. State the approximate distribution of `\(\bar{X}\)`. What are its mean and variance?
+2. Using the CLT, approximate `\(F(460{,}000)\)`
+3. How does your answer change if `\(n = 36\)`?
+]
 
---
 
-- Estimate v. Estimator
 
---
+---
+# Before next time
 
-- Properties of Estimators: Unbiased, Efficiency and Consistency
+.pull-left[
+- Stratified/Cluster, Estimators
+]
 
---
-
-- Central limit theorem
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
