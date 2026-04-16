@@ -94,233 +94,342 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 ## Estimators of other descriptive measures
 ### (Chapter 12)
 
-### Seetha Menon,<br>Department of Economics<br>University of Southern Denmark
+### Christian Vedel,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
 ### Updated `r Sys.Date()`
 
 
 
 ---
+class: middle
+# Today's lecture
+.pull-left-wide[
+**Extending the analogy principle to estimate variance, shape, and distribution**
+
+- **Section 1:** An estimator of the variance
+- **Section 2:** Estimators of higher-order moments
+- **Section 3:** Estimators of the covariance and correlation coefficient
+- **Section 4:** Estimating a distribution
+- **Section 5:** Estimators of quantiles
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
 class: inverse, middle, center
 # An estimator of the variance
 
 ---
-# The analogy principle of estimation
+# The analogy principle
+
+.pull-left-wide[
+- Recall: we built the sample average by applying the analogy principle to the population mean
+- We can apply the same principle to construct an estimator of the **variance**
+]
 
 --
 
-- Recall that we constructed an estimator of the expected value (the sample average) using the analogy principle of estimation
-
---
-
-- We can apply the same principle to construct an estimator of the variance
-
---
-
+.pull-left-wide[
 - The variance of a discrete random variable $X$ is:
 $$
 Var(X) = \sum_{i = 1}^N (x_i - \mu)^2 \cdot f_X(x_i)
 $$
-
---
-
-- To construct an estimator of the variance of $X$, $\sigma^2$, we need to replace all unknown quantities by corresponding sample quantities
+- To estimate $\sigma^2$, replace all unknown population quantities with sample counterparts
+]
 
 ---
-# An estimator of the variance, $\mu$ known
+# Variance estimator when $\mu$ is known
+
+.pull-left-wide[
+- Suppose we know the population mean $\mu$
+- The only unknown is $f_X(x_i)$, which we replace with $1/n$
+]
 
 --
 
-- For simplicity, suppose we know the expected value of $X$ in the population, $\mu$
-
---
-
-- The only unknown quantity is $f_X(x_i)$, which we can replace with $1/n$ (because each element in the sample has probability $1/n$)
-
---
-
-- We then obtain the following estimator of $\sigma^2$:
+.pull-left-wide[
+> When $\mu$ is known, the variance estimator is:
 $$
 \tilde{S}^2 = \frac{1}{n} \cdot \sum_{i = 1}^n (X_i - \mu)^2
 $$
-
---
-
-- We can easily show that $\tilde{S}^2$ is an unbiased estimator of $\sigma^2$
+- $\tilde{S}^2$ is an **unbiased** estimator of $\sigma^2$
+]
 
 ---
-# An estimator of the variance, $\mu$ unknown
+# Variance estimator when $\mu$ is unknown
 
---
-
-- But, in general, we do not know the expected value of $X$ in the population, $\mu$, so we have two unknown quantities:
-
---
-
-  - $f_X(x_i)$, which we can replace with $1/n$
-
---
-
-  - $\mu$, which we can replace with the sample average $\bar{X}$
-
---
-
-- We would then obtain the following estimator of $\sigma^2$:
+.pull-left-wide[
+- In general $\mu$ is unknown, so we replace it with $\bar{X}$
+- The naive plug-in estimator is:
 $$
 b^2 = \frac{1}{n} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2
 $$
+- But $b^2$ is **biased**: $E(b^2) = \dfrac{n-1}{n} \cdot \sigma^2$
+]
 
 --
 
-- However, $b^2$ is a biased estimator of $\sigma^2$
-$$
-E \left( b^2 \right) = \frac{n - 1}{n} \cdot \sigma^2
-$$
-
---
-
-- Therefore, we need to change the formula a bit to obtain an unbiased estimator of $\sigma^2$, called **sample variance**:
+.pull-left-wide[
+> Correcting for the bias gives the **sample variance**:
 $$
 S^2 = \frac{1}{n - 1} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2
 $$
+- $S^2$ is an **unbiased** and **consistent** estimator of $\sigma^2$
+]
 
 ---
 # An estimator of the standard deviation
 
---
-
-- Recall that the standard deviation is the square root of the variance
-
---
-
-- We could then use $S = \sqrt{S^2}$ as an estimator of the standard deviation of $X$
+.pull-left-wide[
+- A natural estimator of $\sigma$ is $S = \sqrt{S^2}$
+]
 
 --
 
-- However, recall that $E[g(X)]$ is in general not equal to $g[E(X)]$
-
---
-
-- In this case, this means that:
+.pull-left-wide[
+- However, $E[g(X)] \neq g[E(X)]$ in general, so:
 $$
-E(S) = E \left( \sqrt{S^2} \right) \not= \sqrt{E(S^2)} = \sqrt{\sigma^2} = \sigma
+E(S) = E\!\left(\sqrt{S^2}\right) \neq \sqrt{E(S^2)} = \sqrt{\sigma^2} = \sigma
 $$
-
---
-
-- So $S$ is a *biased* estimator of $\sigma$ (but it is consistent)
+- $S$ is a **biased** estimator of $\sigma$ (but it is **consistent**)
+]
 
 ---
-# Properties of the sample variance
+# Distribution of $S^2$: the chi-square
 
---
-
-- As mentioned earlier, the sample variance is an unbiased (and consistent) estimator of the variance of $X$
-
---
-
-- It turns out that it is easier to find the distribution of $Y$ than of $S^2$, where $Y$ is defined as:
+.pull-left-wide[
+- It is easier to work with the scaled quantity:
 $$
 Y = S^2 \cdot \frac{n-1}{\sigma^2}
 $$
+]
 
 --
 
-- In an infinite sample, $Y$ follows a $\chi^2$ (*chi-square*) distribution with $n - 1$ degrees of freedom
-
---
-
-- In a sufficiently large sample, $Y$ approximately follows a $\chi^2(n-1)$, which allows us to calculate the distribution of $S^2$:
+.pull-left-wide[
+- In a normal population, $Y$ follows a **chi-square** distribution with $n-1$ degrees of freedom: $Y \sim \chi^2(n-1)$
+- This lets us find $F(S^2 \leq a)$ by converting to a $\chi^2$ probability:
 $$
-P(S^2 \leq a) = P \left( Y \cdot \frac{\sigma^2}{n-1} \leq a \right) = P \left( Y \leq a \cdot \frac{n-1}{\sigma^2} \right)
+F(S^2 \leq a) = P\!\left(Y \leq a \cdot \frac{n-1}{\sigma^2}\right)
 $$
+- The $\chi^2$ distribution is **not symmetric** and takes only positive values
+]
+
+---
+# .red[Raise your hand 1: Sample variance]
+
+```{r ryh1-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** Why do we divide by $n - 1$ rather than $n$ in the sample variance $S^2$?
+
+- **A)** Replacing $\mu$ with $\bar{X}$ uses up one degree of freedom, making $b^2 = \frac{1}{n}\sum(X_i - \bar{X})^2$ systematically too small — dividing by $n-1$ corrects the bias
+- **B)** Dividing by $n - 1$ makes $S^2$ a consistent estimator, whereas dividing by $n$ does not
+- **C)** It is a convention with no statistical justification
+]
 
 --
 
-- Unlike the normal distribution, the $\chi^2$ distribution is not symmetric: such a random variable can only take positive values
+.pull-left-wide[
+**Q2.** $S^2$ is unbiased for $\sigma^2$. Is $S = \sqrt{S^2}$ unbiased for $\sigma$?
+
+- **A)** Yes — the square root of an unbiased estimator is also unbiased
+- **B)** Yes — because $S^2$ is consistent, $S$ inherits unbiasedness
+- **C)** No — $E(\sqrt{S^2}) \neq \sqrt{E(S^2)}$ in general, so $S$ is biased (though consistent)
+]
+
+```{r ryh1-answers, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# Q1: Answer A
+#   A: Correct — X_bar is computed from the same sample, so the deviations (X_i - X_bar)
+#      are not free; they must sum to zero, leaving only n-1 free quantities
+#   B: Tempting — both b^2 and S^2 are consistent; the n-1 correction is about
+#      unbiasedness, not consistency
+#   C: Tempting — students sometimes think statistical conventions are arbitrary;
+#      but the n-1 correction is a precise mathematical result, not a convention
+#
+# Q2: Answer C
+#   A: Tempting — sounds like a natural inheritance property; but the square root
+#      is a concave transformation so Jensen's inequality gives E(sqrt(S^2)) < sqrt(E(S^2))
+#   B: Tempting — consistency and unbiasedness are related concepts; but consistency
+#      only guarantees convergence in probability, not that the expected value is exact
+#   C: Correct — this is a direct consequence of Jensen's inequality for concave functions
+```
+
+---
+# .red[Practice 1: Sample variance]
+
+.pull-left-wide[
+A sample of $n = 5$ observations: $\{2, 4, 4, 6, 9\}$.
+
+1. Calculate $\bar{X}$
+2. Calculate $S^2$ (the unbiased sample variance)
+3. Why would $b^2 = \frac{1}{n}\sum(X_i - \bar{X})^2$ give a different answer? Calculate $b^2$ and compare
+4. For large $n$, does the difference between $S^2$ and $b^2$ matter? Why?
+]
+
+```{r practice1-answer, eval=FALSE, include=FALSE}
+# ANSWER
+# 1. X_bar = (2+4+4+6+9)/5 = 25/5 = 5
+#
+# 2. Deviations: (2-5)^2=9, (4-5)^2=1, (4-5)^2=1, (6-5)^2=1, (9-5)^2=16
+#    Sum = 28
+#    S^2 = 28/(5-1) = 28/4 = 7
+#
+# 3. b^2 = 28/5 = 5.6
+#    b^2 < S^2 because it divides by n rather than n-1
+#    E(b^2) = (n-1)/n * sigma^2 = 4/5 * sigma^2 — biased downward
+#
+# 4. For large n, n-1 ≈ n so the difference is negligible.
+#    In small samples the correction matters more.
+```
 
 ---
 class: inverse, middle, center
 # Estimators of higher-order moments
 
 ---
-# Estimators of higher-order moments
+# Central moments
+
+.pull-left-wide[
+- The $k$-th **central moment** of $X$ is:
+$$
+m_k^* = E\!\left([X - E(X)]^k\right) = \sum_{i=1}^N \left[(x_i - \mu)^k \cdot f_X(x_i)\right]
+$$
+]
 
 --
 
-- Recall that the $k$-th central moment of $X$ is defined as:
+.pull-left-wide[
+- The analogy principle gives the estimator:
 $$
-m_k^* = E \left( [X - E(X)]^k \right)
+\hat{m}_k^* = \frac{1}{n} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right)^k
 $$
-
---
-
-- If $X$ is a discrete variable, then we can calculate this moment as follows:
-$$
-m_k^* = \sum_{i=1}^N \left[ (x_i - \mu)^k \cdot f_X(x_i) \right]
-$$
-
---
-
-- The analogy principle gives us an estimator of this moment:
-$$
-\hat{m}_k^* = \frac{1}{n} \cdot \sum_{i=1}^n \left( X_i - \bar{X} \right)^k
-$$
-
---
-
-- Similarly, the estimator of the $k$-th moment, $E(X^k)$, is:
-$$
-\hat{m}_k = \frac{1}{n} \cdot \sum_{i=1}^n X_i^k
-$$
+- Similarly, the estimator of the $k$-th (raw) moment $E(X^k)$ is $\hat{m}_k = \frac{1}{n}\sum_{i=1}^n X_i^k$
+]
 
 ---
 # Skewness
 
---
-
-- The moments depend on the unit of measurement of $X$ (e.g., if we change income from DKK to USD, the value of all of the moments changes)
-
---
-
-- A scale-independent measure of **skewness** (asymmetry) of the distribution is the standardized third central moment:
-$$
-\gamma_3 = \frac{m_3^*}{\sigma^3}
-$$
+.pull-left-wide[
+- Raw moments depend on the unit of measurement — doubling the scale doubles the moment
+- We want scale-independent measures
+]
 
 --
 
-- Using the analogy principle, we can construct an estimator of this measure:
+.pull-left-wide[
+> **Skewness** is the standardised third central moment:
 $$
-\hat{\gamma}_3 = \frac{\hat{m}_3^*}{S^3}
+\gamma_3 = \frac{m_3^*}{\sigma^3}, \qquad \hat{\gamma}_3 = \frac{\hat{m}_3^*}{S^3}
 $$
+
+- $\gamma_3 > 0$: right-skewed (long right tail)
+- $\gamma_3 < 0$: left-skewed (long left tail)
+- $\gamma_3 = 0$: symmetric (e.g. the normal distribution)
+]
 
 ---
 # Kurtosis
 
---
+.pull-left-wide[
+> **Kurtosis** is the standardised fourth central moment:
+$$
+\gamma_4 = \frac{m_4^*}{\sigma^4}, \qquad \hat{\gamma}_4 = \frac{\hat{m}_4^*}{S^4}
+$$
 
-- The standardized fourth central moment is a measure of **kurtosis** (the "peakedness" of the probability distribution):
-$$
-\gamma_4 = \frac{m_4^*}{\sigma^4}
-$$
-
---
-
-- Its estimator is:
-$$
-\hat{\gamma}_4 = \frac{\hat{m}_4^*}{S^4}
-$$
+- Measures the "peakedness" and tail weight of the distribution
+- For the normal distribution: $\gamma_3 = 0$ and $\gamma_4 = 3$
+]
 
 --
 
-- Skewness and kurtosis are generally used to compare a distribution to the normal distribution
+.pull-left-wide[
+- Skewness and kurtosis are primarily used to **compare a distribution to the normal**
+- Deviations from $\gamma_3 = 0$ or $\gamma_4 = 3$ signal non-normality
+]
+
+---
+# .red[Raise your hand 2: Skewness and kurtosis]
+
+```{r ryh2-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** A sample gives $\hat{\gamma}_3 = 1.8$. What does this indicate?
+
+- **A)** The distribution has a longer right tail than left — it is right-skewed
+- **B)** The distribution is more peaked than the normal
+- **C)** The distribution has higher variance than a symmetric distribution would
+]
 
 --
 
-- For the normal distribution, $\gamma_3 = 0$ and $\gamma_4 = 3$
+.pull-left-wide[
+**Q2.** A sample gives $\hat{\gamma}_4 = 5$, compared to 3 for the normal. What does this suggest?
+
+- **A)** The distribution is more spread out (higher variance) than the normal
+- **B)** The distribution has heavier tails and a sharper peak than the normal — excess kurtosis
+- **C)** The distribution is right-skewed
+]
+
+```{r ryh2-answers, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# Q1: Answer A
+#   A: Correct — positive gamma_3 means the right tail is heavier; the mass is pulled
+#      toward the right
+#   B: Tempting — students sometimes confuse skewness and kurtosis; peakedness is
+#      measured by gamma_4, not gamma_3
+#   C: Tempting — a skewed distribution does often have a different variance; but
+#      gamma_3 specifically measures asymmetry, not spread
+#
+# Q2: Answer B
+#   A: Tempting — higher kurtosis sounds like "more spread out"; but kurtosis measures
+#      the concentration of mass in the tails relative to the shoulders, not total variance
+#   B: Correct — kurtosis > 3 (excess kurtosis > 0) means heavier tails and sharper
+#      peak than normal; called leptokurtic
+#   C: Tempting — students may confuse kurtosis with skewness; gamma_3 measures
+#      asymmetry, gamma_4 measures tail weight / peakedness
+```
+
+---
+# .red[Practice 2: Skewness and kurtosis]
+
+.pull-left-wide[
+A dataset of $n = 6$ income values (in €k): $\{10, 12, 14, 14, 16, 60\}$.
+
+1. Calculate $\bar{X}$ and $S^2$
+2. Calculate $\hat{m}_3^*$ (the third central moment)
+3. Calculate $\hat{\gamma}_3$. Is income right- or left-skewed? Does this make intuitive sense?
+]
+
+```{r practice2-answer, eval=FALSE, include=FALSE}
+# ANSWER
+# 1. X_bar = (10+12+14+14+16+60)/6 = 126/6 = 21
+#    Deviations: -11, -9, -7, -7, -5, 39
+#    Sum of sq dev = 121+81+49+49+25+1521 = 1846
+#    S^2 = 1846/5 = 369.2
+#    S = sqrt(369.2) ≈ 19.21
+#
+# 2. m_hat_3* = (1/6) * [(-11)^3 + (-9)^3 + (-7)^3 + (-7)^3 + (-5)^3 + 39^3]
+#             = (1/6) * [-1331 - 729 - 343 - 343 - 125 + 59319]
+#             = (1/6) * 56448 = 9408
+#
+# 3. gamma_hat_3 = 9408 / 19.21^3 = 9408 / 7096.5 ≈ 1.33
+#    Positive: right-skewed — the one high-income outlier (60) pulls the right tail
+#    This is typical of income distributions
+```
 
 ---
 class: inverse, middle, center
@@ -329,104 +438,237 @@ class: inverse, middle, center
 ---
 # An estimator of the covariance
 
---
-
-- Recall that the covariance between two random variables $X$ and $Y$ is defined as:
+.pull-left-wide[
+- The covariance between $X$ and $Y$ is:
 $$
-Cov(X, Y) = E \left[ (X - \mu_X) \cdot (Y - \mu_Y) \right]
+Cov(X, Y) = E\!\left[(X - \mu_X)(Y - \mu_Y)\right]
 $$
-
---
-
-- If both $X$ and $Y$ are discrete, then this formula becomes:
-$$
-Cov(X, Y) = \sum_{i=1}^N \sum_{j=1}^M \left[ (x_i - \mu_X) \cdot (y_j - \mu_Y) \cdot f(x_i, y_j) \right]
-$$
+]
 
 --
 
-- We can again use the analogy principle to construct an estimator of the covariance, called **sample covariance**:
+.pull-left-wide[
+> The **sample covariance** is:
 $$
-\widehat{Cov}(X, Y) = \frac{1}{n} \cdot \sum_{i=1}^n \left[ \left( X_i - \bar{X} \right) \cdot \left( Y_i - \bar{Y} \right) \right]
+\widehat{Cov}(X, Y) = \frac{1}{n} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right)\!\left(Y_i - \bar{Y}\right)
 $$
+- Constructed by replacing $\mu_X$, $\mu_Y$, and $f(x_i, y_j)$ with their sample counterparts
+]
 
 ---
 # An estimator of the correlation coefficient
 
+.pull-left-wide[
+- The population correlation coefficient is:
+$$
+\rho(X, Y) = \frac{Cov(X, Y)}{\sqrt{Var(X) \cdot Var(Y)}}
+$$
+]
+
 --
 
-- Recall that the correlation coefficient between two random variables $X$ and $Y$ is defined as:
-$$
-\rho(X, Y) = \rho = \frac{Cov(X, Y)}{\sqrt{Var(X) \cdot Var(Y)}}
-$$
-
---
-
-- We can again use the analogy principle to construct an estimator called the **sample correlation coefficient**:
+.pull-left-wide[
+> The **sample correlation coefficient** is:
 $$
 \hat{\rho}(X, Y) = \frac{\widehat{Cov}(X, Y)}{\sqrt{S_X^2 \cdot S_Y^2}}
 $$
+- For large $n$: $\hat{\rho}(X, Y) \overset{a}{\sim} \mathcal{N}\!\left(\rho,\, \dfrac{(1 - \rho^2)^2}{n - 2}\right)$
+]
+
+---
+# .red[Raise your hand 3: Covariance and correlation]
+
+```{r ryh3-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** $\widehat{Cov}(X, Y) = 0$ in a sample. Can we conclude that $X$ and $Y$ are independent?
+
+- **A)** No — zero covariance rules out a linear relationship but not non-linear dependence
+- **B)** Yes — zero covariance is equivalent to independence
+- **C)** Only if both $X$ and $Y$ are normally distributed, since normality makes independence and zero covariance equivalent
+]
 
 --
 
-- The sample correlation coefficient follows an approximate normal distribution:
-$$
-\hat{\rho}(X, Y) \overset{a}{\sim} \mathcal{N}\left(\rho, \dfrac{\left(1 - \rho^2 \right)^2}{n - 2} \right)
-$$
+.pull-left-wide[
+**Q2.** $\hat{\rho} = 0.9$ between education and income. A colleague concludes "education causes higher income." What is the problem?
+
+- **A)** Nothing — high correlation always implies causation
+- **B)** Correlation measures linear association, not causation — a common cause (e.g. family background) could drive both
+- **C)** The formula for $\hat{\rho}$ is only valid when both variables are normally distributed
+]
+
+```{r ryh3-answers, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# Q1: Answer A
+#   A: Correct — zero covariance means no *linear* relationship; non-linear relationships
+#      (e.g. X and X^2 where X is symmetric around zero) can have zero covariance
+#      but clear dependence
+#   B: Tempting — students often learn "independent => zero covariance" and reverse it;
+#      the reverse is only true for jointly normal variables
+#   C: Tempting — this correctly identifies the normality exception; but it overstates
+#      the case: the statement in A is always true regardless of distribution
+#
+# Q2: Answer B
+#   A: Tempting — students who confuse correlation and causation pick this directly
+#   B: Correct — correlation is a symmetric measure of linear association; it cannot
+#      distinguish X->Y from Y->X from a common cause Z->X and Z->Y
+#   C: Tempting — normality assumptions do appear in statistical inference; but the
+#      formula for rho_hat is valid regardless of distribution; the approximate normal
+#      distribution of rho_hat requires large n, not normality of X and Y
+```
+
+---
+# .red[Practice 3: Covariance and correlation]
+
+.pull-left-wide[
+Four observations of $(X, Y)$: $(1,2),\, (2,4),\, (3,3),\, (4,7)$.
+
+1. Calculate $\bar{X}$, $\bar{Y}$, $S_X^2$, $S_Y^2$
+2. Calculate $\widehat{Cov}(X, Y)$
+3. Calculate $\hat{\rho}(X, Y)$. Interpret the result
+]
+
+```{r practice3-answer, eval=FALSE, include=FALSE}
+# ANSWER
+# 1. X_bar = (1+2+3+4)/4 = 2.5
+#    Y_bar = (2+4+3+7)/4 = 4
+#    S_X^2 = [(1-2.5)^2+(2-2.5)^2+(3-2.5)^2+(4-2.5)^2]/(4-1)
+#          = [2.25+0.25+0.25+2.25]/3 = 5/3 ≈ 1.667
+#    S_Y^2 = [(2-4)^2+(4-4)^2+(3-4)^2+(7-4)^2]/(4-1)
+#          = [4+0+1+9]/3 = 14/3 ≈ 4.667
+#
+# 2. Cov_hat = (1/4)*[(1-2.5)(2-4)+(2-2.5)(4-4)+(3-2.5)(3-4)+(4-2.5)(7-4)]
+#            = (1/4)*[(-1.5)(-2)+(−0.5)(0)+(0.5)(−1)+(1.5)(3)]
+#            = (1/4)*[3 + 0 - 0.5 + 4.5] = (1/4)*7 = 1.75
+#
+# 3. rho_hat = 1.75 / sqrt(1.667 * 4.667) = 1.75 / sqrt(7.778) = 1.75 / 2.789 ≈ 0.63
+#    Moderate positive linear relationship between X and Y
+```
 
 ---
 class: inverse, middle, center
 # Estimating a distribution
 
 ---
-# Empirical distribution function
+# The empirical distribution function
+
+.pull-left-wide[
+- Sometimes estimating moments is not enough — we want to know the shape of the full distribution
+- Recall that the CDF is defined as $F_X(x) = P(X \leq x)$
+]
 
 --
 
-- Sometimes, estimating the moments of a distribution is not enough and we would like to have an idea of the shape of the distribution
+.pull-left-wide[
+- By the analogy principle: $P(X \leq x)$ is estimated by the fraction of sample observations $\leq x$
+]
 
 --
 
-- Based on a sample, we can derive an estimate of the cumulative distribution function $F_X(x)$
-
---
-
-- Recall that the definition of the cumulative distribution function is:
-$$
-F_X(x) = P(X \leq x)
-$$
-
---
-
-- Using the analogy principle, this becomes: the probability that $X \leq x$ is the fraction of the sample with values lower than $x$
-
---
-
-- Therefore, we can construct the **empirical distribution function**:
+.pull-left-wide[
+> The **empirical distribution function** (EDF) is:
 $$
 \hat{F}_X(x) = \frac{\text{number of sample elements with } x_i \leq x}{n}
 $$
+]
 
 ---
-# Properties of the empirical distribution function
+# Properties of the EDF
+
+.pull-left-wide[
+- For a simple random sample, $\hat{F}_X(x)$ is **unbiased** and **consistent**:
+$$
+E\!\left[\hat{F}_X(x)\right] = F_X(x) \quad \text{for all } x
+$$
+]
 
 --
 
-- Suppose we have a simple random sample
+.pull-left-wide[
+- For large $n$, $\hat{F}_X(x)$ is approximately normal for each fixed $x$:
+$$
+\hat{F}_X(x) \overset{a}{\sim} \mathcal{N}\!\left(F_X(x),\; \frac{F_X(x)\left[1 - F_X(x)\right]}{n}\right)
+$$
+]
+
+---
+# .red[Raise your hand 4: Empirical distribution function]
+
+```{r ryh4-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** A sample of $n = 10$ gives $\hat{F}_X(3) = 0.4$. What does this mean?
+
+- **A)** 40% of the sample observations are $\leq 3$
+- **B)** The probability that $X = 3$ in the population is 0.4
+- **C)** The 40th percentile of the distribution equals 3
+]
 
 --
 
-- In this case, the empirical distribution function $\hat{F}_X(x)$ is an unbiased and consistent estimator of the cumulative distribution function:
-$$
-E \left[ \hat{F}_X(x) \right] = F_X(x) \quad \text{for all } x
-$$
+.pull-left-wide[
+**Q2.** Why is $\hat{F}_X(x)$ approximately normally distributed for large $n$?
 
---
+- **A)** Because the CDF $F_X(x)$ is a smooth, continuous function
+- **B)** Because $\hat{F}_X(x)$ is a sample proportion — the mean of Bernoulli indicators $\mathbf{1}(X_i \leq x)$ — and the CLT applies
+- **C)** Because all sample statistics are approximately normal for large $n$
+]
 
-- We can also show that $\hat{F}_X(x)$ has an approximate normal distribution for all $x$:
-$$
-\hat{F}_X(x) \overset{a}{\sim} \mathcal{N} \left( F_X(x), \dfrac{F_X(x) \left[1 - F_X(x) \right]}{n} \right)
-$$
+```{r ryh4-answers, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# Q1: Answer A
+#   A: Correct — F_hat(3) counts the fraction of observations at or below 3
+#   B: Tempting — students may confuse the CDF with a point probability; F_hat(3)
+#      gives cumulative probability up to 3, not the probability of exactly 3
+#   C: Tempting — this sounds related (quantile vs CDF are inverses); but q_0.4 = 3
+#      is the correct inverse statement; F_hat(3) = 0.4 says something about the value 3,
+#      not about the 40th percentile
+#
+# Q2: Answer B
+#   A: Tempting — the smoothness of F_X(x) sounds relevant; but the normality of
+#      F_hat_X(x) comes from the sampling distribution, not the shape of the CDF
+#   B: Correct — 1(X_i <= x) are iid Bernoulli(F_X(x)) variables; their average
+#      F_hat_X(x) is approximately normal by the CLT
+#   C: Tempting — the CLT does apply broadly; but not all sample statistics are
+#      approximately normal; the specific reason here is the Bernoulli structure
+```
+
+---
+# .red[Practice 4: Empirical distribution function]
+
+.pull-left-wide[
+A sample of $n = 8$ observations (sorted): $\{3, 5, 5, 7, 8, 10, 12, 15\}$.
+
+1. Construct $\hat{F}_X(x)$ for $x \in \{5, 7, 10\}$
+2. What is the approximate 95% confidence interval for $F_X(7)$?
+   .small123[Use: $\hat{F}_X(x) \pm 1.96\sqrt{\hat{F}_X(x)(1-\hat{F}_X(x))/n}$]
+3. Interpret $\hat{F}_X(10)$ in plain language
+]
+
+```{r practice4-answer, eval=FALSE, include=FALSE}
+# ANSWER
+# 1. F_hat(5)  = 3/8 = 0.375   (observations 3, 5, 5 are <= 5)
+#    F_hat(7)  = 4/8 = 0.500   (add 7)
+#    F_hat(10) = 6/8 = 0.750   (add 8, 10)
+#
+# 2. CI for F_X(7):
+#    0.5 +/- 1.96 * sqrt(0.5 * 0.5 / 8)
+#    = 0.5 +/- 1.96 * 0.177 = 0.5 +/- 0.347
+#    = [0.153, 0.847]
+#    Wide interval — n=8 is small
+#
+# 3. F_hat(10) = 0.75 means 75% of sample observations are <= 10;
+#    we estimate that 75% of the population has values at or below 10
+```
 
 ---
 class: inverse, middle, center
@@ -435,159 +677,164 @@ class: inverse, middle, center
 ---
 # Estimated quantiles
 
---
-
-- Quantiles are the second type of moments used to describe a distribution
-
---
-
-- Recall that quantiles are defined based on the cumulative distribution function: the $p$-th quantile is the value $q_p$ at which the cumulative distribution function jumps from below $p$ to above $p$
+.pull-left-wide[
+- Recall: the $p$-th quantile $q_p$ is the value where $F_X$ crosses $p$
+- We estimate quantiles from the empirical distribution function: $\hat{q}_p$ is where $\hat{F}_X$ crosses $p$
+]
 
 --
 
-- We can construct estimators of quantiles based on the empirical distribution function: the estimate of the $p$-th quantile is the value at which the empirical distribution function jumps from below $p$ to above $p$
-
---
-
-- For example, the estimate of the median is the value at which the empirical distribution function jumps from below 0.5 to above 0.5
-
---
-
-- If this happens over an interval of values, then the convention is to use the midpoint of the interval as the sample median
+.pull-left-wide[
+- For example, the **sample median** $\hat{q}_{0.5}$ is the value where $\hat{F}_X$ crosses 0.5
+- If this crossing happens over an interval, we use the midpoint as the sample median
+]
 
 ---
 # Order statistics
 
---
-
-- Another way of characterizing quantiles is to use **order statistics**
-
---
-
-- The $k$-th order statistic is written as $X_{(k)}$ defined as the $k$-th smallest observation in the sample
+.pull-left-wide[
+- The **$k$-th order statistic** $X_{(k)}$ is the $k$-th smallest observation in the sample
+]
 
 --
 
-- We can then define estimators for the $p$-th quantile using order statistics:
+.pull-left-wide[
+> The estimator of the $p$-th quantile using order statistics:
 $$
 \hat{q}_p =
 \begin{cases}
-X_{(n \cdot p + 1)}, & \text{if } [n \cdot p] \not= n \cdot p \\
-\dfrac{X_{(n \cdot p)} + X_{(n \cdot p + 1)}}{2}, & \text{if } [n \cdot p] = n \cdot p
+X_{(np + 1)}, & \text{if } [np] \neq np \\[4pt]
+\dfrac{X_{(np)} + X_{(np + 1)}}{2}, & \text{if } [np] = np
 \end{cases}
 $$
-where $[n \cdot p]$ is the integer part of $n \cdot p$
+where $[np]$ denotes the integer part of $np$
+]
 
---
+---
+# Sample median
 
-- In the case of the sample median, this becomes:
+.pull-left-wide[
+- For the sample median ($p = 0.5$), the formula simplifies to:
+
 $$
 \hat{q}_{0.5} =
 \begin{cases}
-X_{\left( \frac{n + 1}{2} \right)}, & \text{if $n$ is odd} \\
-\dfrac{X_{\left( \frac{n}{2} \right)} + X_{\left( \frac{n + 1}{2} \right)}}{2}, & \text{if $n$ is even}
+X_{\left(\frac{n+1}{2}\right)}, & \text{if } n \text{ is odd} \\[6pt]
+\dfrac{X_{\left(\frac{n}{2}\right)} + X_{\left(\frac{n}{2}+1\right)}}{2}, & \text{if } n \text{ is even}
 \end{cases}
 $$
+]
+
+--
+
+.pull-left-wide[
+- The sample median is robust to outliers — unlike the sample mean
+- When a distribution is skewed, the median is often a better summary of the "typical" value
+]
 
 ---
-class: inverse, middle, center
-# Key Takeaways
+# .red[Raise your hand 5: Quantiles]
+
+```{r ryh5-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** A sample of $n = 10$ sorted observations. What is the sample median?
+
+- **A)** $X_{(5)}$ — the 5th order statistic
+- **B)** $X_{(6)}$ — the 6th order statistic
+- **C)** $\dfrac{X_{(5)} + X_{(6)}}{2}$ — the average of the 5th and 6th, because $n$ is even
+]
+
+--
+
+.pull-left-wide[
+**Q2.** A sample gives $\hat{q}_{0.25} = 50$. What does this mean?
+
+- **A)** 25% of the sample observations fall at or below 50
+- **B)** The mean of the bottom quarter of the distribution is 50
+- **C)** The value 50 occurs with frequency 25% in the sample
+]
+
+```{r ryh5-answers, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# Q1: Answer C
+#   A: Tempting — X_(5) is the middle of a 9-element sample; for n=10 it is one of
+#      the two middle values but not the median on its own
+#   B: Tempting — X_(6) is also a middle value; same reasoning as A
+#   C: Correct — with n=10 (even), n*p = 10*0.5 = 5 is an integer, so we average
+#      X_(5) and X_(6)
+#
+# Q2: Answer A
+#   A: Correct — the p-th quantile q_p satisfies F(q_p) = p; so q_0.25 = 50 means
+#      25% of observations are at or below 50
+#   B: Tempting — sounds plausible as a description of the "bottom quarter";
+#      but that would be the conditional mean E(X | X <= q_0.25), not the quantile itself
+#   C: Tempting — sounds like a frequency statement, which quantiles are related to;
+#      but a frequency of 25% would mean X=50 appears in a quarter of observations,
+#      which is a very different statement
+```
 
 ---
-# Key Takeaways: Variance
+# .red[Practice 5: Order statistics and quantiles]
 
---
+.pull-left-wide[
+A sorted sample of $n = 9$: $\{3, 5, 7, 8, 10, 11, 14, 18, 25\}$.
 
-**Estimator of the variance**
+1. Find the sample median $\hat{q}_{0.5}$
+2. Find the first quartile $\hat{q}_{0.25}$
+3. Find the third quartile $\hat{q}_{0.75}$
+4. Calculate the interquartile range $\hat{q}_{0.75} - \hat{q}_{0.25}$. Why is this a useful summary of spread?
+]
 
---
-
-**Population:**
-$$Var(X) = \sum_{i = 1}^N (x_i - \mu)^2 \cdot f_X(x_i)$$
-
---
-
-**Sample:**
-$$S^2 = \frac{1}{n - 1} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2$$
-
---
-
-The chi-square distribution allows us to approximate the distribution of $S^2$
-
----
-# Key Takeaways: Higher-order moments
-
---
-
-**Estimators of higher-order moments**
-
---
-
-**Population:**
-$$m_k^* = \sum_{i=1}^N \left[ (x_i - \mu)^k \cdot f_X(x_i) \right]$$
-
---
-
-**Sample:**
-$$\hat{m}_k^* = \frac{1}{n} \cdot \sum_{i=1}^n \left( X_i - \bar{X} \right)^k$$
+```{r practice5-answer, eval=FALSE, include=FALSE}
+# ANSWER
+# n=9 (odd)
+#
+# 1. Median: p=0.5, n*p = 9*0.5 = 4.5, not integer, so q_hat = X_(4.5+1) = X_(5) = 10
+#
+# 2. Q1: p=0.25, n*p = 9*0.25 = 2.25, not integer, so q_hat = X_(2.25+1) = X_(3) = 7
+#
+# 3. Q3: p=0.75, n*p = 9*0.75 = 6.75, not integer, so q_hat = X_(6.75+1) = X_(7) = 14
+#
+# 4. IQR = 14 - 7 = 7
+#    IQR is robust to outliers (unlike the range or variance), because it only
+#    uses the middle 50% of the data. It is a useful spread measure when the
+#    distribution is skewed or contains extreme values.
+```
 
 ---
-# Key Takeaways: Skewness and Kurtosis
+# Key takeaways
+
+.pull-left-wide[
+**Variance:** $S^2 = \frac{1}{n-1}\sum(X_i - \bar{X})^2$ — unbiased; $S$ is biased but consistent for $\sigma$
+
+**Higher-order moments:** $\hat{m}_k^* = \frac{1}{n}\sum(X_i - \bar{X})^k$ — skewness ($\gamma_3$) and kurtosis ($\gamma_4$) compare shape to the normal
+]
 
 --
 
-**Skewness** - A scale-independent measure of asymmetry (standardized third central moment)
+.pull-left-wide[
+**Covariance and correlation:**
+$$\widehat{Cov}(X,Y) = \frac{1}{n}\sum(X_i-\bar{X})(Y_i-\bar{Y}), \quad \hat{\rho} = \frac{\widehat{Cov}(X,Y)}{\sqrt{S_X^2 S_Y^2}}$$
+]
 
 --
 
-**Population:** $\gamma_3 = \frac{m_3^*}{\sigma^3}$
-
-**Sample:** $\hat{\gamma}_3 = \frac{\hat{m}_3^*}{S^3}$
-
---
-
-**Kurtosis** - A scale-independent measure of peakedness (standardized fourth central moment)
-
---
-
-**Population:** $\gamma_4 = \frac{m_4^*}{\sigma^4}$
-
-**Sample:** $\hat{\gamma}_4 = \frac{\hat{m}_4^*}{S^4}$
+.pull-left-wide[
+**EDF and quantiles:** $\hat{F}_X(x) = \frac{\#\{x_i \leq x\}}{n}$ — unbiased, consistent, asymptotically normal; quantiles estimated via order statistics
+]
 
 ---
-# Key Takeaways: Covariance and Correlation
+# Before next time
+.pull-left[
+- Read the assigned reading
+- Next time: Confidence intervals $\rightarrow$ Chapter 13
+]
 
---
-
-**Estimators of covariance and correlation coefficients**
-
---
-
-**Population:**
-$$Cov(X, Y) = \sum_{i=1}^N \sum_{j=1}^M \left[ (x_i - \mu_X) \cdot (y_j - \mu_Y) \cdot f(x_i, y_j) \right]$$
-
-**Sample:**
-$$\widehat{Cov}(X, Y) = \frac{1}{n} \cdot \sum_{i=1}^n \left[ \left( X_i - \bar{X} \right) \cdot \left( Y_i - \bar{Y} \right) \right]$$
-
---
-
-**Population:** $\rho(X, Y) = \frac{Cov(X, Y)}{\sqrt{Var(X) \cdot Var(Y)}}$
-
-**Sample:** $\hat{\rho}(X, Y) = \frac{\widehat{Cov}(X, Y)}{\sqrt{S_X^2 \cdot S_Y^2}}$
-
----
-# Key Takeaways: Quantiles
-
---
-
-**Estimators of quantiles**
-
---
-
-**Population:** $q_p$
-
-**Sample:** $\hat{q}_p$
-
---
-
-Calculated exactly as done for the population, using the empirical distribution function or order statistics.
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

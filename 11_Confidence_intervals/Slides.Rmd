@@ -94,762 +94,844 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 ## Confidence intervals
 ### (Chapter 13)
 
-### Seetha Menon,<br>Department of Economics<br>University of Southern Denmark
+### Christian Vedel,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
 ### Updated `r Sys.Date()`
 
 
 
 ---
+class: middle
+# Today's lecture
+.pull-left-wide[
+**Turning point estimates into intervals that quantify uncertainty**
+
+- **Section 1:** Confidence interval for the mean value
+- **Section 2:** Confidence interval for the variance
+- **Section 3:** Confidence interval for the difference in means
+- **Section 4:** Confidence interval for the ratio of two variances
+- **Section 5:** Determining the required sample size
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
 class: inverse, middle, center
 # Confidence interval for the mean value
 
 ---
-# Confidence intervals
+# Why confidence intervals?
+
+.pull-left-wide[
+- Estimators such as $\bar{X}$ are random variables — the probability that they exactly equal the population value is virtually zero
+- We hope they are "close" to the true value, but how close?
+]
 
 --
 
-- We saw how to construct estimators for the mean value, variance and other moments
-
---
-
-- However, these estimators are random variables $\Rightarrow$ the probability that they are equal to the population values is virtually zero
-
---
-
-- The hope is that they will be "close" to the population values
-
---
-
-- We can use the distribution of these estimators to calculate the probability that they are "close"
-
---
-
-- This is the intuition behind confidence intervals:
-
---
-
-  - an estimator will give you one value in a particular sample (estimated value)
-
---
-
-  - a confidence interval will give you a range of values that say something about the uncertainty of the estimated value
+.pull-left-wide[
+- A **confidence interval** uses the sampling distribution of the estimator to construct a range of values that conveys this uncertainty:
+  - a point estimate gives you one number
+  - a confidence interval gives you a range and a probability that the range contains the true value
+]
 
 ---
-# Confidence interval for the mean value
+# Setting up the CI for $\mu$
 
---
-
-- We start by constructing confidence intervals for the mean value $\mu$
-
---
-
-- To construct a confidence interval, we need to determine a **lower bound** $W_l$ and an **upper bound** $W_u$
-
---
-
-- The **confidence interval** determined by these bounds, $\hat{I} = \left[ W_l, W_u \right]$, will contain the mean with a certain probability
-
---
-
-- Recall that the simple sample average $\bar{X}$ is an unbiased estimator of $\mu$
-
---
-
-- An obvious choice would be to build an interval centered around $\bar{X}$:
+.pull-left-wide[
+- We want an interval $\hat{I} = [W_l, W_u]$ centred around $\bar{X}$:
 $$
-\hat{I} = \left[ \bar{X} - k, \bar{X} + k \right]
+\hat{I} = \left[\bar{X} - k,\; \bar{X} + k\right]
 $$
+- Because $\bar{X}$ is random, the bounds are random — the interval will not always contain $\mu$
+]
 
 --
 
-- The fact that $\bar{X}$ is random implies that the lower and upper limits of the interval are random
+.pull-left-wide[
+- We choose the **confidence level** $1 - \alpha$: the probability that the interval contains $\mu$
 
---
-
-- Therefore, the interval will not always include $\mu$ (keep in mind that $\mu$ is a constant!)
+$$
+1 - \alpha = P\!\left(\mu \in \hat{I}\right) = P\!\left(\bar{X} - k \leq \mu \leq \bar{X} + k\right)
+$$
+]
 
 ---
-# Bounds of the confidence interval
+# Finding $k$: standardising $\bar{X}$
 
---
-
-- In order to determine the bounds, we start by choosing the probability that the interval contains $\mu$
-
---
-
-- This probability is usually denoted by $1 - \alpha$ and is called **confidence level**
-
---
-
-- Therefore, we need to find the constant $k$ that verifies:
-
+.pull-left-wide[
+- For a simple random sample, $\bar{X} \overset{a}{\sim} \mathcal{N}\!\left(\mu, \sigma^2/n\right)$, so:
 $$
-1 - \alpha = P \left( \mu \in \hat{I} \right) = P \left( \bar{X} - k \leq \mu \leq \bar{X} + k \right) = P \left( \mu - k \leq \bar{X} \leq \mu + k \right)
+Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \overset{a}{\sim} \mathcal{N}(0, 1)
 $$
+]
 
 --
 
-- We will consider the two types of sampling methods discussed until now:
+.pull-left-wide[
+- Rewriting the coverage condition in terms of $Z$:
+$$
+1 - \alpha = P\!\left(-\frac{\sqrt{n}\,k}{\sigma} \leq Z \leq \frac{\sqrt{n}\,k}{\sigma}\right) = \Phi(a) - \Phi(-a)
+$$
+where $a = \sqrt{n}\,k/\sigma$
+]
 
 --
 
-  - simple random sample
-
---
-
-  - stratified sample
+.pull-left-wide[
+- The **critical value** $z_{1-\alpha/2}$ satisfies $\Phi(z_{1-\alpha/2}) = 1 - \alpha/2$, giving $a = z_{1-\alpha/2}$ and:
+$$
+k = \frac{z_{1-\alpha/2} \cdot \sigma}{\sqrt{n}}
+$$
+]
 
 ---
-# Simple random sample
+# CI for $\mu$: simple random sample
+
+.pull-left-wide[
+> **CI for $\mu$, $\sigma$ known (approximate):**
+$$
+\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\right]
+$$
+]
 
 --
 
-- In order to calculate the two bounds, we need to know the distribution of $\bar{X}$
+.pull-left-wide[
+**Common critical values:**
 
---
-
-- Recall that $\bar{X}$ follows an approximate normal distribution:
-$$
-\bar{X} \overset{a}{\sim} \mathcal{N}\left(\mu, \dfrac{\sigma^2}{n} \right)
-$$
-
---
-
-- We can standardize this as follows:
-$$
-Z = \frac{\bar{X} - \mu}{\dfrac{\sigma}{\sqrt{n}}} = \sqrt{n} \cdot \frac{\bar{X} - \mu}{\sigma} \overset{a}{\sim} \mathcal{N}(0, 1)
-$$
+| Confidence level | $z_{1-\alpha/2}$ |
+|---|---|
+| 90% | 1.645 |
+| 95% | 1.960 |
+| 99% | 2.576 |
+]
 
 ---
-# Confidence interval: simple random sample
+# CI for $\mu$: $\sigma$ unknown
+
+.pull-left-wide[
+- In practice $\sigma$ is rarely known — we replace it with the sample standard deviation $S$
+]
 
 --
 
-- We can then rewrite the definition of the confidence interval:
-
+.pull-left-wide[
+> **CI for $\mu$, $\sigma$ unknown (approximate):**
 $$
-1 - \alpha = P \left( \mu - k \leq \bar{X} \leq \mu + k \right)
+\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \sqrt{\frac{S^2}{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \sqrt{\frac{S^2}{n}}\right]
 $$
-
---
-
-$$
-= P \left( - k \leq \bar{X} - \mu \leq k \right)
-$$
-
---
-
-$$
-= P \left( - \sqrt{n} \cdot \frac{k}{\sigma} \leq \sqrt{n} \cdot \frac{\bar{X} - \mu}{\sigma} \leq \sqrt{n} \cdot \frac{k}{\sigma} \right)
-$$
-
---
-
-$$
-= P \left( - \sqrt{n} \cdot \frac{k}{\sigma} \leq Z \leq \sqrt{n} \cdot \frac{k}{\sigma} \right)
-$$
-
---
-
-$$
-= P(-a \leq Z \leq a) \overset{a}{=} \Phi(a) - \Phi(-a)
-$$
-
-where $a = \sqrt{n} \cdot \frac{k}{\sigma}$
+- Approximate because it relies on the approximate normal distribution of $\bar{X}$
+- If we know the population distribution of $X$, we can do better
+]
 
 ---
-# Critical values
+# Exact CI: $X \sim \mathcal{N}(\mu, \sigma^2)$, $\sigma$ known
+
+.pull-left-wide[
+- If $X$ is normally distributed and $\sigma^2$ is known, then $Z = \sqrt{n}(\bar{X} - \mu)/\sigma$ is **exactly** $\mathcal{N}(0,1)$
+]
 
 --
 
-- In other words, the bounds of the interval depend on the **critical value** $z_{\alpha/2}$ defined by:
+.pull-left-wide[
+> **Exact CI for $\mu$, normal population, $\sigma$ known:**
 $$
-\Phi \left( z_{\alpha/2} \right) = \frac{\alpha}{2}
+\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\right]
 $$
-
---
-
-- Note that, because the normal distribution is symmetric, we might as well use the critical value $z_{1 - \alpha/2} = - z_{\alpha/2}$
-
---
-
-- In our notation above, $-a = z_{\alpha/2}$ and $a = z_{1 - \alpha/2}$
-
---
-
-- From this, we can calculate $k$:
-$$
-z_{1 - \alpha/2} = a = \sqrt{n} \cdot \frac{k}{\sigma} \; \Rightarrow k = \frac{z_{1 - \alpha/2} \cdot \sigma}{\sqrt{n}}
-$$
-
---
-
-- Now we can go back and calculate the limits of the confidence interval:
-$$
-\hat{I} = \left[ \bar{X} - z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}}, \bar{X} + z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \right]
-$$
+- Same formula as before — but now exact, not approximate
+]
 
 ---
-# Common critical values
+# Exact CI: $X \sim \mathcal{N}(\mu, \sigma^2)$, $\sigma$ unknown
+
+.pull-left-wide[
+- When $\sigma^2$ is unknown, replacing it with $S^2$ changes the distribution of the pivot
+- It can be shown that:
+$$
+t = \frac{\bar{X} - \mu}{\sqrt{S^2/n}} \sim t(n-1)
+$$
+- The ***t*-distribution** has heavier tails than the normal; as $n \to \infty$ it converges to $\mathcal{N}(0,1)$
+]
 
 --
 
-**Common critical values from the standard normal distribution:**
-
---
-
-- 90% confidence interval: $z_{0.95} = 1.645$
-
---
-
-- 95% confidence interval: $z_{0.975} = 1.96$
-
---
-
-- 99% confidence interval: $z_{0.995} = 2.576$
+.pull-left-wide[
+> **Exact CI for $\mu$, normal population, $\sigma$ unknown:**
+$$
+\hat{I} = \left[\bar{X} - t_{1-\alpha/2}(n-1) \cdot \sqrt{\frac{S^2}{n}},\;\; \bar{X} + t_{1-\alpha/2}(n-1) \cdot \sqrt{\frac{S^2}{n}}\right]
+$$
+]
 
 ---
-# Confidence interval when $\sigma^2$ is unknown
+# CI for $\mu$: $X \sim Bernoulli(p)$
+
+.pull-left-wide[
+- If $X \sim Bernoulli(p)$, then $E(X) = p$ and $Var(X) = p(1-p)$
+- The sample mean $\bar{X}$ estimates $p$; we estimate the variance as $\bar{X}(1 - \bar{X})$
+- This exploits the Bernoulli structure and is more efficient than the general $S^2$
+]
 
 --
 
-- Note that the bounds of the confidence interval depend on $\sigma$
-
---
-
-- In practice, we will rarely know the value of $\sigma$
-
---
-
-- Fortunately, we have a consistent estimator of $\sigma$: the sample standard deviation $S$
-
---
-
-- In this case, the confidence interval becomes:
+.pull-left-wide[
+> **Approximate CI for $p$:**
 $$
-\hat{I} = \left[ \bar{X} - z_{1 - \alpha/2} \cdot \sqrt{\frac{S^2}{n}}, \bar{X} + z_{1 - \alpha/2} \cdot \sqrt{\frac{S^2}{n}} \right]
+\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \sqrt{\frac{\bar{X}(1-\bar{X})}{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \sqrt{\frac{\bar{X}(1-\bar{X})}{n}}\right]
 $$
-
---
-
-- Finally, keep in mind that this interval is *approximate* because it is based on the approximate distribution of $\bar{X}$
-
---
-
-- If we know the distribution of $X$ in the population, we can construct *exact* confidence intervals
+]
 
 ---
-# Simple random sample, $X \sim \mathcal{N}(\mu, \sigma^2)$, $\sigma^2$ known
+# CI for $\mu$: stratified sample
+
+.pull-left-wide[
+- For a stratified sample, we use $\bar{X}_{st} = \sum_{j=1}^m w_j \bar{X}_j$ as the estimator
+- We estimate $Var(\bar{X}_{st}) = \sum_{j=1}^m w_j^2 \sigma_j^2/n_j$ by replacing $\sigma_j^2$ with $S_j^2$:
+$$
+\widehat{Var}(\bar{X}_{st}) = \sum_{j=1}^m w_j^2 \cdot \frac{S_j^2}{n_j}
+$$
+]
 
 --
 
-- Now suppose that we know that $X$ follows a normal distribution in the population:
+.pull-left-wide[
+> **Approximate CI for $\mu$, stratified sample:**
 $$
-X \sim \mathcal{N}(\mu, \sigma^2)
+\hat{I} = \left[\bar{X}_{st} - z_{1-\alpha/2} \cdot \sqrt{\widehat{Var}(\bar{X}_{st})},\;\; \bar{X}_{st} + z_{1-\alpha/2} \cdot \sqrt{\widehat{Var}(\bar{X}_{st})}\right]
 $$
-
---
-
-- Suppose also that we know the variance in the population, $\sigma^2$
-
---
-
-- In this case, the confidence interval is *exact*:
-$$
-\hat{I} = \left[ \bar{X} - z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}}, \bar{X} + z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \right]
-$$
+]
 
 ---
-# Simple random sample, $X \sim \mathcal{N}(\mu, \sigma^2)$, $\sigma^2$ unknown
+# .red[Raise your hand 1: CI for the mean]
+
+```{r ryh1-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** A 95% CI for $\mu$ is $[45, 55]$. Which statement is correct?
+
+- **A)** There is a 95% probability that $\mu$ lies in $[45, 55]$
+- **B)** 95% of future sample means will fall in $[45, 55]$
+- **C)** If we repeated the sampling many times, 95% of the resulting intervals would contain $\mu$
+]
 
 --
 
-- Now suppose that we do not know the variance of $X$ in the population, $\sigma^2$
+.pull-left-wide[
+**Q2.** When should we use the $t$-distribution rather than the normal for a CI for $\mu$?
 
---
+- **A)** When the population is normal and $\sigma^2$ is unknown — the $t$ arises from estimating $\sigma$ with $S$
+- **B)** Whenever the sample size is small ($n < 30$)
+- **C)** Whenever the population distribution is unknown
+]
 
-- It can be shown that the following variable follows what is called a ***t*-distribution**:
-$$
-t = \frac{\bar{X} - \mu}{\sqrt{\dfrac{S^2}{n}}} \sim t(n - 1)
-$$
-
---
-
-- The $t$-distribution looks like the normal distribution, but with "fatter tails" (and when $n$ is large, they are almost identical)
-
---
-
-- In this case, the confidence interval is *exact* and similar to the previous case, but with critical values from the $t$-distribution:
-$$
-\hat{I} = \left[ \bar{X} - t_{1 - \alpha/2}(n-1) \cdot \sqrt{\frac{S^2}{n}}, \bar{X} + t_{1 - \alpha/2}(n-1) \cdot \sqrt{\frac{S^2}{n}} \right]
-$$
+```{r ryh1-answers, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# Q1: Answer C
+#   A: Tempting — students commonly misinterpret CIs this way; but once the interval
+#      is computed, mu is either in it or not (probability 0 or 1); the 95% refers
+#      to the long-run frequency of intervals that contain mu, not to this specific interval
+#   B: Tempting — sounds like a frequency statement; but it confuses the distribution
+#      of X_bar with the distribution of the CI bounds
+#   C: Correct — the frequentist interpretation: in repeated sampling, 95% of
+#      constructed intervals will contain the true (fixed) mu
+#
+# Q2: Answer A
+#   A: Correct — the t arises specifically when X is normal AND sigma is replaced
+#      by S; the ratio (X_bar - mu)/(S/sqrt(n)) exactly follows t(n-1)
+#   B: Tempting — the "n < 30" rule of thumb is widely taught; but it is not the
+#      actual criterion; you should use t when population is normal and sigma unknown,
+#      regardless of n
+#   C: Tempting — unknown population distribution sounds like a reason to be cautious;
+#      but when distribution is unknown we use the CLT normal approximation, not t
+```
 
 ---
-# Simple random sample, $X \sim Bernoulli(p)$
+# .red[Practice 1: CI for the mean]
 
---
+.pull-left-wide[
+A random sample of $n = 25$ students has mean exam score $\bar{X} = 68$ and sample standard deviation $S = 10$. Assume scores are normally distributed.
 
-- Finally, suppose that we know that $X$ follows a $Bernoulli(p)$ distribution in the population
+1. Construct a 95% CI for the population mean $\mu$ using the $t$-distribution
+2. How does the CI change if $n = 100$ instead? (Recalculate)
+3. If the population standard deviation were known to be $\sigma = 10$, would you use $z$ or $t$? Construct that CI for $n = 25$
 
---
+.small123[*Hint:* $t_{0.975}(24) \approx 2.064$; $t_{0.975}(99) \approx 1.984$; $z_{0.975} = 1.96$]
+]
 
-- Recall that the mean and variance of a Bernoulli-distributed random variable are:
-$$
-E(X) = p \qquad Var(X) = p \cdot (1 - p)
-$$
-
---
-
-- The sample average $\bar{X}$ is an estimator of the mean $p$
-
---
-
-- Therefore, we can estimate the variance using $\bar{X} \cdot (1 - \bar{X})$
-
---
-
-- This is a better estimator than the sample variance because it uses the additional information from the Bernoulli formula
-
---
-
-- We can then construct an *approximate* confidence interval using this new estimator of the variance:
-$$
-\hat{I} = \left[ \bar{X} - z_{1 - \alpha/2} \cdot \sqrt{\frac{\bar{X} \cdot (1 - \bar{X})}{n}}, \bar{X} + z_{1 - \alpha/2} \cdot \sqrt{\frac{\bar{X} \cdot (1 - \bar{X})}{n}} \right]
-$$
-
----
-# Stratified sampling
-
---
-
-- Recall that if we have a stratified random sample, then we need to use the stratified sample average:
-$$
-\bar{X}_{st} = \sum_{j=1}^m \left( w_j \cdot \bar{X}_j \right) = \sum_{j=1}^m \left( \frac{N_j}{N} \cdot \bar{X}_j \right)
-$$
-
---
-
-- In order to construct a confidence interval for $\mu$, we need to first determine the variance of the stratified sample average:
-$$
-Var \left( \bar{X}_{st} \right) = \sum_{j=1}^m \left( w_j^2 \cdot \frac{\sigma^2_j}{n_j} \right)
-$$
-
---
-
-- Usually, we do not know the stratum-specific variances $\sigma^2_j$, so we need to replace them with the stratum-specific sample variances:
-$$
-S_j^2 = \frac{1}{n_j - 1} \sum_{i=1}^{n_j} \left( X_{ij} - \bar{X}_j \right)^2
-$$
-
----
-# Stratified sampling: confidence interval
-
---
-
-- This gives us an estimator for the variance of the stratified sample average:
-$$
-\widehat{Var} \left( \bar{X}_{st} \right) = \sum_{j=1}^m \left( w_j^2 \cdot \frac{S^2_j}{n_j} \right)
-$$
-
---
-
-- Recall that the stratified sample average also follows an approximate normal distribution:
-$$
-\bar{X}_{st} \overset{a}{\sim} \mathcal{N} \left(\mu, Var \left( \bar{X}_{st} \right) \right)
-$$
-
---
-
-- Therefore, we can again construct an approximate confidence interval using the critical values from the normal distribution and the estimator of the variance described above:
-$$
-\hat{I} = \left[ \bar{X}_{st} - z_{1 - \alpha/2} \cdot \sqrt{\widehat{Var} \left( \bar{X}_{st} \right)}, \bar{X}_{st} + z_{1 - \alpha/2} \cdot \sqrt{\widehat{Var} \left( \bar{X}_{st} \right)} \right]
-$$
+```{r practice1-answer, eval=FALSE, include=FALSE}
+# ANSWER
+# 1. CI (t, n=25): 68 +/- 2.064 * (10/sqrt(25)) = 68 +/- 2.064*2 = 68 +/- 4.13
+#    => [63.87, 72.13]
+#
+# 2. CI (t, n=100): 68 +/- 1.984 * (10/sqrt(100)) = 68 +/- 1.984*1 = 68 +/- 1.98
+#    => [66.02, 69.98]
+#    Narrower because larger sample reduces SE; also critical value slightly smaller
+#
+# 3. With sigma known, use z:
+#    CI (z, n=25): 68 +/- 1.96 * (10/sqrt(25)) = 68 +/- 1.96*2 = 68 +/- 3.92
+#    => [64.08, 71.92]
+#    Slightly narrower than the t-CI because z < t for finite n (t has heavier tails)
+```
 
 ---
 class: inverse, middle, center
 # Confidence interval for the variance
 
 ---
-# Confidence interval for the variance
+# CI for the variance
+
+.pull-left-wide[
+- We can also construct a CI for the unknown variance $\sigma^2$
+- The sample variance $S^2$ is unbiased for $\sigma^2$; we need its distribution
+]
 
 --
 
-- We can also construct a confidence interval for the unknown variance $\sigma^2$
-
---
-
-- We follow the same recipe: we calculate a lower bound and an upper bound on the interval based on the distribution of an estimator of $\sigma^2$
-
---
-
-- The sample variance is an unbiased estimator of $\sigma^2$
-
---
-
-- Recall that we know the approximate distribution of the following transformation of it:
+.pull-left-wide[
+- Recall the chi-square pivot (requires $X \sim \mathcal{N}(\mu, \sigma^2)$):
 $$
-\frac{(n - 1) \cdot S^2}{\sigma^2} \overset{a}{\sim} \chi^2(n-1)
+Y = \frac{(n-1) S^2}{\sigma^2} \sim \chi^2(n-1)
 $$
+- The $\chi^2$ distribution is **not symmetric** and takes only positive values
+]
 
 ---
-# Critical values
+# Deriving the CI for $\sigma^2$
+
+.pull-left-wide[
+- Let $\chi^2_{\alpha/2}$ and $\chi^2_{1-\alpha/2}$ be the lower and upper critical values from $\chi^2(n-1)$, so that:
+$$
+P\!\left(\chi^2_{\alpha/2}(n-1) \leq Y \leq \chi^2_{1-\alpha/2}(n-1)\right) \overset{a}{=} 1 - \alpha
+$$
+]
 
 --
 
-- Let $\chi^2_{\alpha/2}(n-1)$ and $\chi^2_{1 - \alpha/2}(n-1)$ be the critical values from the $\chi^2(n-1)$ distribution
+.pull-left-wide[
+- Substituting $Y = (n-1)S^2/\sigma^2$ and rearranging to isolate $\sigma^2$:
+
+$$
+P\!\left(\frac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)} \leq \sigma^2 \leq \frac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)}\right) \overset{a}{=} 1 - \alpha
+$$
+]
 
 --
 
-- This means that, if $Z \sim \chi^2(n-1)$, then:
-
+.pull-left-wide[
+> **CI for $\sigma^2$:**
 $$
-P \left( Z \leq \chi^2_{\alpha/2}(n-1) \right) = \frac{\alpha}{2}
+\hat{I} = \left[\frac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)},\;\; \frac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)}\right]
 $$
-
-$$
-P \left(Z \leq \chi^2_{1 - \alpha/2}(n-1) \right) = 1 - \frac{\alpha}{2}
-$$
-
---
-
-- Then:
-$$
-P \left( \chi^2_{\alpha/2}(n-1) \leq \frac{(n - 1) \cdot S^2}{\sigma^2} \leq \chi^2_{1 - \alpha/2}(n-1) \right) \overset{a}{=} 1 - \alpha
-$$
+- This CI is **not symmetric** around $S^2$ because the $\chi^2$ distribution is skewed
+]
 
 ---
-# Confidence interval for the variance
+# .red[Raise your hand 2: CI for the variance]
+
+```{r ryh2-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** Why is the CI for $\sigma^2$ not symmetric around $S^2$?
+
+- **A)** Because $S^2$ is a biased estimator of $\sigma^2$
+- **B)** Because the $\chi^2$ distribution is right-skewed — the lower and upper critical values are not equidistant from the centre
+- **C)** Because $\alpha$ is split unequally between the two tails
+]
 
 --
 
-- We can then rewrite the definition of the confidence interval:
+.pull-left-wide[
+**Q2.** The pivot $(n-1)S^2/\sigma^2 \sim \chi^2(n-1)$ is an **exact** result. What does it require?
 
-$$
-1 - \alpha \overset{a}{=} P \left( \chi^2_{\alpha/2}(n-1) \leq \frac{(n - 1) \cdot S^2}{\sigma^2} \leq \chi^2_{1 - \alpha/2}(n-1) \right)
-$$
+- **A)** That $X$ is normally distributed in the population
+- **B)** Only that $n$ is large — the CLT makes it hold for any distribution
+- **C)** That $\sigma^2$ is known — otherwise the pivot is not well-defined
+]
 
---
+```{r ryh2-answers, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# Q1: Answer B
+#   A: Tempting — S^2 is actually unbiased for sigma^2; and even if it were biased
+#      that wouldn't directly cause CI asymmetry
+#   B: Correct — the chi^2 distribution has a longer right tail; chi^2_{alpha/2} and
+#      chi^2_{1-alpha/2} are not equidistant from the median, so the CI stretches
+#      further in one direction
+#   C: Tempting — sounds procedural; but alpha IS split equally (alpha/2 each tail);
+#      the asymmetry comes from the shape of the distribution, not unequal tail probabilities
+#
+# Q2: Answer A
+#   A: Correct — the chi^2 pivot holds exactly when X ~ N(mu, sigma^2); for non-normal
+#      populations it is only approximate (via CLT)
+#   B: Tempting — the CLT does give approximate normality for large n; but the chi^2
+#      result for S^2 is an exact distributional result that specifically requires normality
+#   C: Tempting — sigma^2 appears in the pivot; but it is the *parameter* we are
+#      estimating; it doesn't need to be known for the pivot to be valid as a random variable
+```
 
-$$
-= P \left( \frac{(n - 1) \cdot S^2}{\chi^2_{1 - \alpha/2}(n-1)} \leq \sigma^2 \leq \frac{(n - 1) \cdot S^2}{\chi^2_{\alpha/2}(n-1)} \right)
-$$
+---
+# .red[Practice 2: CI for the variance]
 
---
+.pull-left-wide[
+A normal population is sampled with $n = 20$, giving $S^2 = 16$.
 
-- Therefore, the approximate confidence interval is:
-$$
-\hat{I} = \left[ \frac{(n - 1) \cdot S^2}{\chi^2_{1 - \alpha/2}(n-1)} , \frac{(n - 1) \cdot S^2}{\chi^2_{\alpha/2}(n-1)} \right]
-$$
+1. Construct a 95% CI for $\sigma^2$
+2. Is the interval symmetric around $S^2 = 16$? Why or why not?
+3. What does it mean if $\sigma^2 = 9$ is inside the interval?
 
---
+.small123[*Hint:* $\chi^2_{0.025}(19) \approx 8.91$; $\chi^2_{0.975}(19) \approx 32.85$]
+]
 
-- Note that this confidence interval is *not* symmetric around $S^2$ anymore, because the $\chi^2$ distribution is not symmetric
+```{r practice2-answer, eval=FALSE, include=FALSE}
+# ANSWER
+# 1. CI: [(19*16)/32.85, (19*16)/8.91] = [304/32.85, 304/8.91] = [9.25, 34.12]
+#
+# 2. Lower bound distance from S^2: 16 - 9.25 = 6.75
+#    Upper bound distance from S^2: 34.12 - 16 = 18.12
+#    Not symmetric — the chi^2(19) distribution is right-skewed, so the upper
+#    critical value is further from the centre than the lower one
+#
+# 3. sigma^2 = 9 is inside [9.25, 34.12]? No, 9 < 9.25.
+#    If it were inside: the data are consistent with sigma^2 = 9 at the 95% level
+#    (we could not reject sigma^2 = 9 in a hypothesis test at alpha = 0.05)
+```
 
 ---
 class: inverse, middle, center
-# Confidence interval for the difference between two mean values
-
----
-# Difference in means
-
---
-
-- Sometimes we are interested in examining the difference between two groups in the population (e.g., wage difference between men and women)
-
---
-
-- We would want then to construct a confidence interval for the difference between the means in the two groups, $\mu_1$ and $\mu_2$
-
---
-
-- We will assume that we have one simple random sample from each group and that the two samples are independent of each other
-
----
-# Estimator of the difference in means
-
---
-
-- The estimator for $(\mu_1 - \mu_2)$ will then be the difference between the sample averages: $\left( \bar{X}_1 - \bar{X}_2 \right)$
-
---
-
-- This estimator is unbiased:
-$$
-E \left( \bar{X}_1 - \bar{X}_2 \right) = E \left( \bar{X}_1 \right) - E \left( \bar{X}_2 \right) = \mu_1 - \mu_2
-$$
-
---
-
-- Its variance is:
-$$
-Var \left( \bar{X}_1 - \bar{X}_2 \right) = Var \left( \bar{X}_1 \right) + Var \left( \bar{X}_2 \right) = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}
-$$
-
---
-
-- It follows an approximate normal distribution because $\bar{X}_1$ and $\bar{X}_2$ both follow approximate normal distributions
-
----
-# Distribution of the estimator of the difference in means
-
---
-
-- Therefore, the standardized difference follows an approximate standard normal distribution:
-$$
-\frac{\left( \bar{X}_1 - \bar{X}_2 \right) - (\mu_1 - \mu_2)}{\sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}}} \overset{a}{\sim} \mathcal{N}(0,1)
-$$
-
---
-
-- Then:
-$$
-P \left( z_{\alpha/2} \leq \frac{\left( \bar{X}_1 - \bar{X}_2 \right) - (\mu_1 - \mu_2)}{\sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}}} \leq z_{1 - \alpha/2} \right) \overset{a}{=} 1 - \alpha
-$$
-
----
 # Confidence interval for the difference in means
 
+---
+# Setup: two independent samples
+
+.pull-left-wide[
+- We often want to compare two groups (e.g. wage gap between men and women)
+- Assume two independent simple random samples of sizes $n_1$ and $n_2$
+]
+
 --
 
-- We can then construct a confidence interval for the difference in means:
+.pull-left-wide[
+- The natural estimator of $\mu_1 - \mu_2$ is $\bar{X}_1 - \bar{X}_2$:
 $$
-\hat{I} = \left[ \left( \bar{X}_1 - \bar{X}_2 \right) - z_{1 - \alpha/2} \cdot \sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}}, \left( \bar{X}_1 - \bar{X}_2 \right) + z_{1 - \alpha/2} \cdot \sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}} \right]
+E(\bar{X}_1 - \bar{X}_2) = \mu_1 - \mu_2 \quad \text{(unbiased)}
 $$
+$$
+Var(\bar{X}_1 - \bar{X}_2) = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}
+$$
+]
 
 --
 
-- Note again that this is an approximate confidence interval and requires that we know the two variances in the population
+.pull-left-wide[
+- By the CLT, $\bar{X}_1 - \bar{X}_2$ is approximately normal, so:
+$$
+\frac{(\bar{X}_1 - \bar{X}_2) - (\mu_1 - \mu_2)}{\sqrt{\sigma_1^2/n_1 + \sigma_2^2/n_2}} \overset{a}{\sim} \mathcal{N}(0,1)
+$$
+]
 
 ---
-# Confidence interval, variances unknown
+# CI for $\mu_1 - \mu_2$: $\sigma_1^2, \sigma_2^2$ known or unknown
+
+.pull-left-wide[
+> **Approximate CI for $\mu_1 - \mu_2$, $\sigma_j^2$ known:**
+$$
+\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}\right]
+$$
+]
 
 --
 
-- If we do not know the two variances, then we need to replace them with estimators of them (sample variances)
-
---
-
-- In this case, the confidence interval for the difference in means is:
+.pull-left-wide[
+> **Approximate CI for $\mu_1 - \mu_2$, $\sigma_j^2$ unknown (replace with $S_j^2$):**
 $$
-\hat{I} = \left[ \left( \bar{X}_1 - \bar{X}_2 \right) - z_{1 - \alpha/2} \cdot \sqrt{\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}}, \left( \bar{X}_1 - \bar{X}_2 \right) + z_{1 - \alpha/2} \cdot \sqrt{\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}} \right]
+\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}\right]
 $$
+]
 
 ---
-# Confidence interval, variances unknown but equal
+# Pooled variance estimator
+
+.pull-left-wide[
+- If we have good reason to believe $\sigma_1^2 = \sigma_2^2 = \sigma^2$, we can combine information from both samples
+]
 
 --
 
-- If we do not know the two variances, but we have good reason to believe that they are equal, then we can construct a better estimator for the variance of $\left( \bar{X}_1 - \bar{X}_2 \right)$
+.pull-left-wide[
+> The **pooled variance estimator** is:
+$$
+S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}
+$$
+]
 
 --
 
-- This estimator is the **pooled variance estimator**:
+.pull-left-wide[
+> **CI for $\mu_1 - \mu_2$, equal variances assumed:**
 $$
-S_p^2 = \frac{(n_1 - 1) \cdot S_1^2 + (n_2 - 1) \cdot S_2^2}{n_1 + n_2 - 2}
+\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{S_p^2 \left(\frac{1}{n_1} + \frac{1}{n_2}\right)}\right]
 $$
-
---
-
-- We can then write the confidence interval for the difference in means as:
-$$
-\hat{I} = \left[ \left( \bar{X}_1 - \bar{X}_2 \right) - z_{1 - \alpha/2} \cdot \sqrt{S_p^2 \cdot \left( \dfrac{1}{n_1} + \dfrac{1}{n_2} \right)}, \left( \bar{X}_1 - \bar{X}_2 \right) + z_{1 - \alpha/2} \cdot \sqrt{S_p^2 \cdot \left( \dfrac{1}{n_1} + \dfrac{1}{n_2} \right)} \right]
-$$
+- If $X$ is normal and $\sigma_1^2 = \sigma_2^2$, replace $z$ with $t_{1-\alpha/2}(n_1 + n_2 - 2)$ for an exact CI
+]
 
 ---
-# Confidence interval, distribution of $X$ known
+# .red[Raise your hand 3: CI for the difference in means]
+
+```{r ryh3-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** A 95% CI for $\mu_1 - \mu_2$ is $[-2,\; 8]$. What can we conclude?
+
+- **A)** $\mu_1 > \mu_2$ at the 95% confidence level, since the interval is mostly positive
+- **B)** The data are consistent with both $\mu_1 > \mu_2$ and $\mu_1 \leq \mu_2$ — zero is inside the interval
+- **C)** $\mu_2 > \mu_1$ at the 95% confidence level, since the interval contains negative values
+]
 
 --
 
-- As in the case of confidence intervals for the mean value, we can construct exact (or better) confidence intervals for the difference in means if we know the shape of the distribution of $X$ in the two groups:
+.pull-left-wide[
+**Q2.** Why does the pooled variance estimator $S_p^2$ give a better estimate than using $S_1^2$ and $S_2^2$ separately?
 
---
+- **A)** Because it always produces a smaller variance estimate, narrowing the CI
+- **B)** Because it avoids the need to assume normality in either group
+- **C)** Because when $\sigma_1^2 = \sigma_2^2$, pooling combines information from both samples, reducing estimation uncertainty
+]
 
-  - normal distribution with known variance
+```{r ryh3-answers, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# Q1: Answer B
+#   A: Tempting — the interval is "mostly positive" (centre at 3); but since 0 is
+#      inside, we cannot conclude mu_1 > mu_2 at any standard significance level
+#   B: Correct — zero is inside [-2, 8], so the data are consistent with no difference;
+#      we cannot rule out mu_1 = mu_2
+#   C: Tempting — the interval does contain negative values; but the presence of
+#      negative values does not mean mu_2 > mu_1; the full interval spans both signs
+#
+# Q2: Answer C
+#   A: Tempting — pooling does tend to smooth estimates; but S_p^2 is not always
+#      smaller than S_1^2 or S_2^2 individually; the gain is precision, not a
+#      guaranteed reduction in the estimate
+#   B: Tempting — sounds like a robustness argument; but pooling requires assuming
+#      equal variances; it does not relax the normality assumption
+#   C: Correct — when sigma_1^2 = sigma_2^2, both samples provide information about
+#      the same underlying variance; pooling uses n_1 + n_2 - 2 observations rather
+#      than just n_1-1 or n_2-1
+```
 
---
+---
+# .red[Practice 3: CI for the difference in means]
 
-  - normal distribution with unknown variance
+.pull-left-wide[
+Two independent samples of wages (€/hour):
+- Group 1 (men): $n_1 = 36$, $\bar{X}_1 = 28$, $S_1^2 = 25$
+- Group 2 (women): $n_2 = 49$, $\bar{X}_2 = 25$, $S_2^2 = 16$
 
---
+1. Construct a 95% CI for $\mu_1 - \mu_2$ (use $z_{0.975} = 1.96$, variances unknown)
+2. Does the CI suggest a statistically meaningful difference between the groups?
+3. Now assume equal variances. Calculate $S_p^2$ and construct the pooled CI. Does the conclusion change?
+]
 
-  - $Bernoulli(p)$
+```{r practice3-answer, eval=FALSE, include=FALSE}
+# ANSWER
+# 1. SE = sqrt(25/36 + 16/49) = sqrt(0.694 + 0.327) = sqrt(1.021) = 1.010
+#    CI: (28-25) +/- 1.96*1.010 = 3 +/- 1.980 = [1.02, 4.98]
+#
+# 2. Yes — the interval [1.02, 4.98] does not contain 0, so the data are consistent
+#    with a positive wage gap at the 95% confidence level
+#
+# 3. S_p^2 = [(36-1)*25 + (49-1)*16] / (36+49-2)
+#          = [875 + 768] / 83 = 1643/83 = 19.79
+#    SE_p = sqrt(19.79 * (1/36 + 1/49)) = sqrt(19.79 * 0.0482) = sqrt(0.954) = 0.977
+#    CI: 3 +/- 1.96*0.977 = 3 +/- 1.914 = [1.09, 4.91]
+#    Conclusion unchanged — still excludes 0
+```
 
 ---
 class: inverse, middle, center
 # Confidence interval for the ratio of two variances
 
 ---
-# Ratio of two variances
+# When do we compare variances?
+
+.pull-left-wide[
+- Sometimes we want to know whether variability differs between two groups
+- We construct a CI for the **ratio** $\sigma_2^2 / \sigma_1^2$
+- If this ratio is 1, the variances are equal
+]
 
 --
 
-- We may also be interested whether the variation in the values of $X$ in one group is higher than in the second group
-
---
-
-- We are again assuming that we have two simple random samples from each group, and that the two samples are independent of each other
-
---
-
-- Suppose that $X$ follows a normal distribution in each sample: $\mathcal{N}(\mu_1, \sigma^2_1)$ and $\mathcal{N}(\mu_2, \sigma^2_2)$
-
---
-
-- We will construct a confidence interval for the ratio of variances $\dfrac{\sigma_2^2}{\sigma_1^2}$
+.pull-left-wide[
+- Assume $X_j \sim \mathcal{N}(\mu_j, \sigma_j^2)$ in each group ($j = 1, 2$), independent samples
+- It can be shown that:
+$$
+\frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} = \frac{S_1^2 \cdot \sigma_2^2}{S_2^2 \cdot \sigma_1^2} \sim F(n_1 - 1,\; n_2 - 1)
+$$
+- The ***F*-distribution** is right-skewed and takes only positive values; as $n_2 \to \infty$ it approaches $\chi^2(n_1-1)/(n_1-1)$
+]
 
 ---
-# Ratio of two variances
+# Deriving the CI for $\sigma_2^2 / \sigma_1^2$
 
---
-
-- In order to construct a confidence interval for the ratio of the variances, we will use the sample variances in each group
-
---
-
-- In particular, we can show that the following variable follows an ***F*-distribution** with $(n_1 - 1)$ and $(n_2 - 1)$ degrees of freedom:
+.pull-left-wide[
+- Let $F_{\alpha/2}$ and $F_{1-\alpha/2}$ be the critical values from $F(n_1-1, n_2-1)$:
 $$
-\frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} = \frac{S_1^2 \cdot \sigma_2^2}{S_2^2 \cdot \sigma_1^2} \sim F(n_1 - 1, n_2 - 1)
+P\!\left(F_{\alpha/2} \leq \frac{S_1^2 \cdot \sigma_2^2}{S_2^2 \cdot \sigma_1^2} \leq F_{1-\alpha/2}\right) = 1 - \alpha
 $$
+]
 
 --
 
-- The $F$-distribution is similar to the $\chi^2$ distribution
+.pull-left-wide[
+- Rearranging to isolate $\sigma_2^2/\sigma_1^2$:
 
---
-
-- In fact, when $n_2$ is very large, the $F$-distribution becomes almost identical to the $\chi^2(n_1 - 1)$ distribution divided by $n_1$
+> **Exact CI for $\sigma_2^2/\sigma_1^2$:**
+$$
+\hat{I} = \left[\frac{S_2^2}{S_1^2} \cdot F_{\alpha/2}(n_1-1, n_2-1),\;\; \frac{S_2^2}{S_1^2} \cdot F_{1-\alpha/2}(n_1-1, n_2-1)\right]
+$$
+- Also **not symmetric** around $S_2^2/S_1^2$ because the $F$-distribution is skewed
+]
 
 ---
-# Critical values
+# .red[Raise your hand 4: CI for the ratio of variances]
+
+```{r ryh4-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** A 95% CI for $\sigma_2^2/\sigma_1^2$ is $[0.8,\; 2.5]$. What can we conclude?
+
+- **A)** $\sigma_2 > \sigma_1$, since most of the interval is above 1
+- **B)** The data are consistent with equal variances — 1 is inside the interval — as well as with $\sigma_2^2$ being up to 2.5 times $\sigma_1^2$
+- **C)** $\sigma_2^2 > \sigma_1^2$ at the 95% confidence level
+]
 
 --
 
-- Let $F_{\alpha/2}(n_1 - 1, n_2 - 1)$ and $F_{1 - \alpha/2}(n_1 - 1, n_2 - 1)$ be the critical values from the $F(n_1 - 1, n_2 - 1)$ distribution
+.pull-left-wide[
+**Q2.** Why does the $F$-distribution appear when comparing two sample variances?
 
---
+- **A)** Because the ratio of two normal random variables follows an $F$-distribution
+- **B)** Because $F$ is always used when comparing statistics from two independent groups
+- **C)** Because each $(n_j-1)S_j^2/\sigma_j^2 \sim \chi^2(n_j-1)$, and the ratio of two independent chi-square variables (divided by their degrees of freedom) defines an $F$
+]
 
-- This means that, if $Z \sim F(n_1 - 1, n_2 - 1)$, then:
-
-$$
-P \left( Z \leq F_{\alpha/2}(n_1 - 1, n_2 - 1) \right) = \frac{\alpha}{2}
-$$
-
-$$
-P \left(Z \leq F_{1 - \alpha/2}(n_1 - 1, n_2 - 1) \right) = 1 - \frac{\alpha}{2}
-$$
-
---
-
-- Then:
-$$
-P \left( F_{\alpha/2}(n_1 - 1, n_2 - 1) \leq \frac{S_1^2 \cdot \sigma_2^2}{S_2^2 \cdot \sigma_1^2} \leq F_{1 - \alpha/2}(n_1 - 1, n_2 - 1) \right) = 1 - \alpha
-$$
+```{r ryh4-answers, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# Q1: Answer B
+#   A: Tempting — the midpoint of the interval is above 1; but since 1 is inside the
+#      interval, we cannot conclude sigma_2 > sigma_1 at this confidence level
+#   B: Correct — 1 is in [0.8, 2.5], so equal variances are consistent with the data;
+#      we describe what the interval contains, not just whether it's "mostly above" something
+#   C: Tempting — sounds like a firm conclusion; but to conclude sigma_2^2 > sigma_1^2
+#      we would need the entire interval to be above 1
+#
+# Q2: Answer C
+#   A: Tempting — F does arise from ratios; but specifically it is a ratio of
+#      chi-square variables, not normal variables; ratio of two normals gives a Cauchy
+#   B: Tempting — F-tests are indeed used for two-group variance comparisons; but
+#      the reason is the specific mathematical derivation, not a general rule
+#   C: Correct — F(d1, d2) is defined as (chi^2(d1)/d1) / (chi^2(d2)/d2) for
+#      independent chi-square variables
+```
 
 ---
-# Confidence interval for the ratio of variances
+# .red[Practice 4: CI for the ratio of variances]
 
---
+.pull-left-wide[
+Two independent normal samples:
+- Group 1: $n_1 = 11$, $S_1^2 = 8$
+- Group 2: $n_2 = 16$, $S_2^2 = 18$
 
-- We can then construct an exact confidence interval for the ratio of variances $\dfrac{\sigma_2^2}{\sigma_1^2}$:
-$$
-\hat{I} = \left[ \frac{S_2^2}{S_1^2} \cdot F_{\alpha/2}(n_1 - 1, n_2 - 1) , \frac{S_2^2}{S_1^2} \cdot F_{1 - \alpha/2}(n_1 - 1, n_2 - 1) \right]
-$$
+Construct a 95% CI for $\sigma_2^2/\sigma_1^2$.
 
---
+.small123[*Hint:* $F_{0.025}(10, 15) \approx 0.30$; $F_{0.975}(10, 15) \approx 3.06$]
 
-- Note that this confidence interval is also *not* symmetric around $\dfrac{S_2^2}{S_1^2}$ anymore, because the $F$-distribution is not symmetric
+Does the CI suggest the variances are significantly different?
+]
+
+```{r practice4-answer, eval=FALSE, include=FALSE}
+# ANSWER
+# S_2^2 / S_1^2 = 18/8 = 2.25
+# CI: [2.25 * 0.30, 2.25 * 3.06] = [0.675, 6.885]
+#
+# 1 is inside [0.675, 6.885], so we cannot conclude that variances differ
+# at the 95% confidence level. The data are consistent with equal variances,
+# but also with sigma_2^2 being up to ~7 times sigma_1^2.
+# The interval is wide because both sample sizes are small.
+```
 
 ---
 class: inverse, middle, center
-# Determining the sample size based on a confidence interval
+# Determining the required sample size
 
 ---
-# Sample size and confidence interval
+# Width of a CI and sample size
+
+.pull-left-wide[
+- The variance of $\bar{X}$ is $\sigma^2/n$ — larger $n$ gives a narrower CI
+- We can invert the CI formula to find the $n$ needed to achieve a desired width
+]
 
 --
 
-- Recall that the variance of $\bar{X}$ depends on the sample size, and also that the bounds of the confidence interval for the mean value depend on $Var \left( \bar{X} \right)$
+.pull-left-wide[
+- The width of the CI for $\mu$ (known $\sigma^2$) is $2 z_{1-\alpha/2} \cdot \sigma/\sqrt{n}$
+- Suppose we want the half-width to be at most $K$:
+$$
+z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \leq K \quad \Longrightarrow \quad n \geq \frac{z_{1-\alpha/2}^2 \cdot \sigma^2}{K^2}
+$$
+]
 
 --
 
-- In other words: the sample size influences the *precision* of the estimator, and in turn this influences the *width* of the confidence interval
-
---
-
-- In general, we would want "tight" confidence intervals
-
---
-
-- Using the formulas above, we can determine what sample size is needed to obtain a confidence interval at a given confidence level (say, 95%) and with a given width
+.pull-left-wide[
+> **Required sample size:**
+$$
+n^* = \frac{z_{1-\alpha/2}^2 \cdot \sigma^2}{K^2}
+$$
+- Requires knowing $\sigma^2$ — use a pilot study if unknown
+]
 
 ---
-# Sample size and confidence interval for the mean
+# Sample size for Bernoulli $X$
+
+.pull-left-wide[
+- If $X \sim Bernoulli(p)$, then $\sigma^2 = p(1-p)$, which depends on the unknown $p$
+]
 
 --
 
-- Recall that the confidence interval for the mean value with known variance is:
+.pull-left-wide[
+- The product $p(1-p)$ is maximised at $p = 0.5$, giving $\sigma^2 \leq 0.25$
+- Substituting this worst-case bound:
 $$
-\hat{I} = \left[ \bar{X} - z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}}, \bar{X} + z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \right]
+n^* = \frac{z_{1-\alpha/2}^2 \cdot 0.25}{K^2}
 $$
-
---
-
-- The width of the confidence interval is:
-$$
-2 \cdot z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
-$$
-
---
-
-- Suppose we want this width to be at most $2 \cdot K$
-
---
-
-- This implies that:
-$$
-z_{1 - \alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \leq K
-$$
-
---
-
-- Therefore, the required sample size is:
-$$
-n^* = \frac{\sigma^2}{K^2} \cdot z_{1 - \alpha/2}^2
-$$
+- This guarantees the desired width **regardless of the true $p$** — a conservative bound
+]
 
 ---
-# Sample size
+# .red[Raise your hand 5: Sample size]
+
+```{r ryh5-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** To halve the width of a CI for $\mu$, how must $n$ change?
+
+- **A)** Double $n$ — width is proportional to $1/n$
+- **B)** Quadruple $n$ — width is proportional to $1/\sqrt{n}$, so halving width requires multiplying $n$ by 4
+- **C)** Triple $n$ — halving the width requires tripling the observations
+]
 
 --
 
-- Note that this formula requires that we know $\sigma^2$
+.pull-left-wide[
+**Q2.** For $X \sim Bernoulli(p)$, using $p(1-p) \leq 0.25$ in the sample size formula gives what guarantee?
+
+- **A)** The required $n$ is sufficient regardless of the true $p$ — it is a conservative worst-case bound
+- **B)** The CI width is exactly minimised when $p = 0.5$
+- **C)** The formula only applies when $p$ is close to $0.5$
+]
+
+```{r ryh5-answers, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# Q1: Answer B
+#   A: Tempting — doubling n sounds proportional; but width = 2*z*sigma/sqrt(n),
+#      so width ∝ 1/sqrt(n); to halve width: 1/sqrt(n*) = 0.5/sqrt(n), so n* = 4n
+#   B: Correct — the square root relationship means you need 4x the observations
+#      to halve the CI width
+#   C: Tempting — tripling is another small multiple; but the correct factor is 4,
+#      not 3, due to the sqrt relationship
+#
+# Q2: Answer A
+#   A: Correct — since p(1-p) <= 0.25 for all p, using 0.25 gives n* that works
+#      for any p; we are overestimating the required n in most cases (conservative)
+#   B: Tempting — it's true that p(1-p) IS maximised at p=0.5; but "minimised CI width"
+#      is the wrong framing; the point is that n* based on 0.25 is conservative for all p
+#   C: Tempting — sounds like a limiting condition; but the formula is valid for
+#      any p; it just tends to be wasteful (too many observations) when p is near 0 or 1
+```
+
+---
+# .red[Practice 5: Sample size]
+
+.pull-left-wide[
+A researcher wants a 95% CI for the mean income in a population, with a half-width of at most €500. A pilot study suggests $\sigma \approx 2{,}500$.
+
+1. Calculate the required sample size $n^*$
+2. How does $n^*$ change if the required half-width is tightened to €250?
+3. Suppose instead $X \sim Bernoulli(p)$ (e.g. employed/not employed) and we want half-width $\leq 0.03$. What is the conservative $n^*$?
+
+.small123[*Hint:* $z_{0.975} = 1.96$]
+]
+
+```{r practice5-answer, eval=FALSE, include=FALSE}
+# ANSWER
+# 1. n* = (1.96^2 * 2500^2) / 500^2
+#       = (3.8416 * 6250000) / 250000
+#       = 24010000 / 250000 = 96.04 => n* = 97
+#
+# 2. Half-width halved => n* quadruples:
+#    n* = (1.96^2 * 2500^2) / 250^2 = 96.04 * 4 = 384.16 => n* = 385
+#
+# 3. n* = (1.96^2 * 0.25) / 0.03^2
+#       = (3.8416 * 0.25) / 0.0009
+#       = 0.9604 / 0.0009 = 1067.1 => n* = 1068
+```
+
+---
+# Key takeaways
+
+.pull-left-wide[
+**CI for $\mu$:** $\bar{X} \pm z_{1-\alpha/2} \cdot \sigma/\sqrt{n}$ (normal approx); use $t(n-1)$ when $X$ normal and $\sigma$ unknown
+
+**CI for $\sigma^2$:** based on $\chi^2(n-1)$ pivot — asymmetric interval; requires normality for exact result
+]
 
 --
 
-- In practice, we can run a pilot study and obtain an estimate of $\sigma^2$ from that sample
+.pull-left-wide[
+**CI for $\mu_1 - \mu_2$:** $(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \sqrt{S_1^2/n_1 + S_2^2/n_2}$; use pooled $S_p^2$ when $\sigma_1^2 = \sigma_2^2$
+
+**CI for $\sigma_2^2/\sigma_1^2$:** based on $F(n_1-1, n_2-1)$ pivot — also asymmetric
+]
 
 --
 
-- In addition, in some special cases we can even skip the pilot study:
+.pull-left-wide[
+**Sample size:** $n^* = z_{1-\alpha/2}^2 \sigma^2 / K^2$; width $\propto 1/\sqrt{n}$ — halving width requires 4× observations; for Bernoulli use $\sigma^2 = 0.25$ as conservative bound
+]
 
---
+---
+# Before next time
+.pull-left[
+- Read the assigned reading
+- Next time: Hypothesis testing $\rightarrow$ Chapter 14
+]
 
-  - suppose $X \sim Bernoulli(p)$
-
---
-
-  - in this case, $\sigma^2 = p \cdot (1 - p)$
-
---
-
-  - of course, $p$ is unknown, but the product $[p \cdot (1 - p)]$ is maximized when $p = 0.5$
-
---
-
-  - we can then calculate the required sample size as:
-$$
-n^* = \frac{0.5 \cdot (1 - 0.5)}{K^2} \cdot z_{1 - \alpha/2}^2 = \frac{0.25}{K^2} \cdot z_{1 - \alpha/2}^2
-$$
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

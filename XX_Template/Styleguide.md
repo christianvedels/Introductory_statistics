@@ -49,10 +49,12 @@ It is written for both humans and machines and is based on the existing slide de
 - [ ] At least one `# .red[Practice N: ...]` slide per major section/concept
 - [ ] Practice slides numbered consecutively within the deck
 - [ ] Every practice slide has a hidden answer chunk (`eval=FALSE, include=FALSE`)
-- [ ] At least one `# .red[Raise your hand N: ...]` slide (typically after a practice slide or at section end)
+- [ ] At least one `# .red[Raise your hand N: ...]` slide (typically before a practice slide or at section end)
 - [ ] Every raise-your-hand slide has `countdown(0, 20, top=TRUE)` at the top
 - [ ] Raise-your-hand questions (2–3 per slide) are inside `.pull-left-wide[]`
 - [ ] Every raise-your-hand wrong option is genuinely plausible (targets a specific, named misconception with a coherent student argument)
+- [ ] Correct letters assigned via `shuf -e A B C` (run before writing each slide) — no systematic positional pattern
+- [ ] Questions with multiple correct answers explicitly say so in the stem ("Select all that apply")
 - [ ] Each question is in its own `.pull-left-wide[]` block with `--` between questions at the top level
 - [ ] All raise-your-hand answers are in a hidden chunk only (`eval=FALSE, include=FALSE`) — never in the slide body
 
@@ -253,6 +255,21 @@ Use `# .red[Raise your hand N: ...]` slides for in-class multiple choice discuss
 - The correct answer must be unambiguous to someone who knows the statistics.
 - Teacher notes in the hidden chunk must explain *why* each wrong answer is tempting and, for questions where multiple options are partially true, why the correct answer is the *most* complete explanation.
 
+**Randomise which letter is correct:**
+- There must be no systematic pattern in which letter (A, B, or C) is the right answer — students should not be able to guess by position.
+- Before writing each RYH slide, run the following bash snippet to get a random assignment of correct letters (one per question, no repeats within the slide):
+
+```bash
+shuf -e A B C
+```
+
+  The output is a random permutation, e.g. `C / A / B` — assign Q1 → C, Q2 → A, Q3 → B, then construct options so the correct answer lands on that letter.
+
+**Multiple correct answers (use sparingly):**
+- For philosophical, interpretive, or practical questions — and occasionally for maths questions where more than one statement is genuinely true — it is acceptable to have two correct answers.
+- When a question has multiple correct answers, make this explicit in the question stem (e.g. *"Which of the following are true? Select all that apply."*).
+- Multiple-correct-answer questions should be the exception, not the default. Use them only when the ambiguity itself is pedagogically useful (e.g. to show that two seemingly different statements are both valid).
+
 **Sequential reveal — always use `--` between questions:**
 - Questions are revealed one at a time so the class can discuss Q1 before Q2 appears.
 - Because `--` does not work inside CSS containers, each question must be in its own `.pull-left-wide[]` block at the top level, with `--` between blocks.
@@ -305,7 +322,7 @@ countdown(0, 20, top=TRUE)
 - Include a `countdown(0, 20, top=TRUE)` timer (20 seconds) at the top of every raise-your-hand slide.
 - Always place each question in its own `.pull-left-wide[]` block with `--` between blocks — never put two questions inside the same container.
 - Answers and teacher reasoning go **only** in the hidden chunk — never in the slide body.
-- Place raise-your-hand slides at natural concept checkpoints, typically right after a practice slide or at the end of a section.
+- Place raise-your-hand slides at natural concept checkpoints, typically just before a practice slide or at the end of a section. When both fit the same checkpoint, raise-your-hand comes first.
 
 ### Tone
 
@@ -380,7 +397,7 @@ When generating a new lecture deck, follow these rules in order:
 7. Use `--` for incremental reveal when concepts are multi-step.
 8. Use blockquotes for definitions and theorem-like statements.
 9. Add mandatory practice slides for each major concept/section. Always include a hidden answer chunk (`eval=FALSE, include=FALSE`).
-10. Add raise-your-hand slides at concept checkpoints (typically after a practice slide or at section end). Each slide: countdown timer, 2–3 A/B/C questions in `.pull-left-wide[]`, all answers in a hidden chunk. Wrong options must target specific misconceptions — never use implausible distractors.
+10. Add raise-your-hand slides at concept checkpoints (typically just before a practice slide, or at section end — raise-your-hand before practice when both fit the same checkpoint). Each slide: countdown timer, 2–3 A/B/C questions in `.pull-left-wide[]`, all answers in a hidden chunk. Wrong options must target specific misconceptions — never use implausible distractors. Vary the correct letter (A/B/C) across questions — no systematic pattern. For philosophical, interpretive, or multi-statement questions, two correct answers are permitted; make this explicit in the question stem.
 11. Keep visual design minimal and consistent with this styleguide.
 
 ---

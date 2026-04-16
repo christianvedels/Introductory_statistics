@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Slides.knit</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/panelset-0.3.0/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.3.0/panelset.js"></script>
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <link href="libs/countdown-0.4.0/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.4.0/countdown.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, inverse, middle
+
+
+
+
+
+<style>.xe__progress-bar__container {
+  top:0;
+  opacity: 1;
+  position:absolute;
+  right:0;
+  left: 0;
+}
+.xe__progress-bar {
+  height: 0.25em;
+  background-color: #808080;
+  width: calc(var(--slide-current) / var(--slide-total) * 100%);
+}
+.remark-visible .xe__progress-bar {
+  animation: xe__progress-bar__wipe 200ms forwards;
+  animation-timing-function: cubic-bezier(.86,0,.07,1);
+}
+@keyframes xe__progress-bar__wipe {
+  0% { width: calc(var(--slide-previous) / var(--slide-total) * 100%); }
+  100% { width: calc(var(--slide-current) / var(--slide-total) * 100%); }
+}</style>
+
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+&lt;/style&gt;
+
+
+
+# Statistics
+## Confidence intervals
+### (Chapter 13)
+
+### Christian Vedel,&lt;br&gt;Department of Economics&lt;br&gt;University of Southern Denmark
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Updated 2026-04-16
+
+
+
+---
+class: middle
+# Today's lecture
+.pull-left-wide[
+**Turning point estimates into intervals that quantify uncertainty**
+
+- **Section 1:** Confidence interval for the mean value
+- **Section 2:** Confidence interval for the variance
+- **Section 3:** Confidence interval for the difference in means
+- **Section 4:** Confidence interval for the ratio of two variances
+- **Section 5:** Determining the required sample size
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Confidence interval for the mean value
+
+---
+# Why confidence intervals?
+
+.pull-left-wide[
+- Estimators such as `\(\bar{X}\)` are random variables — the probability that they exactly equal the population value is virtually zero
+- We hope they are "close" to the true value, but how close?
+]
+
+--
+
+.pull-left-wide[
+- A **confidence interval** uses the sampling distribution of the estimator to construct a range of values that conveys this uncertainty:
+  - a point estimate gives you one number
+  - a confidence interval gives you a range and a probability that the range contains the true value
+]
+
+---
+# Setting up the CI for `\(\mu\)`
+
+.pull-left-wide[
+- We want an interval `\(\hat{I} = [W_l, W_u]\)` centred around `\(\bar{X}\)`:
+$$
+\hat{I} = \left[\bar{X} - k,\; \bar{X} + k\right]
+$$
+- Because `\(\bar{X}\)` is random, the bounds are random — the interval will not always contain `\(\mu\)`
+]
+
+--
+
+.pull-left-wide[
+- We choose the **confidence level** `\(1 - \alpha\)`: the probability that the interval contains `\(\mu\)`
+
+$$
+1 - \alpha = P\!\left(\mu \in \hat{I}\right) = P\!\left(\bar{X} - k \leq \mu \leq \bar{X} + k\right)
+$$
+]
+
+---
+# Finding `\(k\)`: standardising `\(\bar{X}\)`
+
+.pull-left-wide[
+- For a simple random sample, `\(\bar{X} \overset{a}{\sim} \mathcal{N}\!\left(\mu, \sigma^2/n\right)\)`, so:
+$$
+Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \overset{a}{\sim} \mathcal{N}(0, 1)
+$$
+]
+
+--
+
+.pull-left-wide[
+- Rewriting the coverage condition in terms of `\(Z\)`:
+$$
+1 - \alpha = P\!\left(-\frac{\sqrt{n}\,k}{\sigma} \leq Z \leq \frac{\sqrt{n}\,k}{\sigma}\right) = \Phi(a) - \Phi(-a)
+$$
+where `\(a = \sqrt{n}\,k/\sigma\)`
+]
+
+--
+
+.pull-left-wide[
+- The **critical value** `\(z_{1-\alpha/2}\)` satisfies `\(\Phi(z_{1-\alpha/2}) = 1 - \alpha/2\)`, giving `\(a = z_{1-\alpha/2}\)` and:
+$$
+k = \frac{z_{1-\alpha/2} \cdot \sigma}{\sqrt{n}}
+$$
+]
+
+---
+# CI for `\(\mu\)`: simple random sample
+
+.pull-left-wide[
+&gt; **CI for `\(\mu\)`, `\(\sigma\)` known (approximate):**
+$$
+\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\right]
+$$
+]
+
+--
+
+.pull-left-wide[
+**Common critical values:**
+
+| Confidence level | `\(z_{1-\alpha/2}\)` |
+|---|---|
+| 90% | 1.645 |
+| 95% | 1.960 |
+| 99% | 2.576 |
+]
+
+---
+# CI for `\(\mu\)`: `\(\sigma\)` unknown
+
+.pull-left-wide[
+- In practice `\(\sigma\)` is rarely known — we replace it with the sample standard deviation `\(S\)`
+]
+
+--
+
+.pull-left-wide[
+&gt; **CI for `\(\mu\)`, `\(\sigma\)` unknown (approximate):**
+$$
+\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \sqrt{\frac{S^2}{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \sqrt{\frac{S^2}{n}}\right]
+$$
+- Approximate because it relies on the approximate normal distribution of `\(\bar{X}\)`
+- If we know the population distribution of `\(X\)`, we can do better
+]
+
+---
+# Exact CI: `\(X \sim \mathcal{N}(\mu, \sigma^2)\)`, `\(\sigma\)` known
+
+.pull-left-wide[
+- If `\(X\)` is normally distributed and `\(\sigma^2\)` is known, then `\(Z = \sqrt{n}(\bar{X} - \mu)/\sigma\)` is **exactly** `\(\mathcal{N}(0,1)\)`
+]
+
+--
+
+.pull-left-wide[
+&gt; **Exact CI for `\(\mu\)`, normal population, `\(\sigma\)` known:**
+$$
+\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\right]
+$$
+- Same formula as before — but now exact, not approximate
+]
+
+---
+# Exact CI: `\(X \sim \mathcal{N}(\mu, \sigma^2)\)`, `\(\sigma\)` unknown
+
+.pull-left-wide[
+- When `\(\sigma^2\)` is unknown, replacing it with `\(S^2\)` changes the distribution of the pivot
+- It can be shown that:
+$$
+t = \frac{\bar{X} - \mu}{\sqrt{S^2/n}} \sim t(n-1)
+$$
+- The ***t*-distribution** has heavier tails than the normal; as `\(n \to \infty\)` it converges to `\(\mathcal{N}(0,1)\)`
+]
+
+--
+
+.pull-left-wide[
+&gt; **Exact CI for `\(\mu\)`, normal population, `\(\sigma\)` unknown:**
+$$
+\hat{I} = \left[\bar{X} - t_{1-\alpha/2}(n-1) \cdot \sqrt{\frac{S^2}{n}},\;\; \bar{X} + t_{1-\alpha/2}(n-1) \cdot \sqrt{\frac{S^2}{n}}\right]
+$$
+]
+
+---
+# CI for `\(\mu\)`: `\(X \sim Bernoulli(p)\)`
+
+.pull-left-wide[
+- If `\(X \sim Bernoulli(p)\)`, then `\(E(X) = p\)` and `\(Var(X) = p(1-p)\)`
+- The sample mean `\(\bar{X}\)` estimates `\(p\)`; we estimate the variance as `\(\bar{X}(1 - \bar{X})\)`
+- This exploits the Bernoulli structure and is more efficient than the general `\(S^2\)`
+]
+
+--
+
+.pull-left-wide[
+&gt; **Approximate CI for `\(p\)`:**
+$$
+\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \sqrt{\frac{\bar{X}(1-\bar{X})}{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \sqrt{\frac{\bar{X}(1-\bar{X})}{n}}\right]
+$$
+]
+
+---
+# CI for `\(\mu\)`: stratified sample
+
+.pull-left-wide[
+- For a stratified sample, we use `\(\bar{X}_{st} = \sum_{j=1}^m w_j \bar{X}_j\)` as the estimator
+- We estimate `\(Var(\bar{X}_{st}) = \sum_{j=1}^m w_j^2 \sigma_j^2/n_j\)` by replacing `\(\sigma_j^2\)` with `\(S_j^2\)`:
+$$
+\widehat{Var}(\bar{X}_{st}) = \sum_{j=1}^m w_j^2 \cdot \frac{S_j^2}{n_j}
+$$
+]
+
+--
+
+.pull-left-wide[
+&gt; **Approximate CI for `\(\mu\)`, stratified sample:**
+$$
+\hat{I} = \left[\bar{X}_{st} - z_{1-\alpha/2} \cdot \sqrt{\widehat{Var}(\bar{X}_{st})},\;\; \bar{X}_{st} + z_{1-\alpha/2} \cdot \sqrt{\widehat{Var}(\bar{X}_{st})}\right]
+$$
+]
+
+---
+# .red[Raise your hand 1: CI for the mean]
+
+<div class="countdown" id="timer_0292e531" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** A 95% CI for `\(\mu\)` is `\([45, 55]\)`. Which statement is correct?
+
+- **A)** There is a 95% probability that `\(\mu\)` lies in `\([45, 55]\)`
+- **B)** 95% of future sample means will fall in `\([45, 55]\)`
+- **C)** If we repeated the sampling many times, 95% of the resulting intervals would contain `\(\mu\)`
+]
+
+--
+
+.pull-left-wide[
+**Q2.** When should we use the `\(t\)`-distribution rather than the normal for a CI for `\(\mu\)`?
+
+- **A)** When the population is normal and `\(\sigma^2\)` is unknown — the `\(t\)` arises from estimating `\(\sigma\)` with `\(S\)`
+- **B)** Whenever the sample size is small (`\(n &lt; 30\)`)
+- **C)** Whenever the population distribution is unknown
+]
+
+
+
+---
+# .red[Practice 1: CI for the mean]
+
+.pull-left-wide[
+A random sample of `\(n = 25\)` students has mean exam score `\(\bar{X} = 68\)` and sample standard deviation `\(S = 10\)`. Assume scores are normally distributed.
+
+1. Construct a 95% CI for the population mean `\(\mu\)` using the `\(t\)`-distribution
+2. How does the CI change if `\(n = 100\)` instead? (Recalculate)
+3. If the population standard deviation were known to be `\(\sigma = 10\)`, would you use `\(z\)` or `\(t\)`? Construct that CI for `\(n = 25\)`
+
+.small123[*Hint:* `\(t_{0.975}(24) \approx 2.064\)`; `\(t_{0.975}(99) \approx 1.984\)`; `\(z_{0.975} = 1.96\)`]
+]
+
+
+
+---
+class: inverse, middle, center
+# Confidence interval for the variance
+
+---
+# CI for the variance
+
+.pull-left-wide[
+- We can also construct a CI for the unknown variance `\(\sigma^2\)`
+- The sample variance `\(S^2\)` is unbiased for `\(\sigma^2\)`; we need its distribution
+]
+
+--
+
+.pull-left-wide[
+- Recall the chi-square pivot (requires `\(X \sim \mathcal{N}(\mu, \sigma^2)\)`):
+$$
+Y = \frac{(n-1) S^2}{\sigma^2} \sim \chi^2(n-1)
+$$
+- The `\(\chi^2\)` distribution is **not symmetric** and takes only positive values
+]
+
+---
+# Deriving the CI for `\(\sigma^2\)`
+
+.pull-left-wide[
+- Let `\(\chi^2_{\alpha/2}\)` and `\(\chi^2_{1-\alpha/2}\)` be the lower and upper critical values from `\(\chi^2(n-1)\)`, so that:
+$$
+P\!\left(\chi^2_{\alpha/2}(n-1) \leq Y \leq \chi^2_{1-\alpha/2}(n-1)\right) \overset{a}{=} 1 - \alpha
+$$
+]
+
+--
+
+.pull-left-wide[
+- Substituting `\(Y = (n-1)S^2/\sigma^2\)` and rearranging to isolate `\(\sigma^2\)`:
+
+$$
+P\!\left(\frac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)} \leq \sigma^2 \leq \frac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)}\right) \overset{a}{=} 1 - \alpha
+$$
+]
+
+--
+
+.pull-left-wide[
+&gt; **CI for `\(\sigma^2\)`:**
+$$
+\hat{I} = \left[\frac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)},\;\; \frac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)}\right]
+$$
+- This CI is **not symmetric** around `\(S^2\)` because the `\(\chi^2\)` distribution is skewed
+]
+
+---
+# .red[Raise your hand 2: CI for the variance]
+
+<div class="countdown" id="timer_17418db4" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** Why is the CI for `\(\sigma^2\)` not symmetric around `\(S^2\)`?
+
+- **A)** Because `\(S^2\)` is a biased estimator of `\(\sigma^2\)`
+- **B)** Because the `\(\chi^2\)` distribution is right-skewed — the lower and upper critical values are not equidistant from the centre
+- **C)** Because `\(\alpha\)` is split unequally between the two tails
+]
+
+--
+
+.pull-left-wide[
+**Q2.** The pivot `\((n-1)S^2/\sigma^2 \sim \chi^2(n-1)\)` is an **exact** result. What does it require?
+
+- **A)** That `\(X\)` is normally distributed in the population
+- **B)** Only that `\(n\)` is large — the CLT makes it hold for any distribution
+- **C)** That `\(\sigma^2\)` is known — otherwise the pivot is not well-defined
+]
+
+
+
+---
+# .red[Practice 2: CI for the variance]
+
+.pull-left-wide[
+A normal population is sampled with `\(n = 20\)`, giving `\(S^2 = 16\)`.
+
+1. Construct a 95% CI for `\(\sigma^2\)`
+2. Is the interval symmetric around `\(S^2 = 16\)`? Why or why not?
+3. What does it mean if `\(\sigma^2 = 9\)` is inside the interval?
+
+.small123[*Hint:* `\(\chi^2_{0.025}(19) \approx 8.91\)`; `\(\chi^2_{0.975}(19) \approx 32.85\)`]
+]
+
+
+
+---
+class: inverse, middle, center
+# Confidence interval for the difference in means
+
+---
+# Setup: two independent samples
+
+.pull-left-wide[
+- We often want to compare two groups (e.g. wage gap between men and women)
+- Assume two independent simple random samples of sizes `\(n_1\)` and `\(n_2\)`
+]
+
+--
+
+.pull-left-wide[
+- The natural estimator of `\(\mu_1 - \mu_2\)` is `\(\bar{X}_1 - \bar{X}_2\)`:
+$$
+E(\bar{X}_1 - \bar{X}_2) = \mu_1 - \mu_2 \quad \text{(unbiased)}
+$$
+$$
+Var(\bar{X}_1 - \bar{X}_2) = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}
+$$
+]
+
+--
+
+.pull-left-wide[
+- By the CLT, `\(\bar{X}_1 - \bar{X}_2\)` is approximately normal, so:
+$$
+\frac{(\bar{X}_1 - \bar{X}_2) - (\mu_1 - \mu_2)}{\sqrt{\sigma_1^2/n_1 + \sigma_2^2/n_2}} \overset{a}{\sim} \mathcal{N}(0,1)
+$$
+]
+
+---
+# CI for `\(\mu_1 - \mu_2\)`: `\(\sigma_1^2, \sigma_2^2\)` known or unknown
+
+.pull-left-wide[
+&gt; **Approximate CI for `\(\mu_1 - \mu_2\)`, `\(\sigma_j^2\)` known:**
+$$
+\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}\right]
+$$
+]
+
+--
+
+.pull-left-wide[
+&gt; **Approximate CI for `\(\mu_1 - \mu_2\)`, `\(\sigma_j^2\)` unknown (replace with `\(S_j^2\)`):**
+$$
+\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}\right]
+$$
+]
+
+---
+# Pooled variance estimator
+
+.pull-left-wide[
+- If we have good reason to believe `\(\sigma_1^2 = \sigma_2^2 = \sigma^2\)`, we can combine information from both samples
+]
+
+--
+
+.pull-left-wide[
+&gt; The **pooled variance estimator** is:
+$$
+S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}
+$$
+]
+
+--
+
+.pull-left-wide[
+&gt; **CI for `\(\mu_1 - \mu_2\)`, equal variances assumed:**
+$$
+\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{S_p^2 \left(\frac{1}{n_1} + \frac{1}{n_2}\right)}\right]
+$$
+- If `\(X\)` is normal and `\(\sigma_1^2 = \sigma_2^2\)`, replace `\(z\)` with `\(t_{1-\alpha/2}(n_1 + n_2 - 2)\)` for an exact CI
+]
+
+---
+# .red[Raise your hand 3: CI for the difference in means]
+
+<div class="countdown" id="timer_4c480666" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** A 95% CI for `\(\mu_1 - \mu_2\)` is `\([-2,\; 8]\)`. What can we conclude?
+
+- **A)** `\(\mu_1 &gt; \mu_2\)` at the 95% confidence level, since the interval is mostly positive
+- **B)** The data are consistent with both `\(\mu_1 &gt; \mu_2\)` and `\(\mu_1 \leq \mu_2\)` — zero is inside the interval
+- **C)** `\(\mu_2 &gt; \mu_1\)` at the 95% confidence level, since the interval contains negative values
+]
+
+--
+
+.pull-left-wide[
+**Q2.** Why does the pooled variance estimator `\(S_p^2\)` give a better estimate than using `\(S_1^2\)` and `\(S_2^2\)` separately?
+
+- **A)** Because it always produces a smaller variance estimate, narrowing the CI
+- **B)** Because it avoids the need to assume normality in either group
+- **C)** Because when `\(\sigma_1^2 = \sigma_2^2\)`, pooling combines information from both samples, reducing estimation uncertainty
+]
+
+
+
+---
+# .red[Practice 3: CI for the difference in means]
+
+.pull-left-wide[
+Two independent samples of wages (€/hour):
+- Group 1 (men): `\(n_1 = 36\)`, `\(\bar{X}_1 = 28\)`, `\(S_1^2 = 25\)`
+- Group 2 (women): `\(n_2 = 49\)`, `\(\bar{X}_2 = 25\)`, `\(S_2^2 = 16\)`
+
+1. Construct a 95% CI for `\(\mu_1 - \mu_2\)` (use `\(z_{0.975} = 1.96\)`, variances unknown)
+2. Does the CI suggest a statistically meaningful difference between the groups?
+3. Now assume equal variances. Calculate `\(S_p^2\)` and construct the pooled CI. Does the conclusion change?
+]
+
+
+
+---
+class: inverse, middle, center
+# Confidence interval for the ratio of two variances
+
+---
+# When do we compare variances?
+
+.pull-left-wide[
+- Sometimes we want to know whether variability differs between two groups
+- We construct a CI for the **ratio** `\(\sigma_2^2 / \sigma_1^2\)`
+- If this ratio is 1, the variances are equal
+]
+
+--
+
+.pull-left-wide[
+- Assume `\(X_j \sim \mathcal{N}(\mu_j, \sigma_j^2)\)` in each group (`\(j = 1, 2\)`), independent samples
+- It can be shown that:
+$$
+\frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} = \frac{S_1^2 \cdot \sigma_2^2}{S_2^2 \cdot \sigma_1^2} \sim F(n_1 - 1,\; n_2 - 1)
+$$
+- The ***F*-distribution** is right-skewed and takes only positive values; as `\(n_2 \to \infty\)` it approaches `\(\chi^2(n_1-1)/(n_1-1)\)`
+]
+
+---
+# Deriving the CI for `\(\sigma_2^2 / \sigma_1^2\)`
+
+.pull-left-wide[
+- Let `\(F_{\alpha/2}\)` and `\(F_{1-\alpha/2}\)` be the critical values from `\(F(n_1-1, n_2-1)\)`:
+$$
+P\!\left(F_{\alpha/2} \leq \frac{S_1^2 \cdot \sigma_2^2}{S_2^2 \cdot \sigma_1^2} \leq F_{1-\alpha/2}\right) = 1 - \alpha
+$$
+]
+
+--
+
+.pull-left-wide[
+- Rearranging to isolate `\(\sigma_2^2/\sigma_1^2\)`:
+
+&gt; **Exact CI for `\(\sigma_2^2/\sigma_1^2\)`:**
+$$
+\hat{I} = \left[\frac{S_2^2}{S_1^2} \cdot F_{\alpha/2}(n_1-1, n_2-1),\;\; \frac{S_2^2}{S_1^2} \cdot F_{1-\alpha/2}(n_1-1, n_2-1)\right]
+$$
+- Also **not symmetric** around `\(S_2^2/S_1^2\)` because the `\(F\)`-distribution is skewed
+]
+
+---
+# .red[Raise your hand 4: CI for the ratio of variances]
+
+<div class="countdown" id="timer_6a42ad55" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** A 95% CI for `\(\sigma_2^2/\sigma_1^2\)` is `\([0.8,\; 2.5]\)`. What can we conclude?
+
+- **A)** `\(\sigma_2 &gt; \sigma_1\)`, since most of the interval is above 1
+- **B)** The data are consistent with equal variances — 1 is inside the interval — as well as with `\(\sigma_2^2\)` being up to 2.5 times `\(\sigma_1^2\)`
+- **C)** `\(\sigma_2^2 &gt; \sigma_1^2\)` at the 95% confidence level
+]
+
+--
+
+.pull-left-wide[
+**Q2.** Why does the `\(F\)`-distribution appear when comparing two sample variances?
+
+- **A)** Because the ratio of two normal random variables follows an `\(F\)`-distribution
+- **B)** Because `\(F\)` is always used when comparing statistics from two independent groups
+- **C)** Because each `\((n_j-1)S_j^2/\sigma_j^2 \sim \chi^2(n_j-1)\)`, and the ratio of two independent chi-square variables (divided by their degrees of freedom) defines an `\(F\)`
+]
+
+
+
+---
+# .red[Practice 4: CI for the ratio of variances]
+
+.pull-left-wide[
+Two independent normal samples:
+- Group 1: `\(n_1 = 11\)`, `\(S_1^2 = 8\)`
+- Group 2: `\(n_2 = 16\)`, `\(S_2^2 = 18\)`
+
+Construct a 95% CI for `\(\sigma_2^2/\sigma_1^2\)`.
+
+.small123[*Hint:* `\(F_{0.025}(10, 15) \approx 0.30\)`; `\(F_{0.975}(10, 15) \approx 3.06\)`]
+
+Does the CI suggest the variances are significantly different?
+]
+
+
+
+---
+class: inverse, middle, center
+# Determining the required sample size
+
+---
+# Width of a CI and sample size
+
+.pull-left-wide[
+- The variance of `\(\bar{X}\)` is `\(\sigma^2/n\)` — larger `\(n\)` gives a narrower CI
+- We can invert the CI formula to find the `\(n\)` needed to achieve a desired width
+]
+
+--
+
+.pull-left-wide[
+- The width of the CI for `\(\mu\)` (known `\(\sigma^2\)`) is `\(2 z_{1-\alpha/2} \cdot \sigma/\sqrt{n}\)`
+- Suppose we want the half-width to be at most `\(K\)`:
+$$
+z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \leq K \quad \Longrightarrow \quad n \geq \frac{z_{1-\alpha/2}^2 \cdot \sigma^2}{K^2}
+$$
+]
+
+--
+
+.pull-left-wide[
+&gt; **Required sample size:**
+$$
+n^* = \frac{z_{1-\alpha/2}^2 \cdot \sigma^2}{K^2}
+$$
+- Requires knowing `\(\sigma^2\)` — use a pilot study if unknown
+]
+
+---
+# Sample size for Bernoulli `\(X\)`
+
+.pull-left-wide[
+- If `\(X \sim Bernoulli(p)\)`, then `\(\sigma^2 = p(1-p)\)`, which depends on the unknown `\(p\)`
+]
+
+--
+
+.pull-left-wide[
+- The product `\(p(1-p)\)` is maximised at `\(p = 0.5\)`, giving `\(\sigma^2 \leq 0.25\)`
+- Substituting this worst-case bound:
+$$
+n^* = \frac{z_{1-\alpha/2}^2 \cdot 0.25}{K^2}
+$$
+- This guarantees the desired width **regardless of the true `\(p\)`** — a conservative bound
+]
+
+---
+# .red[Raise your hand 5: Sample size]
+
+<div class="countdown" id="timer_030accd9" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** To halve the width of a CI for `\(\mu\)`, how must `\(n\)` change?
+
+- **A)** Double `\(n\)` — width is proportional to `\(1/n\)`
+- **B)** Quadruple `\(n\)` — width is proportional to `\(1/\sqrt{n}\)`, so halving width requires multiplying `\(n\)` by 4
+- **C)** Triple `\(n\)` — halving the width requires tripling the observations
+]
+
+--
+
+.pull-left-wide[
+**Q2.** For `\(X \sim Bernoulli(p)\)`, using `\(p(1-p) \leq 0.25\)` in the sample size formula gives what guarantee?
+
+- **A)** The required `\(n\)` is sufficient regardless of the true `\(p\)` — it is a conservative worst-case bound
+- **B)** The CI width is exactly minimised when `\(p = 0.5\)`
+- **C)** The formula only applies when `\(p\)` is close to `\(0.5\)`
+]
+
+
+
+---
+# .red[Practice 5: Sample size]
+
+.pull-left-wide[
+A researcher wants a 95% CI for the mean income in a population, with a half-width of at most €500. A pilot study suggests `\(\sigma \approx 2{,}500\)`.
+
+1. Calculate the required sample size `\(n^*\)`
+2. How does `\(n^*\)` change if the required half-width is tightened to €250?
+3. Suppose instead `\(X \sim Bernoulli(p)\)` (e.g. employed/not employed) and we want half-width `\(\leq 0.03\)`. What is the conservative `\(n^*\)`?
+
+.small123[*Hint:* `\(z_{0.975} = 1.96\)`]
+]
+
+
+
+---
+# Key takeaways
+
+.pull-left-wide[
+**CI for `\(\mu\)`:** `\(\bar{X} \pm z_{1-\alpha/2} \cdot \sigma/\sqrt{n}\)` (normal approx); use `\(t(n-1)\)` when `\(X\)` normal and `\(\sigma\)` unknown
+
+**CI for `\(\sigma^2\)`:** based on `\(\chi^2(n-1)\)` pivot — asymmetric interval; requires normality for exact result
+]
+
+--
+
+.pull-left-wide[
+**CI for `\(\mu_1 - \mu_2\)`:** `\((\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \sqrt{S_1^2/n_1 + S_2^2/n_2}\)`; use pooled `\(S_p^2\)` when `\(\sigma_1^2 = \sigma_2^2\)`
+
+**CI for `\(\sigma_2^2/\sigma_1^2\)`:** based on `\(F(n_1-1, n_2-1)\)` pivot — also asymmetric
+]
+
+--
+
+.pull-left-wide[
+**Sample size:** `\(n^* = z_{1-\alpha/2}^2 \sigma^2 / K^2\)`; width `\(\propto 1/\sqrt{n}\)` — halving width requires 4× observations; for Bernoulli use `\(\sigma^2 = 0.25\)` as conservative bound
+]
+
+---
+# Before next time
+.pull-left[
+- Read the assigned reading
+- Next time: Hypothesis testing `\(\rightarrow\)` Chapter 14
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(SDU_logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 125px;
+  height: 60px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // insert more to hide here
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

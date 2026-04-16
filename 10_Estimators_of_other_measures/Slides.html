@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Slides.knit</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/panelset-0.3.0/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.3.0/panelset.js"></script>
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <link href="libs/countdown-0.4.0/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.4.0/countdown.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, inverse, middle
+
+
+
+
+
+<style>.xe__progress-bar__container {
+  top:0;
+  opacity: 1;
+  position:absolute;
+  right:0;
+  left: 0;
+}
+.xe__progress-bar {
+  height: 0.25em;
+  background-color: #808080;
+  width: calc(var(--slide-current) / var(--slide-total) * 100%);
+}
+.remark-visible .xe__progress-bar {
+  animation: xe__progress-bar__wipe 200ms forwards;
+  animation-timing-function: cubic-bezier(.86,0,.07,1);
+}
+@keyframes xe__progress-bar__wipe {
+  0% { width: calc(var(--slide-previous) / var(--slide-total) * 100%); }
+  100% { width: calc(var(--slide-current) / var(--slide-total) * 100%); }
+}</style>
+
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+&lt;/style&gt;
+
+
+
+# Statistics
+## Estimators of other descriptive measures
+### (Chapter 12)
+
+### Christian Vedel,&lt;br&gt;Department of Economics&lt;br&gt;University of Southern Denmark
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Updated 2026-04-16
+
+
+
+---
+class: middle
+# Today's lecture
+.pull-left-wide[
+**Extending the analogy principle to estimate variance, shape, and distribution**
+
+- **Section 1:** An estimator of the variance
+- **Section 2:** Estimators of higher-order moments
+- **Section 3:** Estimators of the covariance and correlation coefficient
+- **Section 4:** Estimating a distribution
+- **Section 5:** Estimators of quantiles
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# An estimator of the variance
+
+---
+# The analogy principle
+
+.pull-left-wide[
+- Recall: we built the sample average by applying the analogy principle to the population mean
+- We can apply the same principle to construct an estimator of the **variance**
+]
+
+--
+
+.pull-left-wide[
+- The variance of a discrete random variable `\(X\)` is:
+$$
+Var(X) = \sum_{i = 1}^N (x_i - \mu)^2 \cdot f_X(x_i)
+$$
+- To estimate `\(\sigma^2\)`, replace all unknown population quantities with sample counterparts
+]
+
+---
+# Variance estimator when `\(\mu\)` is known
+
+.pull-left-wide[
+- Suppose we know the population mean `\(\mu\)`
+- The only unknown is `\(f_X(x_i)\)`, which we replace with `\(1/n\)`
+]
+
+--
+
+.pull-left-wide[
+&gt; When `\(\mu\)` is known, the variance estimator is:
+$$
+\tilde{S}^2 = \frac{1}{n} \cdot \sum_{i = 1}^n (X_i - \mu)^2
+$$
+- `\(\tilde{S}^2\)` is an **unbiased** estimator of `\(\sigma^2\)`
+]
+
+---
+# Variance estimator when `\(\mu\)` is unknown
+
+.pull-left-wide[
+- In general `\(\mu\)` is unknown, so we replace it with `\(\bar{X}\)`
+- The naive plug-in estimator is:
+$$
+b^2 = \frac{1}{n} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2
+$$
+- But `\(b^2\)` is **biased**: `\(E(b^2) = \dfrac{n-1}{n} \cdot \sigma^2\)`
+]
+
+--
+
+.pull-left-wide[
+&gt; Correcting for the bias gives the **sample variance**:
+$$
+S^2 = \frac{1}{n - 1} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2
+$$
+- `\(S^2\)` is an **unbiased** and **consistent** estimator of `\(\sigma^2\)`
+]
+
+---
+# An estimator of the standard deviation
+
+.pull-left-wide[
+- A natural estimator of `\(\sigma\)` is `\(S = \sqrt{S^2}\)`
+]
+
+--
+
+.pull-left-wide[
+- However, `\(E[g(X)] \neq g[E(X)]\)` in general, so:
+$$
+E(S) = E\!\left(\sqrt{S^2}\right) \neq \sqrt{E(S^2)} = \sqrt{\sigma^2} = \sigma
+$$
+- `\(S\)` is a **biased** estimator of `\(\sigma\)` (but it is **consistent**)
+]
+
+---
+# Distribution of `\(S^2\)`: the chi-square
+
+.pull-left-wide[
+- It is easier to work with the scaled quantity:
+$$
+Y = S^2 \cdot \frac{n-1}{\sigma^2}
+$$
+]
+
+--
+
+.pull-left-wide[
+- In a normal population, `\(Y\)` follows a **chi-square** distribution with `\(n-1\)` degrees of freedom: `\(Y \sim \chi^2(n-1)\)`
+- This lets us find `\(F(S^2 \leq a)\)` by converting to a `\(\chi^2\)` probability:
+$$
+F(S^2 \leq a) = P\!\left(Y \leq a \cdot \frac{n-1}{\sigma^2}\right)
+$$
+- The `\(\chi^2\)` distribution is **not symmetric** and takes only positive values
+]
+
+---
+# .red[Raise your hand 1: Sample variance]
+
+<div class="countdown" id="timer_5ac5a5ec" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** Why do we divide by `\(n - 1\)` rather than `\(n\)` in the sample variance `\(S^2\)`?
+
+- **A)** Replacing `\(\mu\)` with `\(\bar{X}\)` uses up one degree of freedom, making `\(b^2 = \frac{1}{n}\sum(X_i - \bar{X})^2\)` systematically too small — dividing by `\(n-1\)` corrects the bias
+- **B)** Dividing by `\(n - 1\)` makes `\(S^2\)` a consistent estimator, whereas dividing by `\(n\)` does not
+- **C)** It is a convention with no statistical justification
+]
+
+--
+
+.pull-left-wide[
+**Q2.** `\(S^2\)` is unbiased for `\(\sigma^2\)`. Is `\(S = \sqrt{S^2}\)` unbiased for `\(\sigma\)`?
+
+- **A)** Yes — the square root of an unbiased estimator is also unbiased
+- **B)** Yes — because `\(S^2\)` is consistent, `\(S\)` inherits unbiasedness
+- **C)** No — `\(E(\sqrt{S^2}) \neq \sqrt{E(S^2)}\)` in general, so `\(S\)` is biased (though consistent)
+]
+
+
+
+---
+# .red[Practice 1: Sample variance]
+
+.pull-left-wide[
+A sample of `\(n = 5\)` observations: `\(\{2, 4, 4, 6, 9\}\)`.
+
+1. Calculate `\(\bar{X}\)`
+2. Calculate `\(S^2\)` (the unbiased sample variance)
+3. Why would `\(b^2 = \frac{1}{n}\sum(X_i - \bar{X})^2\)` give a different answer? Calculate `\(b^2\)` and compare
+4. For large `\(n\)`, does the difference between `\(S^2\)` and `\(b^2\)` matter? Why?
+]
+
+
+
+---
+class: inverse, middle, center
+# Estimators of higher-order moments
+
+---
+# Central moments
+
+.pull-left-wide[
+- The `\(k\)`-th **central moment** of `\(X\)` is:
+$$
+m_k^* = E\!\left([X - E(X)]^k\right) = \sum_{i=1}^N \left[(x_i - \mu)^k \cdot f_X(x_i)\right]
+$$
+]
+
+--
+
+.pull-left-wide[
+- The analogy principle gives the estimator:
+$$
+\hat{m}_k^* = \frac{1}{n} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right)^k
+$$
+- Similarly, the estimator of the `\(k\)`-th (raw) moment `\(E(X^k)\)` is `\(\hat{m}_k = \frac{1}{n}\sum_{i=1}^n X_i^k\)`
+]
+
+---
+# Skewness
+
+.pull-left-wide[
+- Raw moments depend on the unit of measurement — doubling the scale doubles the moment
+- We want scale-independent measures
+]
+
+--
+
+.pull-left-wide[
+&gt; **Skewness** is the standardised third central moment:
+$$
+\gamma_3 = \frac{m_3^*}{\sigma^3}, \qquad \hat{\gamma}_3 = \frac{\hat{m}_3^*}{S^3}
+$$
+
+- `\(\gamma_3 &gt; 0\)`: right-skewed (long right tail)
+- `\(\gamma_3 &lt; 0\)`: left-skewed (long left tail)
+- `\(\gamma_3 = 0\)`: symmetric (e.g. the normal distribution)
+]
+
+---
+# Kurtosis
+
+.pull-left-wide[
+&gt; **Kurtosis** is the standardised fourth central moment:
+$$
+\gamma_4 = \frac{m_4^*}{\sigma^4}, \qquad \hat{\gamma}_4 = \frac{\hat{m}_4^*}{S^4}
+$$
+
+- Measures the "peakedness" and tail weight of the distribution
+- For the normal distribution: `\(\gamma_3 = 0\)` and `\(\gamma_4 = 3\)`
+]
+
+--
+
+.pull-left-wide[
+- Skewness and kurtosis are primarily used to **compare a distribution to the normal**
+- Deviations from `\(\gamma_3 = 0\)` or `\(\gamma_4 = 3\)` signal non-normality
+]
+
+---
+# .red[Raise your hand 2: Skewness and kurtosis]
+
+<div class="countdown" id="timer_923744a3" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** A sample gives `\(\hat{\gamma}_3 = 1.8\)`. What does this indicate?
+
+- **A)** The distribution has a longer right tail than left — it is right-skewed
+- **B)** The distribution is more peaked than the normal
+- **C)** The distribution has higher variance than a symmetric distribution would
+]
+
+--
+
+.pull-left-wide[
+**Q2.** A sample gives `\(\hat{\gamma}_4 = 5\)`, compared to 3 for the normal. What does this suggest?
+
+- **A)** The distribution is more spread out (higher variance) than the normal
+- **B)** The distribution has heavier tails and a sharper peak than the normal — excess kurtosis
+- **C)** The distribution is right-skewed
+]
+
+
+
+---
+# .red[Practice 2: Skewness and kurtosis]
+
+.pull-left-wide[
+A dataset of `\(n = 6\)` income values (in €k): `\(\{10, 12, 14, 14, 16, 60\}\)`.
+
+1. Calculate `\(\bar{X}\)` and `\(S^2\)`
+2. Calculate `\(\hat{m}_3^*\)` (the third central moment)
+3. Calculate `\(\hat{\gamma}_3\)`. Is income right- or left-skewed? Does this make intuitive sense?
+]
+
+
+
+---
+class: inverse, middle, center
+# Estimators of the covariance and the correlation coefficient
+
+---
+# An estimator of the covariance
+
+.pull-left-wide[
+- The covariance between `\(X\)` and `\(Y\)` is:
+$$
+Cov(X, Y) = E\!\left[(X - \mu_X)(Y - \mu_Y)\right]
+$$
+]
+
+--
+
+.pull-left-wide[
+&gt; The **sample covariance** is:
+$$
+\widehat{Cov}(X, Y) = \frac{1}{n} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right)\!\left(Y_i - \bar{Y}\right)
+$$
+- Constructed by replacing `\(\mu_X\)`, `\(\mu_Y\)`, and `\(f(x_i, y_j)\)` with their sample counterparts
+]
+
+---
+# An estimator of the correlation coefficient
+
+.pull-left-wide[
+- The population correlation coefficient is:
+$$
+\rho(X, Y) = \frac{Cov(X, Y)}{\sqrt{Var(X) \cdot Var(Y)}}
+$$
+]
+
+--
+
+.pull-left-wide[
+&gt; The **sample correlation coefficient** is:
+$$
+\hat{\rho}(X, Y) = \frac{\widehat{Cov}(X, Y)}{\sqrt{S_X^2 \cdot S_Y^2}}
+$$
+- For large `\(n\)`: `\(\hat{\rho}(X, Y) \overset{a}{\sim} \mathcal{N}\!\left(\rho,\, \dfrac{(1 - \rho^2)^2}{n - 2}\right)\)`
+]
+
+---
+# .red[Raise your hand 3: Covariance and correlation]
+
+<div class="countdown" id="timer_8b485ed5" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** `\(\widehat{Cov}(X, Y) = 0\)` in a sample. Can we conclude that `\(X\)` and `\(Y\)` are independent?
+
+- **A)** No — zero covariance rules out a linear relationship but not non-linear dependence
+- **B)** Yes — zero covariance is equivalent to independence
+- **C)** Only if both `\(X\)` and `\(Y\)` are normally distributed, since normality makes independence and zero covariance equivalent
+]
+
+--
+
+.pull-left-wide[
+**Q2.** `\(\hat{\rho} = 0.9\)` between education and income. A colleague concludes "education causes higher income." What is the problem?
+
+- **A)** Nothing — high correlation always implies causation
+- **B)** Correlation measures linear association, not causation — a common cause (e.g. family background) could drive both
+- **C)** The formula for `\(\hat{\rho}\)` is only valid when both variables are normally distributed
+]
+
+
+
+---
+# .red[Practice 3: Covariance and correlation]
+
+.pull-left-wide[
+Four observations of `\((X, Y)\)`: `\((1,2),\, (2,4),\, (3,3),\, (4,7)\)`.
+
+1. Calculate `\(\bar{X}\)`, `\(\bar{Y}\)`, `\(S_X^2\)`, `\(S_Y^2\)`
+2. Calculate `\(\widehat{Cov}(X, Y)\)`
+3. Calculate `\(\hat{\rho}(X, Y)\)`. Interpret the result
+]
+
+
+
+---
+class: inverse, middle, center
+# Estimating a distribution
+
+---
+# The empirical distribution function
+
+.pull-left-wide[
+- Sometimes estimating moments is not enough — we want to know the shape of the full distribution
+- Recall that the CDF is defined as `\(F_X(x) = P(X \leq x)\)`
+]
+
+--
+
+.pull-left-wide[
+- By the analogy principle: `\(P(X \leq x)\)` is estimated by the fraction of sample observations `\(\leq x\)`
+]
+
+--
+
+.pull-left-wide[
+&gt; The **empirical distribution function** (EDF) is:
+$$
+\hat{F}_X(x) = \frac{\text{number of sample elements with } x_i \leq x}{n}
+$$
+]
+
+---
+# Properties of the EDF
+
+.pull-left-wide[
+- For a simple random sample, `\(\hat{F}_X(x)\)` is **unbiased** and **consistent**:
+$$
+E\!\left[\hat{F}_X(x)\right] = F_X(x) \quad \text{for all } x
+$$
+]
+
+--
+
+.pull-left-wide[
+- For large `\(n\)`, `\(\hat{F}_X(x)\)` is approximately normal for each fixed `\(x\)`:
+$$
+\hat{F}_X(x) \overset{a}{\sim} \mathcal{N}\!\left(F_X(x),\; \frac{F_X(x)\left[1 - F_X(x)\right]}{n}\right)
+$$
+]
+
+---
+# .red[Raise your hand 4: Empirical distribution function]
+
+<div class="countdown" id="timer_f37841fc" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** A sample of `\(n = 10\)` gives `\(\hat{F}_X(3) = 0.4\)`. What does this mean?
+
+- **A)** 40% of the sample observations are `\(\leq 3\)`
+- **B)** The probability that `\(X = 3\)` in the population is 0.4
+- **C)** The 40th percentile of the distribution equals 3
+]
+
+--
+
+.pull-left-wide[
+**Q2.** Why is `\(\hat{F}_X(x)\)` approximately normally distributed for large `\(n\)`?
+
+- **A)** Because the CDF `\(F_X(x)\)` is a smooth, continuous function
+- **B)** Because `\(\hat{F}_X(x)\)` is a sample proportion — the mean of Bernoulli indicators `\(\mathbf{1}(X_i \leq x)\)` — and the CLT applies
+- **C)** Because all sample statistics are approximately normal for large `\(n\)`
+]
+
+
+
+---
+# .red[Practice 4: Empirical distribution function]
+
+.pull-left-wide[
+A sample of `\(n = 8\)` observations (sorted): `\(\{3, 5, 5, 7, 8, 10, 12, 15\}\)`.
+
+1. Construct `\(\hat{F}_X(x)\)` for `\(x \in \{5, 7, 10\}\)`
+2. What is the approximate 95% confidence interval for `\(F_X(7)\)`?
+   .small123[Use: `\(\hat{F}_X(x) \pm 1.96\sqrt{\hat{F}_X(x)(1-\hat{F}_X(x))/n}\)`]
+3. Interpret `\(\hat{F}_X(10)\)` in plain language
+]
+
+
+
+---
+class: inverse, middle, center
+# Estimators of quantiles
+
+---
+# Estimated quantiles
+
+.pull-left-wide[
+- Recall: the `\(p\)`-th quantile `\(q_p\)` is the value where `\(F_X\)` crosses `\(p\)`
+- We estimate quantiles from the empirical distribution function: `\(\hat{q}_p\)` is where `\(\hat{F}_X\)` crosses `\(p\)`
+]
+
+--
+
+.pull-left-wide[
+- For example, the **sample median** `\(\hat{q}_{0.5}\)` is the value where `\(\hat{F}_X\)` crosses 0.5
+- If this crossing happens over an interval, we use the midpoint as the sample median
+]
+
+---
+# Order statistics
+
+.pull-left-wide[
+- The **$k$-th order statistic** `\(X_{(k)}\)` is the `\(k\)`-th smallest observation in the sample
+]
+
+--
+
+.pull-left-wide[
+&gt; The estimator of the `\(p\)`-th quantile using order statistics:
+$$
+\hat{q}_p =
+`\begin{cases}
+X_{(np + 1)}, &amp; \text{if } [np] \neq np \\[4pt]
+\dfrac{X_{(np)} + X_{(np + 1)}}{2}, &amp; \text{if } [np] = np
+\end{cases}`
+$$
+where `\([np]\)` denotes the integer part of `\(np\)`
+]
+
+---
+# Sample median
+
+.pull-left-wide[
+- For the sample median (`\(p = 0.5\)`), the formula simplifies to:
+
+$$
+\hat{q}_{0.5} =
+`\begin{cases}
+X_{\left(\frac{n+1}{2}\right)}, &amp; \text{if } n \text{ is odd} \\[6pt]
+\dfrac{X_{\left(\frac{n}{2}\right)} + X_{\left(\frac{n}{2}+1\right)}}{2}, &amp; \text{if } n \text{ is even}
+\end{cases}`
+$$
+]
+
+--
+
+.pull-left-wide[
+- The sample median is robust to outliers — unlike the sample mean
+- When a distribution is skewed, the median is often a better summary of the "typical" value
+]
+
+---
+# .red[Raise your hand 5: Quantiles]
+
+<div class="countdown" id="timer_274e22b4" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** A sample of `\(n = 10\)` sorted observations. What is the sample median?
+
+- **A)** `\(X_{(5)}\)` — the 5th order statistic
+- **B)** `\(X_{(6)}\)` — the 6th order statistic
+- **C)** `\(\dfrac{X_{(5)} + X_{(6)}}{2}\)` — the average of the 5th and 6th, because `\(n\)` is even
+]
+
+--
+
+.pull-left-wide[
+**Q2.** A sample gives `\(\hat{q}_{0.25} = 50\)`. What does this mean?
+
+- **A)** 25% of the sample observations fall at or below 50
+- **B)** The mean of the bottom quarter of the distribution is 50
+- **C)** The value 50 occurs with frequency 25% in the sample
+]
+
+
+
+---
+# .red[Practice 5: Order statistics and quantiles]
+
+.pull-left-wide[
+A sorted sample of `\(n = 9\)`: `\(\{3, 5, 7, 8, 10, 11, 14, 18, 25\}\)`.
+
+1. Find the sample median `\(\hat{q}_{0.5}\)`
+2. Find the first quartile `\(\hat{q}_{0.25}\)`
+3. Find the third quartile `\(\hat{q}_{0.75}\)`
+4. Calculate the interquartile range `\(\hat{q}_{0.75} - \hat{q}_{0.25}\)`. Why is this a useful summary of spread?
+]
+
+
+
+---
+# Key takeaways
+
+.pull-left-wide[
+**Variance:** `\(S^2 = \frac{1}{n-1}\sum(X_i - \bar{X})^2\)` — unbiased; `\(S\)` is biased but consistent for `\(\sigma\)`
+
+**Higher-order moments:** `\(\hat{m}_k^* = \frac{1}{n}\sum(X_i - \bar{X})^k\)` — skewness (`\(\gamma_3\)`) and kurtosis (`\(\gamma_4\)`) compare shape to the normal
+]
+
+--
+
+.pull-left-wide[
+**Covariance and correlation:**
+`$$\widehat{Cov}(X,Y) = \frac{1}{n}\sum(X_i-\bar{X})(Y_i-\bar{Y}), \quad \hat{\rho} = \frac{\widehat{Cov}(X,Y)}{\sqrt{S_X^2 S_Y^2}}$$`
+]
+
+--
+
+.pull-left-wide[
+**EDF and quantiles:** `\(\hat{F}_X(x) = \frac{\#\{x_i \leq x\}}{n}\)` — unbiased, consistent, asymptotically normal; quantiles estimated via order statistics
+]
+
+---
+# Before next time
+.pull-left[
+- Read the assigned reading
+- Next time: Confidence intervals `\(\rightarrow\)` Chapter 13
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(SDU_logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 125px;
+  height: 60px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // insert more to hide here
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
