@@ -170,9 +170,7 @@ class: inverse, middle, center
 .pull-left-wide[
 - The **law of iterated expectations** gives us:
 
-$$
-E_X(X) = E_Y \left[ E_{X|Y}(X|Y) \right] = \sum_{j = 1}^m E_{X|Y}(X | Y = y_j) \cdot f_Y(y_j)
-$$
+$$E_X(X) = E_Y \left[ E_{X|Y}(X|Y) \right] = \sum_{j = 1}^m E_{X|Y}(X | Y = y_j) \cdot f_Y(y_j)$$
 ]
 
 ---
@@ -181,9 +179,7 @@ $$
 .pull-left-wide[
 - The population mean of $X$ is a weighted average of stratum means, with weights $w_j = f_Y(y_j) = N_j / N$:
 
-$$
-\mu = E(X) = \sum_{j=1}^m \mu_j \cdot w_j
-$$
+$$\mu = E(X) = \sum_{j=1}^m \mu_j \cdot w_j$$
 
 where $N_j$ is the number of elements in stratum $j$ and $N$ is the total population size
 ]
@@ -206,9 +202,7 @@ where $N_j$ is the number of elements in stratum $j$ and $N$ is the total popula
 
 .pull-left-wide[
 - Within each stratum we have a simple random sample, so:
-$$
-\bar{X}_j = \frac{1}{n_j} \cdot \sum_{i = 1}^{n_j} X_{ij}
-$$
+$$\bar{X}_j = \frac{1}{n_j} \cdot \sum_{i = 1}^{n_j} X_{ij}$$
 where $n_j$ is the stratum sample size and $X_{ij}$ is the $i$-th element in stratum $j$
 ]
 
@@ -217,9 +211,7 @@ where $n_j$ is the stratum sample size and $X_{ij}$ is the $i$-th element in str
 
 .pull-left-wide[
 > The **stratified sample average** is the weighted sum of stratum sample averages:
-$$
-\bar{X}_{st} = \sum_{j = 1}^m \bar{X}_j \cdot w_j
-$$
+$$\bar{X}_{st} = \sum_{j = 1}^m \bar{X}_j \cdot w_j$$
 ]
 
 --
@@ -238,9 +230,7 @@ $$
 - *When?* When we have prior knowledge of the distribution of some characteristic $Y$
 
 **Stratified sample average**
-$$
-\bar{X}_{st} = \sum_{j = 1}^m \bar{X}_j \cdot w_j
-$$
+$$\bar{X}_{st} = \sum_{j = 1}^m \bar{X}_j \cdot w_j$$
 i.e., the weighted sum of stratum sample averages
 ]
 
@@ -301,17 +291,16 @@ A company of 1,000 employees is divided into three departments:
 | Finance | 200 | 4 | 60 |
 
 1. Calculate $w_j$ for each department
-2. Calculate $\bar{X}_{st}$
-3. Is this sample proportionally allocated? What does that imply for the simple average?
+2. Calculate $\bar{X}$ (simple average of all observations)
+3. Calculate $\bar{X}_{st}$
 ]
 
 ```{r practice1-answer, eval=FALSE, include=FALSE}
 # ANSWER
 # 1. w_Sales = 500/1000 = 0.5, w_IT = 300/1000 = 0.3, w_Finance = 200/1000 = 0.2
-# 2. X_st = 0.5*40 + 0.3*50 + 0.2*60 = 20 + 15 + 12 = 47
-# 3. n_j/n = N_j/N for all j (10/20=0.5, 6/20=0.3, 4/20=0.2): proportional allocation
-#    With proportional allocation the simple average equals the stratified average:
-#    simple = (10*40 + 6*50 + 4*60)/20 = (400+300+240)/20 = 940/20 = 47
+# 2. X_bar = (10*40 + 6*50 + 4*60) / 20 = (400+300+240)/20 = 940/20 = 47
+# 3. X_st = 0.5*40 + 0.3*50 + 0.2*60 = 20 + 15 + 12 = 47
+# Note: n_j/n = N_j/N for all j => proportional allocation => X_bar = X_st = 47
 ```
 
 ---
@@ -332,7 +321,10 @@ We evaluate $\bar{X}_{st}$ against the three desired estimator properties:
 --
 
 .pull-left-wide[
-Throughout, we compare $\bar{X}_{st}$ with the simple sample average $\bar{X}$
+- Throughout, we compare $\bar{X}_{st}$ with the simple sample average $\bar{X}$
+
+  - $\bar{X}$ is the simple average of all observations
+  - $\bar{X}_{st}$ is the weighted average of stratum averages: "We take the weighted average of each of the within-group averages."
 ]
 
 ---
@@ -348,35 +340,32 @@ Throughout, we compare $\bar{X}_{st}$ with the simple sample average $\bar{X}$
 .pull-left-wide[
 - The **stratified** sample average is unbiased:
 
-$$
-E \left( \bar{X}_{st} \right) = \sum_{j = 1}^m \left[ E \left( \bar{X}_j \right) \cdot w_j \right] = \sum_{j = 1}^m \mu_j \cdot w_j = \mu
-$$
+$$E \left( \bar{X}_{st} \right) = \sum_{j = 1}^m \left[ E \left( \bar{X}_j \right) \cdot w_j \right] = \sum_{j = 1}^m \mu_j \cdot w_j = \mu$$
 ]
 
 --
 
 .pull-left-wide[
 - Therefore: when sampling is stratified, always use $\bar{X}_{st}$, not $\bar{X}$
+
 ]
 
 ---
-# Efficiency: variance
+# Efficiency: Variance
 
 .pull-left-wide[
 - The variance of the stratum $j$ sample average is:
 $$
 Var \left( \bar{X}_j \right) = \frac{\sigma_j^2}{n_j}
 $$
-where $\sigma_j^2 = Var(X | Y = y_j)$
+where $\sigma_j^2$ is the population variance of $X$ within stratum $j$
 ]
 
 --
 
 .pull-left-wide[
 > The variance of the stratified sample average is:
-$$
-Var \left( \bar{X}_{st} \right) = \sum_{j=1}^m \frac{\sigma_j^2}{n_j} \cdot w_j^2
-$$
+$$Var \left( \bar{X}_{st} \right) = \sum_{j=1}^m \frac{\sigma_j^2}{n_j} \cdot w_j^2$$
 ]
 
 --
@@ -389,14 +378,37 @@ $$
 # Efficiency: comparison
 
 .pull-left-wide[
-- If $X$ and $Y$ are **independent**, stratifying makes no difference — $Var(\bar{X}_{st}) = Var(\bar{X})$
+- **Result 1:** If $X$ and $Y$ are **independent**, stratifying makes no difference — $Var(\bar{X}_{st}) = Var(\bar{X})$
+]
+
+.pull-right-narrow[
+.small123[
+*Why result 1:* $\sigma_k^2 = \sigma^2$ under independence; with $n_k = n W_k$:
+$$\sum_k W_k^2 \frac{\sigma^2}{n W_k} = \frac{\sigma^2}{n}\sum_k W_k = \frac{\sigma^2}{n}$$
+]
 ]
 
 --
 
 .pull-left-wide[
-- If $X$ and $Y$ are **correlated**, within-stratum variance is smaller than the overall variance
+- **Result 2:** If $X$ and $Y$ are **correlated**, within-stratum variance is smaller than the overall variance
 - In this case stratification reduces variance: $\bar{X}_{st}$ is more efficient than $\bar{X}$
+]
+
+.pull-right-narrow[
+.small123[
+*Why result 2:* correlation $\Rightarrow$ $\sigma_k^2 < \sigma^2$, so:
+$$\sum_k W_k^2 \frac{\sigma_k^2}{n W_k} = \frac{1}{n}\sum_k W_k \sigma_k^2 < \frac{\sigma^2}{n}$$
+]
+]
+
+--
+
+.pull-left-wide[
+**Intuition:**
+- Correlation means people *within* a stratum resemble each other more than the population at large
+- Stratifying forces coverage of all groups — bad-luck samples that over-represent one group are ruled out
+- Low within-stratum variance $\Rightarrow$ precise weighted average
 ]
 
 ---
@@ -405,6 +417,14 @@ $$
 .pull-left-wide[
 - The variance of $\bar{X}_{st}$ decreases as stratum sample sizes increase
 - The estimator is unbiased: $E(\bar{X}_{st}) = \mu$
+]
+
+.pull-right-narrow[
+.small123[
+*Why:* We showed $Var(\bar{X}_{st}) \leq \frac{\sigma^2}{n}$, so:
+$$0 \leq Var(\bar{X}_{st}) \leq \frac{\sigma^2}{n} \xrightarrow{n\to\infty} 0$$
+Variance is squeezed to zero.
+]
 ]
 
 --
@@ -435,46 +455,46 @@ countdown(0, 20, top=TRUE)
 ```
 
 .pull-left-wide[
-**Q1.** When is $\bar{X}_{st}$ more efficient than $\bar{X}$?
+**Q1.** You stratify by gender and estimate mean income. It turns out that within each gender, incomes vary just as much as in the full population. What follows?
 
-- **A)** When $X$ and $Y$ are correlated, so within-stratum variance is lower than overall variance
-- **B)** Always — stratification can only reduce variance, never increase it
-- **C)** Only when proportional allocation is used
+- **A)** Gender and income are uncorrelated in your data — stratifying by gender gives no efficiency gain over simple random sampling
+- **B)** You should use a different stratifying variable, but $\bar{X}_{st}$ is still more efficient than $\bar{X}$
+- **C)** The sample is too small — within-stratum variance should shrink as the sample grows
 ]
 
 --
 
 .pull-left-wide[
-**Q2.** Why is $\bar{X}$ biased in a non-proportional stratified sample, but $\bar{X}_{st}$ is not?
+**Q2.** A researcher stratifies by region but reports $\bar{X}$ (plain average) instead of $\bar{X}_{st}$. Under what condition is this a problem?
 
-- **A)** Because $\bar{X}$ uses the wrong formula for the stratum means
-- **B)** Because $\bar{X}_{st}$ corrects for over- or under-representation via the weights $w_j$
-- **C)** Because $\bar{X}$ is only unbiased in simple random samples drawn with replacement
+- **A)** Always — $\bar{X}$ is biased whenever the data come from a stratified design
+- **B)** Only if strata were sampled disproportionately; with proportional allocation $\bar{X}$ is unbiased
+- **C)** Only if the strata have different variances
 ]
 
 ```{r ryh2-answers, eval=FALSE, include=FALSE}
 # ANSWERS
 #
 # Q1: Answer A
-#   A: Correct — correlation between X and Y means within-stratum variance < total variance,
-#      so the weighted sum of stratum variances is smaller than the overall variance
-#   B: Tempting — stratification sounds like it can only help; but if X and Y are
-#      independent, Var(X_st) = Var(X_bar); efficiency depends on correlation, not just
-#      the act of stratifying
-#   C: Tempting — proportional allocation is a nice special case; but efficiency gains
-#      depend on correlation between X and Y, not on the allocation rule per se
+#   A: Correct — within-stratum variance = overall variance iff X and Y are independent
+#      (Result 1 from the slide). No correlation => no efficiency gain.
+#   B: Tempting — sounds like X_st is still "doing something"; but the formula shows
+#      Var(X_st) = Var(X_bar) under independence, so there is literally no gain
+#   C: Tempting — confuses the Law of Large Numbers (variance shrinks with n) with
+#      the stratification effect; within-stratum variance reflects population structure,
+#      not sample size
 #
 # Q2: Answer B
-#   A: Tempting — students might think each stratum mean is estimated wrongly;
-#      but X_bar_j is an unbiased estimator for mu_j within its stratum
-#   B: Correct — the weights w_j = N_j/N restore the correct population proportions,
-#      compensating for the non-representative sample structure
-#   C: Tempting — replacement vs. non-replacement affects variance, not bias;
-#      the issue here is weighting, not the sampling mechanism
+#   A: Tempting — students think stratified design always invalidates plain average;
+#      but with proportional allocation n_k/n = N_k/N, so X_bar = X_st automatically
+#   B: Correct — with non-proportional allocation, some strata are over/under-represented;
+#      X_bar gives them the wrong weight; X_st corrects via w_j = N_j/N
+#   C: Tempting — different variances matter for efficiency, not for bias;
+#      bias is purely a weighting issue
 ```
 
 ---
-# .red[Practice 2: Properties of $\bar{X}_{st}$]
+# .red[Practice 2: Properties of] $\bar{X}_{st}$
 
 .pull-left-wide[
 Using the same company data from Practice 1.
@@ -508,7 +528,8 @@ class: inverse, middle, center
 
 .pull-left-wide[
 - The variance of $\bar{X}_{st}$ depends on the stratum sample sizes $n_j$
-- To improve on $\bar{X}$, we need to choose $n_j$ to minimise $Var(\bar{X}_{st})$
+- To gain something from stratification, we need to choose $n_j$ wisely.
+- We ought to choose $n_j$ to minimise $Var(\bar{X}_{st})$
 ]
 
 --
@@ -524,9 +545,7 @@ Two common strategies:
 
 .pull-left-wide[
 > With known stratum variances $\sigma_j^2$, the variance-minimising stratum sample size is:
-$$
-n_j^* = n \cdot \frac{\sigma_j \cdot w_j}{\sum_{j=1}^m \sigma_j \cdot w_j}
-$$
+$$n_j^* = n \cdot \frac{\sigma_j \cdot w_j}{\sum_{j=1}^m \sigma_j \cdot w_j}$$
 ]
 
 --
@@ -542,9 +561,7 @@ $$
 
 .pull-left-wide[
 - With optimal allocation:
-$$
-Var \left( \bar{X}_{st} \right) = \frac{\left( \sum_{j=1}^m \sigma_j \cdot w_j \right)^2}{n}
-$$
+$$Var \left( \bar{X}_{st} \right) = \frac{\left( \sum_{j=1}^m \sigma_j \cdot w_j \right)^2}{n}$$
 ]
 
 --
@@ -552,6 +569,21 @@ $$
 .pull-left-wide[
 - $Var(\bar{X}_{st}) < Var(\bar{X})$ when the weighted average of stratum standard deviations is smaller than the overall standard deviation
 - This holds whenever within-stratum variance is smaller than overall variance
+]
+
+--
+
+.pull-right-narrow[
+.small123[
+*Why $Var(\bar{X}_{st}) < Var(\bar{X})$?:*  
+
+Need to show $S = \sum_j w_j \sigma_j \leq \sigma$.
+
+By Jensen's inequality ($\sqrt{\cdot}$ is concave):
+$$S = \sum_j w_j \sqrt{\sigma_j^2} \leq \sqrt{\sum_j w_j \sigma_j^2} \leq \sqrt{\sigma^2} = \sigma$$
+
+The last step uses the law of total variance: $\sigma^2 = \underbrace{\sum_j w_j \sigma_j^2}_{\text{within}} + \underbrace{\sum_j w_j(\mu_j - \mu)^2}_{\geq\, 0}$
+]
 ]
 
 ---
@@ -570,32 +602,43 @@ $$
   3. Plug into the formula to determine $n_j^*$ for the main study
 ]
 
+--
+
+.red[
+- Pilot studies are common in practice, but they add cost and complexity to the research process
+- If the pilot is too small, the $\sigma_j^2$ estimates may be noisy, leading to suboptimal allocation
+- Often researchers use proportional allocation is a more attractive alternative.
+]
+
 ---
 # Proportional allocation
 
 .pull-left-wide[
 > **Proportional allocation** sets stratum sizes proportional to population shares:
-$$
-\frac{n_j}{n} = \frac{N_j}{N}
-$$
+$$\frac{n_j}{n} = \frac{N_j}{N}$$
 ]
 
 --
 
 .pull-left-wide[
 - With proportional allocation, weighting is automatic:
-$$
-\bar{X}_{st, prop} = \frac{1}{n} \cdot \sum_{j=1}^m \sum_{i=1}^{n_j} X_{ij}
-$$
+$$\bar{X}_{st, prop} = \frac{1}{n} \cdot \sum_{j=1}^m \sum_{i=1}^{n_j} X_{ij} = \bar{X}$$
+- .red[This is just the simple average — no weights needed]
+]
+
+---
+# Proportional allocation: efficiency
+
+.pull-left-wide[
+- Variance under proportional allocation:
+$$Var \left( \bar{X}_{st, prop} \right) = \frac{1}{n} \sum_{j=1}^m \sigma_j^2 \cdot w_j$$
 ]
 
 --
 
 .pull-left-wide[
-- Variance under proportional allocation:
-$$
-Var \left( \bar{X}_{st, prop} \right) = \frac{1}{n} \sum_{j=1}^m \sigma_j^2 \cdot w_j
-$$
+- Since $\sum_j w_j \sigma_j^2 \leq \sigma^2$ (law of total variance), proportional allocation is **more efficient** than simple random sampling
+- It is **less efficient** than optimal allocation — but requires no knowledge of $\sigma_j^2$
 ]
 
 ---
@@ -614,6 +657,13 @@ $$
   - the population proportion $w_j$
 ]
 
+--
+
+.pull-left-wide[
+- **Bias:** $\bar{X}_{st}$ remains unbiased as long as we use the correct weights $w_j = N_j/N$ — it does not matter who designed the sample
+- **Variance:** the same formula applies; we just need to know $n_j$ and $w_j$
+]
+
 ---
 # Stratification without replacement
 
@@ -625,8 +675,8 @@ $$
 --
 
 .pull-left-wide[
-- This does **not** affect unbiasedness or consistency of $\bar{X}_{st}$
-- But it **does** change the variance formula
+- **Bias:** unaffected — $\bar{X}_{st}$ remains unbiased regardless of replacement
+- **Variance:** the formula changes — sampling without replacement introduces a finite-population correction factor that *reduces* variance
 ]
 
 ---
@@ -634,18 +684,14 @@ $$
 
 .pull-left-wide[
 - Without replacement from the full population:
-$$
-Var \left( \bar{X}_{norep} \right) = \frac{\sigma^2}{n} \cdot \frac{N}{N - 1} \cdot \left( 1 - \frac{n}{N} \right)
-$$
+$$Var \left( \bar{X}_{norep} \right) = \frac{\sigma^2}{n} \cdot \frac{N}{N - 1} \cdot \left( 1 - \frac{n}{N} \right)$$
 ]
 
 --
 
 .pull-left-wide[
 - For the stratified average without replacement:
-$$
-Var \left( \bar{X}_{st, norep} \right) = \sum_{j=1}^m \left[ w_j^2 \cdot \frac{\sigma_j^2}{n_j} \cdot \frac{N_j}{N_j - 1} \cdot \left( 1 - \frac{n_j}{N_j} \right) \right]
-$$
+$$Var \left( \bar{X}_{st, norep} \right) = \sum_{j=1}^m \left[ w_j^2 \cdot \frac{\sigma_j^2}{n_j} \cdot \frac{N_j}{N_j - 1} \cdot \left( 1 - \frac{n_j}{N_j} \right) \right]$$
 
 - The optimal stratum size formula also changes accordingly
 ]
@@ -661,6 +707,16 @@ $$
 - **Predetermined stratification:** $n_j$ given by the data provider
 
 **Sampling without replacement:** unbiasedness and consistency unchanged; variance formula differs
+]
+
+--
+
+.pull-left-wide[
+**Why not always stratify?**
+- Requires a complete frame with stratum membership known *before* sampling
+- Efficiency gain is negligible if $X$ and $Y$ are weakly correlated
+- Optimal allocation requires $\sigma_j^2$ — often unknown
+- Often data just happens to exist and then we use it. 
 ]
 
 ---
@@ -776,25 +832,26 @@ class: inverse, middle, center
 ---
 # Strata vs. clusters
 
-.pull-left-wide[
-**Strata** are **homogeneous** — all elements share the same value of $Y$
-- Purpose: minimise within-group variance of $X$
-- We sample from *all* strata
+.pull-left[
+**Strata**
+- Groups are **homogeneous** internally
+- Purpose: reduce variance of $\bar{X}_{st}$
+- Sample from **all** strata
+- Gain: statistical efficiency
 ]
 
---
-
-.pull-left-wide[
-**Clusters** are **heterogeneous** — each cluster should look like a mini-version of the full population
+.pull-right[
+**Clusters**
+- Groups are **heterogeneous** — each is a mini-population
 - Purpose: reduce cost
-- We sample *some* clusters, not all
+- Sample **some** clusters only
+- Gain: logistical feasibility
 ]
 
 --
 
 .pull-left-wide[
-- Cluster sampling is motivated by **cost**, not statistical efficiency (unlike stratification)
-- Lower cost means we can potentially afford a larger $n$
+- Cluster sampling is motivated by **cost**, not efficiency — but lower cost may allow a larger $n$
 ]
 
 ---
@@ -809,9 +866,7 @@ class: inverse, middle, center
 
 .pull-left-wide[
 > The **cluster sample average** is:
-$$
-\bar{X}_{cluster} = \frac{1}{k} \cdot \sum_{j=1}^k \bar{X}_j = \frac{1}{k \cdot \bar{N}} \cdot \sum_{j=1}^k \sum_{i=1}^{\bar{N}} X_{ij}
-$$
+$$\bar{X}_{cluster} = \frac{1}{k} \cdot \sum_{j=1}^k \bar{X}_j = \frac{1}{k \cdot \bar{N}} \cdot \sum_{j=1}^k \sum_{i=1}^{\bar{N}} X_{ij}$$
 ]
 
 ---
