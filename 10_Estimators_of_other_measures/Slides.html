@@ -124,6 +124,7 @@ class: middle
 .pull-left-wide[
 **Extending the analogy principle to estimate variance, shape, and distribution**
 
+- **Section 0:** A few more distributions
 - **Section 1:** An estimator of the variance
 - **Section 2:** Estimators of higher-order moments
 - **Section 3:** Estimators of the covariance and correlation coefficient
@@ -133,6 +134,44 @@ class: middle
 
 .pull-right-narrow[
 ![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# A few more distributions
+
+---
+# The chi-square distribution
+
+
+
+.pull-left[
+&gt; If `\(Z_1, \ldots, Z_k \overset{iid}{\sim} N(0,1)\)`, then:
+`$$Y = \sum_{i=1}^k Z_i^2 \sim \chi^2(k)$$`
+- `\(E(Y) = k\)`, `\(\quad Var(Y) = 2k\)`
+- Right-skewed, positive values only
+- We will use it for the distribution of `\(S^2\)`
+]
+
+.pull-right[
+![Chi-square](Figures/chisq-fig.png)
+]
+
+---
+# The Student's `\(t\)`-distribution
+
+
+
+.pull-left[
+&gt; If `\(Z \sim N(0,1)\)` and `\(Y \sim \chi^2(k)\)` independent:
+`$$T = \frac{Z}{\sqrt{Y/k}} \sim t(k)$$`
+- `\(E(T) = 0\)`, `\(\quad Var(T) = \dfrac{k}{k-2}\)`
+- Heavier tails than normal; `\(t(k) \to N(0,1)\)` as `\(k \to \infty\)`
+- .red[**Next lecture:** used to build confidence intervals for `\(\mu\)` when `\(\sigma^2\)` is unknown]
+]
+
+.pull-right[
+![Student t](Figures/t-fig.png)
 ]
 
 ---
@@ -151,9 +190,7 @@ class: inverse, middle, center
 
 .pull-left-wide[
 - The variance of a discrete random variable `\(X\)` is:
-$$
-Var(X) = \sum_{i = 1}^N (x_i - \mu)^2 \cdot f_X(x_i)
-$$
+`$$Var(X) = \sum_{i = 1}^N (x_i - \mu)^2 \cdot f_X(x_i)$$`
 - To estimate `\(\sigma^2\)`, replace all unknown population quantities with sample counterparts
 ]
 
@@ -169,9 +206,7 @@ $$
 
 .pull-left-wide[
 &gt; When `\(\mu\)` is known, the variance estimator is:
-$$
-\tilde{S}^2 = \frac{1}{n} \cdot \sum_{i = 1}^n (X_i - \mu)^2
-$$
+`$$\tilde{S}^2 = \frac{1}{n} \cdot \sum_{i = 1}^n (X_i - \mu)^2$$`
 - `\(\tilde{S}^2\)` is an **unbiased** estimator of `\(\sigma^2\)`
 ]
 
@@ -181,19 +216,45 @@ $$
 .pull-left-wide[
 - In general `\(\mu\)` is unknown, so we replace it with `\(\bar{X}\)`
 - The naive plug-in estimator is:
-$$
-b^2 = \frac{1}{n} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2
-$$
-- But `\(b^2\)` is **biased**: `\(E(b^2) = \dfrac{n-1}{n} \cdot \sigma^2\)`
+`$$b^2 = \frac{1}{n} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2$$`
+- But `\(b^2\)` is **biased**: `\(E(b^2) = \dfrac{n-1}{n}\sigma^2 &lt; \sigma^2\)` — it underestimates `\(\sigma^2\)`
+]
+
+---
+# Why is `\(b^2\)` biased? (Proof)
+
+.pull-left-wide[
+Decompose `\((X_i - \bar{X}) = (X_i - \mu) - (\bar{X} - \mu)\)`, square and sum:
+`$$\sum_{i=1}^n (X_i - \bar{X})^2 = \sum_{i=1}^n (X_i-\mu)^2 - n(\bar{X}-\mu)^2$$`
 ]
 
 --
 
 .pull-left-wide[
+Take expectations (using `\(E(X_i-\mu)^2 = \sigma^2\)` and `\(E(\bar{X}-\mu)^2 = \sigma^2/n\)`):
+`$$E\!\left[\sum_{i=1}^n (X_i - \bar{X})^2\right] = n\sigma^2 - n \cdot \frac{\sigma^2}{n} = (n-1)\sigma^2$$`
+]
+
+--
+
+.pull-left-wide[
+Therefore:
+`$$E(b^2) = \frac{1}{n}(n-1)\sigma^2 = \frac{n-1}{n}\sigma^2 &lt; \sigma^2 \quad \blacksquare$$`
+
+]
+
+---
+# The sample variance
+
+.pull-left-wide[
 &gt; Correcting for the bias gives the **sample variance**:
-$$
-S^2 = \frac{1}{n - 1} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2
-$$
+`$$S^2 = \frac{1}{n - 1} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2$$`
+]
+
+--
+
+.pull-left-wide[
+- Dividing by `\(n-1\)` instead of `\(n\)` inflates the estimate just enough to remove the bias
 - `\(S^2\)` is an **unbiased** and **consistent** estimator of `\(\sigma^2\)`
 ]
 
@@ -208,10 +269,30 @@ $$
 
 .pull-left-wide[
 - However, `\(E[g(X)] \neq g[E(X)]\)` in general, so:
-$$
-E(S) = E\!\left(\sqrt{S^2}\right) \neq \sqrt{E(S^2)} = \sqrt{\sigma^2} = \sigma
-$$
+`$$E(S) = E\left(\sqrt{S^2}\right) \neq \sqrt{E(S^2)} = \sqrt{\sigma^2} = \sigma$$`
 - `\(S\)` is a **biased** estimator of `\(\sigma\)` (but it is **consistent**)
+]
+
+---
+# Why is `\(S\)` biased? (Proof)
+
+.pull-left-wide[
+Since `\(\sqrt{\cdot}\)` is a **concave** function, Jensen's inequality gives:
+`$$E\!\left[\sqrt{S^2}\right] \leq \sqrt{E\!\left[S^2\right]}$$`
+]
+
+--
+
+.pull-left-wide[
+Since `\(S^2\)` is unbiased, `\(E[S^2] = \sigma^2\)`, so:
+`$$E(S) \leq \sqrt{\sigma^2} = \sigma$$`
+- `\(S\)` strictly underestimates `\(\sigma\)` for finite `\(n\)` `\(\quad\blacksquare\)`
+]
+
+--
+
+.pull-left-wide[
+As `\(n \to \infty\)`, `\(S^2 \xrightarrow{p} \sigma^2\)`, so `\(S \xrightarrow{p} \sigma\)` — `\(S\)` is **consistent** despite the bias.
 ]
 
 ---
@@ -219,9 +300,7 @@ $$
 
 .pull-left-wide[
 - It is easier to work with the scaled quantity:
-$$
-Y = S^2 \cdot \frac{n-1}{\sigma^2}
-$$
+`$$Y = S^2 \cdot \frac{n-1}{\sigma^2}$$`
 ]
 
 --
@@ -229,26 +308,47 @@ $$
 .pull-left-wide[
 - In a normal population, `\(Y\)` follows a **chi-square** distribution with `\(n-1\)` degrees of freedom: `\(Y \sim \chi^2(n-1)\)`
 - This lets us find `\(F(S^2 \leq a)\)` by converting to a `\(\chi^2\)` probability:
-$$
-F(S^2 \leq a) = P\!\left(Y \leq a \cdot \frac{n-1}{\sigma^2}\right)
-$$
+`$$F(S^2 \leq a) = P\left(Y \leq a \cdot \frac{n-1}{\sigma^2}\right)$$`
 - The `\(\chi^2\)` distribution is **not symmetric** and takes only positive values
+]
+
+---
+# Using the chi-square: example
+
+.pull-left-wide[
+**Why do we care?** Knowing the distribution of `\(S^2\)` lets us say how surprising an observed variance is — and later, build confidence intervals and hypothesis tests for `\(\sigma^2\)`.
+]
+
+--
+
+.pull-left-wide[
+**Example:** Wages are normally distributed with `\(\sigma^2 = 100\)`. We draw `\(n = 11\)` observations and observe `\(S^2 = 130\)`. How likely is it to see a sample variance this large or smaller?
+]
+
+--
+
+.pull-left-wide[
+Scale to `\(\chi^2\)`: `\(\quad Y = S^2 \cdot \dfrac{n-1}{\sigma^2} = 130 \cdot \dfrac{10}{100} = 13\)`
+
+`$$F(S^2 \leq 130) = P(\chi^2(10) \leq 13) \approx 0.77$$`
+
+About 77% of samples would produce a variance at most this large — not unusual.
 ]
 
 ---
 # .red[Raise your hand 1: Sample variance]
 
-<div class="countdown" id="timer_5ac5a5ec" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_6e5e4e55" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
 
 .pull-left-wide[
-**Q1.** Why do we divide by `\(n - 1\)` rather than `\(n\)` in the sample variance `\(S^2\)`?
+**Q1.** Which of the following are correct reasons to divide by `\(n - 1\)` rather than `\(n\)`? (There may be more than one.)
 
-- **A)** Replacing `\(\mu\)` with `\(\bar{X}\)` uses up one degree of freedom, making `\(b^2 = \frac{1}{n}\sum(X_i - \bar{X})^2\)` systematically too small — dividing by `\(n-1\)` corrects the bias
-- **B)** Dividing by `\(n - 1\)` makes `\(S^2\)` a consistent estimator, whereas dividing by `\(n\)` does not
-- **C)** It is a convention with no statistical justification
+- **A)** It corrects for bias — `\(b^2\)` underestimates `\(\sigma^2\)` because `\(\bar{X}\)` is chosen to minimise the very deviations we are summing
+- **B)** The `\(n\)` deviations `\((X_i - \bar{X})\)` must sum to zero, so only `\(n-1\)` are free
+- **C)** It makes `\(S^2\)` consistent — `\(b^2\)` is not consistent
 ]
 
 --
@@ -286,66 +386,60 @@ class: inverse, middle, center
 
 .pull-left-wide[
 - The `\(k\)`-th **central moment** of `\(X\)` is:
-$$
-m_k^* = E\!\left([X - E(X)]^k\right) = \sum_{i=1}^N \left[(x_i - \mu)^k \cdot f_X(x_i)\right]
-$$
+`$$m_k^* = E\!\left([X - E(X)]^k\right) = \sum_{i=1}^N \left[(x_i - \mu)^k \cdot f_X(x_i)\right]$$`
 ]
 
 --
 
 .pull-left-wide[
 - The analogy principle gives the estimator:
-$$
-\hat{m}_k^* = \frac{1}{n} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right)^k
-$$
+`$$\hat{m}_k^* = \frac{1}{n} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right)^k$$`
 - Similarly, the estimator of the `\(k\)`-th (raw) moment `\(E(X^k)\)` is `\(\hat{m}_k = \frac{1}{n}\sum_{i=1}^n X_i^k\)`
 ]
 
 ---
 # Skewness
 
-.pull-left-wide[
-- Raw moments depend on the unit of measurement — doubling the scale doubles the moment
-- We want scale-independent measures
-]
 
---
 
-.pull-left-wide[
+.pull-left[
+- Raw moments depend on the unit of measurement — we want scale-independent measures
+
 &gt; **Skewness** is the standardised third central moment:
-$$
-\gamma_3 = \frac{m_3^*}{\sigma^3}, \qquad \hat{\gamma}_3 = \frac{\hat{m}_3^*}{S^3}
-$$
+`$$\gamma_3 = \frac{m_3^*}{\sigma^3}, \qquad \hat{\gamma}_3 = \frac{\hat{m}_3^*}{S^3}$$`
 
 - `\(\gamma_3 &gt; 0\)`: right-skewed (long right tail)
 - `\(\gamma_3 &lt; 0\)`: left-skewed (long left tail)
-- `\(\gamma_3 = 0\)`: symmetric (e.g. the normal distribution)
+- `\(\gamma_3 = 0\)`: symmetric
+]
+
+.pull-right[
+![Skewness](Figures/skewness-fig.png)
 ]
 
 ---
 # Kurtosis
 
-.pull-left-wide[
-&gt; **Kurtosis** is the standardised fourth central moment:
-$$
-\gamma_4 = \frac{m_4^*}{\sigma^4}, \qquad \hat{\gamma}_4 = \frac{\hat{m}_4^*}{S^4}
-$$
 
-- Measures the "peakedness" and tail weight of the distribution
-- For the normal distribution: `\(\gamma_3 = 0\)` and `\(\gamma_4 = 3\)`
+
+.pull-left[
+&gt; **Kurtosis** is the standardised fourth central moment:
+`$$\gamma_4 = \frac{m_4^*}{\sigma^4}, \qquad \hat{\gamma}_4 = \frac{\hat{m}_4^*}{S^4}$$`
+
+- `\(\gamma_4 &gt; 3\)`: heavier tails than normal (leptokurtic)
+- `\(\gamma_4 &lt; 3\)`: lighter tails (platykurtic)
+- `\(\gamma_4 = 3\)`: normal distribution
+- Deviations from `\(\gamma_3 = 0\)` or `\(\gamma_4 = 3\)` signal non-normality
 ]
 
---
-
-.pull-left-wide[
-- Skewness and kurtosis are primarily used to **compare a distribution to the normal**
-- Deviations from `\(\gamma_3 = 0\)` or `\(\gamma_4 = 3\)` signal non-normality
+.pull-right[
+![Kurtosis](Figures/kurtosis-fig.png)
 ]
 
 ---
 # .red[Raise your hand 2: Skewness and kurtosis]
 
-<div class="countdown" id="timer_923744a3" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_2ece122f" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -392,18 +486,14 @@ class: inverse, middle, center
 
 .pull-left-wide[
 - The covariance between `\(X\)` and `\(Y\)` is:
-$$
-Cov(X, Y) = E\!\left[(X - \mu_X)(Y - \mu_Y)\right]
-$$
+`$$Cov(X, Y) = E\!\left[(X - \mu_X)(Y - \mu_Y)\right]$$`
 ]
 
 --
 
 .pull-left-wide[
 &gt; The **sample covariance** is:
-$$
-\widehat{Cov}(X, Y) = \frac{1}{n} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right)\!\left(Y_i - \bar{Y}\right)
-$$
+`$$\widehat{Cov}(X, Y) = \frac{1}{n} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right)\!\left(Y_i - \bar{Y}\right)$$`
 - Constructed by replacing `\(\mu_X\)`, `\(\mu_Y\)`, and `\(f(x_i, y_j)\)` with their sample counterparts
 ]
 
@@ -412,25 +502,21 @@ $$
 
 .pull-left-wide[
 - The population correlation coefficient is:
-$$
-\rho(X, Y) = \frac{Cov(X, Y)}{\sqrt{Var(X) \cdot Var(Y)}}
-$$
+`$$\rho(X, Y) = \frac{Cov(X, Y)}{\sqrt{Var(X) \cdot Var(Y)}}$$`
 ]
 
 --
 
 .pull-left-wide[
 &gt; The **sample correlation coefficient** is:
-$$
-\hat{\rho}(X, Y) = \frac{\widehat{Cov}(X, Y)}{\sqrt{S_X^2 \cdot S_Y^2}}
-$$
+`$$\hat{\rho}(X, Y) = \frac{\widehat{Cov}(X, Y)}{\sqrt{S_X^2 \cdot S_Y^2}}$$`
 - For large `\(n\)`: `\(\hat{\rho}(X, Y) \overset{a}{\sim} \mathcal{N}\!\left(\rho,\, \dfrac{(1 - \rho^2)^2}{n - 2}\right)\)`
 ]
 
 ---
 # .red[Raise your hand 3: Covariance and correlation]
 
-<div class="countdown" id="timer_8b485ed5" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_68ea9791" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -490,9 +576,7 @@ class: inverse, middle, center
 
 .pull-left-wide[
 &gt; The **empirical distribution function** (EDF) is:
-$$
-\hat{F}_X(x) = \frac{\text{number of sample elements with } x_i \leq x}{n}
-$$
+`$$\hat{F}_X(x) = \frac{\text{number of sample elements with } x_i \leq x}{n}$$`
 ]
 
 ---
@@ -500,24 +584,20 @@ $$
 
 .pull-left-wide[
 - For a simple random sample, `\(\hat{F}_X(x)\)` is **unbiased** and **consistent**:
-$$
-E\!\left[\hat{F}_X(x)\right] = F_X(x) \quad \text{for all } x
-$$
+`$$E\!\left[\hat{F}_X(x)\right] = F_X(x) \quad \text{for all } x$$`
 ]
 
 --
 
 .pull-left-wide[
 - For large `\(n\)`, `\(\hat{F}_X(x)\)` is approximately normal for each fixed `\(x\)`:
-$$
-\hat{F}_X(x) \overset{a}{\sim} \mathcal{N}\!\left(F_X(x),\; \frac{F_X(x)\left[1 - F_X(x)\right]}{n}\right)
-$$
+`$$\hat{F}_X(x) \overset{a}{\sim} \mathcal{N}\!\left(F_X(x),\; \frac{F_X(x)\left[1 - F_X(x)\right]}{n}\right)$$`
 ]
 
 ---
 # .red[Raise your hand 4: Empirical distribution function]
 
-<div class="countdown" id="timer_f37841fc" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_033341d3" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -601,9 +681,7 @@ where `\([np]\)` denotes the integer part of `\(np\)`
 
 .pull-left-wide[
 - For the sample median (`\(p = 0.5\)`), the formula simplifies to:
-
-$$
-\hat{q}_{0.5} =
+`$$\hat{q}_{0.5} =
 `\begin{cases}
 X_{\left(\frac{n+1}{2}\right)}, &amp; \text{if } n \text{ is odd} \\[6pt]
 \dfrac{X_{\left(\frac{n}{2}\right)} + X_{\left(\frac{n}{2}+1\right)}}{2}, &amp; \text{if } n \text{ is even}
@@ -621,7 +699,7 @@ $$
 ---
 # .red[Raise your hand 5: Quantiles]
 
-<div class="countdown" id="timer_274e22b4" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_b09b420c" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>

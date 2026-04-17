@@ -108,6 +108,7 @@ class: middle
 .pull-left-wide[
 **Extending the analogy principle to estimate variance, shape, and distribution**
 
+- **Section 0:** A few more distributions
 - **Section 1:** An estimator of the variance
 - **Section 2:** Estimators of higher-order moments
 - **Section 3:** Estimators of the covariance and correlation coefficient
@@ -117,6 +118,81 @@ class: middle
 
 .pull-right-narrow[
 ![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# A few more distributions
+
+---
+# The chi-square distribution
+
+```{r chisq-fig-save, eval=FALSE, include=FALSE}
+library(ggplot2)
+df_chisq <- data.frame(
+  x = rep(seq(0.1, 25, length.out = 500), 4),
+  k = rep(c(2, 4, 7, 10), each = 500)
+)
+df_chisq$density <- dchisq(df_chisq$x, df = df_chisq$k)
+df_chisq$k <- factor(df_chisq$k, labels = c("k = 2", "k = 4", "k = 7", "k = 10"))
+
+p <- ggplot(df_chisq, aes(x = x, y = density, colour = k)) +
+  geom_line(linewidth = 1) +
+  scale_colour_brewer(palette = "Set1", name = "Degrees of\nfreedom") +
+  coord_cartesian(ylim = c(0, 0.35)) +
+  labs(x = "y", y = "Density") +
+  theme_minimal(base_size = 14)
+
+ggsave("Statistics/10_Estimators_of_other_measures/Figures/chisq-fig.png", p, width = 5, height = 3, dpi = 150)
+```
+
+.pull-left[
+> If $Z_1, \ldots, Z_k \overset{iid}{\sim} N(0,1)$, then:
+$$Y = \sum_{i=1}^k Z_i^2 \sim \chi^2(k)$$
+- $E(Y) = k$, $\quad Var(Y) = 2k$
+- Right-skewed, positive values only
+- We will use it for the distribution of $S^2$
+]
+
+.pull-right[
+![Chi-square](Figures/chisq-fig.png)
+]
+
+---
+# The Student's $t$-distribution
+
+```{r t-fig-save, eval=FALSE, include=FALSE}
+library(ggplot2)
+df_t <- data.frame(
+  x = rep(seq(-4, 4, length.out = 500), 4),
+  k = rep(c(1, 3, 10, Inf), each = 500)
+)
+df_t$density <- ifelse(
+  df_t$k == Inf,
+  dnorm(df_t$x),
+  dt(df_t$x, df = df_t$k)
+)
+df_t$dist <- factor(df_t$k, labels = c("t(1)", "t(3)", "t(10)", "N(0,1)"))
+
+p <- ggplot(df_t, aes(x = x, y = density, colour = dist)) +
+  geom_line(linewidth = 1) +
+  scale_colour_brewer(palette = "Set1", name = NULL) +
+  labs(x = "t", y = "Density") +
+  theme_minimal(base_size = 14)
+
+ggsave("Statistics/10_Estimators_of_other_measures/Figures/t-fig.png", p, width = 5, height = 3, dpi = 150)
+```
+
+.pull-left[
+> If $Z \sim N(0,1)$ and $Y \sim \chi^2(k)$ independent:
+$$T = \frac{Z}{\sqrt{Y/k}} \sim t(k)$$
+- $E(T) = 0$, $\quad Var(T) = \dfrac{k}{k-2}$
+- Heavier tails than normal; $t(k) \to N(0,1)$ as $k \to \infty$
+- .red[**Next lecture:** used to build confidence intervals for $\mu$ when $\sigma^2$ is unknown]
+]
+
+.pull-right[
+![Student t](Figures/t-fig.png)
 ]
 
 ---
@@ -135,9 +211,7 @@ class: inverse, middle, center
 
 .pull-left-wide[
 - The variance of a discrete random variable $X$ is:
-$$
-Var(X) = \sum_{i = 1}^N (x_i - \mu)^2 \cdot f_X(x_i)
-$$
+$$Var(X) = \sum_{i = 1}^N (x_i - \mu)^2 \cdot f_X(x_i)$$
 - To estimate $\sigma^2$, replace all unknown population quantities with sample counterparts
 ]
 
@@ -153,9 +227,7 @@ $$
 
 .pull-left-wide[
 > When $\mu$ is known, the variance estimator is:
-$$
-\tilde{S}^2 = \frac{1}{n} \cdot \sum_{i = 1}^n (X_i - \mu)^2
-$$
+$$\tilde{S}^2 = \frac{1}{n} \cdot \sum_{i = 1}^n (X_i - \mu)^2$$
 - $\tilde{S}^2$ is an **unbiased** estimator of $\sigma^2$
 ]
 
@@ -165,19 +237,45 @@ $$
 .pull-left-wide[
 - In general $\mu$ is unknown, so we replace it with $\bar{X}$
 - The naive plug-in estimator is:
-$$
-b^2 = \frac{1}{n} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2
-$$
-- But $b^2$ is **biased**: $E(b^2) = \dfrac{n-1}{n} \cdot \sigma^2$
+$$b^2 = \frac{1}{n} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2$$
+- But $b^2$ is **biased**: $E(b^2) = \dfrac{n-1}{n}\sigma^2 < \sigma^2$ — it underestimates $\sigma^2$
+]
+
+---
+# Why is $b^2$ biased? (Proof)
+
+.pull-left-wide[
+Decompose $(X_i - \bar{X}) = (X_i - \mu) - (\bar{X} - \mu)$, square and sum:
+$$\sum_{i=1}^n (X_i - \bar{X})^2 = \sum_{i=1}^n (X_i-\mu)^2 - n(\bar{X}-\mu)^2$$
 ]
 
 --
 
 .pull-left-wide[
+Take expectations (using $E(X_i-\mu)^2 = \sigma^2$ and $E(\bar{X}-\mu)^2 = \sigma^2/n$):
+$$E\!\left[\sum_{i=1}^n (X_i - \bar{X})^2\right] = n\sigma^2 - n \cdot \frac{\sigma^2}{n} = (n-1)\sigma^2$$
+]
+
+--
+
+.pull-left-wide[
+Therefore:
+$$E(b^2) = \frac{1}{n}(n-1)\sigma^2 = \frac{n-1}{n}\sigma^2 < \sigma^2 \quad \blacksquare$$
+
+]
+
+---
+# The sample variance
+
+.pull-left-wide[
 > Correcting for the bias gives the **sample variance**:
-$$
-S^2 = \frac{1}{n - 1} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2
-$$
+$$S^2 = \frac{1}{n - 1} \cdot \sum_{i = 1}^n \left( X_i - \bar{X} \right)^2$$
+]
+
+--
+
+.pull-left-wide[
+- Dividing by $n-1$ instead of $n$ inflates the estimate just enough to remove the bias
 - $S^2$ is an **unbiased** and **consistent** estimator of $\sigma^2$
 ]
 
@@ -192,10 +290,30 @@ $$
 
 .pull-left-wide[
 - However, $E[g(X)] \neq g[E(X)]$ in general, so:
-$$
-E(S) = E\!\left(\sqrt{S^2}\right) \neq \sqrt{E(S^2)} = \sqrt{\sigma^2} = \sigma
-$$
+$$E(S) = E\left(\sqrt{S^2}\right) \neq \sqrt{E(S^2)} = \sqrt{\sigma^2} = \sigma$$
 - $S$ is a **biased** estimator of $\sigma$ (but it is **consistent**)
+]
+
+---
+# Why is $S$ biased? (Proof)
+
+.pull-left-wide[
+Since $\sqrt{\cdot}$ is a **concave** function, Jensen's inequality gives:
+$$E\!\left[\sqrt{S^2}\right] \leq \sqrt{E\!\left[S^2\right]}$$
+]
+
+--
+
+.pull-left-wide[
+Since $S^2$ is unbiased, $E[S^2] = \sigma^2$, so:
+$$E(S) \leq \sqrt{\sigma^2} = \sigma$$
+- $S$ strictly underestimates $\sigma$ for finite $n$ $\quad\blacksquare$
+]
+
+--
+
+.pull-left-wide[
+As $n \to \infty$, $S^2 \xrightarrow{p} \sigma^2$, so $S \xrightarrow{p} \sigma$ — $S$ is **consistent** despite the bias.
 ]
 
 ---
@@ -203,9 +321,7 @@ $$
 
 .pull-left-wide[
 - It is easier to work with the scaled quantity:
-$$
-Y = S^2 \cdot \frac{n-1}{\sigma^2}
-$$
+$$Y = S^2 \cdot \frac{n-1}{\sigma^2}$$
 ]
 
 --
@@ -213,10 +329,31 @@ $$
 .pull-left-wide[
 - In a normal population, $Y$ follows a **chi-square** distribution with $n-1$ degrees of freedom: $Y \sim \chi^2(n-1)$
 - This lets us find $F(S^2 \leq a)$ by converting to a $\chi^2$ probability:
-$$
-F(S^2 \leq a) = P\!\left(Y \leq a \cdot \frac{n-1}{\sigma^2}\right)
-$$
+$$F(S^2 \leq a) = P\left(Y \leq a \cdot \frac{n-1}{\sigma^2}\right)$$
 - The $\chi^2$ distribution is **not symmetric** and takes only positive values
+]
+
+---
+# Using the chi-square: example
+
+.pull-left-wide[
+**Why do we care?** Knowing the distribution of $S^2$ lets us say how surprising an observed variance is — and later, build confidence intervals and hypothesis tests for $\sigma^2$.
+]
+
+--
+
+.pull-left-wide[
+**Example:** Wages are normally distributed with $\sigma^2 = 100$. We draw $n = 11$ observations and observe $S^2 = 130$. How likely is it to see a sample variance this large or smaller?
+]
+
+--
+
+.pull-left-wide[
+Scale to $\chi^2$: $\quad Y = S^2 \cdot \dfrac{n-1}{\sigma^2} = 130 \cdot \dfrac{10}{100} = 13$
+
+$$F(S^2 \leq 130) = P(\chi^2(10) \leq 13) \approx 0.77$$
+
+About 77% of samples would produce a variance at most this large — not unusual.
 ]
 
 ---
@@ -228,11 +365,11 @@ countdown(0, 20, top=TRUE)
 ```
 
 .pull-left-wide[
-**Q1.** Why do we divide by $n - 1$ rather than $n$ in the sample variance $S^2$?
+**Q1.** Which of the following are correct reasons to divide by $n - 1$ rather than $n$? (There may be more than one.)
 
-- **A)** Replacing $\mu$ with $\bar{X}$ uses up one degree of freedom, making $b^2 = \frac{1}{n}\sum(X_i - \bar{X})^2$ systematically too small — dividing by $n-1$ corrects the bias
-- **B)** Dividing by $n - 1$ makes $S^2$ a consistent estimator, whereas dividing by $n$ does not
-- **C)** It is a convention with no statistical justification
+- **A)** It corrects for bias — $b^2$ underestimates $\sigma^2$ because $\bar{X}$ is chosen to minimise the very deviations we are summing
+- **B)** The $n$ deviations $(X_i - \bar{X})$ must sum to zero, so only $n-1$ are free
+- **C)** It makes $S^2$ consistent — $b^2$ is not consistent
 ]
 
 --
@@ -248,13 +385,13 @@ countdown(0, 20, top=TRUE)
 ```{r ryh1-answers, eval=FALSE, include=FALSE}
 # ANSWERS
 #
-# Q1: Answer A
-#   A: Correct — X_bar is computed from the same sample, so the deviations (X_i - X_bar)
-#      are not free; they must sum to zero, leaving only n-1 free quantities
-#   B: Tempting — both b^2 and S^2 are consistent; the n-1 correction is about
+# Q1: Answers A and B
+#   A: Correct — X_bar minimises the sum of squared deviations from the sample,
+#      so (X_i - X_bar) are systematically smaller than (X_i - mu); b^2 is biased downward
+#   B: Correct — the n deviations must sum to zero (since sum(X_i - X_bar) = 0),
+#      so only n-1 are free; this is the degrees-of-freedom interpretation
+#   C: Wrong — both b^2 and S^2 are consistent; the n-1 correction is about
 #      unbiasedness, not consistency
-#   C: Tempting — students sometimes think statistical conventions are arbitrary;
-#      but the n-1 correction is a precise mathematical result, not a convention
 #
 # Q2: Answer C
 #   A: Tempting — sounds like a natural inheritance property; but the square root
@@ -301,60 +438,93 @@ class: inverse, middle, center
 
 .pull-left-wide[
 - The $k$-th **central moment** of $X$ is:
-$$
-m_k^* = E\!\left([X - E(X)]^k\right) = \sum_{i=1}^N \left[(x_i - \mu)^k \cdot f_X(x_i)\right]
-$$
+$$m_k^* = E\!\left([X - E(X)]^k\right) = \sum_{i=1}^N \left[(x_i - \mu)^k \cdot f_X(x_i)\right]$$
 ]
 
 --
 
 .pull-left-wide[
 - The analogy principle gives the estimator:
-$$
-\hat{m}_k^* = \frac{1}{n} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right)^k
-$$
+$$\hat{m}_k^* = \frac{1}{n} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right)^k$$
 - Similarly, the estimator of the $k$-th (raw) moment $E(X^k)$ is $\hat{m}_k = \frac{1}{n}\sum_{i=1}^n X_i^k$
 ]
 
 ---
 # Skewness
 
-.pull-left-wide[
-- Raw moments depend on the unit of measurement — doubling the scale doubles the moment
-- We want scale-independent measures
-]
+```{r skewness-fig-save, eval=FALSE, include=FALSE}
+library(ggplot2)
+x <- seq(0, 1, length.out = 500)
+df_skew <- data.frame(
+  x = rep(x, 3),
+  y = c(dbeta(x, 5, 2),   # left-skewed
+        dbeta(x, 3, 3),   # symmetric
+        dbeta(x, 2, 5)),  # right-skewed
+  type = rep(c("Left-skewed  (γ₃ < 0)", "Symmetric  (γ₃ = 0)", "Right-skewed  (γ₃ > 0)"), each = 500)
+)
+df_skew$type <- factor(df_skew$type, levels = c("Left-skewed  (γ₃ < 0)", "Symmetric  (γ₃ = 0)", "Right-skewed  (γ₃ > 0)"))
+p <- ggplot(df_skew, aes(x = x, y = y, colour = type)) +
+  geom_line(linewidth = 1) +
+  scale_colour_brewer(palette = "Set1", name = NULL) +
+  labs(x = NULL, y = "Density") +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "bottom")
+ggsave("Statistics/10_Estimators_of_other_measures/Figures/skewness-fig.png", p, width = 6, height = 3.2, dpi = 150)
+```
 
---
+.pull-left[
+- Raw moments depend on the unit of measurement — we want scale-independent measures
 
-.pull-left-wide[
 > **Skewness** is the standardised third central moment:
-$$
-\gamma_3 = \frac{m_3^*}{\sigma^3}, \qquad \hat{\gamma}_3 = \frac{\hat{m}_3^*}{S^3}
-$$
+$$\gamma_3 = \frac{m_3^*}{\sigma^3}, \qquad \hat{\gamma}_3 = \frac{\hat{m}_3^*}{S^3}$$
 
 - $\gamma_3 > 0$: right-skewed (long right tail)
 - $\gamma_3 < 0$: left-skewed (long left tail)
-- $\gamma_3 = 0$: symmetric (e.g. the normal distribution)
+- $\gamma_3 = 0$: symmetric
+]
+
+.pull-right[
+![Skewness](Figures/skewness-fig.png)
 ]
 
 ---
 # Kurtosis
 
-.pull-left-wide[
-> **Kurtosis** is the standardised fourth central moment:
-$$
-\gamma_4 = \frac{m_4^*}{\sigma^4}, \qquad \hat{\gamma}_4 = \frac{\hat{m}_4^*}{S^4}
-$$
+```{r kurtosis-fig-save, eval=FALSE, include=FALSE}
+library(ggplot2)
+x <- seq(-5, 5, length.out = 500)
+# Light tails: Beta(10,10) rescaled from [0,1] to [-4,4]
+y_light <- dbeta((x + 4) / 8, 10, 10) / 8
+df_kurt <- data.frame(
+  x = rep(x, 3),
+  y = c(dnorm(x),
+        dt(x, df = 3),  # heavy tails (high kurtosis)
+        y_light),       # light tails (low kurtosis)
+  type = rep(c("Normal  (γ₄ = 3)", "Heavy tails  (γ₄ > 3)", "Light tails  (γ₄ < 3)"), each = 500)
+)
+df_kurt$type <- factor(df_kurt$type, levels = c("Light tails  (γ₄ < 3)", "Normal  (γ₄ = 3)", "Heavy tails  (γ₄ > 3)"))
+p <- ggplot(df_kurt, aes(x = x, y = y, colour = type)) +
+  geom_line(linewidth = 1) +
+  scale_colour_brewer(palette = "Set1", name = NULL) +
+  coord_cartesian(ylim = c(0, 0.5)) +
+  labs(x = NULL, y = "Density") +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "bottom")
+ggsave("Statistics/10_Estimators_of_other_measures/Figures/kurtosis-fig.png", p, width = 6, height = 3.2, dpi = 150)
+```
 
-- Measures the "peakedness" and tail weight of the distribution
-- For the normal distribution: $\gamma_3 = 0$ and $\gamma_4 = 3$
+.pull-left[
+> **Kurtosis** is the standardised fourth central moment:
+$$\gamma_4 = \frac{m_4^*}{\sigma^4}, \qquad \hat{\gamma}_4 = \frac{\hat{m}_4^*}{S^4}$$
+
+- $\gamma_4 > 3$: heavier tails than normal (leptokurtic)
+- $\gamma_4 < 3$: lighter tails (platykurtic)
+- $\gamma_4 = 3$: normal distribution
+- Deviations from $\gamma_3 = 0$ or $\gamma_4 = 3$ signal non-normality
 ]
 
---
-
-.pull-left-wide[
-- Skewness and kurtosis are primarily used to **compare a distribution to the normal**
-- Deviations from $\gamma_3 = 0$ or $\gamma_4 = 3$ signal non-normality
+.pull-right[
+![Kurtosis](Figures/kurtosis-fig.png)
 ]
 
 ---
@@ -440,18 +610,14 @@ class: inverse, middle, center
 
 .pull-left-wide[
 - The covariance between $X$ and $Y$ is:
-$$
-Cov(X, Y) = E\!\left[(X - \mu_X)(Y - \mu_Y)\right]
-$$
+$$Cov(X, Y) = E\!\left[(X - \mu_X)(Y - \mu_Y)\right]$$
 ]
 
 --
 
 .pull-left-wide[
 > The **sample covariance** is:
-$$
-\widehat{Cov}(X, Y) = \frac{1}{n} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right)\!\left(Y_i - \bar{Y}\right)
-$$
+$$\widehat{Cov}(X, Y) = \frac{1}{n} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right)\!\left(Y_i - \bar{Y}\right)$$
 - Constructed by replacing $\mu_X$, $\mu_Y$, and $f(x_i, y_j)$ with their sample counterparts
 ]
 
@@ -460,18 +626,14 @@ $$
 
 .pull-left-wide[
 - The population correlation coefficient is:
-$$
-\rho(X, Y) = \frac{Cov(X, Y)}{\sqrt{Var(X) \cdot Var(Y)}}
-$$
+$$\rho(X, Y) = \frac{Cov(X, Y)}{\sqrt{Var(X) \cdot Var(Y)}}$$
 ]
 
 --
 
 .pull-left-wide[
 > The **sample correlation coefficient** is:
-$$
-\hat{\rho}(X, Y) = \frac{\widehat{Cov}(X, Y)}{\sqrt{S_X^2 \cdot S_Y^2}}
-$$
+$$\hat{\rho}(X, Y) = \frac{\widehat{Cov}(X, Y)}{\sqrt{S_X^2 \cdot S_Y^2}}$$
 - For large $n$: $\hat{\rho}(X, Y) \overset{a}{\sim} \mathcal{N}\!\left(\rho,\, \dfrac{(1 - \rho^2)^2}{n - 2}\right)$
 ]
 
@@ -526,28 +688,41 @@ countdown(0, 20, top=TRUE)
 # .red[Practice 3: Covariance and correlation]
 
 .pull-left-wide[
-Four observations of $(X, Y)$: $(1,2),\, (2,4),\, (3,3),\, (4,7)$.
+A researcher records hours of sleep the night before an exam and the exam score for 5 students:
+
+| Student | Sleep $X$ (hrs) | Score $Y$ |
+|:---:|:---:|:---:|
+| 1 | 4 | 45 |
+| 2 | 6 | 60 |
+| 3 | 7 | 70 |
+| 4 | 8 | 80 |
+| 5 | 9 | 85 |
 
 1. Calculate $\bar{X}$, $\bar{Y}$, $S_X^2$, $S_Y^2$
 2. Calculate $\widehat{Cov}(X, Y)$
 3. Calculate $\hat{\rho}(X, Y)$. Interpret the result
+4. Does this prove that more sleep *causes* better exam scores?
 ]
 
 ```{r practice3-answer, eval=FALSE, include=FALSE}
 # ANSWER
-# 1. X_bar = (1+2+3+4)/4 = 2.5
-#    Y_bar = (2+4+3+7)/4 = 4
-#    S_X^2 = [(1-2.5)^2+(2-2.5)^2+(3-2.5)^2+(4-2.5)^2]/(4-1)
-#          = [2.25+0.25+0.25+2.25]/3 = 5/3 ≈ 1.667
-#    S_Y^2 = [(2-4)^2+(4-4)^2+(3-4)^2+(7-4)^2]/(4-1)
-#          = [4+0+1+9]/3 = 14/3 ≈ 4.667
+# 1. X_bar = (4+6+7+8+9)/5 = 34/5 = 6.8
+#    Y_bar = (45+60+70+80+85)/5 = 340/5 = 68
+#    S_X^2 = [(4-6.8)^2+(6-6.8)^2+(7-6.8)^2+(8-6.8)^2+(9-6.8)^2] / 4
+#          = [7.84+0.64+0.04+1.44+4.84] / 4 = 14.8/4 = 3.7
+#    S_Y^2 = [(45-68)^2+(60-68)^2+(70-68)^2+(80-68)^2+(85-68)^2] / 4
+#          = [529+64+4+144+289] / 4 = 1030/4 = 257.5
 #
-# 2. Cov_hat = (1/4)*[(1-2.5)(2-4)+(2-2.5)(4-4)+(3-2.5)(3-4)+(4-2.5)(7-4)]
-#            = (1/4)*[(-1.5)(-2)+(−0.5)(0)+(0.5)(−1)+(1.5)(3)]
-#            = (1/4)*[3 + 0 - 0.5 + 4.5] = (1/4)*7 = 1.75
+# 2. Cov_hat = (1/5)*[(-2.8)(-23)+(-0.8)(-8)+(0.2)(2)+(1.2)(12)+(2.2)(17)]
+#            = (1/5)*[64.4 + 6.4 + 0.4 + 14.4 + 37.4]
+#            = (1/5)*123 = 24.6
 #
-# 3. rho_hat = 1.75 / sqrt(1.667 * 4.667) = 1.75 / sqrt(7.778) = 1.75 / 2.789 ≈ 0.63
-#    Moderate positive linear relationship between X and Y
+# 3. rho_hat = 24.6 / sqrt(3.7 * 257.5) = 24.6 / sqrt(952.75) = 24.6 / 30.87 ≈ 0.80
+#    Strong positive linear relationship — students who sleep more tend to score higher
+#
+# 4. No — correlation measures association, not causation.
+#    A common cause (e.g. being well-prepared) could drive both more sleep AND better scores.
+#    Or students who study more may sleep better because they feel confident.
 ```
 
 ---
@@ -572,9 +747,7 @@ class: inverse, middle, center
 
 .pull-left-wide[
 > The **empirical distribution function** (EDF) is:
-$$
-\hat{F}_X(x) = \frac{\text{number of sample elements with } x_i \leq x}{n}
-$$
+$$\hat{F}_X(x) = \frac{\text{number of sample elements with } x_i \leq x}{n}$$
 ]
 
 ---
@@ -582,18 +755,23 @@ $$
 
 .pull-left-wide[
 - For a simple random sample, $\hat{F}_X(x)$ is **unbiased** and **consistent**:
-$$
-E\!\left[\hat{F}_X(x)\right] = F_X(x) \quad \text{for all } x
-$$
+$$E\!\left[\hat{F}_X(x)\right] = F_X(x) \quad \text{for all } x$$
 ]
 
 --
 
 .pull-left-wide[
 - For large $n$, $\hat{F}_X(x)$ is approximately normal for each fixed $x$:
-$$
-\hat{F}_X(x) \overset{a}{\sim} \mathcal{N}\!\left(F_X(x),\; \frac{F_X(x)\left[1 - F_X(x)\right]}{n}\right)
-$$
+$$\hat{F}_X(x) \overset{a}{\sim} \mathcal{N}\!\left(F_X(x),\; \frac{F_X(x)\left[1 - F_X(x)\right]}{n}\right)$$
+]
+
+--
+
+.pull-left-wide[
+**What is this useful for?**
+- Testing whether a sample comes from a specific distribution (e.g. normality tests)
+- Comparing two empirical distributions — are wages in 2000 and 2020 from the same distribution?
+- Non-parametric inference: confidence bands for the full CDF without assuming a parametric form
 ]
 
 ---
@@ -715,9 +893,7 @@ where $[np]$ denotes the integer part of $np$
 
 .pull-left-wide[
 - For the sample median ($p = 0.5$), the formula simplifies to:
-
-$$
-\hat{q}_{0.5} =
+$$\hat{q}_{0.5} =
 \begin{cases}
 X_{\left(\frac{n+1}{2}\right)}, & \text{if } n \text{ is odd} \\[6pt]
 \dfrac{X_{\left(\frac{n}{2}\right)} + X_{\left(\frac{n}{2}+1\right)}}{2}, & \text{if } n \text{ is even}

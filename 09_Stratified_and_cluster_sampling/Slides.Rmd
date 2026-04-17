@@ -980,7 +980,7 @@ Sample means per school: 72, 68, 75, 70, 65.
 # Before next time
 .pull-left[
 - Read the assigned reading
-- Next time: Regression analysis $\rightarrow$ Chapter 12
+- Next time: Estimators of other measures $\rightarrow$ Chapter 12
 ]
 
 .pull-right[
