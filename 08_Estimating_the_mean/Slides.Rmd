@@ -1054,6 +1054,7 @@ These properties — unbiasedness, efficiency, consistency — are exactly the c
 
 .pull-left[
 - Stratified/Cluster, Estimators
+- .red[Remember, it's on Monday 12:00-14:00 in U168.]
 ]
 
 .pull-right[
