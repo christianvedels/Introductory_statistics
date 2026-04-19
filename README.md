@@ -12,6 +12,7 @@ When it gets difficult, pay extra attention. Your brain quickly finds "good reas
 - **Use ChatGPT (or similar) as a study buddy:** have it quiz you on a section or explain a definition.
 
 ## Semester plan
+**Info about the midterm exam: [See slides here](https://rawcdn.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Midterm_info/Slides.html#1)**
 
 | Week    | Topic                          | Reading      | Lectures                                               | Slides |
 | ------- | ------------------------------ | ------------ | ------------------------------------------------------ | ------ |
@@ -26,7 +27,7 @@ When it gets difficult, pay extra attention. Your brain quickly finds "good reas
 | Week 14 | *Easter*                        | *Easter*     |                                                        |        |
 | Week 16 | Stochastics, Sampling           | Ch. 7, 9     | 2026-04-07 (10:00-12:00); 2026-04-10 (10:00-12:00)    | [06_Slides](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/06_Stochastic_processes/Slides.html) [07_Slides](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/07_The_sampling_process/Slides.html) |
 | Week 17 | Sampling, Mean Estimation       | Ch. 9, 10    | 2026-04-14 (10:00-12:00); 2026-04-17 (10:00-12:00)    | [07_Slides](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/07_The_sampling_process/Slides.html) [08_Slides](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/08_Estimating_the_mean/Slides.html) |
-| Week 18 | Stratified/Cluster, Estimators  | Ch. 11, 12   | 2026-04-20 (12:00-14:00, U168); 2026-04-21 (10:00-12:00); 2026-04-24 (10:00-12:00) |        |
+| Week 18 | Stratified/Cluster, Estimators  | Ch. 11, 12   | 2026-04-20 (12:00-14:00, U168); 2026-04-21 (10:00-12:00); 2026-04-24 (10:00-12:00) | [09_Slides](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/09_Stratified_and_cluster_sampling/Slides.html) [10_Slides](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/10_Estimators_of_other_measures/Slides.html) |
 | Week 19 | Confidence Intervals            | Ch. 13       | 2026-04-27 (12:00-14:00, U168); 2026-04-28 (10:00-12:00) |        |
 | Week 20 | Confidence Int., Hyp. Testing   | Ch. 13, 14   | 2026-05-05 (10:00-12:00); 2026-05-08 (10:00-12:00)    |        |
 | Week 21 | Hypothesis Testing, Testing Quant. | Ch. 14, 15 | 2026-05-12 (10:00-12:00); 2026-05-15 (10:00-12:00)   |        |
