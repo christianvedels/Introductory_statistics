@@ -878,8 +878,7 @@ class: inverse, middle, center
 
 .pull-left-wide[
 > The estimator of the $p$-th quantile using order statistics:
-$$
-\hat{q}_p =
+$$\hat{q}_p =
 \begin{cases}
 X_{(np + 1)}, & \text{if } [np] \neq np \\[4pt]
 \dfrac{X_{(np)} + X_{(np + 1)}}{2}, & \text{if } [np] = np
