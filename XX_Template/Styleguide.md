@@ -30,7 +30,8 @@ It is written for both humans and machines and is based on the existing slide de
 - [ ] Agenda slide (`# Today's lecture`, `class: middle`) is the **first slide after** the title slide
 - [ ] Agenda uses `.pull-left-wide[]` for bullets and `.pull-right-narrow[]` for `Figures/Trees1.jpg`
 - [ ] Agenda has a one-line framing sentence in bold, followed by section bullets
-- [ ] Every major section transition has a divider slide (`class: inverse, middle, center`)
+- [ ] Total slide count is between 25 and 35 (for a 90-minute lecture)
+- [ ] Section divider slides (`class: inverse, middle, center`) are present for major transitions, or have been intentionally removed to meet the slide-count target
 - [ ] Deck ends with `# Before next time` slide using `.pull-left[]` + `.pull-right[]` (Trees image)
 - [ ] No placeholder text remains anywhere (e.g. `[Topic]`, `Chapter X`)
 
@@ -65,6 +66,10 @@ It is written for both humans and machines and is based on the existing slide de
 - [ ] No bare `P(X ≤ x)` in slide bodies — use `F(x)` instead
 - [ ] `P(·)` appears only when explicitly defining or deriving a relationship
 - [ ] Important formulas on separate `$$...$$` lines
+- [ ] No multi-line `$$...$$` blocks — every display equation is on a single source line (use `\begin{cases}...\end{cases}` etc. collapsed to one line)
+- [ ] No `\\[Xpt]` vertical-spacing modifiers inside equations — use bare `\\`
+- [ ] No `$...$` inline math inside CSS class spans (`.small123[...]`, `.red[...]`, etc.)
+- [ ] No bold markers (`**`) immediately adjacent to math delimiters — `**$k$**` does not render; write `$k$**-th**` or restructure
 
 ### G) Figures and code (§7, §8)
 - [ ] All figure assets stored in the lecture's `Figures/` folder
@@ -175,13 +180,21 @@ class: middle
 ]
 ```
 
-### Section divider slides (MUST)
+### Section divider slides (RECOMMENDED)
 
 Use this class for major transitions:
 
 - `class: inverse, middle, center`
 
 Keep divider content short (typically one section title).
+
+Section dividers improve pacing in longer decks but add slides without content. They are the **first thing to cut** when trimming slide count.
+
+### Target slide count
+
+- **Target: 25–35 slides** for a 90-minute lecture.
+- Below 25: content is likely too sparse or important material has been cut.
+- Above 35: the deck probably needs trimming — merge closely related slides, absorb proof steps as `--` reveals, and remove section dividers first.
 
 ---
 
@@ -339,6 +352,21 @@ countdown(0, 20, top=TRUE)
 	 - Realizations lowercase (`x`, `y`)
 3. Display important formulas on separate lines.
 4. Prefer one major equation block per teaching step.
+
+### xaringan math rendering rules (MUST)
+
+These are hard constraints — violating any of them causes equations to display as raw LaTeX:
+
+- **Single-line display math**: every `$$...$$` block must be on one source line. remarkjs splits multi-line blocks into separate paragraphs before MathJax runs. Multi-line environments (`\begin{cases}`, `\begin{aligned}`, etc.) must be collapsed to a single line:
+  ```
+  $$\hat{q}_p = \begin{cases} X_{(np+1)}, & \text{if } [np] \neq np \\ \dfrac{X_{(np)}+X_{(np+1)}}{2}, & \text{if } [np] = np \end{cases}$$
+  ```
+
+- **No `\\[Xpt]` spacing modifiers**: `\\[4pt]` and `\\[6pt]` are misread by the markdown renderer — `\\` becomes a line break, then `[4pt]` looks like a link reference. Use bare `\\` instead.
+
+- **No math inside CSS class spans**: `.small123[$...$]`, `.red[$...$]`, `.tiny123[$...$]` etc. all break MathJax. If you need smaller math, use `\scriptstyle` inside the math itself, or restructure the sentence so the math is outside the span.
+
+- **No `**` immediately adjacent to `$`**: `**$k$**` does not render — the bold boundary interferes with MathJax delimiter scanning. Keep math delimiters away from `**` boundaries, e.g. `$k$**-th order statistic**`.
 
 ---
 
