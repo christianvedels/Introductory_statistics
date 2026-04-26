@@ -140,13 +140,29 @@ class: inverse, middle, center
 ]
 
 ---
+# Example: average income in a population
+
+.pull-left-wide[
+- Suppose we want to estimate the average monthly income $\mu$ in a large population
+- We cannot survey everyone — instead we draw a simple random sample of $n = 100$ households
+- We observe: $\bar{X} = 35{,}200$ DKK and $S = 12{,}000$ DKK
+]
+
+--
+
+.pull-left-wide[
+- The point estimate $\bar{X} = 35{,}200$ DKK is our best single guess — but we know it will not equal $\mu$ exactly
+- A 95% confidence interval (using the formula we will derive) gives:
+$$\hat{I} = \left[35{,}200 - 1.96 \cdot \frac{12{,}000}{\sqrt{100}},\;\; 35{,}200 + 1.96 \cdot \frac{12{,}000}{\sqrt{100}}\right] \approx [32{,}848,\; 37{,}552] \text{ DKK}$$
+- In 95% of samples drawn this way, the resulting interval would contain the true mean income — we will now derive where this formula comes from
+]
+
+---
 # Setting up the CI for $\mu$
 
 .pull-left-wide[
 - We want an interval $\hat{I} = [W_l, W_u]$ centred around $\bar{X}$:
-$$
-\hat{I} = \left[\bar{X} - k,\; \bar{X} + k\right]
-$$
+$$\hat{I} = \left[\bar{X} - k,\; \bar{X} + k\right]$$
 - Because $\bar{X}$ is random, the bounds are random — the interval will not always contain $\mu$
 ]
 
@@ -155,9 +171,7 @@ $$
 .pull-left-wide[
 - We choose the **confidence level** $1 - \alpha$: the probability that the interval contains $\mu$
 
-$$
-1 - \alpha = P\!\left(\mu \in \hat{I}\right) = P\!\left(\bar{X} - k \leq \mu \leq \bar{X} + k\right)
-$$
+$$1 - \alpha = P\!\left(\mu \in \hat{I}\right) = P\!\left(\bar{X} - k \leq \mu \leq \bar{X} + k\right)$$
 ]
 
 ---
@@ -165,18 +179,14 @@ $$
 
 .pull-left-wide[
 - For a simple random sample, $\bar{X} \overset{a}{\sim} \mathcal{N}\!\left(\mu, \sigma^2/n\right)$, so:
-$$
-Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \overset{a}{\sim} \mathcal{N}(0, 1)
-$$
+$$Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \overset{a}{\sim} \mathcal{N}(0, 1)$$
 ]
 
 --
 
 .pull-left-wide[
 - Rewriting the coverage condition in terms of $Z$:
-$$
-1 - \alpha = P\!\left(-\frac{\sqrt{n}\,k}{\sigma} \leq Z \leq \frac{\sqrt{n}\,k}{\sigma}\right) = \Phi(a) - \Phi(-a)
-$$
+$$1 - \alpha = P\!\left(-\frac{\sqrt{n}\,k}{\sigma} \leq Z \leq \frac{\sqrt{n}\,k}{\sigma}\right) = \Phi(a) - \Phi(-a)$$
 where $a = \sqrt{n}\,k/\sigma$
 ]
 
@@ -184,9 +194,7 @@ where $a = \sqrt{n}\,k/\sigma$
 
 .pull-left-wide[
 - The **critical value** $z_{1-\alpha/2}$ satisfies $\Phi(z_{1-\alpha/2}) = 1 - \alpha/2$, giving $a = z_{1-\alpha/2}$ and:
-$$
-k = \frac{z_{1-\alpha/2} \cdot \sigma}{\sqrt{n}}
-$$
+$$k = \frac{z_{1-\alpha/2} \cdot \sigma}{\sqrt{n}}$$
 ]
 
 ---
@@ -194,9 +202,7 @@ $$
 
 .pull-left-wide[
 > **CI for $\mu$, $\sigma$ known (approximate):**
-$$
-\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\right]
-$$
+$$\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\right]$$
 ]
 
 --
@@ -222,9 +228,7 @@ $$
 
 .pull-left-wide[
 > **CI for $\mu$, $\sigma$ unknown (approximate):**
-$$
-\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \sqrt{\frac{S^2}{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \sqrt{\frac{S^2}{n}}\right]
-$$
+$$\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \sqrt{\frac{S^2}{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \sqrt{\frac{S^2}{n}}\right]$$
 - Approximate because it relies on the approximate normal distribution of $\bar{X}$
 - If we know the population distribution of $X$, we can do better
 ]
@@ -240,9 +244,7 @@ $$
 
 .pull-left-wide[
 > **Exact CI for $\mu$, normal population, $\sigma$ known:**
-$$
-\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\right]
-$$
+$$\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\right]$$
 - Same formula as before — but now exact, not approximate
 ]
 
@@ -252,9 +254,7 @@ $$
 .pull-left-wide[
 - When $\sigma^2$ is unknown, replacing it with $S^2$ changes the distribution of the pivot
 - It can be shown that:
-$$
-t = \frac{\bar{X} - \mu}{\sqrt{S^2/n}} \sim t(n-1)
-$$
+$$t = \frac{\bar{X} - \mu}{\sqrt{S^2/n}} \sim t(n-1)$$
 - The ***t*-distribution** has heavier tails than the normal; as $n \to \infty$ it converges to $\mathcal{N}(0,1)$
 ]
 
@@ -262,9 +262,7 @@ $$
 
 .pull-left-wide[
 > **Exact CI for $\mu$, normal population, $\sigma$ unknown:**
-$$
-\hat{I} = \left[\bar{X} - t_{1-\alpha/2}(n-1) \cdot \sqrt{\frac{S^2}{n}},\;\; \bar{X} + t_{1-\alpha/2}(n-1) \cdot \sqrt{\frac{S^2}{n}}\right]
-$$
+$$\hat{I} = \left[\bar{X} - t_{1-\alpha/2}(n-1) \cdot \sqrt{\frac{S^2}{n}},\;\; \bar{X} + t_{1-\alpha/2}(n-1) \cdot \sqrt{\frac{S^2}{n}}\right]$$
 ]
 
 ---
@@ -280,9 +278,7 @@ $$
 
 .pull-left-wide[
 > **Approximate CI for $p$:**
-$$
-\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \sqrt{\frac{\bar{X}(1-\bar{X})}{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \sqrt{\frac{\bar{X}(1-\bar{X})}{n}}\right]
-$$
+$$\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \sqrt{\frac{\bar{X}(1-\bar{X})}{n}},\;\; \bar{X} + z_{1-\alpha/2} \cdot \sqrt{\frac{\bar{X}(1-\bar{X})}{n}}\right]$$
 ]
 
 ---
@@ -291,18 +287,14 @@ $$
 .pull-left-wide[
 - For a stratified sample, we use $\bar{X}_{st} = \sum_{j=1}^m w_j \bar{X}_j$ as the estimator
 - We estimate $Var(\bar{X}_{st}) = \sum_{j=1}^m w_j^2 \sigma_j^2/n_j$ by replacing $\sigma_j^2$ with $S_j^2$:
-$$
-\widehat{Var}(\bar{X}_{st}) = \sum_{j=1}^m w_j^2 \cdot \frac{S_j^2}{n_j}
-$$
+$$\widehat{Var}(\bar{X}_{st}) = \sum_{j=1}^m w_j^2 \cdot \frac{S_j^2}{n_j}$$
 ]
 
 --
 
 .pull-left-wide[
 > **Approximate CI for $\mu$, stratified sample:**
-$$
-\hat{I} = \left[\bar{X}_{st} - z_{1-\alpha/2} \cdot \sqrt{\widehat{Var}(\bar{X}_{st})},\;\; \bar{X}_{st} + z_{1-\alpha/2} \cdot \sqrt{\widehat{Var}(\bar{X}_{st})}\right]
-$$
+$$\hat{I} = \left[\bar{X}_{st} - z_{1-\alpha/2} \cdot \sqrt{\widehat{Var}(\bar{X}_{st})},\;\; \bar{X}_{st} + z_{1-\alpha/2} \cdot \sqrt{\widehat{Var}(\bar{X}_{st})}\right]$$
 ]
 
 ---
@@ -363,7 +355,7 @@ A random sample of $n = 25$ students has mean exam score $\bar{X} = 68$ and samp
 2. How does the CI change if $n = 100$ instead? (Recalculate)
 3. If the population standard deviation were known to be $\sigma = 10$, would you use $z$ or $t$? Construct that CI for $n = 25$
 
-.small123[*Hint:* $t_{0.975}(24) \approx 2.064$; $t_{0.975}(99) \approx 1.984$; $z_{0.975} = 1.96$]
+*Hint:* $t_{0.975}(24) \approx 2.064$; $t_{0.975}(99) \approx 1.984$; $z_{0.975} = 1.96$
 ]
 
 ```{r practice1-answer, eval=FALSE, include=FALSE}
@@ -397,9 +389,7 @@ class: inverse, middle, center
 
 .pull-left-wide[
 - Recall the chi-square pivot (requires $X \sim \mathcal{N}(\mu, \sigma^2)$):
-$$
-Y = \frac{(n-1) S^2}{\sigma^2} \sim \chi^2(n-1)
-$$
+$$Y = \frac{(n-1) S^2}{\sigma^2} \sim \chi^2(n-1)$$
 - The $\chi^2$ distribution is **not symmetric** and takes only positive values
 ]
 
@@ -408,9 +398,7 @@ $$
 
 .pull-left-wide[
 - Let $\chi^2_{\alpha/2}$ and $\chi^2_{1-\alpha/2}$ be the lower and upper critical values from $\chi^2(n-1)$, so that:
-$$
-P\!\left(\chi^2_{\alpha/2}(n-1) \leq Y \leq \chi^2_{1-\alpha/2}(n-1)\right) \overset{a}{=} 1 - \alpha
-$$
+$$P\!\left(\chi^2_{\alpha/2}(n-1) \leq Y \leq \chi^2_{1-\alpha/2}(n-1)\right) \overset{a}{=} 1 - \alpha$$
 ]
 
 --
@@ -418,18 +406,14 @@ $$
 .pull-left-wide[
 - Substituting $Y = (n-1)S^2/\sigma^2$ and rearranging to isolate $\sigma^2$:
 
-$$
-P\!\left(\frac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)} \leq \sigma^2 \leq \frac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)}\right) \overset{a}{=} 1 - \alpha
-$$
+$$P\!\left(\frac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)} \leq \sigma^2 \leq \frac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)}\right) \overset{a}{=} 1 - \alpha$$
 ]
 
 --
 
 .pull-left-wide[
 > **CI for $\sigma^2$:**
-$$
-\hat{I} = \left[\frac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)},\;\; \frac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)}\right]
-$$
+$$\hat{I} = \left[\frac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)},\;\; \frac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)}\right]$$
 - This CI is **not symmetric** around $S^2$ because the $\chi^2$ distribution is skewed
 ]
 
@@ -490,7 +474,7 @@ A normal population is sampled with $n = 20$, giving $S^2 = 16$.
 2. Is the interval symmetric around $S^2 = 16$? Why or why not?
 3. What does it mean if $\sigma^2 = 9$ is inside the interval?
 
-.small123[*Hint:* $\chi^2_{0.025}(19) \approx 8.91$; $\chi^2_{0.975}(19) \approx 32.85$]
+*Hint:* $\chi^2_{0.025}(19) \approx 8.91$; $\chi^2_{0.975}(19) \approx 32.85$
 ]
 
 ```{r practice2-answer, eval=FALSE, include=FALSE}
@@ -523,21 +507,15 @@ class: inverse, middle, center
 
 .pull-left-wide[
 - The natural estimator of $\mu_1 - \mu_2$ is $\bar{X}_1 - \bar{X}_2$:
-$$
-E(\bar{X}_1 - \bar{X}_2) = \mu_1 - \mu_2 \quad \text{(unbiased)}
-$$
-$$
-Var(\bar{X}_1 - \bar{X}_2) = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}
-$$
+$$E(\bar{X}_1 - \bar{X}_2) = \mu_1 - \mu_2 \quad \text{(unbiased)}$$
+$$Var(\bar{X}_1 - \bar{X}_2) = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}$$
 ]
 
 --
 
 .pull-left-wide[
 - By the CLT, $\bar{X}_1 - \bar{X}_2$ is approximately normal, so:
-$$
-\frac{(\bar{X}_1 - \bar{X}_2) - (\mu_1 - \mu_2)}{\sqrt{\sigma_1^2/n_1 + \sigma_2^2/n_2}} \overset{a}{\sim} \mathcal{N}(0,1)
-$$
+$$\frac{(\bar{X}_1 - \bar{X}_2) - (\mu_1 - \mu_2)}{\sqrt{\sigma_1^2/n_1 + \sigma_2^2/n_2}} \overset{a}{\sim} \mathcal{N}(0,1)$$
 ]
 
 ---
@@ -545,18 +523,14 @@ $$
 
 .pull-left-wide[
 > **Approximate CI for $\mu_1 - \mu_2$, $\sigma_j^2$ known:**
-$$
-\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}\right]
-$$
+$$\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}\right]$$
 ]
 
 --
 
 .pull-left-wide[
 > **Approximate CI for $\mu_1 - \mu_2$, $\sigma_j^2$ unknown (replace with $S_j^2$):**
-$$
-\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}\right]
-$$
+$$\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}\right]$$
 ]
 
 ---
@@ -570,18 +544,14 @@ $$
 
 .pull-left-wide[
 > The **pooled variance estimator** is:
-$$
-S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}
-$$
+$$S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}$$
 ]
 
 --
 
 .pull-left-wide[
 > **CI for $\mu_1 - \mu_2$, equal variances assumed:**
-$$
-\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{S_p^2 \left(\frac{1}{n_1} + \frac{1}{n_2}\right)}\right]
-$$
+$$\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{S_p^2 \left(\frac{1}{n_1} + \frac{1}{n_2}\right)}\right]$$
 - If $X$ is normal and $\sigma_1^2 = \sigma_2^2$, replace $z$ with $t_{1-\alpha/2}(n_1 + n_2 - 2)$ for an exact CI
 ]
 
@@ -679,9 +649,7 @@ class: inverse, middle, center
 .pull-left-wide[
 - Assume $X_j \sim \mathcal{N}(\mu_j, \sigma_j^2)$ in each group ($j = 1, 2$), independent samples
 - It can be shown that:
-$$
-\frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} = \frac{S_1^2 \cdot \sigma_2^2}{S_2^2 \cdot \sigma_1^2} \sim F(n_1 - 1,\; n_2 - 1)
-$$
+$$\frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} = \frac{S_1^2 \cdot \sigma_2^2}{S_2^2 \cdot \sigma_1^2} \sim F(n_1 - 1,\; n_2 - 1)$$
 - The ***F*-distribution** is right-skewed and takes only positive values; as $n_2 \to \infty$ it approaches $\chi^2(n_1-1)/(n_1-1)$
 ]
 
@@ -690,9 +658,7 @@ $$
 
 .pull-left-wide[
 - Let $F_{\alpha/2}$ and $F_{1-\alpha/2}$ be the critical values from $F(n_1-1, n_2-1)$:
-$$
-P\!\left(F_{\alpha/2} \leq \frac{S_1^2 \cdot \sigma_2^2}{S_2^2 \cdot \sigma_1^2} \leq F_{1-\alpha/2}\right) = 1 - \alpha
-$$
+$$P\!\left(F_{\alpha/2} \leq \frac{S_1^2 \cdot \sigma_2^2}{S_2^2 \cdot \sigma_1^2} \leq F_{1-\alpha/2}\right) = 1 - \alpha$$
 ]
 
 --
@@ -701,9 +667,7 @@ $$
 - Rearranging to isolate $\sigma_2^2/\sigma_1^2$:
 
 > **Exact CI for $\sigma_2^2/\sigma_1^2$:**
-$$
-\hat{I} = \left[\frac{S_2^2}{S_1^2} \cdot F_{\alpha/2}(n_1-1, n_2-1),\;\; \frac{S_2^2}{S_1^2} \cdot F_{1-\alpha/2}(n_1-1, n_2-1)\right]
-$$
+$$\hat{I} = \left[\frac{S_2^2}{S_1^2} \cdot F_{\alpha/2}(n_1-1, n_2-1),\;\; \frac{S_2^2}{S_1^2} \cdot F_{1-\alpha/2}(n_1-1, n_2-1)\right]$$
 - Also **not symmetric** around $S_2^2/S_1^2$ because the $F$-distribution is skewed
 ]
 
@@ -763,7 +727,7 @@ Two independent normal samples:
 
 Construct a 95% CI for $\sigma_2^2/\sigma_1^2$.
 
-.small123[*Hint:* $F_{0.025}(10, 15) \approx 0.30$; $F_{0.975}(10, 15) \approx 3.06$]
+*Hint:* $F_{0.025}(10, 15) \approx 0.30$; $F_{0.975}(10, 15) \approx 3.06$
 
 Does the CI suggest the variances are significantly different?
 ]
@@ -796,18 +760,14 @@ class: inverse, middle, center
 .pull-left-wide[
 - The width of the CI for $\mu$ (known $\sigma^2$) is $2 z_{1-\alpha/2} \cdot \sigma/\sqrt{n}$
 - Suppose we want the half-width to be at most $K$:
-$$
-z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \leq K \quad \Longrightarrow \quad n \geq \frac{z_{1-\alpha/2}^2 \cdot \sigma^2}{K^2}
-$$
+$$z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \leq K \quad \Longrightarrow \quad n \geq \frac{z_{1-\alpha/2}^2 \cdot \sigma^2}{K^2}$$
 ]
 
 --
 
 .pull-left-wide[
 > **Required sample size:**
-$$
-n^* = \frac{z_{1-\alpha/2}^2 \cdot \sigma^2}{K^2}
-$$
+$$n^* = \frac{z_{1-\alpha/2}^2 \cdot \sigma^2}{K^2}$$
 - Requires knowing $\sigma^2$ — use a pilot study if unknown
 ]
 
@@ -823,10 +783,8 @@ $$
 .pull-left-wide[
 - The product $p(1-p)$ is maximised at $p = 0.5$, giving $\sigma^2 \leq 0.25$
 - Substituting this worst-case bound:
-$$
-n^* = \frac{z_{1-\alpha/2}^2 \cdot 0.25}{K^2}
-$$
-- This guarantees the desired width **regardless of the true $p$** — a conservative bound
+$$n^* = \frac{z_{1-\alpha/2}^2 \cdot 0.25}{K^2}$$
+- This guarantees the desired width **regardless of the true** $p$ — a conservative bound
 ]
 
 ---
@@ -885,7 +843,7 @@ A researcher wants a 95% CI for the mean income in a population, with a half-wid
 2. How does $n^*$ change if the required half-width is tightened to €250?
 3. Suppose instead $X \sim Bernoulli(p)$ (e.g. employed/not employed) and we want half-width $\leq 0.03$. What is the conservative $n^*$?
 
-.small123[*Hint:* $z_{0.975} = 1.96$]
+*Hint:* $z_{0.975} = 1.96$
 ]
 
 ```{r practice5-answer, eval=FALSE, include=FALSE}
@@ -901,6 +859,76 @@ A researcher wants a 95% CI for the mean income in a population, with a half-wid
 #       = (3.8416 * 0.25) / 0.0009
 #       = 0.9604 / 0.0009 = 1067.1 => n* = 1068
 ```
+
+---
+class: inverse, middle, center
+# .orange[Advanced: Clopper-Pearson interval for a proportion]
+### Not part of the curriculum — for the curious
+
+---
+# .orange[Why the standard Bernoulli CI can fail]
+
+.pull-left-wide[
+- The approximate CI for $p$ relies on the normal approximation to the binomial
+- This works well when $n$ is large and $p$ is not too close to 0 or 1
+- **But it breaks down when:**
+  - $n$ is small — the CLT has not yet kicked in
+  - $p$ is near 0 or 1 — the binomial distribution is strongly skewed
+  - The resulting interval can extend **outside** $[0,1]$, which is logically impossible for a probability
+]
+
+--
+
+.pull-left-wide[
+**Example:** $n = 20$, $k = 2$ successes (so $\hat{p} = 0.10$)
+
+$$\hat{p} \pm 1.96\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} = 0.10 \pm 1.96\sqrt{\frac{0.10 \times 0.90}{20}} = 0.10 \pm 0.131 = [-0.031,\; 0.231]$$
+
+The lower bound is **negative** — the normal approximation has failed
+]
+
+---
+# .orange[The Clopper-Pearson exact interval]
+
+.pull-left-wide[
+- The **Clopper-Pearson interval** is constructed directly from the binomial distribution — no normal approximation
+- Given $k$ successes out of $n$ trials, the exact $1-\alpha$ CI is $[p_L,\; p_U]$ where:
+
+$$p_L = B_{\alpha/2}(k,\; n-k+1), \qquad p_U = B_{1-\alpha/2}(k+1,\; n-k)$$
+
+- $B_q(a, b)$ denotes the $q$-th quantile of the **Beta$(a,b)$ distribution**
+- Special cases: if $k = 0$ set $p_L = 0$; if $k = n$ set $p_U = 1$
+]
+
+--
+
+.pull-left-wide[
+- The interval is **conservative**: the true coverage is at least $1-\alpha$ for every $p$ and $n$
+- It always stays within $[0, 1]$ by construction
+- The cost: slightly wider intervals than the approximate CI when the approximation is valid
+]
+
+---
+# .orange[Example: Clopper-Pearson vs. normal approximation]
+
+.pull-left-wide[
+**Setting:** $n = 20$ households surveyed, $k = 2$ report unemployment; $\hat{p} = 0.10$
+
+|  | Lower bound | Upper bound |
+|---|---|---|
+| Normal approximation | $-0.031$ | $0.231$ |
+| Clopper-Pearson (exact) | $0.012$ | $0.317$ |
+
+*Note:* $p_L = B_{0.025}(2,\,19) \approx 0.012$; $p_U = B_{0.975}(3,\,18) \approx 0.317$
+]
+
+--
+
+.pull-left-wide[
+- The exact interval is fully inside $[0,1]$ and provides a meaningful lower bound
+- The approximation fails badly here: $n$ is small and $p$ is near 0
+- In practice: use the normal approximation when $n\hat{p} \geq 5$ and $n(1-\hat{p}) \geq 5$; use Clopper-Pearson otherwise
+]
 
 ---
 # Key takeaways
