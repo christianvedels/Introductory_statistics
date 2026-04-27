@@ -30,7 +30,7 @@ It is written for both humans and machines and is based on the existing slide de
 - [ ] Agenda slide (`# Today's lecture`, `class: middle`) is the **first slide after** the title slide
 - [ ] Agenda uses `.pull-left-wide[]` for bullets and `.pull-right-narrow[]` for `Figures/Trees1.jpg`
 - [ ] Agenda has a one-line framing sentence in bold, followed by section bullets
-- [ ] Total slide count is between 25 and 35 (for a 90-minute lecture)
+- [ ] Total slide count does not exceed 35 (for a 90-minute lecture)
 - [ ] Section divider slides (`class: inverse, middle, center`) are present for major transitions, or have been intentionally removed to meet the slide-count target
 - [ ] Deck ends with `# Before next time` slide using `.pull-left[]` + `.pull-right[]` (Trees image)
 - [ ] No placeholder text remains anywhere (e.g. `[Topic]`, `Chapter X`)
@@ -192,9 +192,8 @@ Section dividers improve pacing in longer decks but add slides without content. 
 
 ### Target slide count
 
-- **Target: 25–35 slides** for a 90-minute lecture.
-- Below 25: content is likely too sparse or important material has been cut.
-- Above 35: the deck probably needs trimming — merge closely related slides, absorb proof steps as `--` reveals, and remove section dividers first.
+- **Maximum: 35 slides** for a 90-minute lecture. The minimum is not binding — a shorter deck is fine if all the material is covered.
+- Above 35: the deck needs trimming — merge closely related slides, absorb proof steps as `--` reveals, and remove section dividers first.
 
 ---
 
