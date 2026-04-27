@@ -214,6 +214,21 @@ where `\(a = \sqrt{n}\,k/\sigma\)`
 ]
 
 ---
+# Illustration: standard normal and the CI for `\(\mu\)`
+
+.pull-left-narrow[
+- Symmetric around 0 → CI is symmetric around `\(\bar{X}\)`
+- Equal tail areas `\(\alpha/2\)` on each side
+- Critical values `\(\pm z_{1-\alpha/2}\)` are equidistant from centre
+]
+
+.pull-right-wide[
+
+
+![Standard normal distribution with critical values for a 95% CI](Figures/normal-ci.png)
+]
+
+---
 # CI for `\(\mu\)`: simple random sample
 
 .pull-left-wide[
@@ -316,7 +331,7 @@ where `\(a = \sqrt{n}\,k/\sigma\)`
 ---
 # .red[Raise your hand 1: CI for the mean]
 
-<div class="countdown" id="timer_3e5c7717" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_a8a5c637" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -401,9 +416,24 @@ class: inverse, middle, center
 ]
 
 ---
+# Illustration: `\(\chi^2(n-1)\)` distribution and the CI for `\(\sigma^2\)`
+
+.pull-left-narrow[
+- Right-skewed: longer upper tail
+- `\(\chi^2_{\alpha/2}\)` and `\(\chi^2_{1-\alpha/2}\)` are **not** equidistant from the centre
+- This is why the CI for `\(\sigma^2\)` is asymmetric — it stretches further upward than downward
+]
+
+.pull-right-wide[
+
+
+![Chi-square distribution with critical values for a 95% CI](Figures/chisq-ci.png)
+]
+
+---
 # .red[Raise your hand 2: CI for the variance]
 
-<div class="countdown" id="timer_564336d5" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_2e251e91" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -510,7 +540,7 @@ class: inverse, middle, center
 ---
 # .red[Raise your hand 3: CI for the difference in means]
 
-<div class="countdown" id="timer_7d6e71e3" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_bdcb3746" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -591,9 +621,24 @@ class: inverse, middle, center
 ]
 
 ---
+# Illustration: `\(F(n_1-1,\, n_2-1)\)` distribution and the CI for `\(\sigma_2^2/\sigma_1^2\)`
+
+.pull-left-narrow[
+- Right-skewed, positive-valued
+- `\(F_{\alpha/2}\)` and `\(F_{1-\alpha/2}\)` are **not** equidistant from 1
+- Hence the CI for `\(\sigma_2^2/\sigma_1^2\)` is also asymmetric — same principle as the `\(\chi^2\)` case
+]
+
+.pull-right-wide[
+
+
+![F-distribution with critical values for a 95% CI](Figures/f-ci.png)
+]
+
+---
 # .red[Raise your hand 4: CI for the ratio of variances]
 
-<div class="countdown" id="timer_9a0a171b" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_611d3c94" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -682,7 +727,7 @@ class: inverse, middle, center
 ---
 # .red[Raise your hand 5: Sample size]
 
-<div class="countdown" id="timer_b6419b27" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_b03d0cc6" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -721,6 +766,26 @@ A researcher wants a 95% CI for the mean income in a population, with a half-wid
 ]
 
 
+
+---
+# How to (not) interpret a confidence interval
+
+*This often causes confusion, so let's be clear about what a CI does and does not mean.*
+
+.pull-left[
+### It isn't:
+- The probability that the true parameter is in the interval
+  + (the parameter is fixed, not random)
+- The probability that the interval contains the true parameter
+  + (the interval is random, but we don't talk about "the" interval — we talk about the procedure that generates intervals, which has a certain long-run success rate)
+]
+
+.pull-right[
+### It is:
+
+- A random interval that contains the true parameter with probability `\(1-\alpha\)` in repeated sampling
+- A range of plausible values for the parameter based on the observed data and the sampling distribution of the estimator
+]
 
 ---
 class: inverse, middle, center
