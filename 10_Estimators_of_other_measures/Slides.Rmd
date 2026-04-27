@@ -102,6 +102,9 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 
 
 
+???
+1 min // 12:16
+
 ---
 class: middle
 # Today's lecture
@@ -119,6 +122,9 @@ class: middle
 .pull-right-narrow[
 ![Trees](Figures/Trees1.jpg)
 ]
+
+???
+2 min // 12:18
 
 ---
 # The chi-square distribution
@@ -153,6 +159,9 @@ $$Y = \sum_{i=1}^k Z_i^2 \sim \chi^2(k)$$
 .pull-right[
 ![Chi-square](Figures/chisq-fig.png)
 ]
+
+???
+3 min // 12:21
 
 ---
 # The Student's $t$-distribution
@@ -191,6 +200,9 @@ $$T = \frac{Z}{\sqrt{Y/k}} \sim t(k)$$
 ![Student t](Figures/t-fig.png)
 ]
 
+???
+3 min // 12:24
+
 ---
 # Variance estimators
 
@@ -213,6 +225,9 @@ $$b^2 = \frac{1}{n} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right)^2$$
 - **Biased:** $E(b^2) = \dfrac{n-1}{n}\sigma^2 < \sigma^2$ — underestimates $\sigma^2$
 ]
 
+???
+4 min // 12:28
+
 ---
 # The sample variance
 
@@ -231,6 +246,9 @@ $$S^2 = \frac{1}{n-1} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right)^2$$
 - $S^2$ is **unbiased** and **consistent** for $\sigma^2$
 ]
 
+???
+10 min // 12:38
+
 ---
 # An estimator of the standard deviation
 
@@ -248,6 +266,9 @@ $$E(S) = E\!\left[\sqrt{S^2}\right] \leq \sqrt{E\!\left[S^2\right]} = \sigma \qu
 - $S$ strictly **underestimates** $\sigma$ for finite $n$
 - As $n \to \infty$: $S^2 \xrightarrow{p} \sigma^2$, so $S \xrightarrow{p} \sigma$ — **consistent** despite the bias
 ]
+
+???
+3 min // 12:41
 
 ---
 # Distribution of $S^2$ and the chi-square
@@ -270,6 +291,9 @@ $$F(S^2 \leq 130) = P(\chi^2(10) \leq 13) \approx 0.77$$
 
 About 77% of samples would produce a variance at most this large — not unusual.
 ]
+
+???
+3 min // 12:44
 
 ---
 # .red[Raise your hand 1: Sample variance]
@@ -316,6 +340,9 @@ countdown(0, 20, top=TRUE)
 #   C: Correct — this is a direct consequence of Jensen's inequality for concave functions
 ```
 
+???
+3 min // 12:47
+
 ---
 # .red[Practice 1: Sample variance]
 
@@ -343,6 +370,9 @@ A sample of $n = 5$ observations: $\{2, 4, 4, 6, 9\}$.
 # 4. For large n, n-1 ≈ n so the difference is negligible.
 #    In small samples the correction matters more.
 ```
+
+???
+3 min // 12:50
 
 ---
 # Central moments and skewness
@@ -381,6 +411,9 @@ $$\gamma_3 = \frac{m_3^*}{\sigma^3}, \qquad \hat{\gamma}_3 = \frac{\hat{m}_3^*}{
 .pull-right[
 ![Skewness](Figures/skewness-fig.png)
 ]
+
+???
+4 min // 12:54
 
 ---
 # Kurtosis
@@ -421,6 +454,9 @@ $$\gamma_4 = \frac{m_4^*}{\sigma^4}, \qquad \hat{\gamma}_4 = \frac{\hat{m}_4^*}{
 .pull-right[
 ![Kurtosis](Figures/kurtosis-fig.png)
 ]
+
+???
+3 min // 12:57
 
 ---
 # .red[Raise your hand 2: Skewness and kurtosis]
@@ -468,6 +504,9 @@ countdown(0, 20, top=TRUE)
 #      asymmetry, gamma_4 measures tail weight / peakedness
 ```
 
+???
+3 min // 13:00 — BREAK
+
 ---
 # .red[Practice 2: Skewness and kurtosis]
 
@@ -496,6 +535,9 @@ A dataset of $n = 6$ income values (in €k): $\{10, 12, 14, 14, 16, 60\}$.
 #    This is typical of income distributions
 ```
 
+???
+4 min // 13:19 — SESSION 2 resumes 13:15
+
 ---
 # Covariance and correlation
 
@@ -512,6 +554,9 @@ $$\widehat{Cov}(X, Y) = \frac{1}{n} \cdot \sum_{i=1}^n \left(X_i - \bar{X}\right
 $$\hat{\rho}(X, Y) = \frac{\widehat{Cov}(X, Y)}{\sqrt{S_X^2 \cdot S_Y^2}}$$
 - For large $n$: $\hat{\rho}(X, Y) \overset{a}{\sim} \mathcal{N}\!\left(\rho,\, \dfrac{(1 - \rho^2)^2}{n - 2}\right)$
 ]
+
+???
+4 min // 13:23
 
 ---
 # .red[Raise your hand 3: Covariance and correlation]
@@ -560,6 +605,9 @@ countdown(0, 20, top=TRUE)
 #      distribution of rho_hat requires large n, not normality of X and Y
 ```
 
+???
+4 min // 13:27
+
 ---
 # .red[Practice 3: Covariance and correlation]
 
@@ -601,6 +649,9 @@ A researcher records hours of sleep the night before an exam and the exam score 
 #    Or students who study more may sleep better because they feel confident.
 ```
 
+???
+4 min // 13:31
+
 ---
 # The empirical distribution function
 
@@ -618,6 +669,9 @@ A researcher records hours of sleep the night before an exam and the exam score 
 $$\hat{F}_X(x) \overset{a}{\sim} \mathcal{N}\!\left(F_X(x),\; \frac{F_X(x)\left[1 - F_X(x)\right]}{n}\right)$$
 - Useful for: normality tests, comparing distributions, non-parametric CI for the full CDF
 ]
+
+???
+4 min // 13:35
 
 ---
 # .red[Raise your hand 4: Empirical distribution function]
@@ -666,6 +720,9 @@ countdown(0, 20, top=TRUE)
 ```
 
 
+???
+4 min // 13:39
+
 ---
 # Estimated quantiles
 
@@ -680,6 +737,9 @@ countdown(0, 20, top=TRUE)
 - For example, the **sample median** $\hat{q}_{0.5}$ is the value where $\hat{F}_X$ crosses 0.5
 - If this crossing happens over an interval, we use the midpoint as the sample median
 ]
+
+???
+3 min // 13:42
 
 ---
 # Order statistics and the sample median
@@ -697,6 +757,9 @@ where $[np]$ denotes the integer part of $np$
 $$\hat{q}_{0.5} = \begin{cases} X_{\left(\frac{n+1}{2}\right)}, & \text{if } n \text{ is odd} \\ \dfrac{X_{\left(\frac{n}{2}\right)} + X_{\left(\frac{n}{2}+1\right)}}{2}, & \text{if } n \text{ is even} \end{cases}$$
 - Robust to outliers — unlike the sample mean; useful when the distribution is skewed
 ]
+
+???
+4 min // 13:46
 
 ---
 # .red[Raise your hand 5: Quantiles]
@@ -744,6 +807,9 @@ countdown(0, 20, top=TRUE)
 #      which is a very different statement
 ```
 
+???
+4 min // 13:50
+
 ---
 # .red[Practice 5: Order statistics and quantiles]
 
@@ -772,6 +838,9 @@ A sorted sample of $n = 9$: $\{3, 5, 7, 8, 10, 11, 14, 18, 25\}$.
 #    distribution is skewed or contains extreme values.
 ```
 
+???
+4 min // 13:54
+
 ---
 # Key takeaways
 
@@ -794,6 +863,9 @@ $$\widehat{Cov}(X,Y) = \frac{1}{n}\sum(X_i-\bar{X})(Y_i-\bar{Y}), \quad \hat{\rh
 **EDF and quantiles:** $\hat{F}_X(x) = \frac{\#\{x_i \leq x\}}{n}$ — unbiased, consistent, asymptotically normal; quantiles estimated via order statistics
 ]
 
+???
+4 min // 13:58
+
 ---
 # Before next time
 .pull-left[
@@ -804,3 +876,6 @@ $$\widehat{Cov}(X,Y) = \frac{1}{n}\sum(X_i-\bar{X})(Y_i-\bar{Y}), \quad \hat{\rh
 .pull-right[
 ![Trees](Figures/Trees1.jpg)
 ]
+
+???
+2 min // 14:00

@@ -114,9 +114,12 @@ class: center, inverse, middle
 
 ### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
-### Updated 2026-04-26
+### Updated 2026-04-27
 
 
+
+???
+1 min // 12:16
 
 ---
 class: middle
@@ -136,6 +139,9 @@ class: middle
 ![Trees](Figures/Trees1.jpg)
 ]
 
+???
+2 min // 12:18
+
 ---
 # The chi-square distribution
 
@@ -153,6 +159,9 @@ class: middle
 ![Chi-square](Figures/chisq-fig.png)
 ]
 
+???
+3 min // 12:21
+
 ---
 # The Student's `\(t\)`-distribution
 
@@ -169,6 +178,9 @@ class: middle
 .pull-right[
 ![Student t](Figures/t-fig.png)
 ]
+
+???
+3 min // 12:24
 
 ---
 # Variance estimators
@@ -192,6 +204,9 @@ class: middle
 - **Biased:** `\(E(b^2) = \dfrac{n-1}{n}\sigma^2 &lt; \sigma^2\)` — underestimates `\(\sigma^2\)`
 ]
 
+???
+4 min // 12:28
+
 ---
 # The sample variance
 
@@ -210,6 +225,9 @@ Taking expectations (using `\(E(X_i-\mu)^2 = \sigma^2\)` and `\(E(\bar{X}-\mu)^2
 - `\(S^2\)` is **unbiased** and **consistent** for `\(\sigma^2\)`
 ]
 
+???
+10 min // 12:38
+
 ---
 # An estimator of the standard deviation
 
@@ -227,6 +245,9 @@ Taking expectations (using `\(E(X_i-\mu)^2 = \sigma^2\)` and `\(E(\bar{X}-\mu)^2
 - `\(S\)` strictly **underestimates** `\(\sigma\)` for finite `\(n\)`
 - As `\(n \to \infty\)`: `\(S^2 \xrightarrow{p} \sigma^2\)`, so `\(S \xrightarrow{p} \sigma\)` — **consistent** despite the bias
 ]
+
+???
+3 min // 12:41
 
 ---
 # Distribution of `\(S^2\)` and the chi-square
@@ -250,10 +271,13 @@ Scale to `\(\chi^2\)`: `\(\quad Y = 130 \cdot \dfrac{10}{100} = 13\)`
 About 77% of samples would produce a variance at most this large — not unusual.
 ]
 
+???
+3 min // 12:44
+
 ---
 # .red[Raise your hand 1: Sample variance]
 
-<div class="countdown" id="timer_90ba4dde" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_54cdc6f3" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -278,6 +302,9 @@ About 77% of samples would produce a variance at most this large — not unusual
 
 
 
+???
+3 min // 12:47
+
 ---
 # .red[Practice 1: Sample variance]
 
@@ -291,6 +318,9 @@ A sample of `\(n = 5\)` observations: `\(\{2, 4, 4, 6, 9\}\)`.
 ]
 
 
+
+???
+3 min // 12:50
 
 ---
 # Central moments and skewness
@@ -312,6 +342,9 @@ A sample of `\(n = 5\)` observations: `\(\{2, 4, 4, 6, 9\}\)`.
 ![Skewness](Figures/skewness-fig.png)
 ]
 
+???
+4 min // 12:54
+
 ---
 # Kurtosis
 
@@ -331,10 +364,13 @@ A sample of `\(n = 5\)` observations: `\(\{2, 4, 4, 6, 9\}\)`.
 ![Kurtosis](Figures/kurtosis-fig.png)
 ]
 
+???
+3 min // 12:57
+
 ---
 # .red[Raise your hand 2: Skewness and kurtosis]
 
-<div class="countdown" id="timer_e0769726" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_98fdc2cd" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -359,6 +395,9 @@ A sample of `\(n = 5\)` observations: `\(\{2, 4, 4, 6, 9\}\)`.
 
 
 
+???
+3 min // 13:00 — BREAK
+
 ---
 # .red[Practice 2: Skewness and kurtosis]
 
@@ -371,6 +410,9 @@ A dataset of `\(n = 6\)` income values (in €k): `\(\{10, 12, 14, 14, 16, 60\}\
 ]
 
 
+
+???
+4 min // 13:19 — SESSION 2 resumes 13:15
 
 ---
 # Covariance and correlation
@@ -389,10 +431,13 @@ A dataset of `\(n = 6\)` income values (in €k): `\(\{10, 12, 14, 14, 16, 60\}\
 - For large `\(n\)`: `\(\hat{\rho}(X, Y) \overset{a}{\sim} \mathcal{N}\!\left(\rho,\, \dfrac{(1 - \rho^2)^2}{n - 2}\right)\)`
 ]
 
+???
+4 min // 13:23
+
 ---
 # .red[Raise your hand 3: Covariance and correlation]
 
-<div class="countdown" id="timer_1e4fd11b" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_7a565e14" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -417,6 +462,9 @@ A dataset of `\(n = 6\)` income values (in €k): `\(\{10, 12, 14, 14, 16, 60\}\
 
 
 
+???
+4 min // 13:27
+
 ---
 # .red[Practice 3: Covariance and correlation]
 
@@ -439,6 +487,9 @@ A researcher records hours of sleep the night before an exam and the exam score 
 
 
 
+???
+4 min // 13:31
+
 ---
 # The empirical distribution function
 
@@ -457,10 +508,13 @@ A researcher records hours of sleep the night before an exam and the exam score 
 - Useful for: normality tests, comparing distributions, non-parametric CI for the full CDF
 ]
 
+???
+4 min // 13:35
+
 ---
 # .red[Raise your hand 4: Empirical distribution function]
 
-<div class="countdown" id="timer_4ac2e9e4" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_c7d763cf" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -486,6 +540,9 @@ A researcher records hours of sleep the night before an exam and the exam score 
 
 
 
+???
+4 min // 13:39
+
 ---
 # Estimated quantiles
 
@@ -500,6 +557,9 @@ A researcher records hours of sleep the night before an exam and the exam score 
 - For example, the **sample median** `\(\hat{q}_{0.5}\)` is the value where `\(\hat{F}_X\)` crosses 0.5
 - If this crossing happens over an interval, we use the midpoint as the sample median
 ]
+
+???
+3 min // 13:42
 
 ---
 # Order statistics and the sample median
@@ -518,10 +578,13 @@ where `\([np]\)` denotes the integer part of `\(np\)`
 - Robust to outliers — unlike the sample mean; useful when the distribution is skewed
 ]
 
+???
+4 min // 13:46
+
 ---
 # .red[Raise your hand 5: Quantiles]
 
-<div class="countdown" id="timer_fe31e38a" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_882af3d6" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -546,6 +609,9 @@ where `\([np]\)` denotes the integer part of `\(np\)`
 
 
 
+???
+4 min // 13:50
+
 ---
 # .red[Practice 5: Order statistics and quantiles]
 
@@ -559,6 +625,9 @@ A sorted sample of `\(n = 9\)`: `\(\{3, 5, 7, 8, 10, 11, 14, 18, 25\}\)`.
 ]
 
 
+
+???
+4 min // 13:54
 
 ---
 # Key takeaways
@@ -582,6 +651,9 @@ A sorted sample of `\(n = 9\)`: `\(\{3, 5, 7, 8, 10, 11, 14, 18, 25\}\)`.
 **EDF and quantiles:** `\(\hat{F}_X(x) = \frac{\#\{x_i \leq x\}}{n}\)` — unbiased, consistent, asymptotically normal; quantiles estimated via order statistics
 ]
 
+???
+4 min // 13:58
+
 ---
 # Before next time
 .pull-left[
@@ -592,6 +664,9 @@ A sorted sample of `\(n = 9\)`: `\(\{3, 5, 7, 8, 10, 11, 14, 18, 25\}\)`.
 .pull-right[
 ![Trees](Figures/Trees1.jpg)
 ]
+
+???
+2 min // 14:00
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
