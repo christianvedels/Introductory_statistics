@@ -94,13 +94,33 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 ## Testing hypotheses
 ### (Chapter 14)
 
-### Seetha Menon,<br>Department of Economics<br>University of Southern Denmark
+### Christian Vedel,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
 ### Updated `r Sys.Date()`
 
 
+
+---
+class: middle
+# Today's lecture
+.pull-left-wide[
+**Building a rigorous framework for deciding whether sample evidence is strong enough to reject a theory**
+
+- **Section 1:** Hypotheses and types of error
+- **Section 2:** Construction of a hypothesis test
+- **Section 3:** Test of the mean value
+- **Section 4:** Simple and composite hypotheses
+- **Section 5:** The p-value
+- **Section 6:** Choice of sample size
+- **Section 7:** Test of variance
+- **Section 8:** Other topics
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
 
 ---
 class: inverse, middle, center
@@ -109,161 +129,133 @@ class: inverse, middle, center
 ---
 # Hypothesis testing
 
---
+.pull-left-wide[
+We want to test specific theories using data — e.g. is the propensity to consume between 0 and 1, or do people exercise the recommended 2 hours per week?
 
-- We have seen how to construct sample averages as estimators of the mean value and confidence intervals for the mean value
+The recipe for **hypothesis testing**:
 
---
+1. Formulate two hypotheses: one conforming with the theory and one rejecting it
+2. Construct a **test statistic** that embodies all relevant sample information
+3. Choose a **decision rule** that tells us when to reject based on the test statistic
 
-- Sometimes, however, we want to test a specific theory:
-
---
-
-  - is the propensity to consume between 0 and 1?
-
---
-
-  - do people exercise the "healthy" number of hours (say, 2) per week?
-
---
-
-- For this, we need to employ a procedure called **hypothesis testing**
-
----
-# Hypothesis testing: recipe
-
---
-
-- The general recipe for a hypothesis test is this:
-
---
-
-  - we formulate the theory as two hypotheses: one that conforms with the theory and one that rejects it
-
---
-
-  - we construct a quantity called **test statistic**, which embodies all the relevant information from the sample
-
---
-
-  - we choose a **decision rule** that tells us when to reject the theory or not depending on the value of the test statistic
-
---
-
-- Very important: a theory is valid until we can find evidence against it
-
---
-
-- Therefore, we can **never** accept a theory! We can only fail to reject it
+> A theory is valid until we find evidence against it — we can **never** accept a theory, only fail to reject it
+]
 
 ---
 # Constructing hypotheses
 
---
+.pull-left-wide[
+Two hypotheses:
+- the **null hypothesis** $H_0$, which does not support the theory
+- the **alternative hypothesis** $H_1$, which supports the theory
 
-- We start by looking at hypotheses about the mean value
-
---
-
-- Usually, there is an underlying theory that provides a value for the mean
-
---
-
-- Then, we construct two hypotheses:
+We need sufficient evidence against $H_0$ to reject it — this evidence comes from a sample and is therefore uncertain.
+]
 
 --
 
-  - the **null hypothesis** $H_0$, which does not support the theory
+.pull-left-wide[
+**Examples:**
 
---
+**Criminal trial:** $H_0$: innocent; $H_1$: guilty
 
-  - the **alternative hypothesis** $H_1$, which supports the theory
-
---
-
-- Traditionally the hypothesis that supports the theory is made the alternative hypothesis, but this depends on the context and the risks and costs associated with drawing a wrong conclusion
-
---
-
-- Traditionally, we need to have "sufficient" evidence against the null hypothesis in order to reject it
-
---
-
-- This evidence comes from a sample, so it is subject to uncertainty
-
----
-# Examples
-
---
-
-- Determining the guilt of a person during a trial:
-
---
-
-  - $H_0$: innocent
-
---
-
-  - $H_1$: guilty
-
---
-
-- Verifying if there is discrimination in wages in the labor market:
-
---
-
-  - $H_0$: mean wage of men = mean wage of women
-
---
-
-  - $H_1$: mean wage of men $\not=$ mean wage of women (or, alternatively: mean wage of men $>$ mean wage of women)
+**Wage discrimination:** $H_0$: $\mu_{\text{men}} = \mu_{\text{women}}$; $H_1$: $\mu_{\text{men}} \not= \mu_{\text{women}}$
+]
 
 ---
 # Errors
 
---
+.pull-left-wide[
+Faced with uncertainty, we may make two types of errors:
 
-- Faced with uncertainty, we may make two types of errors:
+- **Type-I error**: reject $H_0$ when, in fact, it is true
 
---
-
-  - **type-I error**: reject the null hypothesis when, in fact, it is true
-
---
-
-  - **type-II error**: do not reject the null hypothesis when, in fact, it is false
+- **Type-II error**: do not reject $H_0$ when, in fact, it is false
+]
 
 --
 
+.pull-left-wide[
 | | $H_0$ true | $H_0$ false |
 |---|:---:|:---:|
 | **$H_0$ rejected** | type-I error | OK |
 | **$H_0$ not rejected** | OK | type-II error |
+]
 
 ---
 # Power and significance
 
+.pull-left-wide[
+> **Significance level** $\alpha$: probability of a type-I error
+$$\alpha = P(\text{type-I error}) = P(\text{reject } H_0 \mid H_0 \text{ true})$$
+
+> **Type-II error** probability $\beta$:
+$$\beta = P(\text{type-II error}) = P(\text{do not reject } H_0 \mid H_0 \text{ false})$$
+
+> **Power** of a test: $(1 - \beta)$ — a more powerful test has a lower probability of a type-II error
+]
+
+.pull-right-narrow[
+Note: $H_0$ is either true or not, but this is unknown. Randomness comes from the sample.
+]
+
+---
+# .red[Raise your hand 1: Errors and hypotheses]
+
+```{r ryh1-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** A clinical trial tests whether a new drug reduces blood pressure ($H_0$: drug has no effect). A **type-I error** here means:
+
+A: Approving a drug that genuinely has no effect
+B: Failing to approve a drug that genuinely works
+C: Setting $\alpha$ too small, making rejection harder
+D: Observing an unusually large sample effect by chance
+]
+
 --
 
-- Type-I error can be written as a conditional probability and is called **significance level**:
-$$
-\alpha = P(\text{type-I error}) = P(\text{reject } H_0 | H_0 \text{ true})
-$$
+.pull-left-wide[
+**Q2.** For a **fixed** sample size, moving the critical value further into the tail (increasing $c$):
 
---
+A: Decreases $\alpha$, increases $\beta$
+B: Increases $\alpha$, decreases $\beta$
+C: Decreases both $\alpha$ and $\beta$
+D: Increases the power of the test
+]
 
-- Type-II error can also be written as a conditional probability and is usually denoted by $\beta$:
-$$
-\beta = P(\text{type-II error}) = P(\text{do not reject } H_0 | H_0 \text{ false})
-$$
+```{r ryh1-answers, eval=FALSE, include=FALSE}
+# Q1: A
+# B: This is a type-II error — failing to reject a false H₀
+# C: Small α makes rejection harder, but α IS the probability of a type-I error, not the error itself
+# D: Sampling variability creates the possibility of error, but is not the error itself
 
---
+# Q2: A
+# B: Reversal — moving c right shrinks the rejection region, reducing α and enlarging β
+# C: Impossible for fixed n — reducing α always increases β (fundamental tradeoff)
+# D: Power = 1-β; if β increases, power decreases
+```
 
-- The **power** of a test is $(1 - \beta)$: a more powerful test has a lower probability of a type-II error
+---
+# .red[Practice 1: Errors and decision rules]
 
---
+.pull-left-wide[
+A machine is supposed to fill bottles with exactly 500 ml. A quality inspector draws a sample of $n = 36$ bottles and tests $H_0: \mu = 500$ vs $H_1: \mu \not= 500$ at $\alpha = 0.05$. The population variance is known: $\sigma^2 = 9$ ml².
 
-- Note that the randomness in the test is due to the randomness in the sample: $H_0$ is either true or not, but this fact is unknown
+1. Compute the critical values for the two-sided test.
+2. The sample mean is $\bar{X} = 499.5$ ml. Compute the test statistic $Z$ and state the decision.
+3. If the true mean were $\mu_1 = 499$ ml, calculate the probability of a type-II error $\beta$.
+]
+
+```{r practice1-answers, eval=FALSE, include=FALSE}
+# 1. σ/√n = 3/6 = 0.5; critical values: ±z_{0.975} = ±1.96
+# 2. Z = (499.5 - 500) / 0.5 = -1.0; |Z| = 1.0 < 1.96 → do not reject H₀
+# 3. β = Φ(z_{1-α/2} - |μ₁-μ₀|/(σ/√n))
+#      = Φ(1.96 - 1/0.5) = Φ(1.96 - 2) = Φ(-0.04) ≈ 0.484
+```
 
 ---
 class: inverse, middle, center
@@ -272,833 +264,290 @@ class: inverse, middle, center
 ---
 # Setup
 
---
+.pull-left-wide[
+Simple example: test whether $\mu$ equals one of two known constants $\mu_0 < \mu_1$:
+$$\begin{align*} H_0 & : \mu = \mu_0 \\ H_1 & : \mu = \mu_1 \end{align*}$$
 
-- We start with a simple example where we test if the mean value $\mu$ is equal to one of two values:
-
-$$
-H_0 : \mu = \mu_0
-$$
-
-$$
-H_1 : \mu = \mu_1
-$$
-
---
-
-- In this case, $\mu_0$ and $\mu_1$ are known constants
-
---
-
-- Suppose that we have a simple random sample of $n$ observations $(X_1, \ldots, X_n)$ where:
-$$
-X_i \sim \mathcal{N}(\mu, \sigma^2) \text{ for all } i
-$$
-
---
-
-- For simplicity, suppose also that $\sigma^2$ is known
+Sample: $(X_1, \ldots, X_n)$ with $X_i \sim \mathcal{N}(\mu, \sigma^2)$, $\sigma^2$ known.
+]
 
 ---
-# Hypothesis measure
+# Hypothesis measure and test statistic
+
+.pull-left-wide[
+A **hypothesis measure** indicates whether $H_0$ is rejected:
+$$h(\mu) = \mu - \mu_0$$
+
+- If $H_0$ true: $h(\mu) = 0$; if $H_0$ false: $h(\mu) = \mu_1 - \mu_0$
+
+Replacing $\mu$ with $\bar{X}$ gives the estimated hypothesis measure $h(\bar{X})$.
+]
 
 --
 
-- We can construct a function that takes a single number and that indicates whether the null hypothesis is rejected or not
+.pull-left-wide[
+The **test statistic** is the normalised estimated hypothesis measure:
+$$Z = \frac{\bar{X} - \mu_0}{\sqrt{\sigma^2/n}}$$
 
---
-
-- This function is called **hypothesis measure**
-
---
-
-- For example, it could be:
-$$
-h(\mu) = \mu - \mu_0
-$$
-
---
-
-- This function would take different values if the null hypothesis is true or not:
-
---
-
-  - if $H_0$ is true, then $\mu = \mu_0$ and $h(\mu) = 0$
-
---
-
-  - if $H_0$ is false, then $\mu = \mu_1$ and $h(\mu) = \mu_1 - \mu_0$
+Under $H_0$: $Z \sim \mathcal{N}(0,1)$; under $H_1$: $Z \sim \mathcal{N}\!\left(\dfrac{\mu_1-\mu_0}{\sqrt{\sigma^2/n}},1\right)$
+]
 
 ---
-# Estimated hypothesis measure
+# Decision rule and significance level
+
+.pull-left-wide[
+Since $\mu_0 < \mu_1$, large values of $Z$ support $H_1$:
+
+- do not reject $H_0$ if $Z \leq c$
+- reject $H_0$ if $Z > c$
+
+The significance level fixes the critical value:
+$$\alpha = P(Z > c \mid \mu = \mu_0) = 1 - \Phi(c) \quad \Rightarrow \quad c = z_{1-\alpha}$$
+]
 
 --
 
-- In practice, we do not know the value of $\mu$, so we will replace it with an estimator that we can derive from the data: $\bar{X}$
-
---
-
-- We then obtain the estimated hypothesis measure $h(\bar{X})$
-
---
-
-- Since the estimated value of $\bar{X}$ is not necessarily equal to $\mu$, the estimated value of $h(\bar{X})$ is not necessarily equal to $h(\mu)$
-
---
-
-- This creates the uncertainty in rejecting $H_0$ or not
-
----
-# Test statistic
-
---
-
-- Some values of the estimated hypothesis measure are more likely if $H_0$ is true than if it is false
-
---
-
-- In practice, however, we construct a different measure called **test statistic**
-
---
-
-  - it is easier to determine its distribution
-
---
-
-  - has "nicer" properties
-
---
-
-- In our example, the test statistic is just the "normalized" estimated hypothesis measure:
-$$
-Z = \frac{h(\bar{X})}{\sqrt{\sigma^2/n}} = \frac{\bar{X} - \mu_0}{\sqrt{\sigma^2/n}}
-$$
-
----
-# Distribution of the test statistic
-
---
-
-- Recall that if $X \sim \mathcal{N}(\mu, \sigma^2)$, then the sample mean also follows (exactly, not approximately) a normal distribution:
-$$
-\bar{X} \sim \mathcal{N} \left( \mu, \frac{\sigma^2}{n} \right)
-$$
-
---
-
-- It is then easy to determine the distribution of the test statistic:
-$$
-Z \sim \mathcal{N} \left( \frac{\mu - \mu_0}{\sqrt{\sigma^2/n}}, 1 \right)
-$$
-
---
-
-- Therefore, $Z$ has a different distribution if $H_0$ is true or not:
-
---
-
-  - $H_0$ true: distribution under $H_0$ is $Z \sim \mathcal{N}(0, 1)$
-
---
-
-  - $H_0$ false: distribution under $H_1$ is $Z \sim \mathcal{N} \left( \dfrac{\mu_1 - \mu_0}{\sqrt{\sigma^2/n}}, 1 \right)$
-
----
-# Decision rule
-
---
-
-- For simplicity, suppose $\mu_0 < \mu_1$
-
---
-
-- In this case, small values of $\bar{X}$ (and of $Z$) are more likely to come from the distribution under $H_0$ and indicate that we cannot reject $H_0$
-
---
-
-- On the other hand, large values of $\bar{X}$ (and of $Z$) are more likely to come from the distribution under $H_1$ and indicate that we should reject $H_0$
-
---
-
-- We can then define a decision rule as a function of a constant called **critical value**:
-
---
-
-  - do not reject $H_0$ if $Z \leq c$
-
---
-
-  - reject $H_0$ if $Z > c$
-
---
-
-- Note again that rejecting $H_0$ or not does not mean it is necessarily false or not: there is always the chance of a type-I or type-II error!
-
----
-# Significance level
-
---
-
-- But now we can determine the probability of a type-I error:
-
---
-
-  - do not reject $H_0$ if $Z \leq c$
-
---
-
-  - reject $H_0$ if $Z > c$
-
---
-
-- Therefore, $c$ is a critical value from the standard normal distribution:
-$$
-\Phi(c) = 1 - \alpha \quad \Rightarrow \quad c = z_{1 - \alpha}
-$$
-
---
-
-- This gives us the decision function:
-
---
-
-  - do not reject $H_0$ if $Z \leq z_{1 - \alpha}$
-
---
-
-  - reject $H_0$ if $Z > z_{1 - \alpha}$
-
----
-# The tradeoff between type-I and type-II errors
-
---
-
-- Note that we need to choose a significance level $\alpha$ in order to determine the critical value
-
---
-
-- Ideally, we would want to have both $\alpha$ and $\beta$ as small as possible
-
---
-
-- However, there is a tradeoff between the two types of error
-
---
-
-- We can see this in our simple example:
-$$
-\beta = P(\text{type-II error}) = P \left( Z \leq c | Z \sim \mathcal{N}\left(\dfrac{\mu_1 - \mu_0}{\sqrt{\sigma^2/n}}, 1 \right) \right)
-$$
-$$
-= \Phi \left( z_{1 - \alpha} - \dfrac{\mu_1 - \mu_0}{\sqrt{\sigma^2/n}} \right)
-$$
-
---
-
-- As $\alpha$ goes down, $z_{1 - \alpha}$ goes up and $\beta$ goes up
-
---
-
-- Therefore, for a given level of $\alpha$, we must accept a given level of $\beta$
+.pull-left-wide[
+> **Tradeoff:** As $\alpha \downarrow$, $z_{1-\alpha} \uparrow$, and $\beta = \Phi\!\left(z_{1-\alpha} - \dfrac{\mu_1-\mu_0}{\sqrt{\sigma^2/n}}\right) \uparrow$
+
+For a given $\alpha$ we must accept a corresponding $\beta$.
+]
 
 ---
 class: inverse, middle, center
 # Test of mean value under different distributional assumptions
 
 ---
-# Setup
+# Four cases
 
---
+.pull-left-wide[
+We test $H_0: \mu = \mu_0$ using $Z = (\bar{X} - \mu_0)/\sqrt{\hat\sigma^2/n}$
 
-- As before, we will conduct the simplest version of a test of the mean value:
+| Distribution | Variance | Distribution of $Z$ under $H_0$ |
+|---|---|---|
+| Unknown | Known $\sigma^2$ | $Z \overset{a}{\sim} \mathcal{N}(0,1)$ |
+| Unknown | Unknown (use $S^2$) | $Z \overset{a}{\sim} \mathcal{N}(0,1)$ |
+| Normal | Known $\sigma^2$ | $Z \sim \mathcal{N}(0,1)$ exactly |
+| Normal | Unknown (use $S^2$) | $Z \sim t(n-1)$ exactly |
 
-$$
-H_0 : \mu = \mu_0
-$$
+In all cases: reject $H_0$ if $Z > z_{1-\alpha}$ (or $t_{1-\alpha}(n-1)$ for the last case).
+]
 
-$$
-H_1 : \mu = \mu_1
-$$
-
-where $\mu_0 < \mu_1$
-
---
-
-- We again rely on various forms of the test statistic:
-$$
-Z = \frac{\bar{X} - \mu_0}{\sqrt{\sigma^2/n}}
-$$
-
----
-# Unknown distribution, known variance
-
---
-
-- Suppose we do not know the type of distribution of $X$ in the population, but we know its variance $\sigma^2$
-
---
-
-- In this case, we know the approximate distribution of $Z$:
-$$
-Z \overset{a}{\sim} \mathcal{N} \left( \frac{\mu - \mu_0}{\sqrt{\sigma^2/n}}, 1 \right)
-$$
-
---
-
-- We can then determine the (approximate) distribution of $Z$ under the two hypotheses:
-
---
-
-  - under $H_0$, $Z \overset{a}{\sim} \mathcal{N}(0, 1)$
-
---
-
-  - under $H_1$, $Z \overset{a}{\sim} \mathcal{N} \left( \frac{\mu_1 - \mu_0}{\sqrt{\sigma^2/n}}, 1 \right)$
-
---
-
-- Even though the distribution of $Z$ is only approximate, we can still use the same type of decision rule as before:
-
---
-
-  - do not reject $H_0$ if $Z \leq z_{1 - \alpha}$
-
---
-
-  - reject $H_0$ if $Z > z_{1 - \alpha}$
-
----
-# Unknown distribution, unknown variance
-
---
-
-- Now suppose we also do not know the variance $\sigma^2$
-
---
-
-- We can use the sample variance instead of $\sigma^2$ to construct the test statistic:
-$$
-Z = \frac{\bar{X} - \mu_0}{\sqrt{S^2/n}}
-$$
-
---
-
-- This test statistic is still approximately normally distributed, so we can again use the same type of decision rule as before:
-
---
-
-  - do not reject $H_0$ if $Z \leq z_{1 - \alpha}$
-
---
-
-  - reject $H_0$ if $Z > z_{1 - \alpha}$
-
----
-# Normally distributed observations, known variance
-
---
-
-- Suppose we know that $X \sim \mathcal{N}(\mu, \sigma^2)$ and that we know the value of $\sigma^2$
-
---
-
-- In this case, $Z$ follows an exact normal distribution:
-$$
-Z \sim \mathcal{N} \left( \frac{\mu - \mu_0}{\sqrt{\sigma^2/n}}, 1 \right)
-$$
-
---
-
-- Therefore, the decision rule is exactly as before, only based on an exact distribution:
-
---
-
-  - do not reject $H_0$ if $Z \leq z_{1 - \alpha}$
-
---
-
-  - reject $H_0$ if $Z > z_{1 - \alpha}$
-
----
-# Normally distributed observations, unknown variance
-
---
-
-- Suppose again that we know that $X \sim \mathcal{N}(\mu, \sigma^2)$, but now we do not know the value of $\sigma^2$
-
---
-
-- In this case, $Z$ is constructed based on the sample variance and follows an exact $t$-distribution under the null hypothesis:
-$$
-Z = \frac{\bar{X} - \mu_0}{\sqrt{S^2/n}} \sim t(n-1) \text{ if } H_0 \text{ is true}
-$$
-
---
-
-- Therefore, the decision rule is exactly as before, only based on the (exact) $t$ distribution:
-
---
-
-  - do not reject $H_0$ if $Z \leq t_{1 - \alpha}(n-1)$
-
---
-
-  - reject $H_0$ if $Z > t_{1 - \alpha}(n-1)$
+.pull-right-narrow[
+.small123[
+**Note:** The unknown-distribution cases rely on the CLT; the normal cases give exact distributions.
+]
+]
 
 ---
 # Bernoulli distributed observations
 
---
+.pull-left-wide[
+If $X \sim \text{Bernoulli}(p)$, the mean represents $p$ and the variance is $p(1-p)$.
 
-- Another useful distribution in practice is the Bernoulli distribution (e.g., $X = 1$ if a person is unemployed and $X = 0$ if not)
+Test $H_0: p = p_0$ vs $H_1: p = p_1$ ($p_0 < p_1$):
+$$Z = \frac{\bar{X} - p_0}{\sqrt{p_0(1-p_0)/n}} \overset{a}{\sim} \mathcal{N}(0,1) \text{ under } H_0$$
 
---
-
-- In this case, the mean represents the probability $p$ of a success (the probability of being unemployed)
-
---
-
-- From the Bernoulli distribution, we also know that the variance is $p \cdot (1 - p)$
-
---
-
-- The sample average represents the fraction of successes (the fraction of people unemployed)
+Decision rule: reject $H_0$ if $Z > z_{1-\alpha}$.
+]
 
 ---
-# Bernoulli distributed observations
+# .red[Raise your hand 2: Which test statistic?]
+
+```{r ryh2-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** You have $n=50$ observations from an **unknown** distribution with **known** variance $\sigma^2=4$. Under $H_0: \mu=10$, the test statistic $Z = (\bar{X}-10)/(2/\sqrt{50})$ follows:
+
+A: $\mathcal{N}(0,1)$ approximately, by the CLT
+B: $\mathcal{N}(0,1)$ exactly, because $\sigma^2$ is known
+C: $t(49)$, because we are estimating from a sample
+D: $\chi^2(49)$
+]
 
 --
 
-- Suppose the hypotheses to be tested are:
+.pull-left-wide[
+**Q2.** If $X \sim \mathcal{N}(\mu,\sigma^2)$ and $\sigma^2$ is **unknown**, the statistic $T = (\bar{X}-\mu_0)/(S/\sqrt{n})$ follows under $H_0$:
 
-$$
-H_0 : \mu = p = p_0
-$$
+A: $t(n-1)$ exactly
+B: $\mathcal{N}(0,1)$ approximately
+C: $t(n)$
+D: $F(1,n-1)$
+]
 
-$$
-H_1 : \mu = p = p_1
-$$
+```{r ryh2-answers, eval=FALSE, include=FALSE}
+# Q1: A
+# B: "exactly" requires normality of X; unknown distribution only gives CLT approximation
+# C: t applies when σ² is unknown; knowing σ² means we use normal, not t
+# D: χ² is for variance tests, not mean tests
 
-with $p_0 < p_1$
-
---
-
-- We can then construct the following test statistic:
-$$
-Z = \frac{\bar{X} - p_0}{\sqrt{\dfrac{p_0 \cdot (1 - p_0)}{n}}}
-$$
-
---
-
-- Under the null hypothesis, $Z \overset{a}{\sim} \mathcal{N}(0, 1)$
-
---
-
-- Therefore, the decision rule is as before, based on the critical values from the normal distribution:
-
---
-
-  - do not reject $H_0$ if $Z \leq z_{1 - \alpha}$
-
---
-
-  - reject $H_0$ if $Z > z_{1 - \alpha}$
+# Q2: A
+# B: normal approximation applies when distribution is unknown; normal X + unknown σ² → exact t
+# C: off-by-one; df = n-1 because one df is used estimating the mean
+# D: F(1,n-1) is the square of a t(n-1); it arises in regression F-tests, not simple mean tests
+```
 
 ---
+# .red[Practice 2: Full hypothesis test]
+
+.pull-left-wide[
+A bank claims the average waiting time is 5 minutes. A sample of $n=25$ waiting times gives $\bar{X}=6.2$ minutes and $S^2=4$ min². Assume waiting times are normally distributed.
+
+1. Formulate $H_0$ and $H_1$ to test if the true mean **exceeds** 5 minutes.
+2. Compute the test statistic.
+3. State the decision at $\alpha=0.05$ and compute the $p$-value.
+]
+
+```{r practice2-answers, eval=FALSE, include=FALSE}
+# 1. H₀: μ = 5, H₁: μ > 5 (one-sided); use t(24) since normal + unknown σ²
+# 2. T = (6.2 - 5) / (2/√25) = 1.2 / 0.4 = 3.0
+# 3. Critical value: t_{0.95}(24) ≈ 1.711; 3.0 > 1.711 → reject H₀
+#    p-value = P(T > 3.0 | t(24)) ≈ 0.003
+```
+
+---
+class: inverse, middle, center
 # Simple and composite hypotheses
 
---
+---
+# Types of hypotheses
 
-- Up until now, we only considered cases when the hypothesis (null or alternative) was about the mean value being equal to a certain value
+.pull-left-wide[
+- **Simple**: only one value satisfies the hypothesis (e.g., $\mu = \mu_0$)
+- **Composite**: several values satisfy it (e.g., $\mu > \mu_0$ or $\mu \not= \mu_0$)
 
---
+**Two-sided test** — the alternative is composite:
+$$\begin{align*} H_0 & : \mu = \mu_0 \\ H_1 & : \mu \not= \mu_0 \end{align*}$$
 
-- In practice, it is rare that we have this precise hypotheses, particularly for the alternative hypothesis
-
---
-
-- In general, we classify hypotheses in two groups:
-
---
-
-  - **simple**: only one value satisfies this hypothesis (e.g., $\mu = \mu_0$)
-
---
-
-  - **composite**: several values satisfy this hypothesis (e.g., $\mu > \mu_0$, or $\mu \not= \mu_0$)
+Decision rule (symmetric around $\mu_0$):
+- do not reject $H_0$ if $z_{\alpha/2} \leq Z \leq z_{1-\alpha/2}$
+- reject $H_0$ if $Z < z_{\alpha/2}$ or $Z > z_{1-\alpha/2}$
+]
 
 ---
-# Simple null, composite two-sided alternative hypothesis
+# One-sided and composite null
 
---
+.pull-left-wide[
+**One-sided test** (theory implies direction):
+$$\begin{align*} H_0 & : \mu = \mu_0 \\ H_1 & : \mu > \mu_0 \end{align*}$$
 
-- In economics, we are often interested in the effects of policies
+Decision rule: reject $H_0$ if $Z > z_{1-\alpha}$.
 
---
+**Composite null** (more realistic):
+$$\begin{align*} H_0 & : \mu \leq \mu_0 \\ H_1 & : \mu > \mu_0 \end{align*}$$
 
-- A very common hypothesis is whether the policy has an effect on some outcome $X$
-
---
-
-- Suppose that we know that, in the absence of the policy (or of an effect), the mean value of $X$ is $\mu_0$
-
---
-
-- If the policy has an effect, then the mean value is different from $\mu_0$
-
---
-
-- If we want to study whether there is an effect, we usually set this as the alternative hypothesis:
-
-$$
-H_0 : \mu = \mu_0
-$$
-
-$$
-H_1 : \mu \not= \mu_0
-$$
-
---
-
-- The alternative hypothesis is composite and **two-sided** because any value greater than *or* less than $\mu_0$ satisfies $H_1$
-
----
-# Simple null, composite two-sided alternative hypothesis
-
---
-
-- As before, we construct a test statistic that follows an approximate standard normal distribution under $H_0$:
-$$
-Z = \frac{\bar{X} - \mu_0}{\sqrt{\sigma^2/n}}
-$$
-
---
-
-- The decision rule needs to take into account that both values greater than and smaller than $\mu_0$ satisfy $H_1$:
-
---
-
-  - do not reject $H_0$ if $c_1 \leq Z \leq c_2$
-
---
-
-  - reject $H_0$ if $Z < c_1$ or $Z > c_2$
-
---
-
-- We can determine these critical values using symmetry:
-$$
-\alpha = P(\text{type-I error}) = P(Z < c_1 | \mu = \mu_0) + P(Z > c_2 | \mu = \mu_0)
-$$
-
---
-
-- The decision rule becomes:
-
---
-
-  - do not reject $H_0$ if $z_{\alpha/2} \leq Z \leq z_{1 - \alpha/2}$
-
---
-
-  - reject $H_0$ if $Z < z_{\alpha/2}$ or $Z > z_{1 - \alpha/2}$
-
----
-# Simple null, composite one-sided alternative hypothesis
-
---
-
-- Sometimes, the theory tells us that the effect of the policy should be positive
-
---
-
-- In this case, the two hypotheses are:
-
-$$
-H_0 : \mu = \mu_0
-$$
-
-$$
-H_1 : \mu > \mu_0
-$$
-
---
-
-- The alternative hypothesis is now **one-sided** because only values greater than $\mu_0$ satisfy $H_1$
-
----
-# Simple null, composite one-sided alternative hypothesis
-
---
-
-- We again construct a test statistic that follows an approximate standard normal distribution under $H_0$:
-$$
-Z = \frac{\bar{X} - \mu_0}{\sqrt{\sigma^2/n}}
-$$
-
---
-
-- The decision rule needs to take into account that only values greater than $\mu_0$ satisfy $H_1$:
-
---
-
-  - do not reject $H_0$ if $Z \leq c$
-
---
-
-  - reject $H_0$ if $Z > c$
-
---
-
-- We can determine this critical value as follows:
-$$
-\alpha = P(\text{type-I error}) = P(Z > c | \mu = \mu_0) = 1 - \Phi(c)
-$$
-
---
-
-- The decision rule becomes:
-
---
-
-  - do not reject $H_0$ if $Z \leq z_{1 - \alpha}$
-
---
-
-  - reject $H_0$ if $Z > z_{1 - \alpha}$
-
----
-# Composite null hypothesis
-
---
-
-- The problem with the types of hypotheses above is that they restrict the range of values that $\mu$ can take ($\mu_0$ and below, or $\mu_0$ and above)
-
---
-
-- In general, there are few situations where theory tells us that $\mu$ can only take a restricted number of values
-
---
-
-- Therefore, it may be more realistic to test the following hypotheses:
-
-$$
-H_0 : \mu \leq \mu_0
-$$
-
-$$
-H_1 : \mu > \mu_0
-$$
-
---
-
-- This type of test is conducted in exactly the same way as the one-sided test:
-
---
-
-  - do not reject $H_0$ if $Z \leq z_{1 - \alpha}$
-
---
-
-  - reject $H_0$ if $Z > z_{1 - \alpha}$
+Conducted in exactly the same way as the one-sided test — same decision rule.
+]
 
 ---
 class: inverse, middle, center
 # The $p$-value
 
 ---
-# Motivation
-
---
-
-- The general recipe for a hypothesis test followed until now is:
-
---
-
-  - formulate $H_0$ and $H_1$
-
---
-
-  - choose a confidence level $\alpha$
-
---
-
-  - calculate the test statistic $Z$
-
---
-
-  - compare the test statistic to the critical values corresponding to the critical level $\alpha$
-
---
-
-- In practice, it can happen that we reject the null hypothesis at, say 95% confidence ($\alpha = 0.05$) but not at 90% confidence ($\alpha = 0.10$)
-
---
-
-- One natural question is: what is the maximum level of confidence at which we can reject the null hypothesis?
-
---
-
-- In other words: what is the probability of falsely rejecting the null given our sample?
-
----
 # The $p$-value
 
---
+.pull-left-wide[
+> The **$p$-value** is the probability of observing a test statistic at least as extreme as the one observed, assuming $H_0$ is true
 
-- The **$p$-value** is the probability of a type-I error given our sample and the observed value of the test statistic:
-$$
-p = P(\text{type-I error}) = P(\text{reject } H_0 | H_0 \text{ true})
-$$
+It answers: what is the lowest $\alpha$ at which we would still reject $H_0$?
 
---
-
-- Intuitively, what we do is to use the observed value of the test statistic as a critical value and ask how much of an error would we make in this case?
-
---
-
-- The decision rule can now be stated in terms of how much of an error we are willing to accept:
+Decision rule:
+- do not reject $H_0$ if $p \geq \alpha$
+- reject $H_0$ if $p < \alpha$
+]
 
 --
 
-  - do not reject $H_0$ if $p \geq \alpha$
+.pull-left-wide[
+**One-sided** ($H_1: \mu > \mu_0$, observed value $z$):
+$$p = P(Z > z \mid H_0) = 1 - \Phi(z)$$
 
---
-
-  - reject $H_0$ if $p < \alpha$
-
---
-
-- As an example, we will calculate the $p$-value for some of our previous examples
+**Two-sided** ($H_1: \mu \not= \mu_0$, observed value $z$):
+$$p = P(|Z| > |z| \mid H_0) = 2\Phi(-|z|)$$
+]
 
 ---
-# The $p$-value: simple null, simple alternative
+# .red[Raise your hand 3: The p-value]
+
+```{r ryh3-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** For a **two-sided** test, the observed test statistic is $Z = 1.8$. The $p$-value equals:
+
+A: $2\Phi(-1.8) = 2(1-\Phi(1.8)) \approx 0.072$
+B: $1 - \Phi(1.8) \approx 0.036$
+C: $\Phi(1.8) \approx 0.964$
+D: $2\Phi(1.8) \approx 1.928$
+]
 
 --
 
-- Suppose again that we are testing:
+.pull-left-wide[
+**Q2.** A researcher obtains $p = 0.03$ and tests at $\alpha = 0.05$. Which statement is correct?
 
-$$
-H_0 : \mu = \mu_0
-$$
+A: Reject $H_0$; $p < \alpha$ means the data are unlikely under $H_0$
+B: Do not reject $H_0$; a $p$-value of 3% means there is a 3% chance $H_0$ is true
+C: Reject $H_0$; the result is practically important because $p$ is small
+D: Do not reject $H_0$; $p > 0.01$ so the evidence is not strong enough
+]
 
-$$
-H_1 : \mu = \mu_1
-$$
+```{r ryh3-answers, eval=FALSE, include=FALSE}
+# Q1: A
+# B: one-sided p-value; two-sided requires doubling
+# C: Φ(z) = P(Z≤z); this gives area to the left, not the tail probability
+# D: tries to double but uses cumulative Φ(1.8) rather than 1-Φ(1.8); gives number > 1
 
-with $\mu_0 < \mu_1$
-
---
-
-- The decision rule in this case is to reject $H_0$ if $Z > c$, where $c$ is the critical value
-
---
-
-- Let $z$ be the observed value of the test statistic, $Z$
-
---
-
-- Then, the $p$-value is:
-$$
-p = P(Z > z | H_0 \text{ true}) = 1 - \Phi(z)
-$$
+# Q2: A
+# B: common misinterpretation — p-value is P(data | H₀), not P(H₀ | data)
+# C: statistical significance ≠ practical/economic significance; small p says nothing about magnitude
+# D: α = 0.05 is the threshold; p = 0.03 < 0.05 → reject
+```
 
 ---
-# The $p$-value: simple null, two-sided alternative
+# .red[Practice 3: p-value calculation]
 
---
+.pull-left-wide[
+Heights of adult men in a city are claimed to average 178 cm. A sample of $n=64$ men gives $\bar{X}=180.5$ cm and $S^2=100$ cm².
 
-- Consider now a two-sided test:
+1. Test $H_0: \mu=178$ vs $H_1: \mu \not= 178$ (state which test statistic you use and why).
+2. Compute the test statistic and the $p$-value.
+3. State the decision at $\alpha=0.05$.
+]
 
-$$
-H_0 : \mu = \mu_0
-$$
-
-$$
-H_1 : \mu \not= \mu_0
-$$
-
---
-
-- The decision rule in this case is to reject $H_0$ if $|Z| \geq c$, where $c$ is the critical value (positive)
-
---
-
-- The $p$-value in this case is:
-
-$$
-p = P(|Z| > |z| | H_0 \text{ true})
-$$
-
---
-
-$$
-= P(Z < -|z| | H_0 \text{ true}) + P(Z > |z| | H_0 \text{ true})
-$$
-
---
-
-$$
-= \Phi(-|z|) + 1 - \Phi(|z|) = 2 - 2 \cdot \Phi(|z|) = 2 \cdot \Phi(-|z|)
-$$
+```{r practice3-answers, eval=FALSE, include=FALSE}
+# 1. Unknown distribution, unknown σ² → approximate N(0,1) by CLT (large n = 64)
+# 2. Z = (180.5 - 178) / (10/√64) = 2.5 / 1.25 = 2.0
+#    p-value = 2·Φ(-2) ≈ 2·0.0228 = 0.046
+# 3. p = 0.046 < 0.05 → reject H₀ at α = 0.05
+```
 
 ---
 class: inverse, middle, center
 # Choice of sample size based on type-I and type-II errors
 
 ---
-# Type-II error
+# Required sample size
 
---
+.pull-left-wide[
+For $H_0: \mu=\mu_0$ vs $H_1: \mu=\mu_1$ ($\mu_0 < \mu_1$), the type-II error is:
+$$\beta = \Phi\!\left(z_{1-\alpha} - \frac{\mu_1-\mu_0}{\sqrt{\sigma^2/n}}\right)$$
 
-- If we can determine the sample size, we would want to do it so that we can best answer the question at hand
+Solving for $n$:
+$$n = \left(\frac{z_{1-\alpha} - z_\beta}{\mu_1 - \mu_0} \cdot \sigma\right)^2$$
+]
 
---
-
-- Suppose we want to test $H_0: \mu = \mu_0$ against $H_1: \mu = \mu_1$, with $\mu_0 < \mu_1$
-
---
-
-- Recall that the type-II error is not rejecting $H_0$ when it is actually false
-
---
-
-- The distribution of the test statistic under $H_1$ is:
-$$
-Z \overset{a}{\sim} \mathcal{N} \left( \frac{\mu_1 - \mu_0}{\sqrt{\sigma^2 / n}}, 1 \right)
-$$
-
---
-
-- We can determine the probability of a type-II error:
-$$
-\beta = P(\text{type-II error}) = P(Z \leq z_{1 - \alpha} | H_0 \text{ false}) = \Phi \left( z_{1 - \alpha} - \frac{\mu_1 - \mu_0}{\sqrt{\sigma^2 / n}} \right)
-$$
-
----
-# Relationship between type-I and type-II errors
-
---
-
-- Note that we can interpret the relationship above as determining a critical value corresponding to $\beta$:
-$$
-z_{\beta} = z_{1 - \alpha} - \frac{\mu_1 - \mu_0}{\sqrt{\sigma^2 / n}}
-$$
-
---
-
-- From here, we can solve for the sample size $n$:
-$$
-n = \left( \frac{z_{1 - \alpha} - z_\beta}{\mu_1 - \mu_0} \cdot \sigma \right)^2
-$$
-
---
-
-- This relationship shows again the tradeoff between type-I and type-II error for a given sample size
-
---
-
-- It also gives us the required sample size for a given level of $\alpha$ and $\beta$
+.pull-right-narrow[
+.small123[
+**Key insight:** Required $n$ grows as $(\mu_1-\mu_0)$ shrinks — detecting small effects requires large samples.
+]
+]
 
 ---
 class: inverse, middle, center
@@ -1107,142 +556,122 @@ class: inverse, middle, center
 ---
 # Tests of the variance
 
---
+.pull-left-wide[
+The variance matters in applications:
+- variance of stock prices → measure of financial risk
+- variance of wages → measure of income inequality
 
-- In some applications, we are interested in the variance in the population rather than the mean value
+Test $H_0: \sigma^2=\sigma_0^2$ vs $H_1: \sigma^2 \not= \sigma_0^2$:
+$$Y = (n-1) \cdot \frac{S^2}{\sigma_0^2} \overset{a}{\sim} \chi^2(n-1) \text{ under } H_0$$
 
---
-
-  - the variance of a stock price is a measure of risk in finance
-
---
-
-  - the variance of wages/incomes is a measure of income inequality
-
---
-
-- Consider the following null and alternative hypotheses:
-
-$$
-H_0 : \sigma^2 = \sigma_0^2
-$$
-
-$$
-H_1 : \sigma^2 \not= \sigma_0^2
-$$
-
---
-
-- In this case, the test statistic is given by:
-$$
-Y = (n - 1) \cdot \frac{S^2}{\sigma_0^2}
-$$
-
---
-
-- Under the null hypothesis, this test statistic follows an approximate $\chi^2(n-1)$ distribution
+Decision rule:
+- do not reject $H_0$ if $\chi^2_{\alpha/2}(n-1) \leq Y \leq \chi^2_{1-\alpha/2}(n-1)$
+- reject $H_0$ otherwise
+]
 
 ---
-class: inverse, middle, center
-# Other topics
+# .red[Raise your hand 4: Test of variance]
+
+```{r ryh4-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** You test $H_0: \sigma^2=16$ vs $H_1: \sigma^2 \not= 16$ with $n=20$ and $S^2=22$. The test statistic is:
+
+A: $Y = (n-1) \cdot S^2/\sigma_0^2 = 19 \cdot 22/16 = 26.125$
+B: $Y = n \cdot S^2/\sigma_0^2 = 20 \cdot 22/16 = 27.5$
+C: $Y = \sqrt{(n-1) \cdot S^2/\sigma_0^2} \approx 5.11$
+D: $Z = (S^2 - \sigma_0^2)/\sqrt{2\sigma_0^4/(n-1)}$
+]
+
+--
+
+.pull-left-wide[
+**Q2.** The test statistic $Y$ follows $\chi^2(n-1)$ under $H_0$. The degrees of freedom are $n-1$ (not $n$) because:
+
+A: One degree of freedom is lost to estimating $\bar{X}$ when computing $S^2$
+B: The $\chi^2$ distribution is defined to have one fewer degree than the sample size
+C: Dividing by $(n-1)$ in the $S^2$ formula cancels one observation
+D: The $\chi^2$ distribution requires at least 1 df to be well-defined
+]
+
+```{r ryh4-answers, eval=FALSE, include=FALSE}
+# Q1: A
+# B: uses n instead of n-1 (incorrect degrees of freedom)
+# C: taking the square root changes chi-squared to chi; wrong distribution
+# D: applies a normal approximation that is not the standard approach here
+
+# Q2: A
+# B: circular — it "works out" to n-1 because of the constraint imposed by x̄, not by definition
+# C: dividing by n-1 in S² is related but the df come from the constraint, not the divisor
+# D: χ²(1) is perfectly well-defined; this is irrelevant reasoning
+```
+
+---
+# .red[Practice 4: Test of variance]
+
+.pull-left-wide[
+A manufacturer claims the variance of product weights is at most $\sigma_0^2 = 0.01$ kg². A sample of $n=16$ products gives $S^2 = 0.016$ kg².
+
+1. Test $H_0: \sigma^2 \leq 0.01$ vs $H_1: \sigma^2 > 0.01$ at $\alpha = 0.05$.
+2. Compute the $p$-value.
+]
+
+```{r practice4-answers, eval=FALSE, include=FALSE}
+# 1. Y = (16-1)·0.016/0.01 = 15·1.6 = 24
+#    Critical value: χ²_{0.95}(15) ≈ 24.996
+#    24 < 24.996 → do not reject H₀ (very close call)
+# 2. p-value = P(χ²(15) > 24) ≈ 0.065 > 0.05
+```
 
 ---
 # Statistical significance
 
---
+.pull-left-wide[
+A result is **statistically significant** if we reject the null hypothesis.
 
-- A result is **statistically significant** if we reject the null hypothesis
-
---
-
-- Statistically significant results are obviously important
-
---
-
-- However, we need to keep in mind several aspects:
-
---
-
-  - sample variance depends on sample size, so a result that is insignificant in a small sample may be significant in a larger sample (and vice-versa)
-
---
-
-  - there is always the possibility of making a type-I error (rejecting $H_0$ when it is actually true) because of uncertainty in the sample
+Caveats:
+- Sample size matters: a result insignificant in a small sample may be significant in a larger one
+- There is always the chance of a type-I error (rejecting a true $H_0$)
+]
 
 ---
-# Statistical significance versus economic significance
+# Statistical versus economic significance
+
+.pull-left-wide[
+Statistically significant results may not be **economically significant** (magnitudes may be negligible).
+
+Example: Average family income in Denmark is DKK 300,000/year. We test $H_0: \mu_{Fyn} \geq 300{,}000$ vs $H_1: \mu_{Fyn} < 300{,}000$.
+]
 
 --
 
-- Statistically significant results may not always be **economically significant** (i.e., their magnitudes are not "large enough")
+.pull-left-wide[
+With a large sample and $\bar{X} = 299{,}900$, we can reject $H_0$ — but is DKK 100 a meaningful difference?
 
---
-
-- For example, suppose we know that the average family income in Denmark is DKK 300,000 per year
-
---
-
-- We want to test whether families on Fyn earn similar incomes
-
---
-
-- The null hypothesis is $H_0: \mu_{Fyn} \geq 300,000$, and the alternative is $H_1: \mu_{Fyn} < 300,000$
-
---
-
-- Now, suppose that we have a large sample of families on Fyn, with a sample average income of DKK $299,900$
-
---
-
-- Because of the large sample size, we can reject $H_0$
-
---
-
-- But are DKK $100$ an economically significant difference?
-
---
-
-- In conclusion:
-
---
-
-  - statistical significance relates to uncertainty in the sample
-
---
-
-  - economic significance relates to an assessment of the social or economic consequences of the question
+> **Statistical significance** relates to uncertainty in the sample. **Economic significance** relates to the social or economic consequences of the finding.
+]
 
 ---
 # Confidence intervals and hypothesis testing
 
---
+.pull-left-wide[
+Hypothesis testing is equivalent to constructing a confidence interval and rejecting $H_0$ if the tested value lies outside it.
 
-- Hypothesis testing is equivalent to constructing a confidence interval for the quantity tested and rejecting the null if the value tested lies outside the interval
+For $H_0: \mu = \mu_0$ vs $H_1: \mu \not= \mu_0$, construct $\hat{I}$ at $(1-\alpha)$ confidence:
+- do not reject $H_0$ if $\mu_0 \in \hat{I}$
+- reject $H_0$ if $\mu_0 \not\in \hat{I}$
+]
 
---
+---
+# Before next time
+.pull-left[
+- Read the assigned reading
+- Next time: Testing relationships using quantitative data $\rightarrow$ Chapter 15
+]
 
-- For example, suppose we want to test $H_0: \mu = \mu_0$ against $H_1: \mu \not= \mu_0$
-
---
-
-- We can construct a confidence interval $\hat{I}$ at $(1-\alpha)$ confidence
-
---
-
-- The decision rule would then be:
-
---
-
-  - do not reject $H_0$ if $\mu_0 \in \hat{I}$
-
---
-
-  - reject $H_0$ if $\mu_0 \not\in \hat{I}$
-
---
-
-- This procedure is equivalent to the tests conducted until now
-
---
-
-- This should not be surprising: we are using the exact same critical values in both cases!
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

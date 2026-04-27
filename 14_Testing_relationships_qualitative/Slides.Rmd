@@ -94,13 +94,29 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 ## Testing relationships using qualitative data
 ### (Chapter 16)
 
-### Seetha Menon,<br>Department of Economics<br>University of Southern Denmark
+### Christian Vedel,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
 ### Updated `r Sys.Date()`
 
 
+
+---
+class: middle
+# Today's lecture
+.pull-left-wide[
+**Using chi-square tests to assess whether observed categorical distributions match theory and whether two discrete variables are related**
+
+- **Section 1:** The $\chi^2$-test
+- **Section 2:** Test of a distribution
+- **Section 3:** Testing the relationship between two discrete random variables
+- **Section 4:** Test for homogeneity
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
 
 ---
 class: inverse, middle, center
@@ -109,233 +125,258 @@ class: inverse, middle, center
 ---
 # Motivation
 
---
+.pull-left-wide[
+**Discrete random variables** arise when we deal with qualitative data:
+- highest level of education attained
+- gender
+- type of car purchased (gas, diesel, hybrid, electric)
 
-- We will now turn to testing different properties of discrete random variables
-
---
-
-- Discrete random variables arise in practice when we deal with qualitative data
-
---
-
-- For example:
-  - highest level of education attained
-  - gender
-  - type of car purchased (gas, diesel, hybrid, electric)
+We can test whether the observed distribution of such a variable matches a theoretical one.
+]
 
 ---
-# The $\chi^2$ test
+# The $\chi^2$ test: setup
 
---
+.pull-left-wide[
+Let $X$ be the variable of interest taking $K$ possible values $x_1, x_2, \ldots, x_K$ (called **categories**).
 
-- We can test whether the observed (empirical) distribution of a discrete random variable is similar to a given distribution
+The probability of each category $k$ is $f(x_k) = p_k$.
 
---
+Hypotheses:
+$$\begin{align*} H_0 & : p_1=\pi_1,\; p_2=\pi_2,\ldots,p_K=\pi_K \\ H_1 & : \text{at least one } p_k \not= \pi_k \end{align*}$$
 
-- Let $X$ be the variable of interest, and suppose that it can only take $K$ values $x_1$, $x_2$, $\ldots$, $x_K$
+where $\pi_1, \ldots, \pi_K$ are the probabilities from the given (theoretical) distribution.
+]
 
---
-
-- The $K$ values are usually called **categories**
-
---
-
-- The probability of each category $k$ is $p_k$:
-$$P(X = x_k) = p_k$$
-
---
-
-- The hypotheses of the $\chi^2$ test are:
-$$\begin{align*}
-  H_0 &:  p_1 = \pi_1, \;  p_2 = \pi_2, \ldots, p_K = \pi_K, \\
-  H_1 &:  \text{at least one } p_k \not= \pi_k
-\end{align*}$$
-where $\pi_1$, $\pi_2$, $\ldots$, $\pi_K$ are the probabilities from the given distribution
-
---
-
-- For the moment being, we will assume that this distribution is given (we will see later on how we can choose it)
+.pull-right-narrow[
+.small123[
+**Note:** $\pi_k$ is the hypothesised probability; $p_k$ is the true (unknown) probability; $Z_k$ is the observed count.
+]
+]
 
 ---
-# Hypothesis measure
+# The $\chi^2$ test statistic
 
---
+.pull-left-wide[
+With a simple random sample of $n$ observations, let $Z_k$ be the number of elements with value $x_k$. Then $Z_k/n$ estimates $p_k$.
 
-- We can construct a hypothesis measure that is equal to zero under the null hypothesis and different from zero otherwise:
-$$h(p_1, p_2, \ldots, p_K) = \sum_{k=1}^K (p_k - \pi_k)^2$$
+> **Test statistic:**
+$$\chi^2 = \sum_{k=1}^K \frac{(Z_k - n\pi_k)^2}{n\pi_k}$$
 
---
+Under $H_0$, $\chi^2 \sim \chi^2(K-1)$.
 
-- As before, the $p_k$'s are unknown, so we need to replace them with observed quantities
+The $(K-1)$ degrees of freedom arise because the $K$ probabilities must sum to 1 — only $K-1$ are free.
 
---
-
-- Suppose we have a simple random sample $(X_1, X_2, \ldots, X_n)$ from this distribution
-
---
-
-- Let $Z_k$ be the number of elements in the sample that have the value $x_k$
-
---
-
-- Then an estimator for $p_k$ is simply $Z_k / n$
+Decision rule: reject $H_0$ if $\chi^2 > \chi^2_{1-\alpha}(K-1)$.
+]
 
 ---
-# Test statistic
+# .red[Raise your hand 1: The $\chi^2$ test]
+
+```{r ryh1-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** A $\chi^2$ test checks whether a six-sided die is fair ($K=6$). How many degrees of freedom does the test statistic have?
+
+A: 5
+B: 6
+C: 1
+D: Depends on the sample size $n$
+]
 
 --
 
-- In order for the test statistic to have a "nice" distribution, we need to change the formula a little bit
+.pull-left-wide[
+**Q2.** The minimum $\chi^2$ value that leads to rejection at $\alpha=0.05$ for this test is:
 
---
+A: $\chi^2_{0.95}(5) \approx 11.07$
+B: $\chi^2_{0.95}(6) \approx 12.59$
+C: $\chi^2_{0.975}(5) \approx 12.83$
+D: $z_{0.95}^2 \approx 2.71$
+]
 
-- In particular, it can be shown that the following test statistic follows a $\chi^2$ distribution with $(K - 1)$ degrees of freedom under the null hypothesis:
-$$\chi^2 = \sum_{k=1}^K \frac{(Z_k - n \cdot \pi_k)^2}{n \cdot \pi_k}$$
+```{r ryh1-answers, eval=FALSE, include=FALSE}
+# Q1: A
+# df = K-1 = 5; probabilities must sum to 1, leaving K-1 free
+# B: uses K instead of K-1
+# C: df=1 is for a two-category (binary) test
+# D: degrees of freedom depend on K (number of categories), not n
 
---
+# Q2: A
+# B: uses K=6 as df instead of K-1=5
+# C: uses α/2 tail; χ² tests are one-sided (only large values reject H₀)
+# D: applies a normal critical value; wrong distribution for chi-square tests
+```
 
-- The number of degrees of freedom is $(K - 1)$ because we can only freely assign values to $K - 1$ probabilities (the $K$-th one is 1 minus the others)
+---
+# .red[Practice 1: Chi-square goodness-of-fit]
 
---
+.pull-left-wide[
+A die is rolled 120 times. Observed counts:
 
-- If we conduct a hypothesis test at a $(1 - \alpha)$ confidence level, then we reject the null hypothesis if we observe too large values of $\chi^2$:
-  - do not reject $H_0$ if $\chi^2 \leq \chi^2_{1 - \alpha}(K-1)$
-  - reject $H_0$ if $\chi^2 > \chi^2_{1 - \alpha}(K-1)$
+| Face | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| Count | 25 | 17 | 22 | 18 | 21 | 17 |
+
+1. State $H_0$ and compute the expected counts under $H_0$.
+2. Compute the $\chi^2$ test statistic.
+3. Test at $\alpha=0.05$. ($\chi^2_{0.95}(5) \approx 11.07$)
+]
+
+```{r practice1-answers, eval=FALSE, include=FALSE}
+# 1. H₀: π₁ = ... = π₆ = 1/6; expected counts: n·πk = 120/6 = 20 for all k
+# 2. χ² = (25-20)²/20 + (17-20)²/20 + (22-20)²/20 + (18-20)²/20 + (21-20)²/20 + (17-20)²/20
+#       = 25/20 + 9/20 + 4/20 + 4/20 + 1/20 + 9/20 = 52/20 = 2.6
+# 3. 2.6 < 11.07 → do not reject H₀ (no evidence the die is unfair)
+```
 
 ---
 class: inverse, middle, center
 # Test of a distribution
 
 ---
-# Known distribution
+# Known and unknown distributions
+
+.pull-left-wide[
+**Known distribution:** the theoretical probabilities $\pi_k$ are fully specified.
+
+Example: test whether a die is fair ($\pi_k = 1/6$) or a coin is unloaded ($\pi_1 = \pi_2 = 0.5$). Proceed directly with the test statistic from Section 1.
+]
 
 --
 
-- We can use the $\chi^2$ test to check if the sample comes from a given distribution
+.pull-left-wide[
+**Unknown distribution:** we know the distributional family but not all parameters.
 
---
+Example: $X \sim \text{Binomial}(n,p)$ with $n$ known but $p$ unknown.
 
-- For example, suppose that we roll a dice and we record the result of every roll
+Estimate $p$ from the sample, then compute $\pi_k$ using the estimate.
 
---
-
-- We would want to compare the resulting distribution to the theoretical distribution from an "unbiased" dice: $\pi_1 = \pi_2 = \cdots = \pi_6 = \frac{1}{6}$
-
---
-
-- We can conduct a similar test if we want to check if a coin is "loaded" by comparing the observed distribution to the theoretical one: $\pi_1 = \pi_2 = 0.5$
-
----
-# Unknown distribution
-
---
-
-- Sometimes, we may guess the shape of the distribution, but not its particular parameters
-
---
-
-- For example, we may know that the sample comes from a binomial distribution and one of the parameters ( $n$ ), but not the other ( $p$ )
-
---
-
-- In this case, we can use the sample to obtain an estimate of this unknown parameter, and use this parameter to calculate the probabilities from the theoretical distribution
-
---
-
-- The test statistic would then follow a $\chi^2$ distribution with $(K - 2)$ degrees of freedom (we "lose" one more degree of freedom because we need to estimate $p$ )
+> When one parameter is estimated, the test statistic follows $\chi^2(K-2)$ — one degree of freedom is lost per estimated parameter.
+]
 
 ---
 class: inverse, middle, center
 # Testing the relationship between two discrete random variables
 
 ---
-# Independence
+# Independence and hypotheses
 
---
+.pull-left-wide[
+Recall that $X$ and $Y$ are independent if and only if:
+$$f(x,y) = f_X(x) \cdot f_Y(y)$$
 
-- Recall that if two random variables are independent, then knowing the value of one of them does not allow us to infer anything about the value of the other
+Hypotheses:
+$$\begin{align*} H_0 & : f(x,y) = f_X(x)\cdot f_Y(y) \text{ for all } x,y \\ H_1 & : f(x,y) \not= f_X(x)\cdot f_Y(y) \text{ for some } x,y \end{align*}$$
 
---
-
-- We can use a $\chi^2$ test to check if two discrete random variables are indeed independent
-
----
-# Hypotheses
-
---
-
-- Recall that two random variables $X$ and $Y$ are independent if and only if the joint probability function is equal to the product of the marginal probability functions:
-$$f(x, y) = f_X(x) \cdot f_Y(y)$$
-
---
-
-- Therefore, the hypotheses tested are:
-$$\begin{align*}
-  H_0 &: \text{Independence, that is, } f(x, y) = f_X(x) \cdot f_Y(y) \text{ for all } x, y, \\
-  H_1 &: \text{Dependence, that is, } f(x, y) \not= f_X(x) \cdot f_Y(y) \text{ for some } x, y
-\end{align*}$$
-
---
-
-- We can interpret $f(x, y)$ as the unknown probabilities, and $f_X(x) \cdot f_Y(y)$ as the chosen distribution to be tested
+We interpret $f(x,y)$ as the unknown joint probabilities, and $f_X(x)\cdot f_Y(y)$ as the distribution under independence.
+]
 
 ---
-# Setup
+# Setup and estimated probabilities
 
---
+.pull-left-wide[
+Suppose $X$ takes $J$ values $x_1,\ldots,x_J$ and $Y$ takes $L$ values $y_1,\ldots,y_L$, giving $K = J \cdot L$ categories.
 
-- Suppose $X$ can take $J$ possible values $x_1$, $x_2$, $\ldots$, $x_J$, and $Y$ can take $L$ different values $y_1$, $y_2$, $\ldots$, $y_L$
+With a sample of $n$ pairs $((X_1,Y_1),\ldots,(X_n,Y_n))$, estimate the marginals:
+$$\begin{align*} \hat{f}_X(x_j) & = \frac{\text{# elements with } X=x_j}{n} \\ \hat{f}_Y(y_l) & = \frac{\text{# elements with } Y=y_l}{n} \end{align*}$$
 
---
-
-- We then have $K = J \cdot L$ categories
-
---
-
-- We do not know $f_X(x)$ nor $f_Y(y)$, but we can again use the sample to obtain estimates
-
---
-
-- Let us assume that we have a simple random sample of $n$ observations $((X_1, Y_1)$, $(X_2, Y_2)$, $\ldots$, $(X_n, Y_n))$
+Let $Z_{jl}$ = number of elements with $X=x_j$ and $Y=y_l$.
+]
 
 ---
-# Probabilities
+# Test statistic for independence
 
---
+.pull-left-wide[
+> **Test statistic:**
+$$\chi^2 = \sum_{j=1}^J\sum_{l=1}^L \frac{\left[Z_{jl} - n\cdot\hat{f}_X(x_j)\cdot\hat{f}_Y(y_l)\right]^2}{n\cdot\hat{f}_X(x_j)\cdot\hat{f}_Y(y_l)}$$
 
-- We can construct estimates of the marginal probability functions in a similar way to before:
-$$\begin{align*}
-  \hat{f}_X(x_j) & = \frac{\text{number of sample elements with } X = x_j}{n} \\
-  \hat{f}_Y(y_l) & = \frac{\text{number of sample elements with } Y = y_l}{n}
-\end{align*}$$
+Degrees of freedom: $(J-1)(L-1)$
+- $J-1$ lost estimating $\hat{f}_X(x)$
+- $L-1$ lost estimating $\hat{f}_Y(y)$
 
---
+Reject $H_0$ if $\chi^2 > \chi^2_{1-\alpha}\!\left((J-1)(L-1)\right)$.
+]
 
-- The joint probability function is just the observed (empirical) distribution:
-$$f(x_j, y_l) = \frac{\text{number of sample elements with } X = x_j \text{ and } Y = y_l}{n}$$
+.pull-right-narrow[
+.small123[
+**Expected count** under independence: $$n\cdot\hat{f}_X(x_j)\cdot\hat{f}_Y(y_l) = \frac{\text{row total}\times\text{col total}}{n}$$
+]
+]
 
 ---
-# Test statistic
+# .red[Raise your hand 2: Test of independence]
+
+```{r ryh2-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** A $\chi^2$ independence test between $X$ (3 values) and $Y$ (4 values) has how many degrees of freedom?
+
+A: $(J-1)(L-1) = 6$
+B: $J \cdot L - 1 = 11$
+C: $J + L - 2 = 3$
+D: $J + L - 1 = 4$
+]
 
 --
 
-- We can then construct the test statistic in a similar way to before:
-$$\chi^2 = \sum_{j=1}^J \sum_{l=1}^L \frac{\left[Z_{jl} - n \cdot \hat{f}_X(x_j) \cdot \hat{f}_Y(y_l)\right]^2}{n \cdot \hat{f}_X(x_j) \cdot \hat{f}_Y(y_l)}$$
+.pull-left-wide[
+**Q2.** A test of homogeneity — whether $X$ has the same distribution across groups defined by $Y$ — is mathematically equivalent to:
 
---
+A: A test of independence between $X$ and $Y$
+B: A two-sample $t$-test of the means of $X$
+C: A test of whether $X$ is normally distributed
+D: A test of whether the variances of $X$ are equal across groups
+]
 
-- This test statistic follows a $\chi^2$ distribution
+```{r ryh2-answers, eval=FALSE, include=FALSE}
+# Q1: A
+# df = (J-1)(L-1) = 2·3 = 6
+# B: treats all JL=12 cells as free; forgets that marginals impose J+L-1 constraints
+# C: confuses with two-sample t-test df formula
+# D: off by one more; another df confusion
 
---
+# Q2: A
+# Homogeneity: f_{X|Y}(x|Y=1) = f_{X|Y}(x|Y=2) ⟺ X and Y independent
+# B: t-test only tests means, not the full distribution
+# C: goodness-of-fit for a specific parametric form — unrelated to homogeneity
+# D: Levene/Bartlett tests — test only variance, not the full distribution
+```
 
-- In order to calculate it, we "lost" a number of degrees of freedom:
-  - $J - 1$, to calculate the marginal probability function $\hat{f}_X(x)$
-  - $L - 1$, to calculate the marginal probability function $\hat{f}_Y(y)$
+---
+# .red[Practice 2: Test of independence]
 
---
+.pull-left-wide[
+A survey of 200 people records education level and whether they voted. Observed counts:
 
-- Therefore, the test statistic follows a $\chi^2$ distribution with $(J - 1) \cdot (L-1)$ degrees of freedom
+| | Voted | Did not vote | Total |
+|---|:---:|:---:|:---:|
+| Low education | 30 | 50 | 80 |
+| Medium education | 45 | 35 | 80 |
+| High education | 35 | 5 | 40 |
+| **Total** | **110** | **90** | **200** |
+
+1. Compute the expected counts under independence.
+2. Compute the $\chi^2$ test statistic.
+3. Test at $\alpha=0.05$. ($\chi^2_{0.95}(2) \approx 5.99$)
+]
+
+```{r practice2-answers, eval=FALSE, include=FALSE}
+# Expected counts: row_total × col_total / n
+# Low/Voted: 80·110/200=44    Low/No: 80·90/200=36
+# Med/Voted: 80·110/200=44    Med/No: 80·90/200=36
+# High/Voted: 40·110/200=22   High/No: 40·90/200=18
+#
+# χ² = (30-44)²/44 + (50-36)²/36 + (45-44)²/44 + (35-36)²/36 + (35-22)²/22 + (5-18)²/18
+#    ≈ 4.45 + 5.44 + 0.02 + 0.03 + 7.68 + 9.39 ≈ 27.0
+# 27.0 >> 5.99 → reject H₀ (strong evidence education and voting are related)
+```
 
 ---
 class: inverse, middle, center
@@ -344,26 +385,29 @@ class: inverse, middle, center
 ---
 # Homogeneity
 
---
+.pull-left-wide[
+A **test of homogeneity** asks: is the distribution of $X$ the same across groups defined by $Y$?
 
-- We can also test for homogeneity, that is, if the distribution is the same across groups
+**Example:** Is the age distribution of men and women the same? Let $X$ = age, $Y$ = gender.
 
---
-
-- For example, we may want to test if the age distribution of men and of women are the same
-
---
-
-- Let $X$ be the characteristic of interest (age), and $Y$ the characteristic that defines the groups ( $Y = 1$ for men and $Y = 2$ for women)
+We compare the conditional distributions $f_{X|Y}(x \mid Y=1)$ and $f_{X|Y}(x \mid Y=2)$.
+]
 
 --
 
-- A test of homogeneity is a comparison of the conditional distributions $f_{X|Y}(x | Y = 1)$ and $f_{X|Y}(x | Y = 2)$
+.pull-left-wide[
+If $f_{X|Y}(x \mid Y=1) = f_{X|Y}(x \mid Y=2)$ for every $x$, this means $X$ and $Y$ are **independent**.
 
---
+> A test of homogeneity of $X$ across groups defined by $Y$ is equivalent to a test of **independence** between $X$ and $Y$ — use exactly the same $\chi^2$ procedure.
+]
 
-- But recall that if $f_{X|Y}(x | Y = 1) = f_{X|Y}(x | Y = 2)$ for every $x$, this means that $X$ and $Y$ are independent
+---
+# Before next time
+.pull-left[
+- Read the assigned reading
+- Next time: Simple linear regression $\rightarrow$ Chapter 17
+]
 
---
-
-- So a test of homogeneity of $X$ between groups defined by $Y$ is simply a test of independence between $X$ and $Y$
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]

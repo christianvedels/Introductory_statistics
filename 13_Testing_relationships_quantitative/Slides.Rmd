@@ -94,13 +94,29 @@ xaringanExtra::use_progress_bar(color = "#808080", location = "top")
 ## Testing relationships using quantitative data
 ### (Chapter 15)
 
-### Seetha Menon,<br>Department of Economics<br>University of Southern Denmark
+### Christian Vedel,<br>Department of Economics<br>University of Southern Denmark
 
-### Email: [smr@sam.sdu.dk](mailto:smr@sam.sdu.dk)
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
 ### Updated `r Sys.Date()`
 
 
+
+---
+class: middle
+# Today's lecture
+.pull-left-wide[
+**Extending hypothesis testing to comparisons between groups and across time**
+
+- **Section 1:** Testing the difference between two mean values
+- **Section 2:** Testing the difference between multiple mean values (ANOVA)
+- **Section 3:** Testing the effect of a treatment
+- **Section 4:** Testing the ratio between two variances
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
 
 ---
 class: inverse, middle, center
@@ -109,400 +125,270 @@ class: inverse, middle, center
 ---
 # Motivation
 
---
-
-- We discussed how to test whether the mean value (and variance) of a distribution is equal to a particular value
-
---
-
-- Sometimes, we are interested in testing the relationship between the mean value (or variances) of two or more distributions
-
---
-
-- For example:
-  - do women earn the same wage, on average, as men?
-  - is the health of people treated with a particular drug better than the health of those untreated?
-
---
-
-- For this, we will again rely on hypothesis testing, and we will follow a similar recipe as before
+.pull-left-wide[
+We want to test whether the means (or variances) of two or more distributions differ:
+- do women earn the same wage, on average, as men?
+- is the health of people treated with a drug better than those untreated?
+]
 
 ---
-# Difference between two means
+# Setup
 
---
+.pull-left-wide[
+Let $Y$ indicate group membership: $Y=1$ for group 1, $Y=2$ for group 2. Let $X$ be the characteristic of interest (e.g. wages).
 
-- Let us consider the situation when we would like to test whether there is a difference in the mean value between two groups
+We want to compare:
+- $\mu_1$ from $f(x \mid y=1)$
+- $\mu_2$ from $f(x \mid y=2)$
 
---
-
-- We can approach this as a test of whether the mean values are different or not
-
---
-
-- Let $Y$ indicate whether the element belongs to the first group ( $Y = 1$ ) or to the second ( $Y = 2$ )
-
---
-
-- Let $X$ be the characteristic of interest
-
---
-
-- In our example, $X$ is the wage, and $Y = 1$ for men and $Y = 2$ for women
-
----
-# Difference between two means
-
---
-
-- We want to compare the mean values from two conditional distributions:
-  - $\mu_1$ coming from $f(x | y = 1)$
-  - $\mu_2$ coming from $f(x | y = 2)$
-
---
-
-- Both $\mu_1$ and $\mu_2$ are unknown
-
---
-
-- Suppose we can obtain two independent simple random samples:
-  - $n_1$ elements from group 1: $(X_{1, 1}, X_{2, 1}, \ldots, X_{n_1, 1})$
-  - $n_2$ elements from group 2: $(X_{1, 2}, X_{2, 2}, \ldots, X_{n_2, 2})$
+Suppose we have two **independent** simple random samples:
+- $n_1$ elements from group 1: $(X_{1,1},\ldots,X_{n_1,1})$
+- $n_2$ elements from group 2: $(X_{1,2},\ldots,X_{n_2,2})$
+]
 
 ---
 # The general case
 
---
+.pull-left-wide[
+Two-sided hypothesis test:
+$$\begin{align*} H_0 & : \mu_1 = \mu_2 \\ H_1 & : \mu_1 \not= \mu_2 \end{align*}$$
 
-- We start with a simple two-sided hypothesis test:
-$$\begin{align*}
-  H_0\; & : \mu_1 = \mu_2 \\
-  H_1\; & : \mu_1 \not= \mu_2
-\end{align*}$$
-
---
-
-- Note that the actual values of $\mu_1$ and $\mu_2$ are not important: we only want to check if they are equal
-
---
-
-- Next, we need to choose a hypothesis measure, for which a natural candidate is:
-$$h(\mu_1, \mu_2) = \mu_1 - \mu_2$$
-
---
-
-- You can easily verify that this hypothesis measure is equal to 0 if $H_0$ is true, and different from 0 otherwise
+Hypothesis measure $h(\mu_1,\mu_2) = \mu_1 - \mu_2 = 0$ under $H_0$. Replace the unknown means with sample averages:
+$$\begin{align*} \bar{X}_1 & = \frac{1}{n_1}\sum_{i=1}^{n_1} X_{i,1} \\ \bar{X}_2 & = \frac{1}{n_2}\sum_{i=1}^{n_2} X_{i,2} \end{align*}$$
+]
 
 ---
 # The test statistic
 
---
+.pull-left-wide[
+Since the two samples are independent, $Var\!\left(\bar{X}_1 - \bar{X}_2\right) = \sigma_1^2/n_1 + \sigma_2^2/n_2$. If variances are unknown, use $S_1^2$ and $S_2^2$:
+$$Z = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{S_1^2/n_1 + S_2^2/n_2}} \overset{a}{\sim} \mathcal{N}(0,1) \text{ under } H_0$$
 
-- We want to construct a similar test statistic as before: the hypothesis measure divided by its variance
-
---
-
-- We have several unknown quantities that we need to replace with observable quantities
-
---
-
-- First, $\mu_1$ and $\mu_2$ are unknown, so we replace them with the sample averages:
-$$\begin{align*}
-  \bar{X}_1 & = \frac{1}{n_1} \cdot \sum_{i = 1}^{n_1} X_{i, 1} = \frac{1}{n_1} \cdot \left( X_{1, 1} + X_{2, 1} + \ldots + X_{n_1, 1} \right) \\
-  \bar{X}_2 & = \frac{1}{n_2} \cdot \sum_{i = 1}^{n_2} X_{i, 2} = \frac{1}{n_2} \cdot \left( X_{1, 2} + X_{2, 2} + \ldots + X_{n_2, 2} \right)
-\end{align*}$$
-
----
-# The test statistic
-
---
-
-- Next, we need to calculate the variance of the hypothesis measure
-
---
-
-- Since the two samples are independent, we have:
-$$Var \! \left( \bar{X}_1 - \bar{X}_2 \right) = Var \! \left( \bar{X}_1 \right) + Var \! \left( \bar{X}_2 \right) = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}$$
-
---
-
-- If the two variances are unknown, then we need to replace them too with observable quantities:
-$$\begin{align*}
-  S_1^2 & = \frac{1}{n_1 - 1} \cdot \sum_{i = 1}^{n_1} \left( X_{i, 1} - \bar{X}_1 \right)^2 \\
-  S_2^2 & = \frac{1}{n_2 - 1} \cdot \sum_{i = 1}^{n_2} \left( X_{i, 2} - \bar{X}_2 \right)^2
-\end{align*}$$
-
----
-# The test statistic
-
---
-
-- Finally, this gives us the formula for the test statistic:
-$$Z = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}}}$$
-
---
-
-- Under the null hypothesis, $Z$ follows an approximate standard normal distribution
-
---
-
-- Therefore, the decision rule is the same as before:
-  - do not reject $H_0$ if $z_{\alpha/2} \leq Z \leq z_{1-\alpha/2}$
-  - reject $H_0$ if $Z < z_{\alpha/2}$ or $Z > z_{1-\alpha/2}$
-
---
-
-- Similarly, the $p$-value is calculated in the same way as before:
-$$p = 2 \cdot \Phi(-|z|)$$
+Reject $H_0$ if $Z < z_{\alpha/2}$ or $Z > z_{1-\alpha/2}$; $p$-value: $p = 2\Phi(-|z|)$.
+]
 
 ---
 # Equal variances
 
---
+.pull-left-wide[
+If $\sigma_1^2 = \sigma_2^2 = \sigma^2$, use the **pooled variance estimator** for a more efficient estimate:
+$$S_p^2 = \frac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{n_1+n_2-2}, \qquad Z = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{S_p^2\!\left(\dfrac{1}{n_1}+\dfrac{1}{n_2}\right)}}$$
 
-- Sometimes, it is reasonable to assume that $\sigma_1^2 = \sigma_2^2 = \sigma^2$
+If $X$ is also normally distributed, $Z \sim t(n_1+n_2-2)$ exactly under $H_0$.
+]
 
---
-
-- In this case, the variance of the hypothesis measure becomes:
-$$Var \! \left( \bar{X}_1 - \bar{X}_2 \right) = \sigma^2 \cdot \left( \frac{1}{n_1} + \frac{1}{n_2} \right)$$
-
---
-
-- We then have a better estimator of the variance, the pooled variance estimator:
-$$S_p^2 = \frac{(n_1 - 1) \cdot S_1^2 + (n_2 - 1) \cdot S_2^2}{n_1 + n_2 - 2}$$
-
---
-
-- The test statistic becomes:
-$$Z = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{S_p^2 \cdot \left(\dfrac{1}{n_1} + \dfrac{1}{n_2} \right)}}$$
+.pull-right-narrow[
+.small123[
+**Why pooled?** Combining both samples to estimate $\sigma^2$ is more efficient than using $S_1^2$ or $S_2^2$ alone.
+]
+]
 
 ---
-# Normal distribution, variances known
+# Normal distribution cases
 
---
+.pull-left-wide[
+**Known variances $\sigma_1^2$, $\sigma_2^2$** (both groups normal):
+$$Z = \frac{\bar{X}_1-\bar{X}_2}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}} \sim \mathcal{N}(0,1) \text{ exactly under } H_0$$
 
-- Suppose that $X$ follows a normal distribution in both groups, with known variances $\sigma_1^2$ and $\sigma_2^2$
-
---
-
-- In this case, the test statistic can be calculated as:
-$$Z = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{\left(\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2} \right)}}$$
-
---
-
-- Under the null hypothesis, $Z$ follows an exact standard normal distribution
-
----
-# Normal distribution, variances unknown
-
---
-
-- Suppose now that $X$ follows a normal distribution in both groups, but the two variances $\sigma_1^2$ and $\sigma_2^2$ are unknown
-
---
-
-- In this case, the test statistic can be calculated as:
-$$Z = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{\left(\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2} \right)}}$$
-
---
-
-- Under the null hypothesis, $Z$ follows an approximate $t$-distribution with $(n_1 + n_2 - 1)$ degrees of freedom
-
---
-
-- If the two variances are equal (but still unknown), then we can use the formula with the pooled variance estimator and $Z$ follows an exact $t$ distribution with $(n_1 + n_2 - 1)$ degrees of freedom
+**Unknown and unequal variances** (both groups normal):
+$$Z = \frac{\bar{X}_1-\bar{X}_2}{\sqrt{S_1^2/n_1+S_2^2/n_2}} \overset{a}{\sim} t(n_1+n_2-1) \text{ under } H_0$$
+]
 
 ---
 # Bernoulli distribution
 
---
+.pull-left-wide[
+If $X$ follows a Bernoulli distribution, variance is a function of the mean. Under $H_0$ ($p_1=p_2$), use the **pooled proportion**:
+$$\bar{p}_p = \frac{n_1\bar{p}_1 + n_2\bar{p}_2}{n_1+n_2}, \qquad S_p^2 = \bar{p}_p(1-\bar{p}_p)$$
 
-- If $X$ follows a Bernoulli distribution, then we know that the variance is a function of the mean value
-
---
-
-- Let $p_1$ and $p_2$ be the mean values (probability of a success) in the two groups
-
---
-
-- If the null hypothesis is true, then $p_1 = p_2$ and $\sigma^2_1 = \sigma^2_2$
-
---
-
-- Therefore, we can use the pooled variance estimator:
-$$S_p^2 = \bar{p}_p \cdot \left( 1 - \bar{p}_p \right), \quad \text{where} \quad \bar{p}_p = \frac{n_1 \cdot \bar{p}_1 + n_2 \cdot \bar{p}_2}{n_1 + n_2}$$
-
---
-
-- The test statistic becomes:
-$$Z = \frac{\bar{p}_1 - \bar{p}_2}{\sqrt{\bar{p}_p \cdot \left( 1 - \bar{p}_p \right) \cdot \left(\dfrac{1}{n_1} + \dfrac{1}{n_2} \right)}}$$
-
---
-
-- Under $H_0$, $Z$ follows an approximate standard normal distribution
+Test statistic:
+$$Z = \frac{\bar{p}_1-\bar{p}_2}{\sqrt{\bar{p}_p(1-\bar{p}_p)\left(\dfrac{1}{n_1}+\dfrac{1}{n_2}\right)}} \overset{a}{\sim} \mathcal{N}(0,1) \text{ under } H_0$$
+]
 
 ---
 # One-sided tests
 
+.pull-left-wide[
+The same test statistic is used; only the decision rule changes:
+
+**$H_1: \mu_1 > \mu_2$** — reject if $Z$ is too far right:
+- do not reject $H_0$ if $Z < z_{1-\alpha}$
+- reject $H_0$ if $Z \geq z_{1-\alpha}$
+
+**$H_1: \mu_1 < \mu_2$** — reject if $Z$ is too far left:
+- do not reject $H_0$ if $Z > z_\alpha$
+- reject $H_0$ if $Z \leq z_\alpha$
+]
+
+---
+# .red[Raise your hand 1: Two-sample tests]
+
+```{r ryh1-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** Two independent samples: $n_1=36$, $n_2=49$, unknown variances assumed equal. The correct test statistic uses:
+
+A: The pooled variance estimator $S_p^2$
+B: Separate sample variances $S_1^2/n_1 + S_2^2/n_2$ in the denominator
+C: The sum $S_1^2 + S_2^2$ divided by $n_1+n_2$
+D: A $\chi^2$ statistic to test $S_1^2/S_2^2$
+]
+
 --
 
-- We only considered a two-sided alternative until now
+.pull-left-wide[
+**Q2.** For a one-sided test $H_1: \mu_1 < \mu_2$, the decision rule is:
 
---
+A: Reject $H_0$ if $Z \leq z_\alpha$
+B: Reject $H_0$ if $Z \geq z_{1-\alpha}$
+C: Reject $H_0$ if $|Z| \geq z_{1-\alpha/2}$
+D: Reject $H_0$ if $Z \geq z_{1-\alpha/2}$
+]
 
-- If we have a one-sided alternative, we use again the same decision rule as when testing a single mean value:
+```{r ryh1-answers, eval=FALSE, include=FALSE}
+# Q1: A
+# B: correct when variances are NOT assumed equal; wrong when equal variances assumed
+# C: not a proper estimator of σ²; ignores the sample sizes in a meaningful way
+# D: a χ² statistic tests variance ratios, not mean differences
 
---
+# Q2: A
+# B: this is the rule for H₁: μ₁ > μ₂ — reject in the right tail
+# C: this is the two-sided rule
+# D: uses the two-sided critical value for a one-sided test
+```
 
-  - $H_1: \mu_1 > \mu_2$ means that we reject if $Z$ takes a value too far to the right
-    - do not reject $H_0$ if $Z < z_{1 - \alpha}$
-    - reject $H_0$ if $Z \geq z_{1 - \alpha}$
+---
+# .red[Practice 1: Two-sample mean test]
 
---
+.pull-left-wide[
+Two independent samples of weekly earnings (€):
+- Group 1 (men): $n_1=36$, $\bar{X}_1=850$, $S_1^2=3{,}600$
+- Group 2 (women): $n_2=49$, $\bar{X}_2=800$, $S_2^2=2{,}500$
 
-  - $H_1: \mu_1 < \mu_2$ means that we reject if $Z$ takes a value too far to the left
-    - do not reject $H_0$ if $Z > z_{\alpha}$
-    - reject $H_0$ if $Z \leq z_{\alpha}$
+1. Test $H_0: \mu_1=\mu_2$ vs $H_1: \mu_1 \not= \mu_2$ at $\alpha=0.05$.
+2. Compute the $p$-value.
+]
+
+```{r practice1-answers, eval=FALSE, include=FALSE}
+# Z = (850-800) / sqrt(3600/36 + 2500/49)
+#   = 50 / sqrt(100 + 51.02) = 50 / 12.29 ≈ 4.07
+# |Z| = 4.07 > 1.96 → reject H₀
+# p-value = 2·Φ(-4.07) ≈ 0.000046
+```
 
 ---
 class: inverse, middle, center
-# Testing the difference between multiple mean values (variance analysis)
+# Testing the difference between multiple mean values (ANOVA)
 
 ---
 # Setup
 
---
+.pull-left-wide[
+Generalise to $K$ groups. Test whether all group means are equal:
+$$\begin{align*} H_0 & : \mu_1 = \mu_2 = \cdots = \mu_K \\ H_1 & : \text{at least one mean value is different} \end{align*}$$
 
-- We will now consider a more general case with $K$ groups
-
---
-
-- We want to test if the mean values in the $K$ groups are equal:
-$$\begin{align*}
-  H_0 &:  \mu_1 = \mu_2 = \cdots = \mu_K \\
-  H_1 &:  \text{at least one of the mean values is different}
-\end{align*}$$
-
---
-
-- The hypothesis measure we use now is:
-$$h(\mu_1, \mu_2, \ldots, \mu_K) = \sum_{k = 1}^K (\mu_k - \mu)^2$$
-where $\mu$ is an average of the $K$ mean values with, say, weights $w_k$:
-$$\mu = \sum_{k = 1}^K (w_k \cdot \mu_k)$$
-
---
-
-- As before, this hypothesis measure is equal to zero if $H_0$ is true (all mean values are equal) and different from zero otherwise
-
----
-# Setup
-
---
-
-- Suppose that we have a simple random sample of $n_k$ elements from each group $k$
-
---
-
-- We can again replace the unknown mean values with the sample averages:
-$$\bar{X}_k = \frac{1}{n_k} \cdot \sum_{i=1}^{n_k} X_{i,k}$$
-
---
-
-- We can construct an estimator for $\mu$ by replacing the unknown mean values with the sample averages:
-$$\bar{X} = \sum_{k = 1}^K (w_k \cdot \bar{X}_k)$$
-
---
-
-- An estimator for the hypothesis measure is then:
-$$\hat{h}(\mu_1, \mu_2, \ldots, \mu_K) = \sum_{k = 1}^K \left[ w_k \cdot \left( \bar{X}_k - \bar{X} \right)^2 \right]$$
-
----
-# Setup
-
---
-
-- We will now make two simplifying assumptions:
-
---
-
-  - the weights $w_k$ represent the relative size of each group:
-$$w_k = \frac{n_k}{n}$$
-
---
-
-  - the variance in each group is the same:
-$$\sigma_1^2 = \sigma_2^2 = \cdots = \sigma_K^2 = \sigma^2$$
-
---
-
-- In this case, the estimator of the hypothesis measure becomes:
-$$\hat{h}(\mu_1, \mu_2, \ldots, \mu_K) = \sum_{k = 1}^K \left[ \frac{n_k}{n} \cdot \left( \bar{X}_k - \bar{X} \right)^2 \right]$$
-
---
-
-- We can also construct an estimator for the variance:
-$$\hat{\sigma}^2 = \frac{1}{n} \cdot \sum_{k = 1}^K \sum_{i = 1}^{n_k} \left( X_{i, k} - \bar{X}_k \right)^2$$
+With weights $w_k = n_k/n$ (relative group size) and $\sigma_1^2=\cdots=\sigma_K^2=\sigma^2$, define:
+- Group sample means: $\bar{X}_k = \frac{1}{n_k}\sum_{i=1}^{n_k}X_{i,k}$
+- Overall sample mean: $\bar{X} = \sum_{k=1}^K w_k \bar{X}_k$
+]
 
 ---
 # Sums of squares
 
---
+.pull-left-wide[
+**Sum of squared treatments** (between-group variation):
+$$SSTR = \sum_{k=1}^K n_k(\bar{X}_k - \bar{X})^2$$
 
-- We can now define two sums of squares:
+**Sum of squared errors** (within-group variation):
+$$SSE = \sum_{k=1}^K\sum_{i=1}^{n_k}(X_{i,k}-\bar{X}_k)^2 = \sum_{k=1}^K(n_k-1)S_k^2$$
+]
 
---
-
-  - **sum of squared treatments** = a measure of how much each group's mean is different from the total sample average
-$$SSTR = \sum_{k = 1}^K \left[ n_k \cdot \left( \bar{X}_k - \bar{X} \right)^2 \right]$$
-
---
-
-  - **sum of squared errors** = a measure of how much variation around the mean we have in our sample
-$$SSE = \sum_{k = 1}^K \sum_{i = 1}^{n_k} \left( X_{i, k} - \bar{X}_k \right)^2 = \sum_{k = 1}^K ({n_k} - 1) \cdot S_k^2$$
+.pull-right-narrow[
+.small123[
+$SSTR \approx 0$ when all means are equal. $SSE$ estimates residual variance regardless of $H_0$.
+]
+]
 
 ---
 # Test statistic
 
---
+.pull-left-wide[
+$$F = \frac{SSTR/(K-1)}{SSE/(n-K)}$$
 
-- Finally, we can construct the test statistic:
-$$F = \frac{\displaystyle \sum_{k = 1}^K \left[ \dfrac{n_k}{n} \cdot \left( \bar{X}_k - \bar{X} \right)^2 \right]}{\displaystyle \dfrac{1}{n} \cdot \sum_{k = 1}^K \sum_{i = 1}^{n_k} \left( X_{i, k} - \bar{X}_k \right)^2} \cdot \frac{\dfrac{1}{K - 1}}{\dfrac{1}{n - K}} = \frac{\dfrac{SSTR}{K - 1}}{\dfrac{SSE}{n - K}}$$
+Under $H_0$, $F \sim F(K-1, n-K)$.
 
---
+Decision rule:
+- do not reject $H_0$ if $F < F_{1-\alpha}(K-1, n-K)$
+- reject $H_0$ if $F \geq F_{1-\alpha}(K-1, n-K)$
 
-- Under the null hypothesis, $F$ follows an $F$ distribution with $(K - 1)$ and $(n - K)$ degrees of freedom
-
---
-
-- The decision rule is again similar to before:
-  - do not reject $H_0$ if $F < F_{1 - \alpha}(K-1, n-K)$
-  - reject $H_0$ if $F \geq F_{1 - \alpha}(K-1, n-K)$
+> If $H_0$ is true, the numerator should be close to zero. If $H_0$ is false, the numerator grows with $n$. This is **analysis of variance** (ANOVA).
+]
 
 ---
-# Intuition
+# .red[Raise your hand 2: ANOVA]
+
+```{r ryh2-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** An ANOVA F-test compares $K=3$ groups with total $n=60$ observations. Under $H_0$, the test statistic follows:
+
+A: $F(2,57)$
+B: $F(3,57)$
+C: $F(2,60)$
+D: $\chi^2(2)$
+]
 
 --
 
-- If $H_0$ is true, then the numerator of $F$ should be "close" to zero
+.pull-left-wide[
+**Q2.** An F-statistic is very large. This means:
 
---
+A: Between-group variation is large relative to within-group variation
+B: Within-group variation is large relative to between-group variation
+C: All group means are significantly different from each other
+D: The sample variances in each group are unequal
+]
 
-- If $H_0$ is false, then the numerator of $F$ should be relatively far from zero and growing as $n$ goes to infinity
+```{r ryh2-answers, eval=FALSE, include=FALSE}
+# Q1: A
+# df numerator = K-1 = 2; df denominator = n-K = 57
+# B: uses K not K-1 in the numerator df
+# C: uses n not n-K in the denominator df
+# D: χ² is for a single-group variance test; F distribution is needed for ANOVA
 
---
+# Q2: A
+# B: reversed — large F means large SSTR relative to SSE
+# C: F only tells us "at least one" mean differs; post-hoc tests are needed to identify which
+# D: ANOVA assumes equal variances; F-test here tests means, not variances
+```
 
-- In either case, the denominator of $F$ is an estimator of the variance
+---
+# .red[Practice 2: ANOVA by hand]
 
---
+.pull-left-wide[
+Three sales regions, each with $n_k=10$ observations:
+- Region A: $\bar{X}_1=120$
+- Region B: $\bar{X}_2=130$
+- Region C: $\bar{X}_3=140$
 
-- For this reason, this type of analysis is called **analysis of variance** or **ANOVA**
+Overall mean $\bar{X}=130$; $SSE=2{,}700$.
 
---
+1. Compute $SSTR$ and the $F$ statistic.
+2. Test $H_0: \mu_1=\mu_2=\mu_3$ at $\alpha=0.05$. ($F_{0.95}(2,27) \approx 3.35$)
+]
 
-[Video Example of ANOVA](https://www.youtube.com/watch?v=-yQb_ZJnFXw&list=PL3A0F3CC5D48431B3&index=1)
-
-[Video Example of how to read an F-Table](https://www.youtube.com/watch?v=FPqeVhtOXEo&list=PL3A0F3CC5D48431B3&index=2)
+```{r practice2-answers, eval=FALSE, include=FALSE}
+# SSTR = 10·(120-130)² + 10·(130-130)² + 10·(140-130)²
+#       = 1000 + 0 + 1000 = 2000
+# F = (2000/2) / (2700/27) = 1000/100 = 10
+# 10 > 3.35 → reject H₀
+```
 
 ---
 class: inverse, middle, center
@@ -511,242 +397,237 @@ class: inverse, middle, center
 ---
 # Setup
 
---
+.pull-left-wide[
+A **treatment** is any intervention that can potentially change the distribution of $X$:
+- health: medical treatments
+- wages: training programmes
+- school grades: additional resources or smaller class size
 
-- Very often, we are interested in testing the effect of a "treatment"
-
---
-
-- By **treatment** we mean any type of intervention that can potentially change the distribution of $X$:
-  - in the case of health, it can be medical treatments
-  - in the case of wages, it can be a training program
-  - in the case of school grades, it may be providing additional school resources or reducing class size
-
---
-
-- It is useful to define two groups:
-  - **treated group** = group of elements that receive the treatment (the medication, the training program, smaller class size, etc.)
-  - **control group** = group of elements that do *not* receive the treatment
+Two groups:
+- **treated group** = receives the treatment
+- **control group** = does not receive the treatment
+]
 
 ---
-# Treatment and control groups observed once
+# Case 1: Treatment and control observed once
 
---
-
-- Suppose that we observe the two groups only once (and we have two simple random samples from each group)
-
---
-
-- In this case, the effect of the treatment can be estimated by comparing the mean in the treated group to the mean in the control group:
+.pull-left-wide[
+With two independent simple random samples (one per group), the treatment effect is:
 $$D = \mu_T - \mu_C$$
 
---
+Test:
+$$\begin{align*} H_0 & : \mu_T - \mu_C = 0 \\ H_1 & : \mu_T - \mu_C \not= 0 \end{align*}$$
 
-- We can then conduct a test of equality of the means in the two groups:
-$$\begin{align*}
-  H_0\; & : \mu_T - \mu_C = 0 \\
-  H_1\; & : \mu_T - \mu_C \not= 0
-\end{align*}$$
-
---
-
-- The test statistic for this test is:
-$$Z = \frac{\bar{X}_T - \bar{X}_C}{\sqrt{\dfrac{S_T^2}{n_T} + \dfrac{S_C^2}{n_C}}} \; \overset{a}{\sim} \; \mathcal{N}(0, 1)$$
+Test statistic:
+$$Z = \frac{\bar{X}_T - \bar{X}_C}{\sqrt{S_T^2/n_T + S_C^2/n_C}} \overset{a}{\sim} \mathcal{N}(0,1)$$
+]
 
 ---
-# Treatment group observed twice, no control
+# Case 2: Treatment group observed twice (before/after)
 
---
+.pull-left-wide[
+Only the treated group is observed, at time 1 (before) and time 2 (after).
 
-- Now suppose that we only observe the treated group, but we observe it twice:
-  - once before treatment, at time $1$
-  - once after treatment, at time $2$
+The per-element change: $D_i = X_{T,i,2} - X_{T,i,1}$
 
---
+Test:
+$$\begin{align*} H_0 & : \mu_{T,2} - \mu_{T,1} = 0 \\ H_1 & : \mu_{T,2} - \mu_{T,1} \not= 0 \end{align*}$$
 
-- We again have a simple random sample from the treated group, but now we have two observations for each element:
-$$\Big( \left(X_{T, 1, 1}, X_{T, 1, 2} \right), \left(X_{T, 2, 1}, X_{T, 2, 2} \right), \ldots, \left(X_{T, n_T, 1}, X_{T, n_T, 2} \right) \Big)$$
-
---
-
-- Note that the elements are independent draws, but the two observations for each element are not!
-
---
-
-- This type of data is called **panel data**
-
----
-# Treatment group observed twice, no control
-
---
-
-- The effect of treatment for element $i$ can be estimated as the change in $X$ between the two periods:
-$$D_i = X_{T, i, 2} - X_{T, i, 1}$$
-
---
-
-- The (average) effect of treatment is:
-$$D = \mu_{T, 2} - \mu_{T, 1}$$
-
---
-
-- This leads to the following hypotheses:
-$$\begin{align*}
-  H_0\; & : \mu_{T, 2} - \mu_{T, 1} = 0 \\
-  H_1\; & : \mu_{T, 2} - \mu_{T, 1} \not= 0
-\end{align*}$$
-
---
-
-- As before, we replace the unknown mean values with observed sample averages
-
---
-
-- Therefore, we need to calculate the variance of $\bar{X}_{T, 2} - \bar{X}_{T, 1}$
-
---
-
-- This is a bit more complicated because $\bar{X}_{T,1}$ and $\bar{X}_{T,2}$ are not independent
-
----
-# Treatment group observed twice, no control
-
---
-
-- One possible estimator for the variance is:
-$$\widehat{Var} \! \left( \bar{X}_{T,2} - \bar{X}_{T,1} \right) = \frac{1}{n_T} \cdot \left( \frac{1}{n_T - 1} \cdot \sum_{i = 1}^{n_T} \left[ \left( X_{T, i, 2} - X_{T, i, 1} \right) - \left( \bar{X}_{T,2} - \bar{X}_{T,1} \right) \right]^2 \right)$$
-
---
-
-- We can then construct the test statistic as:
-$$Z = \frac{\bar{X}_{T, 2} - \bar{X}_{T, 1}}{\sqrt{\widehat{Var} \! \left( \bar{X}_{T,2} - \bar{X}_{T,1} \right)}} \; \overset{a}{\sim} \; \mathcal{N}(0, 1)$$
-
----
-# Both treatment and control groups observed twice
-
---
-
-- The main issue with the two previous approaches is that we cannot be sure that the observed differences in mean values are due to the treatment
-
---
-
-- A better setup is if we observe both the treated and the control groups twice:
-  - once before treatment, at time $1$
-  - once after treatment, at time $2$
-
---
-
-- Suppose again that we have a simple random sample from each group, with two observations for each element
-
---
-
-- As before, the elements of the sample are independent draws, but the two observations for each element are not
-
----
-# Both treatment and control groups observed twice
-
---
-
-- If there are other factors that influence the mean value between the two periods, then they should affect the mean in the treated and control groups in the same way
-
---
-
-- Therefore, we can estimate the effect of treatment as the difference in the evolution of mean values between the two groups:
-$$D = \left( \mu_{T, 2} -  \mu_{T, 1} \right) - \left( \mu_{C, 2} -  \mu_{C, 1} \right)$$
-
---
-
-- This leads to the following hypotheses:
-$$\begin{align*}
-  H_0\; & : \left( \mu_{T, 2} -  \mu_{T, 1} \right) - \left( \mu_{C, 2} -  \mu_{C, 1} \right) = 0 \\
-  H_1\; & : \left( \mu_{T, 2} -  \mu_{T, 1} \right) - \left( \mu_{C, 2} -  \mu_{C, 1} \right) \not= 0
-\end{align*}$$
-
----
-# Both treatment and control groups observed twice
-
---
-
-- We need to calculate the following variance:
-$$Var \! \left( \left( \bar{X}_{T, 2} -  \bar{X}_{T, 1} \right) - \left( \bar{X}_{C, 2} -  \bar{X}_{C, 1} \right) \right)$$
-
---
-
-- We approximate this with the following variance:
-$$\widehat{Var} \! \left( \left( \bar{X}_{T, 2} - \bar{X}_{T, 1} \right) - \left( \bar{X}_{C, 2} - \bar{X}_{C, 1} \right) \right) = \frac{1}{n_T} \cdot \widehat{Var} \! \left( \bar{X}_{T, 2} - \bar{X}_{T, 1} \right) + \frac{1}{n_C} \cdot \widehat{Var} \! \left( \bar{X}_{C, 2} - \bar{X}_{C, 1} \right)$$
-
----
-# Both treatment and control groups observed twice
-
---
-
-- As before, we need to rely on a more complicated estimator for each of the two terms above because of the dependence of the two sample averages for the same group:
-
---
-
-.small123[
-$$\begin{align*}
-  \widehat{Var} \! \left( \bar{X}_{T,2} - \bar{X}_{T,1} \right) & = \frac{1}{n_T - 1} \cdot
-  \sum_{i = 1}^{n_T} \left[ \left( X_{T, i, 2} - X_{T, i, 1} \right) - \left( \bar{X}_{T,2} - \bar{X}_{T,1} \right) \right]^2 \\
-  \widehat{Var} \! \left( \bar{X}_{C,2} - \bar{X}_{C,1} \right) & = \frac{1}{n_C - 1} \cdot
-  \sum_{i = 1}^{n_C} \left[ \left( X_{C, i, 2} - X_{C, i, 1} \right) - \left( \bar{X}_{C,2} - \bar{X}_{C,1} \right) \right]^2
-\end{align*}$$
+Note: the two observations for the same element are **not** independent — this is **panel data**.
 ]
 
 --
 
-- We can then construct the test statistic as before:
-$$Z = \frac{\left( \bar{X}_{T, 2} - \bar{X}_{T, 1} \right) - \left( \bar{X}_{C, 2} - \bar{X}_{C, 1} \right)}{\sqrt{\widehat{Var} \! \left( \left( \bar{X}_{T, 2} - \bar{X}_{T, 1} \right) - \left( \bar{X}_{C, 2} - \bar{X}_{C, 1} \right) \right)}} \; \overset{a}{\sim} \; \mathcal{N}(0, 1)$$
+.pull-left-wide[
+Variance estimator (accounts for dependence within elements):
+$$\widehat{Var}\!\left(\bar{X}_{T,2}-\bar{X}_{T,1}\right) = \frac{1}{n_T}\cdot\frac{1}{n_T-1}\sum_{i=1}^{n_T}\left[(X_{T,i,2}-X_{T,i,1})-(\bar{X}_{T,2}-\bar{X}_{T,1})\right]^2$$
+
+Test statistic: $Z = (\bar{X}_{T,2}-\bar{X}_{T,1})/\sqrt{\widehat{Var}(\bar{X}_{T,2}-\bar{X}_{T,1})} \overset{a}{\sim} \mathcal{N}(0,1)$
+]
+
+---
+# Case 3: Both groups observed twice (DiD)
+
+.pull-left-wide[
+The issue with Case 1 and 2: we cannot be sure differences are caused by the treatment.
+
+If both groups are observed at time 1 and time 2, other factors affecting both groups cancel out:
+$$D = (\mu_{T,2}-\mu_{T,1}) - (\mu_{C,2}-\mu_{C,1})$$
+
+This is the **difference-in-differences** (DiD) estimate.
+
+Test:
+$$\begin{align*} H_0 & : (\mu_{T,2}-\mu_{T,1}) - (\mu_{C,2}-\mu_{C,1}) = 0 \\ H_1 & : (\mu_{T,2}-\mu_{T,1}) - (\mu_{C,2}-\mu_{C,1}) \not= 0 \end{align*}$$
+]
+
+--
+
+.pull-left-wide[
+Variance estimator and test statistic:
+
+.small123[
+$$\widehat{Var} = \frac{1}{n_T}\cdot\frac{1}{n_T-1}\sum_{i=1}^{n_T}\left[(X_{T,i,2}-X_{T,i,1})-(\bar{X}_{T,2}-\bar{X}_{T,1})\right]^2 + \frac{1}{n_C}\cdot\frac{1}{n_C-1}\sum_{i=1}^{n_C}\left[(X_{C,i,2}-X_{C,i,1})-(\bar{X}_{C,2}-\bar{X}_{C,1})\right]^2$$
+]
+
+$$Z = \frac{(\bar{X}_{T,2}-\bar{X}_{T,1})-(\bar{X}_{C,2}-\bar{X}_{C,1})}{\sqrt{\widehat{Var}}} \overset{a}{\sim} \mathcal{N}(0,1)$$
+]
+
+---
+# .red[Raise your hand 3: Difference-in-differences]
+
+```{r ryh3-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** The DiD estimator for the effect of a treatment is:
+
+A: $(\bar{X}_{T,2}-\bar{X}_{T,1}) - (\bar{X}_{C,2}-\bar{X}_{C,1})$
+B: $\bar{X}_{T,2} - \bar{X}_{C,2}$
+C: $\bar{X}_{T,2} - \bar{X}_{T,1}$
+D: $(\bar{X}_{T,2}-\bar{X}_{C,2}) + (\bar{X}_{T,1}-\bar{X}_{C,1})$
+]
+
+--
+
+.pull-left-wide[
+**Q2.** The main advantage of DiD (Case 3) over the before/after comparison (Case 2) is:
+
+A: It controls for common time trends affecting both groups
+B: It eliminates the need for a control group
+C: It provides a valid causal estimate without any additional assumptions
+D: It doubles the effective sample size
+]
+
+```{r ryh3-answers, eval=FALSE, include=FALSE}
+# Q1: A
+# B: compares post-treatment means only; ignores pre-treatment differences (baseline bias)
+# C: only looks at the treated group; confounds treatment with any other time trend
+# D: sums rather than differences; adds the baseline gap instead of removing it
+
+# Q2: A
+# B: opposite — DiD requires a control group by design
+# C: DiD still requires the "parallel trends" assumption (in absence of treatment, both groups
+#    would have followed the same time trend)
+# D: the control group adds information about time trends, not about the treated units directly
+```
+
+---
+# .red[Practice 3: DiD calculation]
+
+.pull-left-wide[
+A government subsidy is given to firms in region A (treated), not in region B (control). Average monthly profits (DKK 1,000s):
+
+| | Before | After |
+|---|:---:|:---:|
+| Region A (treated) | 500 | 580 |
+| Region B (control) | 480 | 500 |
+
+1. Compute the DiD estimate of the subsidy effect.
+2. Under what assumption is this a valid causal estimate?
+]
+
+```{r practice3-answers, eval=FALSE, include=FALSE}
+# 1. DiD = (580-500) - (500-480) = 80 - 20 = 60 (DKK 1,000s)
+# 2. Parallel trends assumption: in the absence of the subsidy, region A and B
+#    would have had the same change in profits between the two periods.
+```
 
 ---
 class: inverse, middle, center
 # Testing the ratio between two variances
 
 ---
-# Ratio between two variances
+# Setup
 
---
+.pull-left-wide[
+Two independent simple random samples, each normally distributed.
 
-- Finally, we can also test whether the variance of $X$ in two groups is the same
+Test:
+$$\begin{align*} H_0 & : \sigma_1^2 = \sigma_2^2 \\ H_1 & : \sigma_1^2 \not= \sigma_2^2 \end{align*}$$
 
---
+Use the hypothesis measure $\sigma_1^2/\sigma_2^2$ and replace with sample variances:
+$$F = \frac{S_1^2}{S_2^2}$$
 
-- Suppose again that we have two simple random samples from each group, and that the two samples are independent
+Under $H_0$, $F \sim F(n_1-1, n_2-1)$.
 
---
+Decision rule: reject $H_0$ if $F \geq F_{1-\alpha/2}(n_1-1, n_2-1)$.
+]
 
-- Suppose that $X$ follows a normal distribution in each group
-
---
-
-- We want to test the following hypotheses:
-$$\begin{align*}
-  H_0\; & : \sigma^2_1 = \sigma^2_2 \\
-  H_1\; & : \sigma^2_1 \not= \sigma^2_2
-\end{align*}$$
+.pull-right-narrow[
+.small123[
+**Convention:** Put the larger sample variance in the numerator so that $F \geq 1$, then use only the upper tail.
+]
+]
 
 ---
-# Ratio between two variances
+# .red[Raise your hand 4: Variance ratio test]
+
+```{r ryh4-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** A two-sided test of $H_0: \sigma_1^2=\sigma_2^2$ uses $F=S_1^2/S_2^2$. You reject $H_0$ if:
+
+A: $F \geq F_{1-\alpha/2}(n_1-1, n_2-1)$
+B: $F \geq F_{1-\alpha}(n_1-1, n_2-1)$
+C: $F \geq F_{1-\alpha/2}(n_1, n_2)$
+D: $F \geq F_{1-\alpha}(n_1-1, n_2-1)$ or $F \leq F_\alpha(n_1-1, n_2-1)$
+]
 
 --
 
-- We will again rely on the hypothesis measure $\dfrac{\sigma^2_1}{\sigma^2_2}$
+.pull-left-wide[
+**Q2.** If you accidentally compute $F=S_2^2/S_1^2$ instead of $S_1^2/S_2^2$, the test statistic follows:
 
---
+A: $F(n_2-1, n_1-1)$ — degrees of freedom are reversed
+B: The p-value doubles because you test from the wrong direction
+C: An invalid distribution because $F$ must always be $\geq 1$
+D: The same distribution $F(n_1-1, n_2-1)$, since ratios are symmetric
+]
 
-- We replace the unknown variances with observed measures (sample variances) to obtain the test statistic:
-$$F = \frac{S^2_1}{S^2_2}$$
+```{r ryh4-answers, eval=FALSE, include=FALSE}
+# Q1: A
+# B: uses the one-sided critical value; α/2 is needed for two-sided tests
+# C: wrong degrees of freedom — df should be n-1, not n
+# D: technically correct for a fully symmetric two-sided F test, but in practice the upper-tail
+#    convention (put larger variance in numerator) means we only check the upper tail
 
---
+# Q2: A
+# If X ~ F(k1, k2), then 1/X ~ F(k2, k1)
+# B: the p-value changes but does not simply double
+# C: F can be less than 1; no such requirement
+# D: F(k1,k2) ≠ F(k2,k1) unless k1=k2
+```
 
-- Under the null hypothesis, the test statistic follows an $F$ distribution with $(n_1 - 1)$ and $(n_2 - 1)$ degrees of freedom
+---
+# .red[Practice 4: Variance ratio test]
 
---
+.pull-left-wide[
+Two independent samples of test scores (assume normal distributions):
+- Group 1: $n_1=21$, $S_1^2=144$
+- Group 2: $n_2=16$, $S_2^2=64$
 
-- Therefore, the decision rule is:
-  - do not reject $H_0$ if $F < F_{1 - \alpha/2}(n_1 - 1, n_2 - 1)$
-  - reject $H_0$ if $F \geq F_{1 - \alpha/2}(n_1 - 1, n_2 - 1)$
+1. Test $H_0: \sigma_1^2=\sigma_2^2$ vs $H_1: \sigma_1^2 \not= \sigma_2^2$ at $\alpha=0.05$.
+2. Compute the test statistic and state the decision. ($F_{0.975}(20,15) \approx 2.76$)
+]
 
---
+```{r practice4-answers, eval=FALSE, include=FALSE}
+# F = 144/64 = 2.25
+# Critical value: F_{0.975}(20,15) ≈ 2.76
+# 2.25 < 2.76 → do not reject H₀
+```
 
-- The decision rules for one-sided tests are similar to tests of one variance
+---
+# Before next time
+.pull-left[
+- Read the assigned reading
+- Next time: Testing relationships using qualitative data $\rightarrow$ Chapter 16
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]
