@@ -778,6 +778,41 @@ class: inverse, middle, center
 # Confidence interval for the ratio of two variances
 
 ---
+# The $F$-distribution
+
+```{r f-fig-save, eval=FALSE, include=FALSE}
+library(ggplot2)
+df_f <- data.frame(
+  x = rep(seq(0.01, 5, length.out = 500), 4),
+  d1 = rep(c(2, 5, 10, 20), each = 500),
+  d2 = 20
+)
+df_f$density <- df(df_f$x, df1 = df_f$d1, df2 = df_f$d2)
+df_f$dist <- factor(df_f$d1, labels = c("F(2,20)", "F(5,20)", "F(10,20)", "F(20,20)"))
+
+p <- ggplot(df_f, aes(x = x, y = density, colour = dist)) +
+  geom_line(linewidth = 1) +
+  scale_colour_brewer(palette = "Set1", name = NULL) +
+  coord_cartesian(ylim = c(0, 1.2)) +
+  labs(x = "f", y = "Density") +
+  theme_minimal(base_size = 14)
+
+ggsave("Statistics/11_Confidence_intervals/Figures/f-fig.png", p, width = 5, height = 3, dpi = 150)
+```
+
+.pull-left[
+> If $Y_1 \sim \chi^2(d_1)$ and $Y_2 \sim \chi^2(d_2)$ are independent:
+$$F = \frac{Y_1/d_1}{Y_2/d_2} \sim F(d_1, d_2)$$
+- $E(F) = \dfrac{d_2}{d_2-2}$ (for $d_2 > 2$)
+- Right-skewed, positive values only
+- We will use it for the CI for $\sigma_2^2/\sigma_1^2$
+]
+
+.pull-right[
+![F-distribution](Figures/f-fig.png)
+]
+
+---
 # When do we compare variances?
 
 .pull-left-wide[
@@ -792,7 +827,6 @@ class: inverse, middle, center
 - Assume $X_j \sim \mathcal{N}(\mu_j, \sigma_j^2)$ in each group ($j = 1, 2$), independent samples
 - It can be shown that:
 $$\frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} = \frac{S_1^2 \cdot \sigma_2^2}{S_2^2 \cdot \sigma_1^2} \sim F(n_1 - 1,\; n_2 - 1)$$
-- The ***F*-distribution** is right-skewed and takes only positive values; as $n_2 \to \infty$ it approaches $\chi^2(n_1-1)/(n_1-1)$
 ]
 
 ---

@@ -114,7 +114,7 @@ class: center, inverse, middle
 
 ### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
-### Updated 2026-04-26
+### Updated 2026-04-27
 
 
 
@@ -331,7 +331,7 @@ where `\(a = \sqrt{n}\,k/\sigma\)`
 ---
 # .red[Raise your hand 1: CI for the mean]
 
-<div class="countdown" id="timer_a8a5c637" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_7218351d" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -433,7 +433,7 @@ class: inverse, middle, center
 ---
 # .red[Raise your hand 2: CI for the variance]
 
-<div class="countdown" id="timer_2e251e91" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_27960cda" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -540,7 +540,7 @@ class: inverse, middle, center
 ---
 # .red[Raise your hand 3: CI for the difference in means]
 
-<div class="countdown" id="timer_bdcb3746" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_9964d39f" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -585,6 +585,23 @@ class: inverse, middle, center
 # Confidence interval for the ratio of two variances
 
 ---
+# The `\(F\)`-distribution
+
+
+
+.pull-left[
+&gt; If `\(Y_1 \sim \chi^2(d_1)\)` and `\(Y_2 \sim \chi^2(d_2)\)` are independent:
+`$$F = \frac{Y_1/d_1}{Y_2/d_2} \sim F(d_1, d_2)$$`
+- `\(E(F) = \dfrac{d_2}{d_2-2}\)` (for `\(d_2 &gt; 2\)`)
+- Right-skewed, positive values only
+- We will use it for the CI for `\(\sigma_2^2/\sigma_1^2\)`
+]
+
+.pull-right[
+![F-distribution](Figures/f-fig.png)
+]
+
+---
 # When do we compare variances?
 
 .pull-left-wide[
@@ -599,7 +616,6 @@ class: inverse, middle, center
 - Assume `\(X_j \sim \mathcal{N}(\mu_j, \sigma_j^2)\)` in each group (`\(j = 1, 2\)`), independent samples
 - It can be shown that:
 `$$\frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} = \frac{S_1^2 \cdot \sigma_2^2}{S_2^2 \cdot \sigma_1^2} \sim F(n_1 - 1,\; n_2 - 1)$$`
-- The ***F*-distribution** is right-skewed and takes only positive values; as `\(n_2 \to \infty\)` it approaches `\(\chi^2(n_1-1)/(n_1-1)\)`
 ]
 
 ---
@@ -638,7 +654,7 @@ class: inverse, middle, center
 ---
 # .red[Raise your hand 4: CI for the ratio of variances]
 
-<div class="countdown" id="timer_611d3c94" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_a2eafa57" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -727,7 +743,7 @@ class: inverse, middle, center
 ---
 # .red[Raise your hand 5: Sample size]
 
-<div class="countdown" id="timer_b03d0cc6" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_c0dea572" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
