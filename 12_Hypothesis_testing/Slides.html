@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Slides.knit</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/panelset-0.3.0/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.3.0/panelset.js"></script>
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <link href="libs/countdown-0.4.0/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.4.0/countdown.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, inverse, middle
+
+
+
+
+
+<style>.xe__progress-bar__container {
+  top:0;
+  opacity: 1;
+  position:absolute;
+  right:0;
+  left: 0;
+}
+.xe__progress-bar {
+  height: 0.25em;
+  background-color: #808080;
+  width: calc(var(--slide-current) / var(--slide-total) * 100%);
+}
+.remark-visible .xe__progress-bar {
+  animation: xe__progress-bar__wipe 200ms forwards;
+  animation-timing-function: cubic-bezier(.86,0,.07,1);
+}
+@keyframes xe__progress-bar__wipe {
+  0% { width: calc(var(--slide-previous) / var(--slide-total) * 100%); }
+  100% { width: calc(var(--slide-current) / var(--slide-total) * 100%); }
+}</style>
+
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+&lt;/style&gt;
+
+
+
+# Statistics
+## Testing hypotheses
+### (Chapter 14)
+
+### Christian Vedel,&lt;br&gt;Department of Economics&lt;br&gt;University of Southern Denmark
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Updated 2026-04-27
+
+
+
+---
+class: middle
+# Today's lecture
+.pull-left-wide[
+**Building a rigorous framework for deciding whether sample evidence is strong enough to reject a theory**
+
+- **Section 1:** Hypotheses and types of error
+- **Section 2:** Construction of a hypothesis test
+- **Section 3:** Test of the mean value
+- **Section 4:** Simple and composite hypotheses
+- **Section 5:** The p-value
+- **Section 6:** Choice of sample size
+- **Section 7:** Test of variance
+- **Section 8:** Other topics
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Hypotheses and types of error
+
+---
+# Hypothesis testing
+
+.pull-left-wide[
+We want to test specific theories using data — e.g. is the propensity to consume between 0 and 1, or do people exercise the recommended 2 hours per week?
+
+The recipe for **hypothesis testing**:
+
+1. Formulate two hypotheses: one conforming with the theory and one rejecting it
+2. Construct a **test statistic** that embodies all relevant sample information
+3. Choose a **decision rule** that tells us when to reject based on the test statistic
+
+&gt; A theory is valid until we find evidence against it — we can **never** accept a theory, only fail to reject it
+]
+
+---
+# Constructing hypotheses
+
+.pull-left-wide[
+Two hypotheses:
+- the **null hypothesis** `\(H_0\)`, which does not support the theory
+- the **alternative hypothesis** `\(H_1\)`, which supports the theory
+
+We need sufficient evidence against `\(H_0\)` to reject it — this evidence comes from a sample and is therefore uncertain.
+]
+
+--
+
+.pull-left-wide[
+**Examples:**
+
+**Criminal trial:** `\(H_0\)`: innocent; `\(H_1\)`: guilty
+
+**Wage discrimination:** `\(H_0\)`: `\(\mu_{\text{men}} = \mu_{\text{women}}\)`; `\(H_1\)`: `\(\mu_{\text{men}} \not= \mu_{\text{women}}\)`
+]
+
+---
+# Errors
+
+.pull-left-wide[
+Faced with uncertainty, we may make two types of errors:
+
+- **Type-I error**: reject `\(H_0\)` when, in fact, it is true
+
+- **Type-II error**: do not reject `\(H_0\)` when, in fact, it is false
+]
+
+--
+
+.pull-left-wide[
+| | `\(H_0\)` true | `\(H_0\)` false |
+|---|:---:|:---:|
+| **$H_0$ rejected** | type-I error | OK |
+| **$H_0$ not rejected** | OK | type-II error |
+]
+
+---
+# Power and significance
+
+.pull-left-wide[
+&gt; **Significance level** `\(\alpha\)`: probability of a type-I error
+`$$\alpha = P(\text{type-I error}) = P(\text{reject } H_0 \mid H_0 \text{ true})$$`
+
+&gt; **Type-II error** probability `\(\beta\)`:
+`$$\beta = P(\text{type-II error}) = P(\text{do not reject } H_0 \mid H_0 \text{ false})$$`
+
+&gt; **Power** of a test: `\((1 - \beta)\)` — a more powerful test has a lower probability of a type-II error
+]
+
+.pull-right-narrow[
+Note: `\(H_0\)` is either true or not, but this is unknown. Randomness comes from the sample.
+]
+
+---
+# .red[Raise your hand 1: Errors and hypotheses]
+
+<div class="countdown" id="timer_10d22c99" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** A clinical trial tests whether a new drug reduces blood pressure (`\(H_0\)`: drug has no effect). A **type-I error** here means:
+
+A: Approving a drug that genuinely has no effect
+B: Failing to approve a drug that genuinely works
+C: Setting `\(\alpha\)` too small, making rejection harder
+D: Observing an unusually large sample effect by chance
+]
+
+--
+
+.pull-left-wide[
+**Q2.** For a **fixed** sample size, moving the critical value further into the tail (increasing `\(c\)`):
+
+A: Decreases `\(\alpha\)`, increases `\(\beta\)`
+B: Increases `\(\alpha\)`, decreases `\(\beta\)`
+C: Decreases both `\(\alpha\)` and `\(\beta\)`
+D: Increases the power of the test
+]
+
+
+
+---
+# .red[Practice 1: Errors and decision rules]
+
+.pull-left-wide[
+A machine is supposed to fill bottles with exactly 500 ml. A quality inspector draws a sample of `\(n = 36\)` bottles and tests `\(H_0: \mu = 500\)` vs `\(H_1: \mu \not= 500\)` at `\(\alpha = 0.05\)`. The population variance is known: `\(\sigma^2 = 9\)` ml².
+
+1. Compute the critical values for the two-sided test.
+2. The sample mean is `\(\bar{X} = 499.5\)` ml. Compute the test statistic `\(Z\)` and state the decision.
+3. If the true mean were `\(\mu_1 = 499\)` ml, calculate the probability of a type-II error `\(\beta\)`.
+]
+
+
+
+---
+class: inverse, middle, center
+# Construction of a hypothesis test
+
+---
+# Setup
+
+.pull-left-wide[
+Simple example: test whether `\(\mu\)` equals one of two known constants `\(\mu_0 &lt; \mu_1\)`:
+`$$\begin{align*} H_0 &amp; : \mu = \mu_0 \\ H_1 &amp; : \mu = \mu_1 \end{align*}$$`
+
+Sample: `\((X_1, \ldots, X_n)\)` with `\(X_i \sim \mathcal{N}(\mu, \sigma^2)\)`, `\(\sigma^2\)` known.
+]
+
+---
+# Hypothesis measure and test statistic
+
+.pull-left-wide[
+A **hypothesis measure** indicates whether `\(H_0\)` is rejected:
+`$$h(\mu) = \mu - \mu_0$$`
+
+- If `\(H_0\)` true: `\(h(\mu) = 0\)`; if `\(H_0\)` false: `\(h(\mu) = \mu_1 - \mu_0\)`
+
+Replacing `\(\mu\)` with `\(\bar{X}\)` gives the estimated hypothesis measure `\(h(\bar{X})\)`.
+]
+
+--
+
+.pull-left-wide[
+The **test statistic** is the normalised estimated hypothesis measure:
+`$$Z = \frac{\bar{X} - \mu_0}{\sqrt{\sigma^2/n}}$$`
+
+Under `\(H_0\)`: `\(Z \sim \mathcal{N}(0,1)\)`; under `\(H_1\)`: `\(Z \sim \mathcal{N}\!\left(\dfrac{\mu_1-\mu_0}{\sqrt{\sigma^2/n}},1\right)\)`
+]
+
+---
+# Decision rule and significance level
+
+.pull-left-wide[
+Since `\(\mu_0 &lt; \mu_1\)`, large values of `\(Z\)` support `\(H_1\)`:
+
+- do not reject `\(H_0\)` if `\(Z \leq c\)`
+- reject `\(H_0\)` if `\(Z &gt; c\)`
+
+The significance level fixes the critical value:
+`$$\alpha = P(Z &gt; c \mid \mu = \mu_0) = 1 - \Phi(c) \quad \Rightarrow \quad c = z_{1-\alpha}$$`
+]
+
+--
+
+.pull-left-wide[
+&gt; **Tradeoff:** As `\(\alpha \downarrow\)`, `\(z_{1-\alpha} \uparrow\)`, and `\(\beta = \Phi\!\left(z_{1-\alpha} - \dfrac{\mu_1-\mu_0}{\sqrt{\sigma^2/n}}\right) \uparrow\)`
+
+For a given `\(\alpha\)` we must accept a corresponding `\(\beta\)`.
+]
+
+---
+class: inverse, middle, center
+# Test of mean value under different distributional assumptions
+
+---
+# Four cases
+
+.pull-left-wide[
+We test `\(H_0: \mu = \mu_0\)` using `\(Z = (\bar{X} - \mu_0)/\sqrt{\hat\sigma^2/n}\)`
+
+| Distribution | Variance | Distribution of `\(Z\)` under `\(H_0\)` |
+|---|---|---|
+| Unknown | Known `\(\sigma^2\)` | `\(Z \overset{a}{\sim} \mathcal{N}(0,1)\)` |
+| Unknown | Unknown (use `\(S^2\)`) | `\(Z \overset{a}{\sim} \mathcal{N}(0,1)\)` |
+| Normal | Known `\(\sigma^2\)` | `\(Z \sim \mathcal{N}(0,1)\)` exactly |
+| Normal | Unknown (use `\(S^2\)`) | `\(Z \sim t(n-1)\)` exactly |
+
+In all cases: reject `\(H_0\)` if `\(Z &gt; z_{1-\alpha}\)` (or `\(t_{1-\alpha}(n-1)\)` for the last case).
+]
+
+.pull-right-narrow[
+.small123[
+**Note:** The unknown-distribution cases rely on the CLT; the normal cases give exact distributions.
+]
+]
+
+---
+# Bernoulli distributed observations
+
+.pull-left-wide[
+If `\(X \sim \text{Bernoulli}(p)\)`, the mean represents `\(p\)` and the variance is `\(p(1-p)\)`.
+
+Test `\(H_0: p = p_0\)` vs `\(H_1: p = p_1\)` (`\(p_0 &lt; p_1\)`):
+`$$Z = \frac{\bar{X} - p_0}{\sqrt{p_0(1-p_0)/n}} \overset{a}{\sim} \mathcal{N}(0,1) \text{ under } H_0$$`
+
+Decision rule: reject `\(H_0\)` if `\(Z &gt; z_{1-\alpha}\)`.
+]
+
+---
+# .red[Raise your hand 2: Which test statistic?]
+
+<div class="countdown" id="timer_66328622" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** You have `\(n=50\)` observations from an **unknown** distribution with **known** variance `\(\sigma^2=4\)`. Under `\(H_0: \mu=10\)`, the test statistic `\(Z = (\bar{X}-10)/(2/\sqrt{50})\)` follows:
+
+A: `\(\mathcal{N}(0,1)\)` approximately, by the CLT
+B: `\(\mathcal{N}(0,1)\)` exactly, because `\(\sigma^2\)` is known
+C: `\(t(49)\)`, because we are estimating from a sample
+D: `\(\chi^2(49)\)`
+]
+
+--
+
+.pull-left-wide[
+**Q2.** If `\(X \sim \mathcal{N}(\mu,\sigma^2)\)` and `\(\sigma^2\)` is **unknown**, the statistic `\(T = (\bar{X}-\mu_0)/(S/\sqrt{n})\)` follows under `\(H_0\)`:
+
+A: `\(t(n-1)\)` exactly
+B: `\(\mathcal{N}(0,1)\)` approximately
+C: `\(t(n)\)`
+D: `\(F(1,n-1)\)`
+]
+
+
+
+---
+# .red[Practice 2: Full hypothesis test]
+
+.pull-left-wide[
+A bank claims the average waiting time is 5 minutes. A sample of `\(n=25\)` waiting times gives `\(\bar{X}=6.2\)` minutes and `\(S^2=4\)` min². Assume waiting times are normally distributed.
+
+1. Formulate `\(H_0\)` and `\(H_1\)` to test if the true mean **exceeds** 5 minutes.
+2. Compute the test statistic.
+3. State the decision at `\(\alpha=0.05\)` and compute the `\(p\)`-value.
+]
+
+
+
+---
+class: inverse, middle, center
+# Simple and composite hypotheses
+
+---
+# Types of hypotheses
+
+.pull-left-wide[
+- **Simple**: only one value satisfies the hypothesis (e.g., `\(\mu = \mu_0\)`)
+- **Composite**: several values satisfy it (e.g., `\(\mu &gt; \mu_0\)` or `\(\mu \not= \mu_0\)`)
+
+**Two-sided test** — the alternative is composite:
+`$$\begin{align*} H_0 &amp; : \mu = \mu_0 \\ H_1 &amp; : \mu \not= \mu_0 \end{align*}$$`
+
+Decision rule (symmetric around `\(\mu_0\)`):
+- do not reject `\(H_0\)` if `\(z_{\alpha/2} \leq Z \leq z_{1-\alpha/2}\)`
+- reject `\(H_0\)` if `\(Z &lt; z_{\alpha/2}\)` or `\(Z &gt; z_{1-\alpha/2}\)`
+]
+
+---
+# One-sided and composite null
+
+.pull-left-wide[
+**One-sided test** (theory implies direction):
+`$$\begin{align*} H_0 &amp; : \mu = \mu_0 \\ H_1 &amp; : \mu &gt; \mu_0 \end{align*}$$`
+
+Decision rule: reject `\(H_0\)` if `\(Z &gt; z_{1-\alpha}\)`.
+
+**Composite null** (more realistic):
+`$$\begin{align*} H_0 &amp; : \mu \leq \mu_0 \\ H_1 &amp; : \mu &gt; \mu_0 \end{align*}$$`
+
+Conducted in exactly the same way as the one-sided test — same decision rule.
+]
+
+---
+class: inverse, middle, center
+# The `\(p\)`-value
+
+---
+# The `\(p\)`-value
+
+.pull-left-wide[
+&gt; The **$p$-value** is the probability of observing a test statistic at least as extreme as the one observed, assuming `\(H_0\)` is true
+
+It answers: what is the lowest `\(\alpha\)` at which we would still reject `\(H_0\)`?
+
+Decision rule:
+- do not reject `\(H_0\)` if `\(p \geq \alpha\)`
+- reject `\(H_0\)` if `\(p &lt; \alpha\)`
+]
+
+--
+
+.pull-left-wide[
+**One-sided** (`\(H_1: \mu &gt; \mu_0\)`, observed value `\(z\)`):
+`$$p = P(Z &gt; z \mid H_0) = 1 - \Phi(z)$$`
+
+**Two-sided** (`\(H_1: \mu \not= \mu_0\)`, observed value `\(z\)`):
+`$$p = P(|Z| &gt; |z| \mid H_0) = 2\Phi(-|z|)$$`
+]
+
+---
+# .red[Raise your hand 3: The p-value]
+
+<div class="countdown" id="timer_9a67aa99" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** For a **two-sided** test, the observed test statistic is `\(Z = 1.8\)`. The `\(p\)`-value equals:
+
+A: `\(2\Phi(-1.8) = 2(1-\Phi(1.8)) \approx 0.072\)`
+B: `\(1 - \Phi(1.8) \approx 0.036\)`
+C: `\(\Phi(1.8) \approx 0.964\)`
+D: `\(2\Phi(1.8) \approx 1.928\)`
+]
+
+--
+
+.pull-left-wide[
+**Q2.** A researcher obtains `\(p = 0.03\)` and tests at `\(\alpha = 0.05\)`. Which statement is correct?
+
+A: Reject `\(H_0\)`; `\(p &lt; \alpha\)` means the data are unlikely under `\(H_0\)`
+B: Do not reject `\(H_0\)`; a `\(p\)`-value of 3% means there is a 3% chance `\(H_0\)` is true
+C: Reject `\(H_0\)`; the result is practically important because `\(p\)` is small
+D: Do not reject `\(H_0\)`; `\(p &gt; 0.01\)` so the evidence is not strong enough
+]
+
+
+
+---
+# .red[Practice 3: p-value calculation]
+
+.pull-left-wide[
+Heights of adult men in a city are claimed to average 178 cm. A sample of `\(n=64\)` men gives `\(\bar{X}=180.5\)` cm and `\(S^2=100\)` cm².
+
+1. Test `\(H_0: \mu=178\)` vs `\(H_1: \mu \not= 178\)` (state which test statistic you use and why).
+2. Compute the test statistic and the `\(p\)`-value.
+3. State the decision at `\(\alpha=0.05\)`.
+]
+
+
+
+---
+class: inverse, middle, center
+# Choice of sample size based on type-I and type-II errors
+
+---
+# Required sample size
+
+.pull-left-wide[
+For `\(H_0: \mu=\mu_0\)` vs `\(H_1: \mu=\mu_1\)` (`\(\mu_0 &lt; \mu_1\)`), the type-II error is:
+`$$\beta = \Phi\!\left(z_{1-\alpha} - \frac{\mu_1-\mu_0}{\sqrt{\sigma^2/n}}\right)$$`
+
+Solving for `\(n\)`:
+`$$n = \left(\frac{z_{1-\alpha} - z_\beta}{\mu_1 - \mu_0} \cdot \sigma\right)^2$$`
+]
+
+.pull-right-narrow[
+.small123[
+**Key insight:** Required `\(n\)` grows as `\((\mu_1-\mu_0)\)` shrinks — detecting small effects requires large samples.
+]
+]
+
+---
+class: inverse, middle, center
+# Test of variance
+
+---
+# Tests of the variance
+
+.pull-left-wide[
+The variance matters in applications:
+- variance of stock prices → measure of financial risk
+- variance of wages → measure of income inequality
+
+Test `\(H_0: \sigma^2=\sigma_0^2\)` vs `\(H_1: \sigma^2 \not= \sigma_0^2\)`:
+`$$Y = (n-1) \cdot \frac{S^2}{\sigma_0^2} \overset{a}{\sim} \chi^2(n-1) \text{ under } H_0$$`
+
+Decision rule:
+- do not reject `\(H_0\)` if `\(\chi^2_{\alpha/2}(n-1) \leq Y \leq \chi^2_{1-\alpha/2}(n-1)\)`
+- reject `\(H_0\)` otherwise
+]
+
+---
+# .red[Raise your hand 4: Test of variance]
+
+<div class="countdown" id="timer_b7a8a0f7" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** You test `\(H_0: \sigma^2=16\)` vs `\(H_1: \sigma^2 \not= 16\)` with `\(n=20\)` and `\(S^2=22\)`. The test statistic is:
+
+A: `\(Y = (n-1) \cdot S^2/\sigma_0^2 = 19 \cdot 22/16 = 26.125\)`
+B: `\(Y = n \cdot S^2/\sigma_0^2 = 20 \cdot 22/16 = 27.5\)`
+C: `\(Y = \sqrt{(n-1) \cdot S^2/\sigma_0^2} \approx 5.11\)`
+D: `\(Z = (S^2 - \sigma_0^2)/\sqrt{2\sigma_0^4/(n-1)}\)`
+]
+
+--
+
+.pull-left-wide[
+**Q2.** The test statistic `\(Y\)` follows `\(\chi^2(n-1)\)` under `\(H_0\)`. The degrees of freedom are `\(n-1\)` (not `\(n\)`) because:
+
+A: One degree of freedom is lost to estimating `\(\bar{X}\)` when computing `\(S^2\)`
+B: The `\(\chi^2\)` distribution is defined to have one fewer degree than the sample size
+C: Dividing by `\((n-1)\)` in the `\(S^2\)` formula cancels one observation
+D: The `\(\chi^2\)` distribution requires at least 1 df to be well-defined
+]
+
+
+
+---
+# .red[Practice 4: Test of variance]
+
+.pull-left-wide[
+A manufacturer claims the variance of product weights is at most `\(\sigma_0^2 = 0.01\)` kg². A sample of `\(n=16\)` products gives `\(S^2 = 0.016\)` kg².
+
+1. Test `\(H_0: \sigma^2 \leq 0.01\)` vs `\(H_1: \sigma^2 &gt; 0.01\)` at `\(\alpha = 0.05\)`.
+2. Compute the `\(p\)`-value.
+]
+
+
+
+---
+# Statistical significance
+
+.pull-left-wide[
+A result is **statistically significant** if we reject the null hypothesis.
+
+Caveats:
+- Sample size matters: a result insignificant in a small sample may be significant in a larger one
+- There is always the chance of a type-I error (rejecting a true `\(H_0\)`)
+]
+
+---
+# Statistical versus economic significance
+
+.pull-left-wide[
+Statistically significant results may not be **economically significant** (magnitudes may be negligible).
+
+Example: Average family income in Denmark is DKK 300,000/year. We test `\(H_0: \mu_{Fyn} \geq 300{,}000\)` vs `\(H_1: \mu_{Fyn} &lt; 300{,}000\)`.
+]
+
+--
+
+.pull-left-wide[
+With a large sample and `\(\bar{X} = 299{,}900\)`, we can reject `\(H_0\)` — but is DKK 100 a meaningful difference?
+
+&gt; **Statistical significance** relates to uncertainty in the sample. **Economic significance** relates to the social or economic consequences of the finding.
+]
+
+---
+# Confidence intervals and hypothesis testing
+
+.pull-left-wide[
+Hypothesis testing is equivalent to constructing a confidence interval and rejecting `\(H_0\)` if the tested value lies outside it.
+
+For `\(H_0: \mu = \mu_0\)` vs `\(H_1: \mu \not= \mu_0\)`, construct `\(\hat{I}\)` at `\((1-\alpha)\)` confidence:
+- do not reject `\(H_0\)` if `\(\mu_0 \in \hat{I}\)`
+- reject `\(H_0\)` if `\(\mu_0 \not\in \hat{I}\)`
+]
+
+---
+# Before next time
+.pull-left[
+- Read the assigned reading
+- Next time: Testing relationships using quantitative data `\(\rightarrow\)` Chapter 15
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(SDU_logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 125px;
+  height: 60px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // insert more to hide here
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

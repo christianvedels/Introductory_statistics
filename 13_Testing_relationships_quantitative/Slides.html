@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Slides.knit</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/panelset-0.3.0/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.3.0/panelset.js"></script>
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <link href="libs/countdown-0.4.0/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.4.0/countdown.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, inverse, middle
+
+
+
+
+
+<style>.xe__progress-bar__container {
+  top:0;
+  opacity: 1;
+  position:absolute;
+  right:0;
+  left: 0;
+}
+.xe__progress-bar {
+  height: 0.25em;
+  background-color: #808080;
+  width: calc(var(--slide-current) / var(--slide-total) * 100%);
+}
+.remark-visible .xe__progress-bar {
+  animation: xe__progress-bar__wipe 200ms forwards;
+  animation-timing-function: cubic-bezier(.86,0,.07,1);
+}
+@keyframes xe__progress-bar__wipe {
+  0% { width: calc(var(--slide-previous) / var(--slide-total) * 100%); }
+  100% { width: calc(var(--slide-current) / var(--slide-total) * 100%); }
+}</style>
+
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+&lt;/style&gt;
+
+
+
+# Statistics
+## Testing relationships using quantitative data
+### (Chapter 15)
+
+### Christian Vedel,&lt;br&gt;Department of Economics&lt;br&gt;University of Southern Denmark
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Updated 2026-04-27
+
+
+
+---
+class: middle
+# Today's lecture
+.pull-left-wide[
+**Extending hypothesis testing to comparisons between groups and across time**
+
+- **Section 1:** Testing the difference between two mean values
+- **Section 2:** Testing the difference between multiple mean values (ANOVA)
+- **Section 3:** Testing the effect of a treatment
+- **Section 4:** Testing the ratio between two variances
+]
+
+.pull-right-narrow[
+![Trees](Figures/Trees1.jpg)
+]
+
+---
+class: inverse, middle, center
+# Testing the difference between two mean values
+
+---
+# Motivation
+
+.pull-left-wide[
+We want to test whether the means (or variances) of two or more distributions differ:
+- do women earn the same wage, on average, as men?
+- is the health of people treated with a drug better than those untreated?
+]
+
+---
+# Setup
+
+.pull-left-wide[
+Let `\(Y\)` indicate group membership: `\(Y=1\)` for group 1, `\(Y=2\)` for group 2. Let `\(X\)` be the characteristic of interest (e.g. wages).
+
+We want to compare:
+- `\(\mu_1\)` from `\(f(x \mid y=1)\)`
+- `\(\mu_2\)` from `\(f(x \mid y=2)\)`
+
+Suppose we have two **independent** simple random samples:
+- `\(n_1\)` elements from group 1: `\((X_{1,1},\ldots,X_{n_1,1})\)`
+- `\(n_2\)` elements from group 2: `\((X_{1,2},\ldots,X_{n_2,2})\)`
+]
+
+---
+# The general case
+
+.pull-left-wide[
+Two-sided hypothesis test:
+`$$\begin{align*} H_0 &amp; : \mu_1 = \mu_2 \\ H_1 &amp; : \mu_1 \not= \mu_2 \end{align*}$$`
+
+Hypothesis measure `\(h(\mu_1,\mu_2) = \mu_1 - \mu_2 = 0\)` under `\(H_0\)`. Replace the unknown means with sample averages:
+`$$\begin{align*} \bar{X}_1 &amp; = \frac{1}{n_1}\sum_{i=1}^{n_1} X_{i,1} \\ \bar{X}_2 &amp; = \frac{1}{n_2}\sum_{i=1}^{n_2} X_{i,2} \end{align*}$$`
+]
+
+---
+# The test statistic
+
+.pull-left-wide[
+Since the two samples are independent, `\(Var\!\left(\bar{X}_1 - \bar{X}_2\right) = \sigma_1^2/n_1 + \sigma_2^2/n_2\)`. If variances are unknown, use `\(S_1^2\)` and `\(S_2^2\)`:
+`$$Z = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{S_1^2/n_1 + S_2^2/n_2}} \overset{a}{\sim} \mathcal{N}(0,1) \text{ under } H_0$$`
+
+Reject `\(H_0\)` if `\(Z &lt; z_{\alpha/2}\)` or `\(Z &gt; z_{1-\alpha/2}\)`; `\(p\)`-value: `\(p = 2\Phi(-|z|)\)`.
+]
+
+---
+# Equal variances
+
+.pull-left-wide[
+If `\(\sigma_1^2 = \sigma_2^2 = \sigma^2\)`, use the **pooled variance estimator** for a more efficient estimate:
+`$$S_p^2 = \frac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{n_1+n_2-2}, \qquad Z = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{S_p^2\!\left(\dfrac{1}{n_1}+\dfrac{1}{n_2}\right)}}$$`
+
+If `\(X\)` is also normally distributed, `\(Z \sim t(n_1+n_2-2)\)` exactly under `\(H_0\)`.
+]
+
+.pull-right-narrow[
+.small123[
+**Why pooled?** Combining both samples to estimate `\(\sigma^2\)` is more efficient than using `\(S_1^2\)` or `\(S_2^2\)` alone.
+]
+]
+
+---
+# Normal distribution cases
+
+.pull-left-wide[
+**Known variances `\(\sigma_1^2\)`, `\(\sigma_2^2\)`** (both groups normal):
+`$$Z = \frac{\bar{X}_1-\bar{X}_2}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}} \sim \mathcal{N}(0,1) \text{ exactly under } H_0$$`
+
+**Unknown and unequal variances** (both groups normal):
+`$$Z = \frac{\bar{X}_1-\bar{X}_2}{\sqrt{S_1^2/n_1+S_2^2/n_2}} \overset{a}{\sim} t(n_1+n_2-1) \text{ under } H_0$$`
+]
+
+---
+# Bernoulli distribution
+
+.pull-left-wide[
+If `\(X\)` follows a Bernoulli distribution, variance is a function of the mean. Under `\(H_0\)` (`\(p_1=p_2\)`), use the **pooled proportion**:
+`$$\bar{p}_p = \frac{n_1\bar{p}_1 + n_2\bar{p}_2}{n_1+n_2}, \qquad S_p^2 = \bar{p}_p(1-\bar{p}_p)$$`
+
+Test statistic:
+`$$Z = \frac{\bar{p}_1-\bar{p}_2}{\sqrt{\bar{p}_p(1-\bar{p}_p)\left(\dfrac{1}{n_1}+\dfrac{1}{n_2}\right)}} \overset{a}{\sim} \mathcal{N}(0,1) \text{ under } H_0$$`
+]
+
+---
+# One-sided tests
+
+.pull-left-wide[
+The same test statistic is used; only the decision rule changes:
+
+**$H_1: \mu_1 &gt; \mu_2$** — reject if `\(Z\)` is too far right:
+- do not reject `\(H_0\)` if `\(Z &lt; z_{1-\alpha}\)`
+- reject `\(H_0\)` if `\(Z \geq z_{1-\alpha}\)`
+
+**$H_1: \mu_1 &lt; \mu_2$** — reject if `\(Z\)` is too far left:
+- do not reject `\(H_0\)` if `\(Z &gt; z_\alpha\)`
+- reject `\(H_0\)` if `\(Z \leq z_\alpha\)`
+]
+
+---
+# .red[Raise your hand 1: Two-sample tests]
+
+<div class="countdown" id="timer_d00f9f0b" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** Two independent samples: `\(n_1=36\)`, `\(n_2=49\)`, unknown variances assumed equal. The correct test statistic uses:
+
+A: The pooled variance estimator `\(S_p^2\)`
+B: Separate sample variances `\(S_1^2/n_1 + S_2^2/n_2\)` in the denominator
+C: The sum `\(S_1^2 + S_2^2\)` divided by `\(n_1+n_2\)`
+D: A `\(\chi^2\)` statistic to test `\(S_1^2/S_2^2\)`
+]
+
+--
+
+.pull-left-wide[
+**Q2.** For a one-sided test `\(H_1: \mu_1 &lt; \mu_2\)`, the decision rule is:
+
+A: Reject `\(H_0\)` if `\(Z \leq z_\alpha\)`
+B: Reject `\(H_0\)` if `\(Z \geq z_{1-\alpha}\)`
+C: Reject `\(H_0\)` if `\(|Z| \geq z_{1-\alpha/2}\)`
+D: Reject `\(H_0\)` if `\(Z \geq z_{1-\alpha/2}\)`
+]
+
+
+
+---
+# .red[Practice 1: Two-sample mean test]
+
+.pull-left-wide[
+Two independent samples of weekly earnings (€):
+- Group 1 (men): `\(n_1=36\)`, `\(\bar{X}_1=850\)`, `\(S_1^2=3{,}600\)`
+- Group 2 (women): `\(n_2=49\)`, `\(\bar{X}_2=800\)`, `\(S_2^2=2{,}500\)`
+
+1. Test `\(H_0: \mu_1=\mu_2\)` vs `\(H_1: \mu_1 \not= \mu_2\)` at `\(\alpha=0.05\)`.
+2. Compute the `\(p\)`-value.
+]
+
+
+
+---
+class: inverse, middle, center
+# Testing the difference between multiple mean values (ANOVA)
+
+---
+# Setup
+
+.pull-left-wide[
+Generalise to `\(K\)` groups. Test whether all group means are equal:
+`$$\begin{align*} H_0 &amp; : \mu_1 = \mu_2 = \cdots = \mu_K \\ H_1 &amp; : \text{at least one mean value is different} \end{align*}$$`
+
+With weights `\(w_k = n_k/n\)` (relative group size) and `\(\sigma_1^2=\cdots=\sigma_K^2=\sigma^2\)`, define:
+- Group sample means: `\(\bar{X}_k = \frac{1}{n_k}\sum_{i=1}^{n_k}X_{i,k}\)`
+- Overall sample mean: `\(\bar{X} = \sum_{k=1}^K w_k \bar{X}_k\)`
+]
+
+---
+# Sums of squares
+
+.pull-left-wide[
+**Sum of squared treatments** (between-group variation):
+`$$SSTR = \sum_{k=1}^K n_k(\bar{X}_k - \bar{X})^2$$`
+
+**Sum of squared errors** (within-group variation):
+`$$SSE = \sum_{k=1}^K\sum_{i=1}^{n_k}(X_{i,k}-\bar{X}_k)^2 = \sum_{k=1}^K(n_k-1)S_k^2$$`
+]
+
+.pull-right-narrow[
+.small123[
+`\(SSTR \approx 0\)` when all means are equal. `\(SSE\)` estimates residual variance regardless of `\(H_0\)`.
+]
+]
+
+---
+# Test statistic
+
+.pull-left-wide[
+`$$F = \frac{SSTR/(K-1)}{SSE/(n-K)}$$`
+
+Under `\(H_0\)`, `\(F \sim F(K-1, n-K)\)`.
+
+Decision rule:
+- do not reject `\(H_0\)` if `\(F &lt; F_{1-\alpha}(K-1, n-K)\)`
+- reject `\(H_0\)` if `\(F \geq F_{1-\alpha}(K-1, n-K)\)`
+
+&gt; If `\(H_0\)` is true, the numerator should be close to zero. If `\(H_0\)` is false, the numerator grows with `\(n\)`. This is **analysis of variance** (ANOVA).
+]
+
+---
+# .red[Raise your hand 2: ANOVA]
+
+<div class="countdown" id="timer_cefcd3e5" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** An ANOVA F-test compares `\(K=3\)` groups with total `\(n=60\)` observations. Under `\(H_0\)`, the test statistic follows:
+
+A: `\(F(2,57)\)`
+B: `\(F(3,57)\)`
+C: `\(F(2,60)\)`
+D: `\(\chi^2(2)\)`
+]
+
+--
+
+.pull-left-wide[
+**Q2.** An F-statistic is very large. This means:
+
+A: Between-group variation is large relative to within-group variation
+B: Within-group variation is large relative to between-group variation
+C: All group means are significantly different from each other
+D: The sample variances in each group are unequal
+]
+
+
+
+---
+# .red[Practice 2: ANOVA by hand]
+
+.pull-left-wide[
+Three sales regions, each with `\(n_k=10\)` observations:
+- Region A: `\(\bar{X}_1=120\)`
+- Region B: `\(\bar{X}_2=130\)`
+- Region C: `\(\bar{X}_3=140\)`
+
+Overall mean `\(\bar{X}=130\)`; `\(SSE=2{,}700\)`.
+
+1. Compute `\(SSTR\)` and the `\(F\)` statistic.
+2. Test `\(H_0: \mu_1=\mu_2=\mu_3\)` at `\(\alpha=0.05\)`. (`\(F_{0.95}(2,27) \approx 3.35\)`)
+]
+
+
+
+---
+class: inverse, middle, center
+# Testing the effect of a treatment
+
+---
+# Setup
+
+.pull-left-wide[
+A **treatment** is any intervention that can potentially change the distribution of `\(X\)`:
+- health: medical treatments
+- wages: training programmes
+- school grades: additional resources or smaller class size
+
+Two groups:
+- **treated group** = receives the treatment
+- **control group** = does not receive the treatment
+]
+
+---
+# Case 1: Treatment and control observed once
+
+.pull-left-wide[
+With two independent simple random samples (one per group), the treatment effect is:
+`$$D = \mu_T - \mu_C$$`
+
+Test:
+`$$\begin{align*} H_0 &amp; : \mu_T - \mu_C = 0 \\ H_1 &amp; : \mu_T - \mu_C \not= 0 \end{align*}$$`
+
+Test statistic:
+`$$Z = \frac{\bar{X}_T - \bar{X}_C}{\sqrt{S_T^2/n_T + S_C^2/n_C}} \overset{a}{\sim} \mathcal{N}(0,1)$$`
+]
+
+---
+# Case 2: Treatment group observed twice (before/after)
+
+.pull-left-wide[
+Only the treated group is observed, at time 1 (before) and time 2 (after).
+
+The per-element change: `\(D_i = X_{T,i,2} - X_{T,i,1}\)`
+
+Test:
+`$$\begin{align*} H_0 &amp; : \mu_{T,2} - \mu_{T,1} = 0 \\ H_1 &amp; : \mu_{T,2} - \mu_{T,1} \not= 0 \end{align*}$$`
+
+Note: the two observations for the same element are **not** independent — this is **panel data**.
+]
+
+--
+
+.pull-left-wide[
+Variance estimator (accounts for dependence within elements):
+`$$\widehat{Var}\!\left(\bar{X}_{T,2}-\bar{X}_{T,1}\right) = \frac{1}{n_T}\cdot\frac{1}{n_T-1}\sum_{i=1}^{n_T}\left[(X_{T,i,2}-X_{T,i,1})-(\bar{X}_{T,2}-\bar{X}_{T,1})\right]^2$$`
+
+Test statistic: `\(Z = (\bar{X}_{T,2}-\bar{X}_{T,1})/\sqrt{\widehat{Var}(\bar{X}_{T,2}-\bar{X}_{T,1})} \overset{a}{\sim} \mathcal{N}(0,1)\)`
+]
+
+---
+# Case 3: Both groups observed twice (DiD)
+
+.pull-left-wide[
+The issue with Case 1 and 2: we cannot be sure differences are caused by the treatment.
+
+If both groups are observed at time 1 and time 2, other factors affecting both groups cancel out:
+`$$D = (\mu_{T,2}-\mu_{T,1}) - (\mu_{C,2}-\mu_{C,1})$$`
+
+This is the **difference-in-differences** (DiD) estimate.
+
+Test:
+`$$\begin{align*} H_0 &amp; : (\mu_{T,2}-\mu_{T,1}) - (\mu_{C,2}-\mu_{C,1}) = 0 \\ H_1 &amp; : (\mu_{T,2}-\mu_{T,1}) - (\mu_{C,2}-\mu_{C,1}) \not= 0 \end{align*}$$`
+]
+
+--
+
+.pull-left-wide[
+Variance estimator and test statistic:
+
+.small123[
+`$$\widehat{Var} = \frac{1}{n_T}\cdot\frac{1}{n_T-1}\sum_{i=1}^{n_T}\left[(X_{T,i,2}-X_{T,i,1})-(\bar{X}_{T,2}-\bar{X}_{T,1})\right]^2 + \frac{1}{n_C}\cdot\frac{1}{n_C-1}\sum_{i=1}^{n_C}\left[(X_{C,i,2}-X_{C,i,1})-(\bar{X}_{C,2}-\bar{X}_{C,1})\right]^2$$`
+]
+
+`$$Z = \frac{(\bar{X}_{T,2}-\bar{X}_{T,1})-(\bar{X}_{C,2}-\bar{X}_{C,1})}{\sqrt{\widehat{Var}}} \overset{a}{\sim} \mathcal{N}(0,1)$$`
+]
+
+---
+# .red[Raise your hand 3: Difference-in-differences]
+
+<div class="countdown" id="timer_6ad173eb" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** The DiD estimator for the effect of a treatment is:
+
+A: `\((\bar{X}_{T,2}-\bar{X}_{T,1}) - (\bar{X}_{C,2}-\bar{X}_{C,1})\)`
+B: `\(\bar{X}_{T,2} - \bar{X}_{C,2}\)`
+C: `\(\bar{X}_{T,2} - \bar{X}_{T,1}\)`
+D: `\((\bar{X}_{T,2}-\bar{X}_{C,2}) + (\bar{X}_{T,1}-\bar{X}_{C,1})\)`
+]
+
+--
+
+.pull-left-wide[
+**Q2.** The main advantage of DiD (Case 3) over the before/after comparison (Case 2) is:
+
+A: It controls for common time trends affecting both groups
+B: It eliminates the need for a control group
+C: It provides a valid causal estimate without any additional assumptions
+D: It doubles the effective sample size
+]
+
+
+
+---
+# .red[Practice 3: DiD calculation]
+
+.pull-left-wide[
+A government subsidy is given to firms in region A (treated), not in region B (control). Average monthly profits (DKK 1,000s):
+
+| | Before | After |
+|---|:---:|:---:|
+| Region A (treated) | 500 | 580 |
+| Region B (control) | 480 | 500 |
+
+1. Compute the DiD estimate of the subsidy effect.
+2. Under what assumption is this a valid causal estimate?
+]
+
+
+
+---
+class: inverse, middle, center
+# Testing the ratio between two variances
+
+---
+# Setup
+
+.pull-left-wide[
+Two independent simple random samples, each normally distributed.
+
+Test:
+`$$\begin{align*} H_0 &amp; : \sigma_1^2 = \sigma_2^2 \\ H_1 &amp; : \sigma_1^2 \not= \sigma_2^2 \end{align*}$$`
+
+Use the hypothesis measure `\(\sigma_1^2/\sigma_2^2\)` and replace with sample variances:
+`$$F = \frac{S_1^2}{S_2^2}$$`
+
+Under `\(H_0\)`, `\(F \sim F(n_1-1, n_2-1)\)`.
+
+Decision rule: reject `\(H_0\)` if `\(F \geq F_{1-\alpha/2}(n_1-1, n_2-1)\)`.
+]
+
+.pull-right-narrow[
+.small123[
+**Convention:** Put the larger sample variance in the numerator so that `\(F \geq 1\)`, then use only the upper tail.
+]
+]
+
+---
+# .red[Raise your hand 4: Variance ratio test]
+
+<div class="countdown" id="timer_4d40f3e4" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** A two-sided test of `\(H_0: \sigma_1^2=\sigma_2^2\)` uses `\(F=S_1^2/S_2^2\)`. You reject `\(H_0\)` if:
+
+A: `\(F \geq F_{1-\alpha/2}(n_1-1, n_2-1)\)`
+B: `\(F \geq F_{1-\alpha}(n_1-1, n_2-1)\)`
+C: `\(F \geq F_{1-\alpha/2}(n_1, n_2)\)`
+D: `\(F \geq F_{1-\alpha}(n_1-1, n_2-1)\)` or `\(F \leq F_\alpha(n_1-1, n_2-1)\)`
+]
+
+--
+
+.pull-left-wide[
+**Q2.** If you accidentally compute `\(F=S_2^2/S_1^2\)` instead of `\(S_1^2/S_2^2\)`, the test statistic follows:
+
+A: `\(F(n_2-1, n_1-1)\)` — degrees of freedom are reversed
+B: The p-value doubles because you test from the wrong direction
+C: An invalid distribution because `\(F\)` must always be `\(\geq 1\)`
+D: The same distribution `\(F(n_1-1, n_2-1)\)`, since ratios are symmetric
+]
+
+
+
+---
+# .red[Practice 4: Variance ratio test]
+
+.pull-left-wide[
+Two independent samples of test scores (assume normal distributions):
+- Group 1: `\(n_1=21\)`, `\(S_1^2=144\)`
+- Group 2: `\(n_2=16\)`, `\(S_2^2=64\)`
+
+1. Test `\(H_0: \sigma_1^2=\sigma_2^2\)` vs `\(H_1: \sigma_1^2 \not= \sigma_2^2\)` at `\(\alpha=0.05\)`.
+2. Compute the test statistic and state the decision. (`\(F_{0.975}(20,15) \approx 2.76\)`)
+]
+
+
+
+---
+# Before next time
+.pull-left[
+- Read the assigned reading
+- Next time: Testing relationships using qualitative data `\(\rightarrow\)` Chapter 16
+]
+
+.pull-right[
+![Trees](Figures/Trees1.jpg)
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(SDU_logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 125px;
+  height: 60px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // insert more to hide here
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
