@@ -231,10 +231,10 @@ countdown(0, 20, top=TRUE)
 .pull-left-wide[
 **Q1.** Two independent samples: $n_1=36$, $n_2=49$, unknown variances assumed equal. The correct test statistic uses:
 
-A: The pooled variance estimator $S_p^2$
-B: Separate sample variances $S_1^2/n_1 + S_2^2/n_2$ in the denominator
-C: The sum $S_1^2 + S_2^2$ divided by $n_1+n_2$
-D: A $\chi^2$ statistic to test $S_1^2/S_2^2$
+- **A)** The pooled variance estimator $S_p^2$
+- **B)** Separate sample variances $S_1^2/n_1 + S_2^2/n_2$ in the denominator
+- **C)** The sum $S_1^2 + S_2^2$ divided by $n_1+n_2$
+- **D)** A $\chi^2$ statistic to test $S_1^2/S_2^2$
 ]
 
 --
@@ -242,10 +242,10 @@ D: A $\chi^2$ statistic to test $S_1^2/S_2^2$
 .pull-left-wide[
 **Q2.** For a one-sided test $H_1: \mu_1 < \mu_2$, the decision rule is:
 
-A: Reject $H_0$ if $Z \leq z_\alpha$
-B: Reject $H_0$ if $Z \geq z_{1-\alpha}$
-C: Reject $H_0$ if $|Z| \geq z_{1-\alpha/2}$
-D: Reject $H_0$ if $Z \geq z_{1-\alpha/2}$
+- **A)** Reject $H_0$ if $Z \leq z_\alpha$
+- **B)** Reject $H_0$ if $Z \geq z_{1-\alpha}$
+- **C)** Reject $H_0$ if $|Z| \geq z_{1-\alpha/2}$
+- **D)** Reject $H_0$ if $Z \geq z_{1-\alpha/2}$
 ]
 
 ```{r ryh1-answers, eval=FALSE, include=FALSE}
@@ -338,10 +338,10 @@ countdown(0, 20, top=TRUE)
 .pull-left-wide[
 **Q1.** An ANOVA F-test compares $K=3$ groups with total $n=60$ observations. Under $H_0$, the test statistic follows:
 
-A: $F(2,57)$
-B: $F(3,57)$
-C: $F(2,60)$
-D: $\chi^2(2)$
+- **A)** $F(2,57)$
+- **B)** $F(3,57)$
+- **C)** $F(2,60)$
+- **D)** $\chi^2(2)$
 ]
 
 --
@@ -349,10 +349,10 @@ D: $\chi^2(2)$
 .pull-left-wide[
 **Q2.** An F-statistic is very large. This means:
 
-A: Between-group variation is large relative to within-group variation
-B: Within-group variation is large relative to between-group variation
-C: All group means are significantly different from each other
-D: The sample variances in each group are unequal
+- **A)** Between-group variation is large relative to within-group variation
+- **B)** Within-group variation is large relative to between-group variation
+- **C)** All group means are significantly different from each other
+- **D)** The sample variances in each group are unequal
 ]
 
 ```{r ryh2-answers, eval=FALSE, include=FALSE}
@@ -483,10 +483,10 @@ countdown(0, 20, top=TRUE)
 .pull-left-wide[
 **Q1.** The DiD estimator for the effect of a treatment is:
 
-A: $(\bar{X}_{T,2}-\bar{X}_{T,1}) - (\bar{X}_{C,2}-\bar{X}_{C,1})$
-B: $\bar{X}_{T,2} - \bar{X}_{C,2}$
-C: $\bar{X}_{T,2} - \bar{X}_{T,1}$
-D: $(\bar{X}_{T,2}-\bar{X}_{C,2}) + (\bar{X}_{T,1}-\bar{X}_{C,1})$
+- **A)** $(\bar{X}_{T,2}-\bar{X}_{T,1}) - (\bar{X}_{C,2}-\bar{X}_{C,1})$
+- **B)** $\bar{X}_{T,2} - \bar{X}_{C,2}$
+- **C)** $\bar{X}_{T,2} - \bar{X}_{T,1}$
+- **D)** $(\bar{X}_{T,2}-\bar{X}_{C,2}) + (\bar{X}_{T,1}-\bar{X}_{C,1})$
 ]
 
 --
@@ -494,10 +494,10 @@ D: $(\bar{X}_{T,2}-\bar{X}_{C,2}) + (\bar{X}_{T,1}-\bar{X}_{C,1})$
 .pull-left-wide[
 **Q2.** The main advantage of DiD (Case 3) over the before/after comparison (Case 2) is:
 
-A: It controls for common time trends affecting both groups
-B: It eliminates the need for a control group
-C: It provides a valid causal estimate without any additional assumptions
-D: It doubles the effective sample size
+- **A)** It controls for common time trends affecting both groups
+- **B)** It eliminates the need for a control group
+- **C)** It provides a valid causal estimate without any additional assumptions
+- **D)** It doubles the effective sample size
 ]
 
 ```{r ryh3-answers, eval=FALSE, include=FALSE}
@@ -572,10 +572,10 @@ countdown(0, 20, top=TRUE)
 .pull-left-wide[
 **Q1.** A two-sided test of $H_0: \sigma_1^2=\sigma_2^2$ uses $F=S_1^2/S_2^2$. You reject $H_0$ if:
 
-A: $F \geq F_{1-\alpha/2}(n_1-1, n_2-1)$
-B: $F \geq F_{1-\alpha}(n_1-1, n_2-1)$
-C: $F \geq F_{1-\alpha/2}(n_1, n_2)$
-D: $F \geq F_{1-\alpha}(n_1-1, n_2-1)$ or $F \leq F_\alpha(n_1-1, n_2-1)$
+- **A)** $F \geq F_{1-\alpha/2}(n_1-1, n_2-1)$
+- **B)** $F \geq F_{1-\alpha}(n_1-1, n_2-1)$
+- **C)** $F \geq F_{1-\alpha/2}(n_1, n_2)$
+- **D)** $F \geq F_{1-\alpha}(n_1-1, n_2-1)$ or $F \leq F_\alpha(n_1-1, n_2-1)$
 ]
 
 --
@@ -583,10 +583,10 @@ D: $F \geq F_{1-\alpha}(n_1-1, n_2-1)$ or $F \leq F_\alpha(n_1-1, n_2-1)$
 .pull-left-wide[
 **Q2.** If you accidentally compute $F=S_2^2/S_1^2$ instead of $S_1^2/S_2^2$, the test statistic follows:
 
-A: $F(n_2-1, n_1-1)$ — degrees of freedom are reversed
-B: The p-value doubles because you test from the wrong direction
-C: An invalid distribution because $F$ must always be $\geq 1$
-D: The same distribution $F(n_1-1, n_2-1)$, since ratios are symmetric
+- **A)** $F(n_2-1, n_1-1)$ — degrees of freedom are reversed
+- **B)** The p-value doubles because you test from the wrong direction
+- **C)** An invalid distribution because $F$ must always be $\geq 1$
+- **D)** The same distribution $F(n_1-1, n_2-1)$, since ratios are symmetric
 ]
 
 ```{r ryh4-answers, eval=FALSE, include=FALSE}

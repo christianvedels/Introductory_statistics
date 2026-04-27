@@ -181,10 +181,10 @@ countdown(0, 20, top=TRUE)
 .pull-left-wide[
 **Q1.** A $\chi^2$ test checks whether a six-sided die is fair ($K=6$). How many degrees of freedom does the test statistic have?
 
-A: 5
-B: 6
-C: 1
-D: Depends on the sample size $n$
+- **A)** 5
+- **B)** 6
+- **C)** 1
+- **D)** Depends on the sample size $n$
 ]
 
 --
@@ -192,10 +192,10 @@ D: Depends on the sample size $n$
 .pull-left-wide[
 **Q2.** The minimum $\chi^2$ value that leads to rejection at $\alpha=0.05$ for this test is:
 
-A: $\chi^2_{0.95}(5) \approx 11.07$
-B: $\chi^2_{0.95}(6) \approx 12.59$
-C: $\chi^2_{0.975}(5) \approx 12.83$
-D: $z_{0.95}^2 \approx 2.71$
+- **A)** $\chi^2_{0.95}(5) \approx 11.07$
+- **B)** $\chi^2_{0.95}(6) \approx 12.59$
+- **C)** $\chi^2_{0.975}(5) \approx 12.83$
+- **D)** $z_{0.95}^2 \approx 2.71$
 ]
 
 ```{r ryh1-answers, eval=FALSE, include=FALSE}
@@ -318,10 +318,10 @@ countdown(0, 20, top=TRUE)
 .pull-left-wide[
 **Q1.** A $\chi^2$ independence test between $X$ (3 values) and $Y$ (4 values) has how many degrees of freedom?
 
-A: $(J-1)(L-1) = 6$
-B: $J \cdot L - 1 = 11$
-C: $J + L - 2 = 3$
-D: $J + L - 1 = 4$
+- **A)** $(J-1)(L-1) = 6$
+- **B)** $J \cdot L - 1 = 11$
+- **C)** $J + L - 2 = 3$
+- **D)** $J + L - 1 = 4$
 ]
 
 --
@@ -329,10 +329,10 @@ D: $J + L - 1 = 4$
 .pull-left-wide[
 **Q2.** A test of homogeneity — whether $X$ has the same distribution across groups defined by $Y$ — is mathematically equivalent to:
 
-A: A test of independence between $X$ and $Y$
-B: A two-sample $t$-test of the means of $X$
-C: A test of whether $X$ is normally distributed
-D: A test of whether the variances of $X$ are equal across groups
+- **A)** A test of independence between $X$ and $Y$
+- **B)** A two-sample $t$-test of the means of $X$
+- **C)** A test of whether $X$ is normally distributed
+- **D)** A test of whether the variances of $X$ are equal across groups
 ]
 
 ```{r ryh2-answers, eval=FALSE, include=FALSE}

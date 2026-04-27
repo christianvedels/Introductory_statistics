@@ -210,10 +210,10 @@ countdown(0, 20, top=TRUE)
 .pull-left-wide[
 **Q1.** A clinical trial tests whether a new drug reduces blood pressure ($H_0$: drug has no effect). A **type-I error** here means:
 
-A: Approving a drug that genuinely has no effect
-B: Failing to approve a drug that genuinely works
-C: Setting $\alpha$ too small, making rejection harder
-D: Observing an unusually large sample effect by chance
+- **A)** Approving a drug that genuinely has no effect
+- **B)** Failing to approve a drug that genuinely works
+- **C)** Setting $\alpha$ too small, making rejection harder
+- **D)** Observing an unusually large sample effect by chance
 ]
 
 --
@@ -221,10 +221,10 @@ D: Observing an unusually large sample effect by chance
 .pull-left-wide[
 **Q2.** For a **fixed** sample size, moving the critical value further into the tail (increasing $c$):
 
-A: Decreases $\alpha$, increases $\beta$
-B: Increases $\alpha$, decreases $\beta$
-C: Decreases both $\alpha$ and $\beta$
-D: Increases the power of the test
+- **A)** Decreases $\alpha$, increases $\beta$
+- **B)** Increases $\alpha$, decreases $\beta$
+- **C)** Decreases both $\alpha$ and $\beta$
+- **D)** Increases the power of the test
 ]
 
 ```{r ryh1-answers, eval=FALSE, include=FALSE}
@@ -362,10 +362,10 @@ countdown(0, 20, top=TRUE)
 .pull-left-wide[
 **Q1.** You have $n=50$ observations from an **unknown** distribution with **known** variance $\sigma^2=4$. Under $H_0: \mu=10$, the test statistic $Z = (\bar{X}-10)/(2/\sqrt{50})$ follows:
 
-A: $\mathcal{N}(0,1)$ approximately, by the CLT
-B: $\mathcal{N}(0,1)$ exactly, because $\sigma^2$ is known
-C: $t(49)$, because we are estimating from a sample
-D: $\chi^2(49)$
+- **A)** $\mathcal{N}(0,1)$ approximately, by the CLT
+- **B)** $\mathcal{N}(0,1)$ exactly, because $\sigma^2$ is known
+- **C)** $t(49)$, because we are estimating from a sample
+- **D)** $\chi^2(49)$
 ]
 
 --
@@ -373,10 +373,10 @@ D: $\chi^2(49)$
 .pull-left-wide[
 **Q2.** If $X \sim \mathcal{N}(\mu,\sigma^2)$ and $\sigma^2$ is **unknown**, the statistic $T = (\bar{X}-\mu_0)/(S/\sqrt{n})$ follows under $H_0$:
 
-A: $t(n-1)$ exactly
-B: $\mathcal{N}(0,1)$ approximately
-C: $t(n)$
-D: $F(1,n-1)$
+- **A)** $t(n-1)$ exactly
+- **B)** $\mathcal{N}(0,1)$ approximately
+- **C)** $t(n)$
+- **D)** $F(1,n-1)$
 ]
 
 ```{r ryh2-answers, eval=FALSE, include=FALSE}
@@ -481,10 +481,10 @@ countdown(0, 20, top=TRUE)
 .pull-left-wide[
 **Q1.** For a **two-sided** test, the observed test statistic is $Z = 1.8$. The $p$-value equals:
 
-A: $2\Phi(-1.8) = 2(1-\Phi(1.8)) \approx 0.072$
-B: $1 - \Phi(1.8) \approx 0.036$
-C: $\Phi(1.8) \approx 0.964$
-D: $2\Phi(1.8) \approx 1.928$
+- **A)** $2\Phi(-1.8) = 2(1-\Phi(1.8)) \approx 0.072$
+- **B)** $1 - \Phi(1.8) \approx 0.036$
+- **C)** $\Phi(1.8) \approx 0.964$
+- **D)** $2\Phi(1.8) \approx 1.928$
 ]
 
 --
@@ -492,10 +492,10 @@ D: $2\Phi(1.8) \approx 1.928$
 .pull-left-wide[
 **Q2.** A researcher obtains $p = 0.03$ and tests at $\alpha = 0.05$. Which statement is correct?
 
-A: Reject $H_0$; $p < \alpha$ means the data are unlikely under $H_0$
-B: Do not reject $H_0$; a $p$-value of 3% means there is a 3% chance $H_0$ is true
-C: Reject $H_0$; the result is practically important because $p$ is small
-D: Do not reject $H_0$; $p > 0.01$ so the evidence is not strong enough
+- **A)** Reject $H_0$; $p < \alpha$ means the data are unlikely under $H_0$
+- **B)** Do not reject $H_0$; a $p$-value of 3% means there is a 3% chance $H_0$ is true
+- **C)** Reject $H_0$; the result is practically important because $p$ is small
+- **D)** Do not reject $H_0$; $p > 0.01$ so the evidence is not strong enough
 ]
 
 ```{r ryh3-answers, eval=FALSE, include=FALSE}
@@ -580,10 +580,10 @@ countdown(0, 20, top=TRUE)
 .pull-left-wide[
 **Q1.** You test $H_0: \sigma^2=16$ vs $H_1: \sigma^2 \not= 16$ with $n=20$ and $S^2=22$. The test statistic is:
 
-A: $Y = (n-1) \cdot S^2/\sigma_0^2 = 19 \cdot 22/16 = 26.125$
-B: $Y = n \cdot S^2/\sigma_0^2 = 20 \cdot 22/16 = 27.5$
-C: $Y = \sqrt{(n-1) \cdot S^2/\sigma_0^2} \approx 5.11$
-D: $Z = (S^2 - \sigma_0^2)/\sqrt{2\sigma_0^4/(n-1)}$
+- **A)** $Y = (n-1) \cdot S^2/\sigma_0^2 = 19 \cdot 22/16 = 26.125$
+- **B)** $Y = n \cdot S^2/\sigma_0^2 = 20 \cdot 22/16 = 27.5$
+- **C)** $Y = \sqrt{(n-1) \cdot S^2/\sigma_0^2} \approx 5.11$
+- **D)** $Z = (S^2 - \sigma_0^2)/\sqrt{2\sigma_0^4/(n-1)}$
 ]
 
 --
@@ -591,10 +591,10 @@ D: $Z = (S^2 - \sigma_0^2)/\sqrt{2\sigma_0^4/(n-1)}$
 .pull-left-wide[
 **Q2.** The test statistic $Y$ follows $\chi^2(n-1)$ under $H_0$. The degrees of freedom are $n-1$ (not $n$) because:
 
-A: One degree of freedom is lost to estimating $\bar{X}$ when computing $S^2$
-B: The $\chi^2$ distribution is defined to have one fewer degree than the sample size
-C: Dividing by $(n-1)$ in the $S^2$ formula cancels one observation
-D: The $\chi^2$ distribution requires at least 1 df to be well-defined
+- **A)** One degree of freedom is lost to estimating $\bar{X}$ when computing $S^2$
+- **B)** The $\chi^2$ distribution is defined to have one fewer degree than the sample size
+- **C)** Dividing by $(n-1)$ in the $S^2$ formula cancels one observation
+- **D)** The $\chi^2$ distribution requires at least 1 df to be well-defined
 ]
 
 ```{r ryh4-answers, eval=FALSE, include=FALSE}

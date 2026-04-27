@@ -245,10 +245,10 @@ countdown(0, 20, top=TRUE)
 .pull-left-wide[
 **Q1.** In $E(Y \mid X=x) = \beta_0 + \beta_1 x$, the slope $\beta_1 = 2.5$ means:
 
-A: When $X$ increases by 1 unit, the expected value of $Y$ increases by 2.5 units
-B: When $X$ increases by 1 unit, $Y$ always increases by 2.5 units
-C: The correlation between $X$ and $Y$ is 2.5
-D: For every unit increase in $Y$, $X$ increases by 2.5 units
+- **A)** When $X$ increases by 1 unit, the expected value of $Y$ increases by 2.5 units
+- **B)** When $X$ increases by 1 unit, $Y$ always increases by 2.5 units
+- **C)** The correlation between $X$ and $Y$ is 2.5
+- **D)** For every unit increase in $Y$, $X$ increases by 2.5 units
 ]
 
 --
@@ -256,10 +256,10 @@ D: For every unit increase in $Y$, $X$ increases by 2.5 units
 .pull-left-wide[
 **Q2.** The OLS estimate $\hat{\beta}_1 = \widehat{Cov}(X,Y)/S_X^2$. The sign of $\hat{\beta}_1$ is determined by:
 
-A: The sign of $\widehat{Cov}(X,Y)$, since $S_X^2 > 0$ always
-B: The sign of $S_X^2$
-C: The sign of $\bar{Y}$
-D: Whether $n$ is odd or even
+- **A)** The sign of $\widehat{Cov}(X,Y)$, since $S_X^2 > 0$ always
+- **B)** The sign of $S_X^2$
+- **C)** The sign of $\bar{Y}$
+- **D)** Whether $n$ is odd or even
 ]
 
 ```{r ryh1-answers, eval=FALSE, include=FALSE}
@@ -344,10 +344,10 @@ countdown(0, 20, top=TRUE)
 .pull-left-wide[
 **Q1.** To test whether $X$ and $Y$ are **linearly related**, we test:
 
-A: $H_0: \beta_1=0$ vs $H_1: \beta_1 \neq 0$
-B: $H_0: \beta_0=0$ vs $H_1: \beta_0 \neq 0$
-C: $H_0: \mu_X=\mu_Y$ vs $H_1: \mu_X \neq \mu_Y$
-D: $H_0: Var(X)=Var(Y)$ vs $H_1: Var(X)\neq Var(Y)$
+- **A)** $H_0: \beta_1=0$ vs $H_1: \beta_1 \neq 0$
+- **B)** $H_0: \beta_0=0$ vs $H_1: \beta_0 \neq 0$
+- **C)** $H_0: \mu_X=\mu_Y$ vs $H_1: \mu_X \neq \mu_Y$
+- **D)** $H_0: Var(X)=Var(Y)$ vs $H_1: Var(X)\neq Var(Y)$
 ]
 
 --
@@ -355,10 +355,10 @@ D: $H_0: Var(X)=Var(Y)$ vs $H_1: Var(X)\neq Var(Y)$
 .pull-left-wide[
 **Q2.** The test statistic $Z = (\hat{\beta}_1 - \beta_1^0)/\sqrt{S_{\hat{\beta}_1}^2}$ follows approximately $\mathcal{N}(0,1)$ because:
 
-A: $\hat{\beta}_1$ is unbiased for $\beta_1$, so $\hat{\beta}_1 - \beta_1^0$ is centred; the CLT gives approximate normality
-B: The OLS estimator is exactly normally distributed for any sample size
-C: The $t$-distribution always equals $\mathcal{N}(0,1)$ regardless of sample size
-D: Population parameters such as $\beta_1$ are normally distributed by definition
+- **A)** $\hat{\beta}_1$ is unbiased for $\beta_1$, so $\hat{\beta}_1 - \beta_1^0$ is centred; the CLT gives approximate normality
+- **B)** The OLS estimator is exactly normally distributed for any sample size
+- **C)** The $t$-distribution always equals $\mathcal{N}(0,1)$ regardless of sample size
+- **D)** Population parameters such as $\beta_1$ are normally distributed by definition
 ]
 
 ```{r ryh2-answers, eval=FALSE, include=FALSE}
