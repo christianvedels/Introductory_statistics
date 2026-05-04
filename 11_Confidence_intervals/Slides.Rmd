@@ -326,8 +326,24 @@ $$t = \frac{\bar{X} - \mu}{\sqrt{S^2/n}} \sim t(n-1)$$
 --
 
 .pull-left-wide[
-> **Exact CI for $\mu$, normal population, $\sigma$ unknown:**
 $$\hat{I} = \left[\bar{X} - t_{1-\alpha/2}(n-1) \cdot \sqrt{\frac{S^2}{n}},\;\; \bar{X} + t_{1-\alpha/2}(n-1) \cdot \sqrt{\frac{S^2}{n}}\right]$$
+]
+
+---
+# $t$ vs $z$: when does it matter?
+
+.pull-left-wide[
+- The $t(k)$ distribution converges to $\mathcal{N}(0,1)$ as $k \to \infty$ — for large samples the two are nearly identical
+- **Rule of thumb:**
+  - $n \gtrsim 30$: the normal approximation is usually acceptable in practice
+  - $n \gtrsim 100$: safe to use $z$ even if the population distribution is moderately skewed
+]
+
+--
+
+.pull-left-wide[
+- **Practical advice:** when $\sigma^2$ is unknown, default to $t$ — it is exact for normal populations and reduces to $z$ for large samples
+- This rule applies generally across all the CIs in this lecture
 ]
 
 ---
@@ -446,40 +462,19 @@ class: inverse, middle, center
 # CI for the variance
 
 .pull-left-wide[
-- We can also construct a CI for the unknown variance $\sigma^2$
-- The sample variance $S^2$ is unbiased for $\sigma^2$; we need its distribution
-]
-
---
-
-.pull-left-wide[
-- Recall the chi-square pivot (requires $X \sim \mathcal{N}(\mu, \sigma^2)$):
+- The sample variance $S^2$ estimates $\sigma^2$; to build a CI we need its sampling distribution
+- When $X \sim \mathcal{N}(\mu, \sigma^2)$, it can be shown that:
 $$Y = \frac{(n-1) S^2}{\sigma^2} \sim \chi^2(n-1)$$
-- The $\chi^2$ distribution is **not symmetric** and takes only positive values
-]
-
----
-# Deriving the CI for $\sigma^2$
-
-.pull-left-wide[
-- Let $\chi^2_{\alpha/2}$ and $\chi^2_{1-\alpha/2}$ be the lower and upper critical values from $\chi^2(n-1)$, so that:
-$$P\!\left(\chi^2_{\alpha/2}(n-1) \leq Y \leq \chi^2_{1-\alpha/2}(n-1)\right) \overset{a}{=} 1 - \alpha$$
+- The $\chi^2$ distribution is right-skewed — so the CI will be **asymmetric** around $S^2$
 ]
 
 --
 
 .pull-left-wide[
-- Substituting $Y = (n-1)S^2/\sigma^2$ and rearranging to isolate $\sigma^2$:
+- Trapping $Y$ between its $\alpha/2$ and $1-\alpha/2$ quantiles and rearranging for $\sigma^2$ gives:
 
-$$P\!\left(\frac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)} \leq \sigma^2 \leq \frac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)}\right) \overset{a}{=} 1 - \alpha$$
-]
-
---
-
-.pull-left-wide[
 > **CI for $\sigma^2$:**
 $$\hat{I} = \left[\frac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)},\;\; \frac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)}\right]$$
-- This CI is **not symmetric** around $S^2$ because the $\chi^2$ distribution is skewed
 ]
 
 ---
@@ -664,15 +659,21 @@ $$\frac{(\bar{X}_1 - \bar{X}_2) - (\mu_1 - \mu_2)}{\sqrt{\sigma_1^2/n_1 + \sigma
 # CI for $\mu_1 - \mu_2$: $\sigma_1^2, \sigma_2^2$ known or unknown
 
 .pull-left-wide[
+.small123[
 > **Approximate CI for $\mu_1 - \mu_2$, $\sigma_j^2$ known:**
 $$\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}\right]$$
+]
 ]
 
 --
 
 .pull-left-wide[
+.small123[
 > **Approximate CI for $\mu_1 - \mu_2$, $\sigma_j^2$ unknown (replace with $S_j^2$):**
 $$\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}\right]$$
+*or*
+$$\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm t_{1-\alpha/2}(n_1+n_2-2) \cdot \sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}\right]$$
+]
 ]
 
 ---
@@ -692,9 +693,9 @@ $$S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}$$
 --
 
 .pull-left-wide[
-> **CI for $\mu_1 - \mu_2$, equal variances assumed:**
-$$\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \cdot \sqrt{S_p^2 \left(\frac{1}{n_1} + \frac{1}{n_2}\right)}\right]$$
-- If $X$ is normal and $\sigma_1^2 = \sigma_2^2$, replace $z$ with $t_{1-\alpha/2}(n_1 + n_2 - 2)$ for an exact CI
+> **Exact CI for $\mu_1 - \mu_2$, equal unknown variances:**
+$$\hat{I} = \left[(\bar{X}_1 - \bar{X}_2) \pm t_{1-\alpha/2}(n_1+n_2-2) \cdot \sqrt{S_p^2 \left(\frac{1}{n_1} + \frac{1}{n_2}\right)}\right]$$
+- **Use $t$, not $z$, when $\sigma^2$ is unknown** — $t(n_1+n_2-2)$ is exact for normal populations; $z$ is only asymptotically valid
 ]
 
 ---
@@ -1024,6 +1025,25 @@ $$n^* = \frac{z_{1-\alpha/2}^2 \cdot \sigma^2}{K^2}$$
 ]
 
 ---
+# Example: choosing $n$ for a desired precision
+
+.pull-left-wide[
+**Setting:** we want to estimate the mean height of students with a 95% CI and half-width at most 2 cm. A previous study suggests $\sigma \approx 10$ cm.
+
+$$n^* = \frac{1.96^2 \times 10^2}{2^2} = \frac{3.84 \times 100}{4} = \frac{384}{4} \approx 97$$
+]
+
+--
+
+.pull-left-wide[
+**What if we want twice the precision** — half-width $\leq 1$ cm?
+
+$$n^* = \frac{1.96^2 \times 10^2}{1^2} \approx 385$$
+
+Halving the half-width requires **4× the sample size** — because width $\propto 1/\sqrt{n}$, so to halve it you must quadruple $n$
+]
+
+---
 # Sample size for Bernoulli $X$
 
 .pull-left-wide[
@@ -1206,23 +1226,25 @@ $$p_L = B_{\alpha/2}(k,\; n-k+1), \qquad p_U = B_{1-\alpha/2}(k+1,\; n-k)$$
 # Key takeaways
 
 .pull-left-wide[
-**CI for $\mu$:** $\bar{X} \pm z_{1-\alpha/2} \cdot \sigma/\sqrt{n}$ (normal approx); use $t(n-1)$ when $X$ normal and $\sigma$ unknown
+**CI for $\mu$:** use $z$ when $\sigma$ known; use $t(n-1)$ when $\sigma$ unknown and $X$ normal — $t$ is exact, $z$ is only asymptotic
 
-**CI for $\sigma^2$:** based on $\chi^2(n-1)$ pivot — asymmetric interval; requires normality for exact result
+**CI for $\sigma^2$:** $\chi^2(n-1)$ pivot — asymmetric interval; exact only when $X$ is normal
 ]
 
 --
 
 .pull-left-wide[
-**CI for $\mu_1 - \mu_2$:** $(\bar{X}_1 - \bar{X}_2) \pm z_{1-\alpha/2} \sqrt{S_1^2/n_1 + S_2^2/n_2}$; use pooled $S_p^2$ when $\sigma_1^2 = \sigma_2^2$
+**CI for $\mu_1 - \mu_2$:** approximate with $z$ and separate $S_j^2$; exact with $t(n_1+n_2-2)$ and pooled $S_p^2$ when $\sigma_1^2 = \sigma_2^2$ and $X$ normal
 
-**CI for $\sigma_2^2/\sigma_1^2$:** based on $F(n_1-1, n_2-1)$ pivot — also asymmetric
+**CI for $\sigma_2^2/\sigma_1^2$:** $F(n_1-1, n_2-1)$ pivot — also asymmetric; exact only when $X$ is normal
 ]
 
 --
 
 .pull-left-wide[
-**Sample size:** $n^* = z_{1-\alpha/2}^2 \sigma^2 / K^2$; width $\propto 1/\sqrt{n}$ — halving width requires 4× observations; for Bernoulli use $\sigma^2 = 0.25$ as conservative bound
+**Sample size:** $n^* = z_{1-\alpha/2}^2 \sigma^2 / K^2$; width $\propto 1/\sqrt{n}$ — halving the width requires 4× the observations; for Bernoulli use $\sigma^2 = 0.25$ as a conservative bound
+
+**Rule of thumb:** $n \gtrsim 30$ for $z$ to be adequate; $n \gtrsim 100$ if the population is skewed
 ]
 
 ---
