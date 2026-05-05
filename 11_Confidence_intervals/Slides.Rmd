@@ -314,6 +314,43 @@ $$\hat{I} = \left[\bar{X} - z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}},\;\; \b
 ]
 
 ---
+# The Student's $t$-distribution
+
+```{r t-fig-save, eval=FALSE, include=FALSE}
+library(ggplot2)
+df_t <- data.frame(
+  x = rep(seq(-4, 4, length.out = 500), 4),
+  k = rep(c(1, 3, 10, Inf), each = 500)
+)
+df_t$density <- ifelse(
+  df_t$k == Inf,
+  dnorm(df_t$x),
+  dt(df_t$x, df = df_t$k)
+)
+df_t$dist <- factor(df_t$k, labels = c("t(1)", "t(3)", "t(10)", "N(0,1)"))
+
+p <- ggplot(df_t, aes(x = x, y = density, colour = dist)) +
+  geom_line(linewidth = 1) +
+  scale_colour_brewer(palette = "Set1", name = NULL) +
+  labs(x = "t", y = "Density") +
+  theme_minimal(base_size = 14)
+
+ggsave("Statistics/11_Confidence_intervals/Figures/t-fig.png", p, width = 5, height = 3, dpi = 150)
+```
+
+.pull-left[
+> If $Z \sim \mathcal{N}(0,1)$ and $Y \sim \chi^2(k)$ independent:
+$$T = \frac{Z}{\sqrt{Y/k}} \sim t(k)$$
+- $E(T) = 0$, $\quad Var(T) = \dfrac{k}{k-2}$
+- Heavier tails than normal; $t(k) \to \mathcal{N}(0,1)$ as $k \to \infty$
+- Used for CI when $\sigma^2$ is unknown — which is exactly what we do next
+]
+
+.pull-right[
+![Student t](Figures/t-fig.png)
+]
+
+---
 # Exact CI: $X \sim \mathcal{N}(\mu, \sigma^2)$, $\sigma$ unknown
 
 .pull-left-wide[
