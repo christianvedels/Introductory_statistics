@@ -646,7 +646,7 @@ A normal population is sampled with $n = 20$, giving $S^2 = 16$.
 
 1. Construct a 95% CI for $\sigma^2$
 2. Is the interval symmetric around $S^2 = 16$? Why or why not?
-3. What does it mean if $\sigma^2 = 9$ is inside the interval?
+3. Let's hypothesis that $\sigma^2 = 9$. Does our result support this hypothesis?
 
 *Hint:* $\chi^2_{0.025}(19) \approx 8.91$; $\chi^2_{0.975}(19) \approx 32.85$
 ]
@@ -660,9 +660,8 @@ A normal population is sampled with $n = 20$, giving $S^2 = 16$.
 #    Not symmetric — the chi^2(19) distribution is right-skewed, so the upper
 #    critical value is further from the centre than the lower one
 #
-# 3. sigma^2 = 9 is inside [9.25, 34.12]? No, 9 < 9.25.
-#    If it were inside: the data are consistent with sigma^2 = 9 at the 95% level
-#    (we could not reject sigma^2 = 9 in a hypothesis test at alpha = 0.05)
+# 3. Let's hypothesis that $\sigma^2 = 9$. Does our result support this hypothesis?
+#    No — the entire CI is above 9, so 9 is not a plausible value for sigma^2 given the data
 ```
 
 ---
