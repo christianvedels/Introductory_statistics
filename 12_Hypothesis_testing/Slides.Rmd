@@ -123,6 +123,53 @@ class: middle
 ]
 
 ---
+# Philosophy of Science: An Overview
+
+.pull-left-wide[
+- **Purpose of science:** to build reliable knowledge about the world
+- **Central idea:** we can never *prove* a theory absolutely — we only gather evidence that supports or contradicts it
+- **Core principle:** all scientific knowledge is provisional and subject to revision
+]
+
+.pull-right-narrow[
+![philosophy](Figures/Enlightenment.png)
+*(AI-generated): Enlightenment in the 21st century*
+]
+
+---
+# Falsifiability: The Cornerstone of Science
+
+.pull-left-wide[
+- **Key concept (Popper):** a theory is scientific only if it is *falsifiable* — only if evidence could, in principle, refute it
+- **Implication:** rather than seeking proof, scientists look for evidence that can refute a hypothesis
+- **In practice:** hypothesis testing is a statistical tool to assess whether data contradicts our assumptions
+]
+
+.pull-right-narrow[
+.pull-right-wide[  
+![falsifiability](Figures/Popper_front_page.png)
+.small123[*Front page of Popper's* The Logic of Scientific Discovery]
+]
+]
+
+---
+# From Philosophy to Hypothesis Testing
+
+.pull-left-wide[
+We cannot *prove* theories — we can only challenge them. Hypothesis testing formalises this:
+
+1. Assume a **null hypothesis** $H_0$ (the status quo)
+2. Collect data and ask: how likely is the observed result *if $H_0$ were true*?
+3. If that probability is very small, we have evidence against $H_0$
+
+> This is exactly why we say we *reject* $H_0$ — never that we *prove* $H_1$
+]
+
+.pull-right-narrow[
+![testing_method](Figures/Hypothesis_test_example.png)
+]
+
+---
 class: inverse, middle, center
 # Hypotheses and types of error
 
@@ -213,48 +260,36 @@ countdown(0, 20, top=TRUE)
 - **A)** Approving a drug that genuinely has no effect
 - **B)** Failing to approve a drug that genuinely works
 - **C)** Setting $\alpha$ too small, making rejection harder
-- **D)** Observing an unusually large sample effect by chance
 ]
 
 --
 
 .pull-left-wide[
-**Q2.** For a **fixed** sample size, moving the critical value further into the tail (increasing $c$):
+**Q2.** A researcher lowers the significance level from $\alpha = 0.05$ to $\alpha = 0.01$, keeping the sample size fixed. The effect on $\beta$ is:
 
-- **A)** Decreases $\alpha$, increases $\beta$
-- **B)** Increases $\alpha$, decreases $\beta$
-- **C)** Decreases both $\alpha$ and $\beta$
-- **D)** Increases the power of the test
+- **A)** $\beta$ increases — a stricter rejection threshold makes it harder to detect a true effect
+- **B)** $\beta$ decreases — fewer false rejections also means fewer missed detections
+- **C)** Power increases — only strong evidence now leads to rejection, making the test more reliable
 ]
 
 ```{r ryh1-answers, eval=FALSE, include=FALSE}
-# Q1: A
-# B: This is a type-II error — failing to reject a false H₀
-# C: Small α makes rejection harder, but α IS the probability of a type-I error, not the error itself
-# D: Sampling variability creates the possibility of error, but is not the error itself
-
-# Q2: A
-# B: Reversal — moving c right shrinks the rejection region, reducing α and enlarging β
-# C: Impossible for fixed n — reducing α always increases β (fundamental tradeoff)
-# D: Power = 1-β; if β increases, power decreases
-```
-
----
-# .red[Practice 1: Errors and decision rules]
-
-.pull-left-wide[
-A machine is supposed to fill bottles with exactly 500 ml. A quality inspector draws a sample of $n = 36$ bottles and tests $H_0: \mu = 500$ vs $H_1: \mu \not= 500$ at $\alpha = 0.05$. The population variance is known: $\sigma^2 = 9$ ml².
-
-1. Compute the critical values for the two-sided test.
-2. The sample mean is $\bar{X} = 499.5$ ml. Compute the test statistic $Z$ and state the decision.
-3. If the true mean were $\mu_1 = 499$ ml, calculate the probability of a type-II error $\beta$.
-]
-
-```{r practice1-answers, eval=FALSE, include=FALSE}
-# 1. σ/√n = 3/6 = 0.5; critical values: ±z_{0.975} = ±1.96
-# 2. Z = (499.5 - 500) / 0.5 = -1.0; |Z| = 1.0 < 1.96 → do not reject H₀
-# 3. β = Φ(z_{1-α/2} - |μ₁-μ₀|/(σ/√n))
-#      = Φ(1.96 - 1/0.5) = Φ(1.96 - 2) = Φ(-0.04) ≈ 0.484
+# ANSWERS
+#
+# Q1: Answer A
+#   A: Correct — type-I error is rejecting a true H₀; approving a drug that has no effect
+#      is exactly that: we rejected H₀ (no effect) when H₀ was actually true
+#   B: Tempting — this is a type-II error (failing to reject a false H₀, i.e. missing
+#      a drug that genuinely works)
+#   C: Tempting — small α does make rejection harder, but α itself is the probability
+#      of making a type-I error, not the error event itself
+#
+# Q2: Answer A
+#   A: Correct — lowering α raises the rejection bar, so a real effect is harder to
+#      detect; the probability of missing it (β) therefore increases
+#   B: Tempting — confuses the direction; fewer false positives (lower α) does not
+#      reduce missed detections; it increases them
+#   C: Wrong — confuses "conservative" with "powerful"; a stricter threshold means
+#      less power (1−β falls), not more
 ```
 
 ---
@@ -314,106 +349,6 @@ For a given $\alpha$ we must accept a corresponding $\beta$.
 ]
 
 ---
-class: inverse, middle, center
-# Test of mean value under different distributional assumptions
-
----
-# Four cases
-
-.pull-left-wide[
-We test $H_0: \mu = \mu_0$ using $Z = (\bar{X} - \mu_0)/\sqrt{\hat\sigma^2/n}$
-
-| Distribution | Variance | Distribution of $Z$ under $H_0$ |
-|---|---|---|
-| Unknown | Known $\sigma^2$ | $Z \overset{a}{\sim} \mathcal{N}(0,1)$ |
-| Unknown | Unknown (use $S^2$) | $Z \overset{a}{\sim} \mathcal{N}(0,1)$ |
-| Normal | Known $\sigma^2$ | $Z \sim \mathcal{N}(0,1)$ exactly |
-| Normal | Unknown (use $S^2$) | $Z \sim t(n-1)$ exactly |
-
-In all cases: reject $H_0$ if $Z > z_{1-\alpha}$ (or $t_{1-\alpha}(n-1)$ for the last case).
-]
-
-.pull-right-narrow[
-.small123[
-**Note:** The unknown-distribution cases rely on the CLT; the normal cases give exact distributions.
-]
-]
-
----
-# Bernoulli distributed observations
-
-.pull-left-wide[
-If $X \sim \text{Bernoulli}(p)$, the mean represents $p$ and the variance is $p(1-p)$.
-
-Test $H_0: p = p_0$ vs $H_1: p = p_1$ ($p_0 < p_1$):
-$$Z = \frac{\bar{X} - p_0}{\sqrt{p_0(1-p_0)/n}} \overset{a}{\sim} \mathcal{N}(0,1) \text{ under } H_0$$
-
-Decision rule: reject $H_0$ if $Z > z_{1-\alpha}$.
-]
-
----
-# .red[Raise your hand 2: Which test statistic?]
-
-```{r ryh2-timer, echo=FALSE}
-library(countdown)
-countdown(0, 20, top=TRUE)
-```
-
-.pull-left-wide[
-**Q1.** You have $n=50$ observations from an **unknown** distribution with **known** variance $\sigma^2=4$. Under $H_0: \mu=10$, the test statistic $Z = (\bar{X}-10)/(2/\sqrt{50})$ follows:
-
-- **A)** $\mathcal{N}(0,1)$ approximately, by the CLT
-- **B)** $\mathcal{N}(0,1)$ exactly, because $\sigma^2$ is known
-- **C)** $t(49)$, because we are estimating from a sample
-- **D)** $\chi^2(49)$
-]
-
---
-
-.pull-left-wide[
-**Q2.** If $X \sim \mathcal{N}(\mu,\sigma^2)$ and $\sigma^2$ is **unknown**, the statistic $T = (\bar{X}-\mu_0)/(S/\sqrt{n})$ follows under $H_0$:
-
-- **A)** $t(n-1)$ exactly
-- **B)** $\mathcal{N}(0,1)$ approximately
-- **C)** $t(n)$
-- **D)** $F(1,n-1)$
-]
-
-```{r ryh2-answers, eval=FALSE, include=FALSE}
-# Q1: A
-# B: "exactly" requires normality of X; unknown distribution only gives CLT approximation
-# C: t applies when σ² is unknown; knowing σ² means we use normal, not t
-# D: χ² is for variance tests, not mean tests
-
-# Q2: A
-# B: normal approximation applies when distribution is unknown; normal X + unknown σ² → exact t
-# C: off-by-one; df = n-1 because one df is used estimating the mean
-# D: F(1,n-1) is the square of a t(n-1); it arises in regression F-tests, not simple mean tests
-```
-
----
-# .red[Practice 2: Full hypothesis test]
-
-.pull-left-wide[
-A bank claims the average waiting time is 5 minutes. A sample of $n=25$ waiting times gives $\bar{X}=6.2$ minutes and $S^2=4$ min². Assume waiting times are normally distributed.
-
-1. Formulate $H_0$ and $H_1$ to test if the true mean **exceeds** 5 minutes.
-2. Compute the test statistic.
-3. State the decision at $\alpha=0.05$ and compute the $p$-value.
-]
-
-```{r practice2-answers, eval=FALSE, include=FALSE}
-# 1. H₀: μ = 5, H₁: μ > 5 (one-sided); use t(24) since normal + unknown σ²
-# 2. T = (6.2 - 5) / (2/√25) = 1.2 / 0.4 = 3.0
-# 3. Critical value: t_{0.95}(24) ≈ 1.711; 3.0 > 1.711 → reject H₀
-#    p-value = P(T > 3.0 | t(24)) ≈ 0.003
-```
-
----
-class: inverse, middle, center
-# Simple and composite hypotheses
-
----
 # Types of hypotheses
 
 .pull-left-wide[
@@ -443,6 +378,177 @@ $$\begin{align*} H_0 & : \mu \leq \mu_0 \\ H_1 & : \mu > \mu_0 \end{align*}$$
 Conducted in exactly the same way as the one-sided test — same decision rule.
 ]
 
+
+
+---
+# Example: Testing savings rate
+
+.pull-left-wide[
+**Setting:** A simple calibrated OLG model predicts savings rate at $\mu_0 = 0.10$. We survey $n = 1000$ households (CLT applies). Prior data suggest that the standard deviation $\sigma = 0.06$.
+
+$$H_0: \mu = 0.10 \qquad H_1: \mu \neq 0.10$$
+
+At $\alpha = 0.05$: $\quad c = z_{0.975} = 1.96$
+
+The survey yields $\bar{X} = 0.104$:
+
+$$
+Z = \frac{0.104 - 0.10}{0.06/\sqrt{1000}}
+= \frac{0.004}{0.0019}
+\approx 2.11
+$$
+
+$$
+|Z| = 2.11 > c = 1.96
+\quad \Rightarrow \quad \textbf{reject } H_0
+$$
+
+The sample mean is statistically different from $0.10$ at the 5 percent level. 
+
+The observations are inconsistent with the hypothesis. 
+
+]
+
+--
+
+.pull-right-narrow[
+.small123[
+**Where could 0.10 come from?**
+
+Simple life-cycle logic: households save during working life to finance retirement.
+
+Suppose people work for $T_w = 40$ years and are retired for $T_r = 20$ years. If public pensions and healthcare cover about $b = 0.80$ of retirement needs, households need to privately finance the remaining 20 percent.
+
+A rough implied saving rate is:
+
+$$
+s = (1-b)\cdot \frac{T_r}{T_w}
+\approx 0.20 \times \frac{20}{40}
+= 0.10
+$$
+
+**Economic significance:** A 0.004 difference might be negligible in practice. We have to consider whether the difference matters in practice. (More on this later.)
+
+]
+]
+
+---
+class: inverse, middle, center
+# Test of mean value under different distributional assumptions
+
+---
+# Four cases
+
+.pull-left-wide[
+We test $H_0: \mu = \mu_0$ using $Z = (\bar{X} - \mu_0)/\sqrt{\hat\sigma^2/n}$
+
+| Distribution | Variance | Distribution of $Z$ under $H_0$ |
+|---|---|---|
+| Unknown | Known $\sigma^2$ | $Z \overset{a}{\sim} \mathcal{N}(0,1)$ |
+| Unknown | Unknown (use $S^2$) | $Z \overset{a}{\sim} \mathcal{N}(0,1)$ |
+| Normal | Known $\sigma^2$ | $Z \sim \mathcal{N}(0,1)$ exactly |
+| Normal | Unknown (use $S^2$) | $Z \sim t(n-1)$ exactly |
+
+In all cases: reject $H_0$ if $Z > z_{1-\alpha}$ (or $t_{1-\alpha}(n-1)$ for the last case).
+]
+
+.pull-right-narrow[
+.small123[
+**Note:** The unknown-distribution cases rely on the CLT; the normal cases give exact distributions.
+]
+]
+
+---
+# The t-Distribution: Origin Story
+
+.pull-left-wide[
+- Developed by **William Sealy Gosset** (1876–1937), publishing under the pseudonym **"Student"** to protect Guinness trade secrets
+- Working at the Guinness Brewery, he needed to draw reliable statistical conclusions from *small* samples — e.g. barley quality for brewing
+- His 1908 paper introduced what became **Student's t-distribution**
+- Key insight: when $\sigma^2$ is unknown and must be estimated from the same sample, the extra uncertainty fattens the tails — and the degree of fattening depends on sample size $n$
+]
+
+.pull-right-narrow[
+![Guinness](Figures/Guiness_wikimedia.jpg)
+*Guinness (Wikimedia Commons)*
+]
+
+---
+# Bernoulli distributed observations
+
+.pull-left-wide[
+If $X \sim \text{Bernoulli}(p)$, the mean represents $p$ and the variance is $p(1-p)$.
+
+Test $H_0: p = p_0$ vs $H_1: p = p_1$ ($p_0 < p_1$):
+$$Z = \frac{\bar{X} - p_0}{\sqrt{p_0(1-p_0)/n}} \overset{a}{\sim} \mathcal{N}(0,1) \text{ under } H_0$$
+
+Decision rule: reject $H_0$ if $Z > z_{1-\alpha}$.
+]
+
+---
+# .red[Raise your hand 2: Which test statistic?]
+
+```{r ryh2-timer, echo=FALSE}
+library(countdown)
+countdown(0, 20, top=TRUE)
+```
+
+.pull-left-wide[
+**Q1.** You have $n=50$ observations from an **unknown** distribution with **known** variance $\sigma^2=4$. Under $H_0: \mu=10$, the test statistic $Z = (\bar{X}-10)/(2/\sqrt{50})$ follows:
+
+- **A)** $\mathcal{N}(0,1)$ approximately, by the CLT
+- **B)** $\mathcal{N}(0,1)$ exactly, because $\sigma^2$ is known
+- **C)** $t(49)$, because we are estimating from a sample
+]
+
+--
+
+.pull-left-wide[
+**Q2.** If $X \sim \mathcal{N}(\mu,\sigma^2)$ and $\sigma^2$ is **unknown**, the statistic $T = (\bar{X}-\mu_0)/(S/\sqrt{n})$ follows under $H_0$:
+
+- **A)** $t(n-1)$ exactly
+- **B)** $\mathcal{N}(0,1)$ approximately
+- **C)** $t(n)$
+]
+
+```{r ryh2-answers, eval=FALSE, include=FALSE}
+# ANSWERS
+#
+# Q1: Answer A
+#   A: Correct — unknown distribution + large n → CLT gives approximate N(0,1);
+#      σ² known means we plug it in directly (no extra estimation uncertainty)
+#   B: Tempting — "exactly" requires the underlying distribution to be normal;
+#      with an unknown distribution only the CLT approximation applies
+#   C: Tempting — the t arises when σ² must be estimated by S²; knowing σ² means
+#      we use the normal, not the t
+#
+# Q2: Answer A
+#   A: Correct — when X is normal and σ² is replaced by S², the standardised mean
+#      (X̄ − μ₀)/(S/√n) exactly follows t(n−1)
+#   B: Tempting — the normal approximation is for unknown-distribution cases (CLT);
+#      normal X + unknown σ² gives an exact t, not an approximate normal
+#   C: Tempting — off by one; one df is consumed estimating the mean from the same
+#      sample, leaving n−1 free degrees of freedom
+```
+
+---
+# .red[Practice 2: Full hypothesis test]
+
+.pull-left-wide[
+A bank claims the average waiting time is 5 minutes. A sample of $n=25$ waiting times gives $\bar{X}=6.2$ minutes and $S^2=4$ min². Assume waiting times are normally distributed.
+
+1. Formulate $H_0$ and $H_1$ to test if the true mean **exceeds** 5 minutes.
+2. Compute the test statistic.
+3. State the decision at $\alpha=0.05$.
+]
+
+```{r practice2-answers, eval=FALSE, include=FALSE}
+# 1. H₀: μ = 5, H₁: μ > 5 (one-sided); use t(24) since normal + unknown σ²
+# 2. T = (6.2 - 5) / (2/√25) = 1.2 / 0.4 = 3.0
+# 3. Critical value: t_{0.95}(24) ≈ 1.711; 3.0 > 1.711 → reject H₀
+```
+
+
 ---
 class: inverse, middle, center
 # The $p$-value
@@ -451,7 +557,7 @@ class: inverse, middle, center
 # The $p$-value
 
 .pull-left-wide[
-> The **$p$-value** is the probability of observing a test statistic at least as extreme as the one observed, assuming $H_0$ is true
+> The **p-value** is the probability of observing a test statistic at least as extreme as the one observed, assuming $H_0$ is true
 
 It answers: what is the lowest $\alpha$ at which we would still reject $H_0$?
 
@@ -471,6 +577,21 @@ $$p = P(|Z| > |z| \mid H_0) = 2\Phi(-|z|)$$
 ]
 
 ---
+# The $p$-value: three examples
+
+--
+
+> We test whether the household savings rate equals 0.10. A survey of $n=1{,}000$ households gives $\bar{X} = 0.104$, a difference of +0.004, corresponding to $Z = 2.11$. Two-sided: $p = 2\Phi(-2.11) = 0.035$. .green[**Reject** at the 0.05-level.]
+
+--
+
+> We test whether average monthly income in a region equals 30,000 DKK. A survey of $n=100$ workers gives $\bar{X} = 31{,}680$ DKK, a difference of +1,680 DKK, corresponding to $Z = 2.8$. One-sided: $p = 1 - \Phi(2.8) = 0.003$. .green[**Reject** at the 0.05-level.]
+
+--
+
+> We test whether average weekly hours equal 37 in a firm. A sample of $n=20$ workers (normal, $\sigma$ unknown) gives $\bar{X} = 37.5$, a difference of +0.5 h, corresponding to $T = 1.3$ on $t(19)$. Two-sided: $p = 2\cdot P(T_{19} > 1.3) = 0.21$. .orange[**Do not reject** at the 0.05-level.]
+
+---
 # .red[Raise your hand 3: The p-value]
 
 ```{r ryh3-timer, echo=FALSE}
@@ -484,7 +605,6 @@ countdown(0, 20, top=TRUE)
 - **A)** $2\Phi(-1.8) = 2(1-\Phi(1.8)) \approx 0.072$
 - **B)** $1 - \Phi(1.8) \approx 0.036$
 - **C)** $\Phi(1.8) \approx 0.964$
-- **D)** $2\Phi(1.8) \approx 1.928$
 ]
 
 --
@@ -495,19 +615,25 @@ countdown(0, 20, top=TRUE)
 - **A)** Reject $H_0$; $p < \alpha$ means the data are unlikely under $H_0$
 - **B)** Do not reject $H_0$; a $p$-value of 3% means there is a 3% chance $H_0$ is true
 - **C)** Reject $H_0$; the result is practically important because $p$ is small
-- **D)** Do not reject $H_0$; $p > 0.01$ so the evidence is not strong enough
 ]
 
 ```{r ryh3-answers, eval=FALSE, include=FALSE}
-# Q1: A
-# B: one-sided p-value; two-sided requires doubling
-# C: Φ(z) = P(Z≤z); this gives area to the left, not the tail probability
-# D: tries to double but uses cumulative Φ(1.8) rather than 1-Φ(1.8); gives number > 1
-
-# Q2: A
-# B: common misinterpretation — p-value is P(data | H₀), not P(H₀ | data)
-# C: statistical significance ≠ practical/economic significance; small p says nothing about magnitude
-# D: α = 0.05 is the threshold; p = 0.03 < 0.05 → reject
+# ANSWERS
+#
+# Q1: Answer A
+#   A: Correct — two-sided p-value = 2 × P(Z > |z|) = 2(1 − Φ(1.8)) = 2Φ(−1.8) ≈ 0.072
+#   B: Tempting — this is the one-sided p-value P(Z > 1.8) ≈ 0.036; two-sided tests
+#      require doubling to account for both tails
+#   C: Tempting — Φ(1.8) is the cumulative area to the left (≈ 0.964), i.e. the
+#      non-rejection region; not a tail probability
+#
+# Q2: Answer A
+#   A: Correct — p = 0.03 < α = 0.05 → reject H₀; the p-value measures
+#      P(data this extreme or more | H₀ true), which is small here
+#   B: Tempting — classic misreading; the p-value is not the probability that H₀
+#      is true; it is P(data | H₀), not P(H₀ | data)
+#   C: Tempting — the reject decision is right but the reason is wrong; a small
+#      p-value says nothing about practical or economic importance
 ```
 
 ---
@@ -583,7 +709,6 @@ countdown(0, 20, top=TRUE)
 - **A)** $Y = (n-1) \cdot S^2/\sigma_0^2 = 19 \cdot 22/16 = 26.125$
 - **B)** $Y = n \cdot S^2/\sigma_0^2 = 20 \cdot 22/16 = 27.5$
 - **C)** $Y = \sqrt{(n-1) \cdot S^2/\sigma_0^2} \approx 5.11$
-- **D)** $Z = (S^2 - \sigma_0^2)/\sqrt{2\sigma_0^4/(n-1)}$
 ]
 
 --
@@ -594,19 +719,26 @@ countdown(0, 20, top=TRUE)
 - **A)** One degree of freedom is lost to estimating $\bar{X}$ when computing $S^2$
 - **B)** The $\chi^2$ distribution is defined to have one fewer degree than the sample size
 - **C)** Dividing by $(n-1)$ in the $S^2$ formula cancels one observation
-- **D)** The $\chi^2$ distribution requires at least 1 df to be well-defined
 ]
 
 ```{r ryh4-answers, eval=FALSE, include=FALSE}
-# Q1: A
-# B: uses n instead of n-1 (incorrect degrees of freedom)
-# C: taking the square root changes chi-squared to chi; wrong distribution
-# D: applies a normal approximation that is not the standard approach here
-
-# Q2: A
-# B: circular — it "works out" to n-1 because of the constraint imposed by x̄, not by definition
-# C: dividing by n-1 in S² is related but the df come from the constraint, not the divisor
-# D: χ²(1) is perfectly well-defined; this is irrelevant reasoning
+# ANSWERS
+#
+# Q1: Answer A
+#   A: Correct — chi-squared statistic: (n−1)S²/σ₀² = 19 × 22/16 = 26.125;
+#      the n−1 comes from the degrees of freedom of S²
+#   B: Tempting — uses n instead of n−1; the correct formula has n−1 in the numerator
+#      because S² has n−1 degrees of freedom
+#   C: Tempting — taking the square root would give a chi (not chi-squared) statistic;
+#      the variance test uses Y directly, not √Y
+#
+# Q2: Answer A
+#   A: Correct — S² is computed using deviations from the sample mean X̄; since those
+#      deviations must sum to zero, only n−1 are free (one constraint is imposed by X̄)
+#   B: Tempting — circular; it is not a definition of χ² but a consequence of the
+#      linear constraint imposed by estimating the mean from the same data
+#   C: Tempting — dividing by n−1 in the S² formula is itself a consequence of the
+#      degrees-of-freedom constraint, not its cause
 ```
 
 ---
