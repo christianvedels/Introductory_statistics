@@ -265,7 +265,7 @@ Note: `\(H_0\)` is either true or not, but this is unknown. Randomness comes fro
 ---
 # .red[Raise your hand 1: Errors and hypotheses]
 
-<div class="countdown" id="timer_4d110132" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_303d0c0b" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -486,7 +486,7 @@ Decision rule: reject `\(H_0\)` if `\(Z &gt; z_{1-\alpha}\)`.
 ---
 # .red[Raise your hand 2: Which test statistic?]
 
-<div class="countdown" id="timer_dfe92156" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_987246fc" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -570,7 +570,7 @@ Decision rule:
 ---
 # .red[Raise your hand 3: The p-value]
 
-<div class="countdown" id="timer_0cf39b3d" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_d24d4a23" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -652,7 +652,7 @@ Decision rule:
 ---
 # .red[Raise your hand 4: Test of variance]
 
-<div class="countdown" id="timer_032cadd8" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_a0915903" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -726,6 +726,38 @@ Hypothesis testing is equivalent to constructing a confidence interval and rejec
 For `\(H_0: \mu = \mu_0\)` vs `\(H_1: \mu \not= \mu_0\)`, construct `\(\hat{I}\)` at `\((1-\alpha)\)` confidence:
 - do not reject `\(H_0\)` if `\(\mu_0 \in \hat{I}\)`
 - reject `\(H_0\)` if `\(\mu_0 \not\in \hat{I}\)`
+]
+
+---
+# A warning: p-hacking
+
+.pull-left-wide[
+If you run enough tests, a significant result will appear by chance.
+
+At `\(\alpha = 0.05\)`: out of 20 independent tests under true null hypotheses, **one false positive is expected**.
+
+**Examples of p-hacking in practice:**
+
+- *Choosing your outcome after seeing the data* — e.g. measuring 10 outcomes and reporting only the one with `\(p &lt; 0.05\)`
+- *Flexible stopping* — collecting more observations until `\(p\)` just dips below the threshold
+- *Subgroup mining* — running the test in men, women, young, old, ... until one sticks
+- *The jelly bean problem* — test 20 colours of jelly beans for acne at 5%; green comes up significant. Headline: *"Green jelly beans linked to acne!"*
+]
+
+.pull-right-narrow[
+&lt;div style="overflow-y: scroll; height: 440px;"&gt;
+&lt;img src="Figures/xkcd_significant.png" style="width: 100%;"&gt;
+&lt;/div&gt;
+.tiny123[xkcd #882 — *Significant* (CC BY-NC 2.5)]
+]
+
+---
+# Recommended viewing
+
+.pull-left-wide[
+&gt; Watch this after the lecture — it covers everything we just warned about.
+
+&lt;iframe width="500" height="300" src="https://www.youtube.com/embed/42QuXLucH3Q?si=jdUd_H5Ai_7HPovl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
 ]
 
 ---

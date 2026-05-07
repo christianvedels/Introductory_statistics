@@ -798,6 +798,38 @@ For $H_0: \mu = \mu_0$ vs $H_1: \mu \not= \mu_0$, construct $\hat{I}$ at $(1-\al
 ]
 
 ---
+# A warning: p-hacking
+
+.pull-left-wide[
+If you run enough tests, a significant result will appear by chance.
+
+At $\alpha = 0.05$: out of 20 independent tests under true null hypotheses, **one false positive is expected**.
+
+**Examples of p-hacking in practice:**
+
+- *Choosing your outcome after seeing the data* — e.g. measuring 10 outcomes and reporting only the one with $p < 0.05$
+- *Flexible stopping* — collecting more observations until $p$ just dips below the threshold
+- *Subgroup mining* — running the test in men, women, young, old, ... until one sticks
+- *The jelly bean problem* — test 20 colours of jelly beans for acne at 5%; green comes up significant. Headline: *"Green jelly beans linked to acne!"*
+]
+
+.pull-right-narrow[
+<div style="overflow-y: scroll; height: 440px;">
+<img src="Figures/xkcd_significant.png" style="width: 100%;">
+</div>
+.tiny123[xkcd #882 — *Significant* (CC BY-NC 2.5)]
+]
+
+---
+# Recommended viewing
+
+.pull-left-wide[
+> Watch this after the lecture — it covers everything we just warned about.
+
+<iframe width="500" height="300" src="https://www.youtube.com/embed/42QuXLucH3Q?si=jdUd_H5Ai_7HPovl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+]
+
+---
 # Before next time
 .pull-left[
 - Read the assigned reading
