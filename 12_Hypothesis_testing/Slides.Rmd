@@ -174,21 +174,6 @@ class: inverse, middle, center
 # Hypotheses and types of error
 
 ---
-# Hypothesis testing
-
-.pull-left-wide[
-We want to test specific theories using data — e.g. is the propensity to consume between 0 and 1, or do people exercise the recommended 2 hours per week?
-
-The recipe for **hypothesis testing**:
-
-1. Formulate two hypotheses: one conforming with the theory and one rejecting it
-2. Construct a **test statistic** that embodies all relevant sample information
-3. Choose a **decision rule** that tells us when to reject based on the test statistic
-
-> A theory is valid until we find evidence against it — we can **never** accept a theory, only fail to reject it
-]
-
----
 # Constructing hypotheses
 
 .pull-left-wide[
@@ -225,8 +210,8 @@ Faced with uncertainty, we may make two types of errors:
 .pull-left-wide[
 | | $H_0$ true | $H_0$ false |
 |---|:---:|:---:|
-| **$H_0$ rejected** | type-I error | OK |
-| **$H_0$ not rejected** | OK | type-II error |
+| $H_0$ rejected | type-I error | OK |
+| $H_0$ not rejected | OK | type-II error |
 ]
 
 ---
