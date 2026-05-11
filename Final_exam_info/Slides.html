@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Slides.knit</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/panelset-0.3.0/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.3.0/panelset.js"></script>
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, inverse, middle
+
+
+
+
+
+<style>.xe__progress-bar__container {
+  top:0;
+  opacity: 1;
+  position:absolute;
+  right:0;
+  left: 0;
+}
+.xe__progress-bar {
+  height: 0.25em;
+  background-color: #808080;
+  width: calc(var(--slide-current) / var(--slide-total) * 100%);
+}
+.remark-visible .xe__progress-bar {
+  animation: xe__progress-bar__wipe 200ms forwards;
+  animation-timing-function: cubic-bezier(.86,0,.07,1);
+}
+@keyframes xe__progress-bar__wipe {
+  0% { width: calc(var(--slide-previous) / var(--slide-total) * 100%); }
+  100% { width: calc(var(--slide-current) / var(--slide-total) * 100%); }
+}</style>
+
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 44%;
+}
+.pull-right {
+  float: right;
+  width: 44%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+
+
+.pull-left-wide {
+  float: left;
+  width: 66%;
+}
+.pull-right-wide {
+  float: right;
+  width: 66%;
+}
+.pull-right-wide ~ p {
+  clear: both;
+}
+
+.pull-left-narrow {
+  float: left;
+  width: 30%;
+}
+.pull-right-narrow {
+  float: right;
+  width: 30%;
+}
+
+.tiny123 {
+  font-size: 0.40em;
+}
+
+.small123 {
+  font-size: 0.80em;
+}
+
+.large123 {
+  font-size: 2em;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+&lt;/style&gt;
+
+
+
+# Statistics
+## Final Exam Information
+
+### Christian Vedel,&lt;br&gt;Department of Economics&lt;br&gt;University of Southern Denmark
+
+### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+
+### Updated 2026-05-11
+
+
+
+---
+class: middle
+# The Final Exam
+
+.pull-left-wide[
+**Key facts:**
+
+- **When:** June 2026. Check exam plan for time/date
+- **Duration:** 2 hours
+- **Format:** A few questions — written, digital exam (Digital Exam platform)
+- **Location:** Exam room at the university
+- **Weight:** 60% of your final grade
+- **Syllabus:** The full course syllabus *(all lectures and exercises)*
+- **Re-exam:** August — same format, same full syllabus
+- **Formulas:** Same formulas as midterm (and previous years)
+]
+
+.pull-right-narrow[
+.small123[
+**Grading**
+- 7-point grading scale
+- Minimum **02** required to pass
+
+**Note**
+- Final grade = 40% midterm + 60% final exam
+- Both parts must pass with at least **02**
+]
+]
+
+---
+class: middle
+# Exam Rules &amp; How to Prepare
+
+.pull-left-wide[
+**What you are allowed to use:**
+
+- Watermarked Word or Excel file *(provided via Digital Exam)*
+- Wordmat
+- Maple
+- Physical four-function calculator
+
+
+**Practicalities:**
+
+- Submit your watermarked file as a PDF through Digital Exam
+- I will only read your PDF file — don't expect me to open Word or Excel files
+- Bring your **Student ID card** / exam number
+- I will not be present — invigilators are there if you need help
+
+**Preparation:**
+
+- Old exams are available on **ItsLearning** — use them!
+- Two practice exam sets are also available — see later slide for details
+]
+
+.pull-right-narrow[
+.small123[
+**Questions?**
+
+Feel free to ask me — either after class or by email:
+
+[christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+]
+]
+
+---
+class: middle
+
+# Some advice
+
+.pull-left-wide[
+### For preparation
+1. Set a timer and try to solve the practice exam sets *(details on a later slide)*.
+2. Think of a simple template for how to answer questions.
+3. Finish all exercises and participate in TA classes.
+
+### During the exam
+1. You have to communicate clearly. Write down your reasoning and steps and mark your conclusion clearly. `\(\leftarrow\)` **Most important advice**
+2. Spend 5 minutes in the beginning with slowly reading everything. Then make a plan for how to solve the questions. This will save you time in the end and make sure you don't miss anything.
+3. Don't panic. It's not that important.
+]
+
+---
+class: middle
+
+# What the Exam Tests
+
+.pull-left-wide[
+- We are not testing whether you know .red[formulas] by heart.
+- We are testing whether you know .red[statistics] by heart.
+
+The key question is: **Can you navigate the central topics of the course?**
+
+- Given a problem, can you identify what statistical concept applies?
+- Can you reason clearly about uncertainty, distributions, estimation, and hypothesis testing?
+- Can you manipulate the tools of statistics to solve problems and interpret results?
+
+Formulas are provided. Understanding of theory is not provided.
+]
+
+.pull-right-narrow[
+.small123[
+**Central topics** are described in:
+- The course description
+- The lecture slides
+- The textbook
+
+These are your guide to what matters.
+]
+]
+
+---
+class: middle
+
+# About This Year's Exam
+
+.pull-left-wide[
+Previous exams were **written by a different lecturer**.
+
+**What stays the same:**
+- Same topics and curriculum — nothing has changed there
+- Similar question format
+
+**What may differ:**
+- You will be under a bit of time pressure. 
+- There will be a few questions that are extra hard.
+- I know this and adjust my assessment accordingly. You are not expected to solve every question perfectly.
+- Designed to distinguish students who know their statistics *well* from those who know it *very well*
+
+**My advice:** study the full curriculum; don't pattern-match to previous years.
+]
+
+.pull-right-narrow[
+.small123[
+**Bottom line:**
+
+Understand the material. Don't over-index on specific questions from previous years.
+]
+]
+
+---
+class: middle
+
+# Reading Exam Questions Carefully
+
+.pull-left-wide[
+**Read every question slowly and engage with it fully.**
+
+Statistics is a precise subject. Questions are worded carefully, and that precision is intentional.
+
+If something in a question seems surprising or takes you in an unexpected direction — that is worth engaging with, not dismissing.
+
+- Do not assume a question contains an error and move on
+- Engage carefully with what is actually being asked
+- Your reasoning in response to a challenging question is itself part of what I am assessing
+
+**I do not ask trick questions** — but I do ask questions that require careful thinking.
+]
+
+---
+class: middle
+
+# Practice Exam Sets
+
+.pull-left-wide[
+When writing the exam, I draft many questions and discard the ones I am not satisfied with.
+
+I have collected **two sets of discarded questions** into practice exams — available on **ItsLearning**.
+
+**How to use them:**
+
+1. Set a timer and solve a full set under exam conditions *(2 hours, same aids)*
+2. Try one set **early** in your reading period — to see where you stand
+3. Try the other set **near the end** — to check whether you are ready
+
+**Keep in mind:** these questions were discarded for a reason. They may be slightly off in some way. But they give you a good sense of the format and level of difficulty.
+]
+
+.pull-right-narrow[
+.small123[
+**Two practice sets** on ItsLearning
+
+Use them actively — not just as reading material, but timed and written.
+]
+]
+
+---
+class: middle
+
+# Use the Tools Available to You
+
+.pull-left-wide[
+**Make use of AI tools — e.g. ChatGPT — during your preparation.**
+
+A useful workflow:
+
+1. Upload the **lecture slides** + **course description** + **practice exams** + **exercise sets** to ChatGPT
+2. Ask it to generate additional exam-style questions
+3. Solve those questions yourself, then ask it to check your reasoning
+
+This can give you a large supply of varied practice problems tailored to this course.
+
+AI is a tool for *practice and feedback* — not a substitute for understanding. The exam tests your thinking, not your ability to prompt a model.
+]
+
+.pull-right-narrow[
+.small123[
+**Questions?**
+
+[christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+]
+]
+
+
+---
+class: middle
+
+# Plan for the rest of the semester
+
+*Lectures as planned - we are not done with your curriculum yet!*
+
+
+.pull-left-wide[
+...Also:
+  - 2026-05-26 and/or 2026-05-29: Q&amp;A plus recorded summary of semester lecture (both online)
+  - 2026-06-02: Scheduled office hours 13:00-15:00. In my office, or if many sign up, in a larger room. Sign-up on ItsLearning.
+  - 2026-06-12: Final exam (never trust a date like this in a set of slides — check the official exam plan)
+]
+
+.pull-right-narrow[
+.small123[
+**Questions?**
+
+[christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(SDU_logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 125px;
+  height: 60px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // insert more to hide here
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
