@@ -15,6 +15,8 @@ When it gets difficult, pay extra attention. Your brain quickly finds "good reas
 ## Semester plan
 **Info about the midterm exam: [See slides here](https://rawcdn.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Midterm_info/Slides.html#1)**
 
+**Info about the final exam: [See slides here](https://rawcdn.githack.com/christianvedels/Introductory_statistics/refs/heads/main/Final_exam_info/Slides.html#1)**
+
 | Week    | Topic                          | Reading      | Lectures                                               | Slides |
 | ------- | ------------------------------ | ------------ | ------------------------------------------------------ | ------ |
 | Week 6  | Intro + Uncertainty            | Ch. 3        | 2026-02-05 (12:00-14:00); 2026-02-06 (10:00-12:00)     | [01_Slides](https://raw.githack.com/christianvedels/Introductory_statistics/refs/heads/main/01_Introduction/Slides.html) |
