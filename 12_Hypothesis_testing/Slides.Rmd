@@ -681,6 +681,23 @@ Decision rule:
 ]
 
 ---
+# $p$-value for the variance test
+
+.pull-left-wide[
+The $\chi^2$ distribution is **asymmetric**, so "at least as extreme" depends on which tail the statistic falls in:
+
+**Upper-tail** ($H_1: \sigma^2 > \sigma_0^2$):
+$$p = P\!\left(\chi^2(n-1) \geq y\right)$$
+
+**Lower-tail** ($H_1: \sigma^2 < \sigma_0^2$):
+$$p = P\!\left(\chi^2(n-1) \leq y\right)$$
+
+**Two-sided** ($H_1: \sigma^2 \neq \sigma_0^2$):
+$$p = 2 \cdot \min\!\left(P(\chi^2(n-1) \leq y),\; P(\chi^2(n-1) \geq y)\right)$$
+]
+
+
+---
 # .red[Raise your hand 4: Test of variance]
 
 ```{r ryh4-timer, echo=FALSE}
@@ -812,6 +829,23 @@ At $\alpha = 0.05$: out of 20 independent tests under true null hypotheses, **on
 > Watch this after the lecture — it covers everything we just warned about.
 
 <iframe width="500" height="300" src="https://www.youtube.com/embed/42QuXLucH3Q?si=jdUd_H5Ai_7HPovl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+]
+
+---
+# A simple recipe of the hypothesis testing process
+
+.pull-left-wide[
+
+### Before:
+- Theory or otherwise suggests $H_0$ and $H_1$. We want to measure the evidence against $H_0$.
+- Decide what type I error you are willing to accept (significance level $\alpha$). Typically you pick $\alpha = 0.05$. You can also consider type II error rate, $\beta$.
+
+### Conducting the test:
+1. What is the distribution of something you measure under $H_0$? (e.g. the average, $\bar{X}$ would (assymptotically) be $\mathcal{N}(\mu_0, \sigma^2/n)$ under $H_0: \mu = \mu_0$)
+2. Compute a standardized test statistic (e.g. $Z = (\bar{X} - \mu_0)/\sqrt{\sigma^2/n}$)
+3. Compare to critical values at $\alpha$ (e.g. reject $H_0$ if $Z > z_{1-\alpha}$). Or compute p-value and compare to $\alpha$
+4. *Reject H_0* or *do not reject H_0* — never "accept" $H_0$ or "prove" $H_1$.
+
 ]
 
 ---
