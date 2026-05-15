@@ -114,7 +114,7 @@ class: center, inverse, middle
 
 ### Email: [christian-vs@sam.sdu.dk](mailto:christian-vs@sam.sdu.dk)
 
-### Updated 2026-04-27
+### Updated 2026-05-14
 
 
 
@@ -125,8 +125,8 @@ class: middle
 **Extending hypothesis testing to comparisons between groups and across time**
 
 - **Section 1:** Testing the difference between two mean values
-- **Section 2:** Testing the difference between multiple mean values (ANOVA)
-- **Section 3:** Testing the effect of a treatment
+- **Section 2:** Testing the effect of a treatment
+- **Section 3:** Testing the difference between multiple mean values (ANOVA)
 - **Section 4:** Testing the ratio between two variances
 ]
 
@@ -227,11 +227,13 @@ Test statistic:
 .pull-left-wide[
 The same test statistic is used; only the decision rule changes:
 
-**$H_1: \mu_1 &gt; \mu_2$** — reject if `\(Z\)` is too far right:
+#### `\(H_1: \mu_1 &gt; \mu_2\)`
+*reject if `\(Z\)` is too far right:*
 - do not reject `\(H_0\)` if `\(Z &lt; z_{1-\alpha}\)`
 - reject `\(H_0\)` if `\(Z \geq z_{1-\alpha}\)`
 
-**$H_1: \mu_1 &lt; \mu_2$** — reject if `\(Z\)` is too far left:
+#### `\(H_1: \mu_1 &lt; \mu_2\)`
+*reject if `\(Z\)` is too far left:*
 - do not reject `\(H_0\)` if `\(Z &gt; z_\alpha\)`
 - reject `\(H_0\)` if `\(Z \leq z_\alpha\)`
 ]
@@ -239,7 +241,7 @@ The same test statistic is used; only the decision rule changes:
 ---
 # .red[Raise your hand 1: Two-sample tests]
 
-<div class="countdown" id="timer_d00f9f0b" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_5e581a2e" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -247,10 +249,9 @@ The same test statistic is used; only the decision rule changes:
 .pull-left-wide[
 **Q1.** Two independent samples: `\(n_1=36\)`, `\(n_2=49\)`, unknown variances assumed equal. The correct test statistic uses:
 
-A: The pooled variance estimator `\(S_p^2\)`
-B: Separate sample variances `\(S_1^2/n_1 + S_2^2/n_2\)` in the denominator
-C: The sum `\(S_1^2 + S_2^2\)` divided by `\(n_1+n_2\)`
-D: A `\(\chi^2\)` statistic to test `\(S_1^2/S_2^2\)`
+- **A)** Separate sample variances `\(S_1^2/n_1 + S_2^2/n_2\)` — unequal-variance formula
+- **B)** The pooled variance estimator `\(S_p^2\)` — equal-variance formula
+- **C)** The simple average `\((S_1^2+S_2^2)/2\)` — unweighted pooling
 ]
 
 --
@@ -258,10 +259,9 @@ D: A `\(\chi^2\)` statistic to test `\(S_1^2/S_2^2\)`
 .pull-left-wide[
 **Q2.** For a one-sided test `\(H_1: \mu_1 &lt; \mu_2\)`, the decision rule is:
 
-A: Reject `\(H_0\)` if `\(Z \leq z_\alpha\)`
-B: Reject `\(H_0\)` if `\(Z \geq z_{1-\alpha}\)`
-C: Reject `\(H_0\)` if `\(|Z| \geq z_{1-\alpha/2}\)`
-D: Reject `\(H_0\)` if `\(Z \geq z_{1-\alpha/2}\)`
+- **A)** Reject `\(H_0\)` if `\(Z \geq z_{1-\alpha}\)` — right-tail rule
+- **B)** Reject `\(H_0\)` if `\(|Z| \geq z_{1-\alpha/2}\)` — two-sided rule
+- **C)** Reject `\(H_0\)` if `\(Z \leq z_\alpha\)` — left-tail rule
 ]
 
 
@@ -276,6 +276,403 @@ Two independent samples of weekly earnings (€):
 
 1. Test `\(H_0: \mu_1=\mu_2\)` vs `\(H_1: \mu_1 \not= \mu_2\)` at `\(\alpha=0.05\)`.
 2. Compute the `\(p\)`-value.
+]
+
+
+
+---
+class: inverse, middle, center
+# Testing the effect of a treatment
+
+---
+# Setup
+
+.pull-left-wide[
+A **treatment** is any intervention that can potentially change the distribution of `\(X\)`:
+- health: medical treatments
+- wages: training programmes
+- school grades: additional resources or smaller class size
+
+Two groups:
+- **treated group** = receives the treatment
+- **control group** = does not receive the treatment
+]
+
+---
+# .orange[Notation you will encounter later: Potential outcomes]
+
+.orange[*Don't worry about this now - just flagging this here because you will meet it in future courses.*]
+
+.pull-left-wide[
+For each unit `\(i\)`, define two **potential outcomes**:
+- `\(Y_i(1)\)`: outcome *if* treated
+- `\(Y_i(0)\)`: outcome *if not* treated
+
+The causal effect for unit `\(i\)` is `\(Y_i(1) - Y_i(0)\)` — but we can never observe both. This is the **fundamental problem of causal inference**.
+
+The **average treatment effect** (ATE):
+`$$E[Y_i(1) - Y_i(0)] = E[Y_i(1)] - E[Y_i(0)]$$`
+
+With random assignment, `\(E[Y_i(1)] = \mu_T\)` and `\(E[Y_i(0)] = \mu_C\)`, so `\(\bar{X}_T - \bar{X}_C\)` is an unbiased estimator of the ATE.
+]
+
+---
+# Case 1: Treatment and control observed once
+
+.pull-left-wide[
+With two independent simple random samples (one per group), the treatment effect is:
+`$$D = \mu_T - \mu_C$$`
+
+Test:
+`$$\begin{align*} H_0 &amp; : \mu_T - \mu_C = 0 \\ H_1 &amp; : \mu_T - \mu_C \not= 0 \end{align*}$$`
+
+Test statistic:
+`$$Z = \frac{\bar{X}_T - \bar{X}_C}{\sqrt{S_T^2/n_T + S_C^2/n_C}} \overset{a}{\sim} \mathcal{N}(0,1)$$`
+]
+
+.pull-right-narrow[
+.small123[
+*Potential issue:* Differences may be caused by confounding factors, not the treatment.
+
+It might be that be that: 
+- `\(E(X_i) = \delta + \tau_T\)` for treated and 
+- `\(E(X_i) = \delta + \tau_C\)` for control.
+When we measure the difference our results are confounded by `\(\tau_T - \tau_C\)`.
+]
+]
+
+---
+# Case 2: Treatment group observed twice (before/after)
+
+.pull-left-wide[
+Only the treated group is observed, at time 1 (before) and time 2 (after).
+
+The per-element change: `\(D_i = X_{T,i,2} - X_{T,i,1}\)`
+
+Test:
+`$$\begin{align*} H_0 &amp; : \mu_{T,2} - \mu_{T,1} = 0 \\ H_1 &amp; : \mu_{T,2} - \mu_{T,1} \not= 0 \end{align*}$$`
+
+Note: the two observations for the same element are **not** independent — this is **panel data**.
+]
+
+.pull-right-narrow[
+.small123[
+*Potential issue:* Differences may be caused by confounding factors, not the treatment.
+
+It might be that:
+- `\(E(X_{T,i,1}) = \delta_1 + \tau_T\)`
+- `\(E(X_{T,i,2}) = \delta_2 + \tau_T\)`
+
+When we measure the before/after difference, results are confounded by the time trend `\(\delta_2 - \delta_1\)`.
+]
+]
+
+--
+
+.pull-left-wide[
+Variance estimator (accounts for dependence within elements):
+`$$\widehat{Var}\!\left(\bar{X}_{T,2}-\bar{X}_{T,1}\right) = \frac{1}{n_T}\cdot\frac{1}{n_T-1}\sum_{i=1}^{n_T}\left[(X_{T,i,2}-X_{T,i,1})-(\bar{X}_{T,2}-\bar{X}_{T,1})\right]^2$$`
+
+Test statistic: `\(Z = (\bar{X}_{T,2}-\bar{X}_{T,1})/\sqrt{\widehat{Var}(\bar{X}_{T,2}-\bar{X}_{T,1})} \overset{a}{\sim} \mathcal{N}(0,1)\)`
+]
+
+
+
+---
+# A simple model of confounding
+
+.pull-left-wide[
+Suppose the four group-time population means are:
+
+| | Before (`\(t=1\)`) | After (`\(t=2\)`) |
+|---|:---:|:---:|
+| **Treated** (`\(g=T\)`) | `\(\delta_1 + \tau_T\)` | `\(\delta_2 + \tau_T + D\)` |
+| **Control** (`\(g=C\)`) | `\(\delta_1 + \tau_C\)` | `\(\delta_2 + \tau_C\)` |
+
+where `\(\delta_t\)` is a **common time trend**, `\(\tau_g\)` is a **constant group-level confounder**, and `\(D\)` is the treatment effect.
+
+**Case 1** (cross-section, `\(t=2\)` only):
+`$$\bar{X}_{T,2} - \bar{X}_{C,2} = \underbrace{(\tau_T - \tau_C)}_{\text{group bias}} + D$$`
+
+**Case 2** (before/after, treated only):
+`$$\bar{X}_{T,2} - \bar{X}_{T,1} = \underbrace{(\delta_2 - \delta_1)}_{\text{time trend bias}} + D$$`
+]
+
+.pull-right-narrow[
+  &gt; Neither estimator recovers `\(D\)` — we need a way to remove both sources of bias simultaneously.
+]
+
+---
+# Motivating example: John Snow's water study
+
+.pull-left-wide[
+**RQ:** Does polluted water increase cholera mortality?
+
+- **1849:** Several areas drew from the same polluted water source
+- **1852:** Some areas switched to a cleaner upstream source (`\(g = T\)`); others did not (`\(g = C\)`)
+- **Problem:** Areas differed in poverty and density (`\(\tau_T \neq \tau_C\)`) and epidemic severity shifted over time (`\(\delta_t\)`)
+]
+
+.pull-right-narrow[
+.panelset[
+.panel[.panel-name[Jon Snow]
+.center[
+![](Figures/JonSnow_GoT.png)
+
+.small123[*Jon Snow (GoT)*, [Wikipedia](https://en.wikipedia.org/wiki/Jon_Snow_(character)) / © HBO, fair use]
+]
+]
+.panel[.panel-name[John Snow]
+.center[
+![](Figures/JohnSnow_real.jpg)
+
+.small123[*John Snow (1813–1858)*, [Wikipedia](https://en.wikipedia.org/wiki/John_Snow) / Public domain]
+]
+]
+]
+]
+
+--
+
+.pull-left-wide[
+**Snow's insight:**
+- Compared cholera outbreaks by water source: Southwark &amp; Vauxhall (polluted) vs. Lambeth (clean)
+- Compare the change of cholera outbreaks before and after the switch
+- `\(D \approx (\bar{X}_{T,2}-\bar{X}_{T,1}) - (\bar{X}_{C,2}-\bar{X}_{C,1})\)`
+]
+
+---
+# Case 3: The DiD estimator
+
+.pull-left-wide[
+From the model above, expand the DiD estimator `\(d\)`:
+
+`$$D = (\mu_{T,2} - \mu_{T,1}) - (\mu_{C,2} - \mu_{C,1})$$`
+`$$D = (\delta_2 + \tau_T + D - \delta_1 - \tau_T) - (\delta_2 + \tau_C - \delta_1 - \tau_C)$$`
+]
+
+--
+
+.pull-left-wide[
+`\(\tau_g\)` cancels within each group, `\(\delta_t\)` cancels across groups:
+
+`$$\require{cancel}(\cancel{\delta_2} + \cancel{\tau_T} + D - \cancel{\delta_1} - \cancel{\tau_T}) - (\cancel{\delta_2} + \cancel{\tau_C} - \cancel{\delta_1} - \cancel{\tau_C}) = D$$`
+`$$D = D$$`
+]
+
+--
+
+.pull-left-wide[
+By analogy, replace population means `\(\mu\)` with sample means `\(\bar{X}\)` — the **DiD estimator** `\(\hat D\)`:
+
+`$$\hat D = \underbrace{(\bar{X}_{T,2}-\bar{X}_{T,1})}_{\approx\,\delta_2-\delta_1+D} - \underbrace{(\bar{X}_{C,2}-\bar{X}_{C,1})}_{\approx\,\delta_2-\delta_1}$$`
+]
+
+.pull-right-narrow[
+.small123[
+Test:
+`$$\begin{align*} H_0 &amp; : D = 0 \\ H_1 &amp; : D \not= 0 \end{align*}$$`
+
+Interpretation: `\(D \neq 0\)` means water supply had an effect on cholera mortality.
+]
+]
+
+---
+# Case 3: Test statistic
+
+.pull-left-wide[
+Variance estimator:
+
+`$$\begin{split}\widehat{Var} &amp;= \frac{1}{n_T}\cdot\frac{1}{n_T-1}\sum_{i=1}^{n_T}\left[(X_{T,i,2}-X_{T,i,1})-(\bar{X}_{T,2}-\bar{X}_{T,1})\right]^2 \\ &amp;+ \frac{1}{n_C}\cdot\frac{1}{n_C-1}\sum_{i=1}^{n_C}\left[(X_{C,i,2}-X_{C,i,1})-(\bar{X}_{C,2}-\bar{X}_{C,1})\right]^2\end{split}$$`
+
+Test statistic:
+
+`$$Z =\frac{(\bar{X}_{T,2}-\bar{X}_{T,1})-(\bar{X}_{C,2}-\bar{X}_{C,1})}{\sqrt{\widehat{\operatorname{Var}}}}\overset{a}{\sim} \mathcal{N}(0,1)$$`
+
+]
+
+---
+class: center, middle, inverse
+
+.pull-left-wide[
+### Distribution of Economic Activity across the world
+&lt;img src="Figures/The_earth_at_night_greyscale.png" alt="" width="75%" style="display: block; margin: auto;" /&gt;
+
+.small123[
+*[Wikimedia Commons, retrieved from NASA Earth Observatory, 27 November 2012](www.commons.wikimedia.org/wiki/File:The_earth_at_night.jpg)*
+]
+
+]
+
+.pull-right-narrow[
+### Henderson et al (2018)
+- 24 physical geographical attributes explain 47 pct of the variation here
+- We can use DiD to gain insights into whether this is coincidence or causality
+]
+
+.footnote[
+  .tiny123[
+    J Vernon Henderson, Tim Squires, Adam Storeygard, David Weil, The Global Distribution of Economic Activity: Nature, History, and the Role of Trade, The Quarterly Journal of Economics, Volume 133, Issue 1, February 2018, Pages 357–406, https://doi.org/10.1093/qje/qjx030 
+  ]
+]
+
+???
+- If you are born in certain places, you have worse opportunity 
+- Simply loosing the geographical lottery gives you worse opportunities
+- Why?
+
+---
+# DiD example: First nature and economic development
+
+.pull-left[
+- What is the effect of first-nature geography on economic development? Hard to measure becuase of confounding factors (e.g. institutions, culture, etc.)
+- Example: the **Agger channel breach of 1825** opened a direct North Sea passage for west Limfjord
+- Here we have a very natural, natural experiment: the breach is an exogenous shock of first-nature geography, and we can compare the treated area (west Limfjord) to the rest of Denmark before and after the breach.
+]
+
+.pull-right[
+  ![](Figures/DiD_map.png)
+]
+
+.footnote[
+  .small123[
+    *Read the paper here: https://arxiv.org/pdf/2408.00885*
+  ]
+]
+
+
+
+
+
+---
+# DiD example: Population growth 1801–1901
+
+.panelset[
+.panel[.panel-name[1. Baseline 1801]
+![step 1](Figures/DiD_step1.png)
+]
+.panel[.panel-name[2. Add 1901]
+![step 2](Figures/DiD_step2.png)
+]
+.panel[.panel-name[3. Connect]
+![step 3](Figures/DiD_step3.png)
+]
+.panel[.panel-name[4. Parallel trends]
+![step 4](Figures/DiD_step4.png)
+]
+.panel[.panel-name[5. DiD estimate]
+![step 5](Figures/DiD_step5.png)
+]
+]
+
+
+
+
+
+
+---
+# DiD example: Standard errors and test statistic
+
+.pull-left-wide[
+Applying the DiD variance formula to parish-level log population, west Limfjord vs. rest of Denmark (1801 to 1901):
+
+### Stating the hypotheses:
+- `\(H_0\)`: First-nature geography has no effect on the location of economic activity / population density (`\(D=0\)`)
+- `\(H_1\)`: First-nature geography has an effect on the location of economic activity / population density (`\(D \neq 0\)`)
+]
+
+
+
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Quantity &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Value &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; D estimate &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.239 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Standard error &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.028 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Z statistic &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.49 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; p-value &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.1e-17 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n_T (treated parishes) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 178 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n_C (control parishes) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1289 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+--
+
+&lt;br&gt;
+&lt;br&gt;
+
+&gt; We strongly reject H0: D = 0. First-nature geography is a determinant of the location of economic activity / population density.
+
+.footnote[
+  .small123[
+    *Read the paper here: https://arxiv.org/pdf/2408.00885*
+  ]
+]
+
+---
+# .red[Raise your hand 2: Difference-in-differences]
+
+<div class="countdown" id="timer_b1f18fab" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
+
+.pull-left-wide[
+**Q1.** The DiD estimator for the causal effect of a treatment is:
+
+- **A)** `\(\bar{X}_{T,2} - \bar{X}_{C,2}\)` — post-treatment comparison only
+- **B)** `\(\bar{X}_{T,2} - \bar{X}_{T,1}\)` — before/after, treated group only
+- **C)** `\((\bar{X}_{T,2}-\bar{X}_{T,1}) - (\bar{X}_{C,2}-\bar{X}_{C,1})\)` — before/after, both groups
+]
+
+--
+
+.pull-left-wide[
+**Q2.** The main advantage of DiD over the before/after comparison (Case 2) is:
+
+- **A)** It eliminates the need for a control group — simpler design
+- **B)** It provides a valid causal estimate without any additional assumptions — assumption-free
+- **C)** It controls for common time trends affecting both groups — cancels `\(\delta_t\)`
+]
+
+
+
+---
+# .red[Practice 2: DiD calculation]
+
+.pull-left-wide[
+A government subsidy is given to firms in region A (treated), not in region B (control). Average monthly profits (DKK 1,000s):
+
+| | Before | After |
+|---|:---:|:---:|
+| Region A (treated) | 500 | 580 |
+| Region B (control) | 480 | 500 |
+
+1. Compute the DiD estimate of the subsidy effect.
+2. Under what assumption is this a valid causal estimate?
 ]
 
 
@@ -329,9 +726,9 @@ Decision rule:
 ]
 
 ---
-# .red[Raise your hand 2: ANOVA]
+# .red[Raise your hand 3: ANOVA]
 
-<div class="countdown" id="timer_cefcd3e5" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_09030e82" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -339,10 +736,9 @@ Decision rule:
 .pull-left-wide[
 **Q1.** An ANOVA F-test compares `\(K=3\)` groups with total `\(n=60\)` observations. Under `\(H_0\)`, the test statistic follows:
 
-A: `\(F(2,57)\)`
-B: `\(F(3,57)\)`
-C: `\(F(2,60)\)`
-D: `\(\chi^2(2)\)`
+- **A)** `\(F(3,57)\)` — `\(K\)` groups in numerator df
+- **B)** `\(F(2,60)\)` — total `\(n\)` in denominator
+- **C)** `\(F(2,57)\)` — `\(K-1\)` and `\(n-K\)` degrees of freedom
 ]
 
 --
@@ -350,16 +746,15 @@ D: `\(\chi^2(2)\)`
 .pull-left-wide[
 **Q2.** An F-statistic is very large. This means:
 
-A: Between-group variation is large relative to within-group variation
-B: Within-group variation is large relative to between-group variation
-C: All group means are significantly different from each other
-D: The sample variances in each group are unequal
+- **A)** Within-group variation is large relative to between-group variation — high residual noise
+- **B)** Between-group variation is large relative to within-group variation — groups differ
+- **C)** All group means are significantly different from each other — post-hoc result
 ]
 
 
 
 ---
-# .red[Practice 2: ANOVA by hand]
+# .red[Practice 3: ANOVA by hand]
 
 .pull-left-wide[
 Three sales regions, each with `\(n_k=10\)` observations:
@@ -371,135 +766,6 @@ Overall mean `\(\bar{X}=130\)`; `\(SSE=2{,}700\)`.
 
 1. Compute `\(SSTR\)` and the `\(F\)` statistic.
 2. Test `\(H_0: \mu_1=\mu_2=\mu_3\)` at `\(\alpha=0.05\)`. (`\(F_{0.95}(2,27) \approx 3.35\)`)
-]
-
-
-
----
-class: inverse, middle, center
-# Testing the effect of a treatment
-
----
-# Setup
-
-.pull-left-wide[
-A **treatment** is any intervention that can potentially change the distribution of `\(X\)`:
-- health: medical treatments
-- wages: training programmes
-- school grades: additional resources or smaller class size
-
-Two groups:
-- **treated group** = receives the treatment
-- **control group** = does not receive the treatment
-]
-
----
-# Case 1: Treatment and control observed once
-
-.pull-left-wide[
-With two independent simple random samples (one per group), the treatment effect is:
-`$$D = \mu_T - \mu_C$$`
-
-Test:
-`$$\begin{align*} H_0 &amp; : \mu_T - \mu_C = 0 \\ H_1 &amp; : \mu_T - \mu_C \not= 0 \end{align*}$$`
-
-Test statistic:
-`$$Z = \frac{\bar{X}_T - \bar{X}_C}{\sqrt{S_T^2/n_T + S_C^2/n_C}} \overset{a}{\sim} \mathcal{N}(0,1)$$`
-]
-
----
-# Case 2: Treatment group observed twice (before/after)
-
-.pull-left-wide[
-Only the treated group is observed, at time 1 (before) and time 2 (after).
-
-The per-element change: `\(D_i = X_{T,i,2} - X_{T,i,1}\)`
-
-Test:
-`$$\begin{align*} H_0 &amp; : \mu_{T,2} - \mu_{T,1} = 0 \\ H_1 &amp; : \mu_{T,2} - \mu_{T,1} \not= 0 \end{align*}$$`
-
-Note: the two observations for the same element are **not** independent — this is **panel data**.
-]
-
---
-
-.pull-left-wide[
-Variance estimator (accounts for dependence within elements):
-`$$\widehat{Var}\!\left(\bar{X}_{T,2}-\bar{X}_{T,1}\right) = \frac{1}{n_T}\cdot\frac{1}{n_T-1}\sum_{i=1}^{n_T}\left[(X_{T,i,2}-X_{T,i,1})-(\bar{X}_{T,2}-\bar{X}_{T,1})\right]^2$$`
-
-Test statistic: `\(Z = (\bar{X}_{T,2}-\bar{X}_{T,1})/\sqrt{\widehat{Var}(\bar{X}_{T,2}-\bar{X}_{T,1})} \overset{a}{\sim} \mathcal{N}(0,1)\)`
-]
-
----
-# Case 3: Both groups observed twice (DiD)
-
-.pull-left-wide[
-The issue with Case 1 and 2: we cannot be sure differences are caused by the treatment.
-
-If both groups are observed at time 1 and time 2, other factors affecting both groups cancel out:
-`$$D = (\mu_{T,2}-\mu_{T,1}) - (\mu_{C,2}-\mu_{C,1})$$`
-
-This is the **difference-in-differences** (DiD) estimate.
-
-Test:
-`$$\begin{align*} H_0 &amp; : (\mu_{T,2}-\mu_{T,1}) - (\mu_{C,2}-\mu_{C,1}) = 0 \\ H_1 &amp; : (\mu_{T,2}-\mu_{T,1}) - (\mu_{C,2}-\mu_{C,1}) \not= 0 \end{align*}$$`
-]
-
---
-
-.pull-left-wide[
-Variance estimator and test statistic:
-
-.small123[
-`$$\widehat{Var} = \frac{1}{n_T}\cdot\frac{1}{n_T-1}\sum_{i=1}^{n_T}\left[(X_{T,i,2}-X_{T,i,1})-(\bar{X}_{T,2}-\bar{X}_{T,1})\right]^2 + \frac{1}{n_C}\cdot\frac{1}{n_C-1}\sum_{i=1}^{n_C}\left[(X_{C,i,2}-X_{C,i,1})-(\bar{X}_{C,2}-\bar{X}_{C,1})\right]^2$$`
-]
-
-`$$Z = \frac{(\bar{X}_{T,2}-\bar{X}_{T,1})-(\bar{X}_{C,2}-\bar{X}_{C,1})}{\sqrt{\widehat{Var}}} \overset{a}{\sim} \mathcal{N}(0,1)$$`
-]
-
----
-# .red[Raise your hand 3: Difference-in-differences]
-
-<div class="countdown" id="timer_6ad173eb" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
-<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
-<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
-</div>
-
-.pull-left-wide[
-**Q1.** The DiD estimator for the effect of a treatment is:
-
-A: `\((\bar{X}_{T,2}-\bar{X}_{T,1}) - (\bar{X}_{C,2}-\bar{X}_{C,1})\)`
-B: `\(\bar{X}_{T,2} - \bar{X}_{C,2}\)`
-C: `\(\bar{X}_{T,2} - \bar{X}_{T,1}\)`
-D: `\((\bar{X}_{T,2}-\bar{X}_{C,2}) + (\bar{X}_{T,1}-\bar{X}_{C,1})\)`
-]
-
---
-
-.pull-left-wide[
-**Q2.** The main advantage of DiD (Case 3) over the before/after comparison (Case 2) is:
-
-A: It controls for common time trends affecting both groups
-B: It eliminates the need for a control group
-C: It provides a valid causal estimate without any additional assumptions
-D: It doubles the effective sample size
-]
-
-
-
----
-# .red[Practice 3: DiD calculation]
-
-.pull-left-wide[
-A government subsidy is given to firms in region A (treated), not in region B (control). Average monthly profits (DKK 1,000s):
-
-| | Before | After |
-|---|:---:|:---:|
-| Region A (treated) | 500 | 580 |
-| Region B (control) | 480 | 500 |
-
-1. Compute the DiD estimate of the subsidy effect.
-2. Under what assumption is this a valid causal estimate?
 ]
 
 
@@ -534,7 +800,7 @@ Decision rule: reject `\(H_0\)` if `\(F \geq F_{1-\alpha/2}(n_1-1, n_2-1)\)`.
 ---
 # .red[Raise your hand 4: Variance ratio test]
 
-<div class="countdown" id="timer_4d40f3e4" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
+<div class="countdown" id="timer_5e3d5e68" data-update-every="1" tabindex="0" style="top:TRUE;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
 </div>
@@ -542,21 +808,19 @@ Decision rule: reject `\(H_0\)` if `\(F \geq F_{1-\alpha/2}(n_1-1, n_2-1)\)`.
 .pull-left-wide[
 **Q1.** A two-sided test of `\(H_0: \sigma_1^2=\sigma_2^2\)` uses `\(F=S_1^2/S_2^2\)`. You reject `\(H_0\)` if:
 
-A: `\(F \geq F_{1-\alpha/2}(n_1-1, n_2-1)\)`
-B: `\(F \geq F_{1-\alpha}(n_1-1, n_2-1)\)`
-C: `\(F \geq F_{1-\alpha/2}(n_1, n_2)\)`
-D: `\(F \geq F_{1-\alpha}(n_1-1, n_2-1)\)` or `\(F \leq F_\alpha(n_1-1, n_2-1)\)`
+- **A)** `\(F \geq F_{1-\alpha}(n_1-1, n_2-1)\)` — one-sided critical value
+- **B)** `\(F \geq F_{1-\alpha/2}(n_1, n_2)\)` — wrong degrees of freedom
+- **C)** `\(F \geq F_{1-\alpha/2}(n_1-1, n_2-1)\)` — upper tail, `\(\alpha/2\)` per tail
 ]
 
 --
 
 .pull-left-wide[
-**Q2.** If you accidentally compute `\(F=S_2^2/S_1^2\)` instead of `\(S_1^2/S_2^2\)`, the test statistic follows:
+**Q2.** If you accidentally compute `\(F=S_2^2/S_1^2\)` instead of `\(S_1^2/S_2^2\)`, the statistic follows:
 
-A: `\(F(n_2-1, n_1-1)\)` — degrees of freedom are reversed
-B: The p-value doubles because you test from the wrong direction
-C: An invalid distribution because `\(F\)` must always be `\(\geq 1\)`
-D: The same distribution `\(F(n_1-1, n_2-1)\)`, since ratios are symmetric
+- **A)** The same `\(F(n_1-1, n_2-1)\)` — ratios are symmetric
+- **B)** `\(F(n_2-1, n_1-1)\)` — degrees of freedom are swapped
+- **C)** No valid `\(F\)`-distribution — `\(F\)` must always be `\(\geq 1\)`
 ]
 
 
